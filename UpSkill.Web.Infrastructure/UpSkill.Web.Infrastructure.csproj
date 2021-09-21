@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Data\UpSkill.Data\UpSkill.Data.csproj" />
     <ProjectReference Include="..\Services\UpSkill.Services.Data\UpSkill.Services.Data.csproj" />
+    <ProjectReference Include="..\Services\UpSkill.Services\UpSkill.Services.csproj" />
   </ItemGroup>
 
 </Project>
