@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Data\UpSkill.Data\UpSkill.Data.csproj" />
     <ProjectReference Include="..\..\Web\UpSkill.Web.ViewModels\UpSkill.Web.ViewModels.csproj" />
   </ItemGroup>

@@ -4,6 +4,10 @@
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
 
+    
+    
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
@@ -14,6 +18,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
+ 
 
     public class IdentityService : IIdentityService
     {
@@ -48,6 +53,24 @@
             var encryptedToken = tokenHandler.WriteToken(token);
 
             return encryptedToken;
+        }
+
+        public JwtSecurityToken Verify(string jwt)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+            tokenHandler.ValidateToken(jwt, new TokenValidationParameters
+            {
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = false,
+                ValidateAudience = false
+
+            }, out SecurityToken validatedToken);
+
+            return (JwtSecurityToken)validatedToken;
         }
 
         public async Task RegisterAsync(RegisterRequestModel model)
@@ -91,6 +114,8 @@
                 user.Id,
                 user.UserName,
                 this.appSettings.Secret);
+       
+       
 
             return new LoginResponseModel()
             {

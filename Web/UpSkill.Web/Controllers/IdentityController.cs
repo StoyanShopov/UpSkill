@@ -1,4 +1,6 @@
-﻿namespace UpSkill.Web.Controllers
+﻿using Microsoft.AspNetCore.Http;
+
+namespace UpSkill.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -38,10 +40,15 @@
             {
                 return BadRequest();
             }
+            //this adds jwt tothe cookie
+            var embededToken = await this.identity.LoginAsync(model);
 
-            var token = await this.identity.LoginAsync(model);
+            Response.Cookies.Append("jwt", embededToken.Token, new CookieOptions()
+            {
+                HttpOnly = true
+            });
 
-            return token;
+            return Ok(new { message = "success" });
         }
     }
 }
