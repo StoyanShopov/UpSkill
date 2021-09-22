@@ -82,7 +82,7 @@
 
         public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model)
         {
-            var user = await this.userManager.FindByNameAsync(model.Username);
+            var user = await this.userManager.FindByEmailAsync(model.Email);
 
             if (user == null)
             {

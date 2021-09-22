@@ -35,6 +35,11 @@
                 ModelState.AddModelError(nameof(model.Username), UsernameExist);
             }
 
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError(nameof(model.Password), PasswordNotMatch);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
