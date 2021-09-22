@@ -8,9 +8,14 @@
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
 
+    using static Common.GlobalConstants.IdentityConstants;
+
     public class IdentityController : ApiController
     {
-        private readonly IIdentityService identity; 
+        private const string JWT = "jwt";
+        private const string SuccessMessage = "Success";
+
+        private readonly IIdentityService identity;
 
         public IdentityController(IIdentityService identity)
             => this.identity = identity;
@@ -22,12 +27,12 @@
         {
             if (await this.identity.IsEmailExist(model.Email))
             {
-                ModelState.AddModelError(nameof(model.Email), "There is such exist user with this email.");
+                ModelState.AddModelError(nameof(model.Email), EmailExist);
             }
 
             if (await this.identity.IsUsernameExist(model.Username))
             {
-                ModelState.AddModelError(nameof(model.Username), "There is such exist user with this username.");
+                ModelState.AddModelError(nameof(model.Username), UsernameExist);
             }
 
             if (!ModelState.IsValid)
@@ -53,12 +58,22 @@
             //this adds jwt tothe cookie
             var embededToken = await this.identity.LoginAsync(model);
 
-            Response.Cookies.Append("jwt", embededToken.Token, new CookieOptions()
+            Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true
             });
 
-            return Ok(new { message = "success" });
+            return Ok(new { message = SuccessMessage });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete(JWT);
+
+            return Ok(new { message = SuccessMessage });
         }
     }
 }

@@ -10,10 +10,11 @@
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
-
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
+
+    using static UpSkill.Common.GlobalConstants.IdentityConstants;
 
     public class IdentityService : IIdentityService
     {
@@ -85,14 +86,14 @@
 
             if (user == null)
             {
-                throw new ArgumentException("There is no such user");
+                throw new ArgumentException(UserNotFound);
             }
 
             var passwordValid = await this.userManager.CheckPasswordAsync(user, model.Password);
 
             if (!passwordValid)
             {
-                throw new ArgumentException("Username or password is incorrect.");
+                throw new ArgumentException(IncorrectUsernameOrPassword);
             }
 
             var token = GenerateJwtToken(
