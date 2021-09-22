@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace UpSkill.Web.Controllers
+﻿namespace UpSkill.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using Microsoft.AspNetCore.Http;
     using System.Threading.Tasks;
 
     using UpSkill.Services.Contracts.Identity;
@@ -14,11 +12,12 @@ namespace UpSkill.Web.Controllers
     {
         private readonly IIdentityService identity; 
 
-        public IdentityController(IIdentityService identity) => this.identity = identity;
+        public IdentityController(IIdentityService identity)
+            => this.identity = identity;
 
         [HttpPost]
         [AllowAnonymous]
-        [Route(nameof(Register))]
+        [Route("register")]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
             if (await this.identity.IsEmailExist(model.Email))
@@ -43,13 +42,14 @@ namespace UpSkill.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [Route(nameof(Login))]
+        [Route("login")]
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             //this adds jwt tothe cookie
             var embededToken = await this.identity.LoginAsync(model);
 

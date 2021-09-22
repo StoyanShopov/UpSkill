@@ -5,10 +5,6 @@
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
 
-    
-    
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
@@ -18,7 +14,6 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
- 
 
     public class IdentityService : IIdentityService
     {
@@ -105,8 +100,6 @@
                 user.UserName,
                 this.appSettings.Secret);
        
-       
-
             return new LoginResponseModel()
             {
                 Token = token
