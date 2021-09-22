@@ -1,6 +1,7 @@
 ﻿namespace UpSkill.Services.Identity
 {
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
 
@@ -10,7 +11,6 @@
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.IdentityModel.Tokens.Jwt;
-    using System.Linq;
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
@@ -75,16 +75,6 @@
 
         public async Task RegisterAsync(RegisterRequestModel model)
         {
-            if (this.userManager.Users.Any(x => x.UserName == model.Username))
-            {
-                throw new ArgumentException("There is such exist user with this username.");
-            }
-
-            if (this.userManager.Users.Any(x => x.Email == model.Email))
-            {
-                throw new ArgumentException("There is such exist user with this email.");
-            }
-
             var user = new ApplicationUser()
             {
                 UserName = model.Username,
@@ -122,5 +112,11 @@
                 Token = token
             };
         }
+
+        public async Task<bool> IsEmailExist(string email)
+            => await this.userManager.Users.AnyAsync(x => x.Email == email);
+
+        public async Task<bool> IsUsernameExist(string username)
+            => await this.userManager.Users.AnyAsync(x => x.UserName == username);
     }
 }

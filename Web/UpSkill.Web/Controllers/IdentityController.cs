@@ -4,7 +4,7 @@ namespace UpSkill.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using System.Threading.Tasks;
 
     using UpSkill.Services.Contracts.Identity;
@@ -21,9 +21,19 @@ namespace UpSkill.Web.Controllers
         [Route(nameof(Register))]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
+            if (await this.identity.IsEmailExist(model.Email))
+            {
+                ModelState.AddModelError(nameof(model.Email), "There is such exist user with this email.");
+            }
+
+            if (await this.identity.IsUsernameExist(model.Username))
+            {
+                ModelState.AddModelError(nameof(model.Username), "There is such exist user with this username.");
+            }
+
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             await this.identity.RegisterAsync(model);
@@ -38,7 +48,7 @@ namespace UpSkill.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
             //this adds jwt tothe cookie
             var embededToken = await this.identity.LoginAsync(model);
