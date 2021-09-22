@@ -11,5 +11,9 @@
         Task RegisterAsync(RegisterRequestModel model);
 
         Task<LoginResponseModel> LoginAsync(LoginRequestModel model);
+
+        Task<bool> IsEmailExist(string email);
+
+        Task<bool> IsUsernameExist(string username);
     }
 }

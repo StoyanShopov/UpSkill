@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using System.Threading.Tasks;
 
     using UpSkill.Services.Contracts.Identity;
@@ -19,9 +19,19 @@
         [Route(nameof(Register))]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
+            if (await this.identity.IsEmailExist(model.Email))
+            {
+                ModelState.AddModelError(nameof(model.Email), "There is such exist user with this email.");
+            }
+
+            if (await this.identity.IsUsernameExist(model.Username))
+            {
+                ModelState.AddModelError(nameof(model.Username), "There is such exist user with this username.");
+            }
+
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             await this.identity.RegisterAsync(model);
@@ -36,7 +46,7 @@
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var token = await this.identity.LoginAsync(model);
