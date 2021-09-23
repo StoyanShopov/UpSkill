@@ -79,14 +79,7 @@
 
             if (company == null)
             {
-                company = new Company
-                {
-                    Name = model.CompanyName,
-                };
-
-                this.data.Companies.Add(company);
-
-                await this.data.SaveChangesAsync();
+                company = new Company { Name = model.CompanyName, };
             }
 
             var user = new ApplicationUser()
@@ -94,7 +87,7 @@
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 UserName = Guid.NewGuid().ToString(), // This is for test
-                CompanyId = company.Id,
+                Company = company,
                 PositionId = 1, // What happens to Position
                 Email = model.Email
             };
