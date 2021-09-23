@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Extensions\ServiceCollectionExtensions.cs~RFc904376.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\UpSkill.Data\UpSkill.Data.csproj" />
+    <ProjectReference Include="..\Services\UpSkill.Services.Data\UpSkill.Services.Data.csproj" />
+    <ProjectReference Include="..\Services\UpSkill.Services\UpSkill.Services.csproj" />
+  </ItemGroup>
+
+</Project>
