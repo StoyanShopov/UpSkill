@@ -10,7 +10,7 @@ using UpSkill.Data;
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210922135441_Initial")]
+    [Migration("20210923095412_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,12 +194,16 @@ namespace UpSkill.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -384,7 +388,7 @@ namespace UpSkill.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("UpSkill.Data.Models.ApplicationUser", "Manager")
-                        .WithMany("SubChildUsers")
+                        .WithMany("ChildUsers")
                         .HasForeignKey("ManagerId");
 
                     b.HasOne("UpSkill.Data.Models.Position", "Position")
@@ -402,13 +406,13 @@ namespace UpSkill.Data.Migrations
 
             modelBuilder.Entity("UpSkill.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("ChildUsers");
+
                     b.Navigation("Claims");
 
                     b.Navigation("Logins");
 
                     b.Navigation("Roles");
-
-                    b.Navigation("SubChildUsers");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Company", b =>

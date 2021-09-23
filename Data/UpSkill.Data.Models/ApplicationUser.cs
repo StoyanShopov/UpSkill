@@ -15,17 +15,26 @@
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.SubChildUsers = new HashSet<ApplicationUser>();
+            this.ChildUsers = new HashSet<ApplicationUser>();
         }
 
         [Required]
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public int PositionId { get; set; }
         public Position Position { get; set; }
 
         [Required]
+        public int CompanyId { get; set; }
         public Company Company { get; set; }
+
+        public string ManagerId { get; set; }
+
+        public ApplicationUser Manager { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
@@ -35,9 +44,7 @@
 
         public DateTime? DeletedOn { get; set; }
 
-        public ApplicationUser Manager { get; set; }
-
-        public virtual ICollection<ApplicationUser> SubChildUsers { get; set; }
+        public virtual ICollection<ApplicationUser> ChildUsers { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
