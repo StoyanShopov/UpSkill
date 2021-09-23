@@ -29,7 +29,7 @@
             this.appSettings = appSettings.Value;
         }
 
-        public string GenerateJwtToken(string userId, string userName, string secret)
+        public string GenerateJwtToken(string userId, string userName, string secret,string userEmail)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -39,7 +39,8 @@
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, userId),
-                    new Claim(ClaimTypes.Name, userName)
+                    new Claim(ClaimTypes.Name, userName),
+                    new Claim(ClaimTypes.Email, userEmail)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -93,12 +94,13 @@
 
             if (!passwordValid)
             {
-                throw new ArgumentException(IncorrectUsernameOrPassword);
+                throw new ArgumentException(IncorrectEmailOrPassword);
             }
 
             var token = GenerateJwtToken(
                 user.Id,
                 user.UserName,
+                user.Email,
                 this.appSettings.Secret);
        
             return new LoginResponseModel()
@@ -112,5 +114,7 @@
 
         public async Task<bool> IsUsernameExist(string username)
             => await this.userManager.Users.AnyAsync(x => x.UserName == username);
+
+        
     }
 }

@@ -27,7 +27,7 @@
         public class IdentityConstants
         {
             public const string UserNotFound = "There is no such user";
-            public const string IncorrectUsernameOrPassword = "Username or password is incorrect.";
+            public const string IncorrectEmailOrPassword = "Emaol or password is incorrect.";
             public const string EmailExist = "There is such exist user with this email.";
             public const string UsernameExist = "There is such exist user with this username.";
             public const string PasswordNotMatch = "Password and confirm password must be the same.";

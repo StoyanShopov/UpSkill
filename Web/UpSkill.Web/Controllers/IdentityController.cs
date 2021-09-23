@@ -45,10 +45,11 @@
             {
                 return BadRequest(ModelState);
             }
-            //this adds jwt tothe cookie
+            
             var embededToken = await this.identity.LoginAsync(model);
 
-            Response.Cookies.Append("jwt", embededToken.Token, new CookieOptions()
+            //this adds JWT to the cookie
+            Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true
             });

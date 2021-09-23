@@ -6,7 +6,7 @@
 
     public interface IIdentityService
     {
-        string GenerateJwtToken(string userId, string userName, string secret);
+        string GenerateJwtToken(string userId, string userName,string email, string secret);
 
         Task RegisterAsync(RegisterRequestModel model);
 
