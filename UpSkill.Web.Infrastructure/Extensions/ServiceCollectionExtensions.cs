@@ -14,6 +14,9 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Data.Repositories;
+    using UpSkill.Services;
+    using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Services.Identity;
     using UpSkill.Web.Filters;
     using UpSkill.Web.Infrastructure.Web.Extensions;
 
@@ -84,6 +87,7 @@
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
+                .AddTransient<IIdentityService, IdentityService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>();
