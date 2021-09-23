@@ -25,20 +25,7 @@
         [Route("register")]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
-            if (await this.identity.IsEmailExist(model.Email))
-            {
-                ModelState.AddModelError(nameof(model.Email), EmailExist);
-            }
-
-            if (await this.identity.IsUsernameExist(model.Username))
-            {
-                ModelState.AddModelError(nameof(model.Username), UsernameExist);
-            }
-
-            if (model.Password != model.ConfirmPassword)
-            {
-                ModelState.AddModelError(nameof(model.Password), PasswordNotMatch);
-            }
+            await ValidateRegisterModel(model);
 
             if (!ModelState.IsValid)
             {
@@ -79,6 +66,24 @@
             Response.Cookies.Delete(JWT);
 
             return Ok(new { message = SuccessMessage });
+        }
+
+        private async Task ValidateRegisterModel(RegisterRequestModel model)
+        {
+            if (await this.identity.IsEmailExist(model.Email))
+            {
+                ModelState.AddModelError(nameof(model.Email), EmailExist);
+            }
+
+            if (await this.identity.IsUsernameExist(model.Username))
+            {
+                ModelState.AddModelError(nameof(model.Username), UsernameExist);
+            }
+
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError(nameof(model.Password), PasswordNotMatch);
+            }
         }
     }
 }
