@@ -1,12 +1,5 @@
 ﻿namespace Sandbox
 {
-    using CommandLine;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-
-    using SandBox;
     using System;
     using System.Diagnostics;
     using System.IO;
@@ -18,9 +11,16 @@
     using UpSkill.Data.Models;
     using UpSkill.Data.Repositories;
     using UpSkill.Data.Seeding;
+    using UpSkill.Services.Messaging;
+
+    using CommandLine;
+
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Services.Identity;
-    using UpSkill.Services.Messaging;
 
     public static class Program
     {
@@ -54,7 +54,7 @@
             var sw = Stopwatch.StartNew();
 
             var settingsService = serviceProvider.GetService<IIdentityService>();
-            Console.WriteLine($"Token {settingsService.GenerateJwtToken("id", "pesho", "peshov")}");
+            Console.WriteLine($"Token {settingsService.GenerateJwtToken("id","pesho","peshov")}");
 
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
