@@ -1,35 +1,30 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace UpSkill.Web.Controllers
+﻿namespace UpSkill.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using Microsoft.AspNetCore.Http;
     using System.Threading.Tasks;
 
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
 
+    using static Common.GlobalConstants.IdentityConstants;
+
     public class IdentityController : ApiController
     {
+        private const string JWT = "jwt";
+        private const string SuccessMessage = "Success";
+
         private readonly IIdentityService identity;
 
         public IdentityController(IIdentityService identity) => this.identity = identity;
 
         [HttpPost]
         [AllowAnonymous]
-        [Route(nameof(Register))]
+        [Route("register")]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
-            if (await this.identity.IsEmailExist(model.Email))
-            {
-                ModelState.AddModelError(nameof(model.Email), "There is such exist user with this email.");
-            }
-
-            if (await this.identity.IsUsernameExist(model.Username))
-            {
-                ModelState.AddModelError(nameof(model.Username), "There is such exist user with this username.");
-            }
+            await ValidateRegisterModel(model);
 
             if (!ModelState.IsValid)
             {
@@ -43,32 +38,50 @@ namespace UpSkill.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [Route(nameof(Login))]
+        [Route("login")]
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            //this adds jwt tothe cookie
             var embededToken = await this.identity.LoginAsync(model);
 
-            //this adds jwt to the cookie
             Response.Cookies.Append("jwt", embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true
             });
 
-            return Ok(new { message = "successfully logged in" });
+            return Ok(new { message = SuccessMessage });
         }
 
-        [HttpPost("logout")]
+        [HttpPost]
         [AllowAnonymous]
+        [Route("logout")]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("jwt");
+            Response.Cookies.Delete(JWT);
 
-            return Ok(new { message = "successfully logged out" });
+            return Ok(new { message = SuccessMessage });
+        }
+
+        private async Task ValidateRegisterModel(RegisterRequestModel model)
+        {
+            if (await this.identity.IsEmailExist(model.Email))
+            {
+                ModelState.AddModelError(nameof(model.Email), EmailExist);
+            }
+
+            if (await this.identity.IsUsernameExist(model.Username))
+            {
+                ModelState.AddModelError(nameof(model.Username), UsernameExist);
+            }
+
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError(nameof(model.Password), PasswordNotMatch);
+            }
         }
     }
 }
