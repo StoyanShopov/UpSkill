@@ -38,4 +38,9 @@
     <ProjectReference Include="..\..\UpSkill.Web.Infrastructure\UpSkill.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\UpSkill.Web.ViewModels\UpSkill.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\components\" />
+    <Folder Include="ClientApp\src\services\" />
+  </ItemGroup>
 </Project>
