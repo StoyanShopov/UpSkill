@@ -1,4 +1,4 @@
-﻿namespace SandBox
+﻿namespace Sandbox
 {
     using CommandLine;
 
