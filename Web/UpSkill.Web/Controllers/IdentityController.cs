@@ -2,26 +2,34 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.AspNetCore.Http;
     using System.Threading.Tasks;
 
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
 
+    using static Common.GlobalConstants.IdentityConstants;
+
     public class IdentityController : ApiController
     {
-        private readonly IIdentityService identity; 
+        private const string JWT = "jwt";
+        private const string SuccessMessage = "Success";
 
-        public IdentityController(IIdentityService identity) => this.identity = identity;
+        private readonly IIdentityService identity;
+
+        public IdentityController(IIdentityService identity)
+            => this.identity = identity;
 
         [HttpPost]
         [AllowAnonymous]
-        [Route(nameof(Register))]
+        [Route("register")]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
+            await ValidateRegisterModel(model);
+
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             await this.identity.RegisterAsync(model);
@@ -31,17 +39,46 @@
 
         [HttpPost]
         [AllowAnonymous]
-        [Route(nameof(Login))]
+        [Route("login")]
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
-            var token = await this.identity.LoginAsync(model);
+            var embededToken = await this.identity.LoginAsync(model);
 
-            return token;
+            //this adds JWT to the cookie
+            Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
+            {
+                HttpOnly = true
+            });
+
+            return Ok(new { message = SuccessMessage });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete(JWT);
+
+            return Ok(new { message = SuccessMessage });
+        }
+
+        private async Task ValidateRegisterModel(RegisterRequestModel model)
+        {
+            if (await this.identity.IsEmailExist(model.Email))
+            {
+                ModelState.AddModelError(nameof(model.Email), EmailExist);
+            }
+
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError(nameof(model.Password), PasswordNotMatch);
+            }
         }
     }
 }

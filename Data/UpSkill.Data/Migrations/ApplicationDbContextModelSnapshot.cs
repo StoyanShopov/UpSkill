@@ -293,7 +293,7 @@ namespace UpSkill.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Company");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Position", b =>
@@ -323,7 +323,7 @@ namespace UpSkill.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Position");
+                    b.ToTable("Positions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

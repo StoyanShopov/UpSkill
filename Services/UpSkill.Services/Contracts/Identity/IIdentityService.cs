@@ -1,15 +1,20 @@
 ﻿namespace UpSkill.Services.Contracts.Identity
 {
+    using System.IdentityModel.Tokens.Jwt;
     using System.Threading.Tasks; 
 
     using UpSkill.Web.ViewModels.Identity;
 
     public interface IIdentityService
     {
-        string GenerateJwtToken(string userId, string userName, string secret);
+        string GenerateJwtToken(string userId, string userName, string email, string secret);
 
         Task RegisterAsync(RegisterRequestModel model);
 
         Task<LoginResponseModel> LoginAsync(LoginRequestModel model);
+
+        JwtSecurityToken Verify(string jwt);
+
+        Task<bool> IsEmailExist(string email);
     }
 }
