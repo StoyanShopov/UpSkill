@@ -5,21 +5,21 @@
     using System.IO;
     using System.Threading.Tasks;
 
-    using UpSkill.Data;
-    using UpSkill.Data.Common;
-    using UpSkill.Data.Common.Repositories;
-    using UpSkill.Data.Models;
-    using UpSkill.Data.Repositories;
-    using UpSkill.Data.Seeding;
-
-    using CommandLine;
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Services.Identity;
+
+    using CommandLine;
+
+    using UpSkill.Data;
+    using UpSkill.Data.Common;
+    using UpSkill.Data.Common.Repositories;
+    using UpSkill.Data.Models;
+    using UpSkill.Data.Repositories;
+    using UpSkill.Data.Seeding;
     using UpSkill.Services.Messaging;
 
     public static class Program
