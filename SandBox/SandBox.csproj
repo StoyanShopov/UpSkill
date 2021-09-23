@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\UpSkill.Data\UpSkill.Data.csproj" />
+    <ProjectReference Include="..\Services\UpSkill.Services.Messaging\UpSkill.Services.Messaging.csproj" />
+    <ProjectReference Include="..\Services\UpSkill.Services\UpSkill.Services.csproj" />
+  </ItemGroup>
+
+</Project>

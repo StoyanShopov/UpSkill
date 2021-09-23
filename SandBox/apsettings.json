@@ -1,0 +1,5 @@
+{
+  "ConnectionString": {
+    "DefaultConnection": "Server=.;Database=UpSkillDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+}
