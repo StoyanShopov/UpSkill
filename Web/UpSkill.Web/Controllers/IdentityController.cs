@@ -45,7 +45,7 @@
             {
                 return BadRequest(ModelState);
             }
-            
+
             var embededToken = await this.identity.LoginAsync(model);
 
             //this adds JWT to the cookie
@@ -72,11 +72,6 @@
             if (await this.identity.IsEmailExist(model.Email))
             {
                 ModelState.AddModelError(nameof(model.Email), EmailExist);
-            }
-
-            if (await this.identity.IsUsernameExist(model.Username))
-            {
-                ModelState.AddModelError(nameof(model.Username), UsernameExist);
             }
 
             if (model.Password != model.ConfirmPassword)

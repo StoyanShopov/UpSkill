@@ -29,7 +29,7 @@
             this.appSettings = appSettings.Value;
         }
 
-        public string GenerateJwtToken(string userId, string userName, string secret,string userEmail)
+        public string GenerateJwtToken(string userId, string userName, string secret, string userEmail)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -74,7 +74,6 @@
         {
             var user = new ApplicationUser()
             {
-                UserName = model.Username,
                 Email = model.Email
             };
 
@@ -102,7 +101,7 @@
                 user.UserName,
                 user.Email,
                 this.appSettings.Secret);
-       
+
             return new LoginResponseModel()
             {
                 Token = token
@@ -111,10 +110,5 @@
 
         public async Task<bool> IsEmailExist(string email)
             => await this.userManager.Users.AnyAsync(x => x.Email == email);
-
-        public async Task<bool> IsUsernameExist(string username)
-            => await this.userManager.Users.AnyAsync(x => x.UserName == username);
-
-        
     }
 }
