@@ -12,7 +12,7 @@ namespace UpSkill.Web.Controllers
 
     public class IdentityController : ApiController
     {
-        private readonly IIdentityService identity; 
+        private readonly IIdentityService identity;
 
         public IdentityController(IIdentityService identity) => this.identity = identity;
 
@@ -50,15 +50,25 @@ namespace UpSkill.Web.Controllers
             {
                 return BadRequest(ModelState);
             }
-            //this adds jwt tothe cookie
+
             var embededToken = await this.identity.LoginAsync(model);
 
+            //this adds jwt to the cookie
             Response.Cookies.Append("jwt", embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true
             });
 
-            return Ok(new { message = "success" });
+            return Ok(new { message = "successfully logged in" });
+        }
+
+        [HttpPost("logout")]
+        [AllowAnonymous]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("jwt");
+
+            return Ok(new { message = "successfully logged out" });
         }
     }
 }
