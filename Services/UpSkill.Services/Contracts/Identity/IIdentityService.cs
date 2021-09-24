@@ -12,6 +12,6 @@
 
         Task<LoginResponseModel> LoginAsync(LoginRequestModel model);
 
-        Task<bool> IsEmailExist(string email);
+        Task<bool> IsEmailValid(string email);
     }
 }

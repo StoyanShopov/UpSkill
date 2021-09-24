@@ -94,7 +94,7 @@
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
         {
-            if (await this.identity.IsEmailExist(model.Email))
+            if (await this.identity.IsEmailValid(model.Email))
             {
                 ModelState.AddModelError(nameof(model.Email), EmailExist);
             }

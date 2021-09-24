@@ -105,7 +105,7 @@
             };
         }
 
-        public async Task<bool> IsEmailExist(string email)
+        public async Task<bool> IsEmailValid(string email)
             => await this.userManager.Users.AnyAsync(x => x.Email == email);
     }
 }
