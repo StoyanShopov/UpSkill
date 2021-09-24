@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
 
     using System.Threading.Tasks;
     using System.Security.Claims;
@@ -13,13 +14,11 @@
     using UpSkill.Web.ViewModels.Identity;
 
     using static Common.GlobalConstants.IdentityConstants;
-    using Microsoft.EntityFrameworkCore;
+    using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.MessagesConstants;
 
     public class IdentityController : ApiController
     {
-        private const string JWT = "jwt";
-        private const string SuccessMessage = "Success";
-
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
 
@@ -33,7 +32,7 @@
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("register")]
+        [Route(RegisterRoute)]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
             await ValidateRegisterModel(model);
@@ -50,7 +49,7 @@
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("login")]
+        [Route(LoginRoute)]
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
             if (!ModelState.IsValid)
@@ -71,7 +70,7 @@
 
         [HttpPost]
         [Authorize]
-        [Route("logout")]
+        [Route(LogoutRoute)]
         public IActionResult Logout()
         {
             Response.Cookies.Delete(JWT);
@@ -81,7 +80,7 @@
 
         [HttpGet]
         [Authorize]
-        [Route("user")]
+        [Route(UserRoute)]
         public async Task<LoginResponseModel> GetCurrentUser()
         {
             var user = await userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
