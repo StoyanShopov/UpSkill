@@ -9,7 +9,9 @@
     using UpSkill.Web.ViewModels.Identity;
 
     using static Common.GlobalConstants.IdentityConstants;
-    using System;
+    using System.Security.Claims;
+    using UpSkill.Data.Models;
+    using Microsoft.AspNetCore.Identity;
 
     public class IdentityController : ApiController
     {
@@ -17,9 +19,15 @@
         private const string SuccessMessage = "Success";
 
         private readonly IIdentityService identity;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public IdentityController(IIdentityService identity)
-            => this.identity = identity;
+        public IdentityController(
+            IIdentityService identity,
+            UserManager<ApplicationUser> userManager)
+        {
+            this.identity = identity;
+            this.userManager = userManager;
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -56,11 +64,11 @@
                 HttpOnly = true
             });
 
-            return Ok(new { message = SuccessMessage });
+            return Ok(embededToken);
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [Route("logout")]
         public IActionResult Logout()
         {
@@ -70,26 +78,17 @@
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("user")]
-        public IActionResult User()
+        public async Task<LoginResponseModel> GetCurrentUser()
         {
-            try
+            var user = await userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+
+            return new LoginResponseModel
             {
-                //this extracts JWT from the cookie
-                var jwt = Request.Cookies[JWT];
-
-                var token = identity.Verify(JWT);
-
-                var user = identity.IsEmailExist(token.Issuer);
-
-                return Ok(user);
-            }
-            catch (Exception _)
-            {
-                return Unauthorized();
-            }
-
+                Id = user.Id,
+                Email = user.Email,
+            };
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)

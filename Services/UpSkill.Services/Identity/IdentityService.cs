@@ -56,22 +56,22 @@
             return encryptedToken;
         }
 
-        public JwtSecurityToken Verify(string jwt)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
+        //public JwtSecurityToken Verify(string jwt)
+        //{
+        //    var tokenHandler = new JwtSecurityTokenHandler();
 
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+        //    var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
-            tokenHandler.ValidateToken(jwt, new TokenValidationParameters
-            {
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = false,
-                ValidateAudience = false
-            }, out SecurityToken validatedToken);
+        //    tokenHandler.ValidateToken(jwt, new TokenValidationParameters
+        //    {
+        //        IssuerSigningKey = new SymmetricSecurityKey(key),
+        //        ValidateIssuerSigningKey = true,
+        //        ValidateIssuer = false,
+        //        ValidateAudience = false
+        //    }, out SecurityToken validatedToken);
 
-            return (JwtSecurityToken)validatedToken;
-        }
+        //    return (JwtSecurityToken)validatedToken;
+        //}
 
         public async Task RegisterAsync(RegisterRequestModel model)
         {
@@ -82,13 +82,15 @@
                 company = new Company { Name = model.CompanyName, };
             }
 
+            var position = new Position { Name = "TEst" };
+
             var user = new ApplicationUser()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserName = Guid.NewGuid().ToString(), // This is for test
+                UserName = "Testo", // This is for test
                 Company = company,
-                PositionId = 1, // What happens to Position
+                Position = position, // What happens to Position
                 Email = model.Email
             };
 
@@ -114,8 +116,8 @@
             var token = GenerateJwtToken(
                 user.Id,
                 user.UserName,
-                user.Email,
-                this.appSettings.Secret);
+                this.appSettings.Secret,
+                user.Email);
 
             return new LoginResponseModel()
             {
