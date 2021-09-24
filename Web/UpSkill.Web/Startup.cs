@@ -36,6 +36,8 @@
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
+
+            services.AddEmailSender(this.configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

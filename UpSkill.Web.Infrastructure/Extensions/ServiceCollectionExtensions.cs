@@ -5,9 +5,9 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
-    using Microsoft.OpenApi.Models; 
+    using Microsoft.OpenApi.Models;
 
-    using System.Text; 
+    using System.Text;
 
     using UpSkill.Data;
     using UpSkill.Data.Common;
@@ -17,6 +17,7 @@
     using UpSkill.Services;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Services.Identity;
+    using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
     using UpSkill.Web.Infrastructure.Web.Extensions;
 
@@ -25,6 +26,13 @@
 
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddEmailSender(
+            this IServiceCollection services,
+            IConfiguration configuration)
+                => services
+                    .AddTransient<IEmailSender>(x => new SendGridEmailSender(configuration
+                    .GetSection("SendGrid:ApiKey").Value));
+
         public static AppSettings GetApplicationSettings(
          this IServiceCollection services,
          IConfiguration configuration)
@@ -101,7 +109,7 @@
                    {
                        Title = UpSkillAPI,
                        Version = V1
-                   }); 
+                   });
            });
 
         public static void AddApiControllers(this IServiceCollection services)
