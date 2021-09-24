@@ -13,6 +13,7 @@
     using UpSkill.Web.ViewModels.Identity;
 
     using static Common.GlobalConstants.IdentityConstants;
+    using Microsoft.EntityFrameworkCore;
 
     public class IdentityController : ApiController
     {
@@ -94,7 +95,7 @@
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
         {
-            if (await this.identity.IsEmailValid(model.Email))
+            if (await this.userManager.Users.AnyAsync(x => x.Email == model.Email))
             {
                 ModelState.AddModelError(nameof(model.Email), EmailExist);
             }

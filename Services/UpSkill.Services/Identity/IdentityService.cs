@@ -104,8 +104,5 @@
                 Token = token
             };
         }
-
-        public async Task<bool> IsEmailValid(string email)
-            => await this.userManager.Users.AnyAsync(x => x.Email == email);
     }
 }

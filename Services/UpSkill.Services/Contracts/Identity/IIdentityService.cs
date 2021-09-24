@@ -11,7 +11,5 @@
         Task RegisterAsync(RegisterRequestModel model);
 
         Task<LoginResponseModel> LoginAsync(LoginRequestModel model);
-
-        Task<bool> IsEmailValid(string email);
     }
 }
