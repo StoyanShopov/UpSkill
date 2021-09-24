@@ -1,6 +1,6 @@
 ﻿namespace UpSkill.Services.Contracts.Identity
 {
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
 
     using UpSkill.Web.ViewModels.Identity;
 
@@ -11,8 +11,6 @@
         Task RegisterAsync(RegisterRequestModel model);
 
         Task<LoginResponseModel> LoginAsync(LoginRequestModel model);
-
-        //JwtSecurityToken Verify(string jwt);
 
         Task<bool> IsEmailExist(string email);
     }

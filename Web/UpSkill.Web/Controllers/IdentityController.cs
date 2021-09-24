@@ -1,17 +1,18 @@
 ﻿namespace UpSkill.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
-    using System.Threading.Tasks;
 
+    using System.Threading.Tasks;
+    using System.Security.Claims;
+
+    using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
 
     using static Common.GlobalConstants.IdentityConstants;
-    using System.Security.Claims;
-    using UpSkill.Data.Models;
-    using Microsoft.AspNetCore.Identity;
 
     public class IdentityController : ApiController
     {

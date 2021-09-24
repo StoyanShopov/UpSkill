@@ -56,23 +56,6 @@
             return encryptedToken;
         }
 
-        //public JwtSecurityToken Verify(string jwt)
-        //{
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-
-        //    var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-
-        //    tokenHandler.ValidateToken(jwt, new TokenValidationParameters
-        //    {
-        //        IssuerSigningKey = new SymmetricSecurityKey(key),
-        //        ValidateIssuerSigningKey = true,
-        //        ValidateIssuer = false,
-        //        ValidateAudience = false
-        //    }, out SecurityToken validatedToken);
-
-        //    return (JwtSecurityToken)validatedToken;
-        //}
-
         public async Task RegisterAsync(RegisterRequestModel model)
         {
             var company = await this.data.Companies.FirstOrDefaultAsync(x => x.Name == model.CompanyName);
@@ -82,16 +65,13 @@
                 company = new Company { Name = model.CompanyName, };
             }
 
-            var position = new Position { Name = "TEst" };
-
             var user = new ApplicationUser()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserName = "Testo", // This is for test
+                UserName = model.Email,
+                Email = model.Email,
                 Company = company,
-                Position = position, // What happens to Position
-                Email = model.Email
             };
 
             await this.userManager.CreateAsync(user, model.Password);
