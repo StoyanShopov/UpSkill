@@ -54,7 +54,7 @@
             var sw = Stopwatch.StartNew();
 
             var settingsService = serviceProvider.GetService<IIdentityService>();
-            Console.WriteLine($"Token {settingsService.GenerateJwtToken("id", "pesho", "peshov")}");
+            Console.WriteLine($"Token {settingsService.GenerateJwtToken("id", "pesho", "peshov", "")}");
 
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
