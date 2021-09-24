@@ -10,7 +10,7 @@
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
-    using UpSkill.Data;
+    using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
@@ -20,16 +20,16 @@
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly ApplicationDbContext data;
+        private readonly IDeletableEntityRepository<Company> companies;
         private readonly AppSettings appSettings;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IOptions<AppSettings> appSettings,
-            ApplicationDbContext data)
+            IDeletableEntityRepository<Company> companies)
         {
             this.userManager = userManager;
-            this.data = data;
+            this.companies = companies;
             this.appSettings = appSettings.Value;
         }
 
@@ -58,7 +58,9 @@
 
         public async Task RegisterAsync(RegisterRequestModel model)
         {
-            var company = await this.data.Companies.FirstOrDefaultAsync(x => x.Name == model.CompanyName);
+            var company = await this.companies
+                .All()
+                .FirstOrDefaultAsync(x => x.Name == model.CompanyName);
 
             if (company == null)
             {
