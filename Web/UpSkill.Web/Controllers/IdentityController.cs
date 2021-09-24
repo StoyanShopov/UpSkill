@@ -9,6 +9,7 @@
     using UpSkill.Web.ViewModels.Identity;
 
     using static Common.GlobalConstants.IdentityConstants;
+    using System;
 
     public class IdentityController : ApiController
     {
@@ -66,6 +67,29 @@
             Response.Cookies.Delete(JWT);
 
             return Ok(new { message = SuccessMessage });
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("user")]
+        public IActionResult User()
+        {
+            try
+            {
+                //this extracts JWT from the cookie
+                var jwt = Request.Cookies[JWT];
+
+                var token = identity.Verify(JWT);
+
+                var user = identity.IsEmailExist(token.Issuer);
+
+                return Ok(user);
+            }
+            catch (Exception _)
+            {
+                return Unauthorized();
+            }
+
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
