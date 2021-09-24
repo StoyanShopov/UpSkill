@@ -1,0 +1,57 @@
+.Courses {
+    background-color: #E8EFFE;
+}
+
+.Coaches {
+    background-color: #E7FBF4;
+}
+
+.CoursesPic {
+    height: 12rem;
+}
+
+.CoachesPic {
+    height: 12rem;
+}
+
+.full-width {
+    width: 100vw;
+    margin-left: 50%;
+    margin-bottom: 4%;
+    transform: translateX(-50%);
+}
+
+.categoryForm {
+    -moz-column-count: 2;
+    -moz-column-gap: .1rem;
+    -webkit-column-count: 2;
+    -webkit-column-gap: .1rem;
+    column-count: 2;
+    column-gap: .1rem;
+}
+
+.searchContent-input {
+    color: #296CFB;
+    border: 2px solid;
+    font-size: 1.2rem;
+    background-color: #E7FBF4;
+}
+
+.languageForm {
+    border-left: 1px solid black;
+    padding: 0rem 2rem;
+}
+
+.searchContent {
+    display: flex;
+}
+
+@media screen and (max-width: 992px) {
+    .searchContent {
+        display: block!important;
+    }
+    .categoryForm {
+        display: flex;
+        flex-direction: column;
+    }
+}

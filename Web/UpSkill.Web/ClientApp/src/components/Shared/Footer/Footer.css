@@ -1,0 +1,38 @@
+﻿footer {
+	overflow: hidden;
+	position: relative;
+	color: #fff;
+}
+
+footer .content-wrapper {
+		background: transparent;
+		padding: 20px 0;
+}
+
+footer .content-wrapper form button {
+			width: 100%;
+}
+
+footer .slants {
+		padding: 4% 0;
+}
+
+footer .slants:before {
+			content: '';
+			height: 100%;
+			background: #0B2969;
+			transform: skewY(7deg);
+			transform-origin: left top;
+			position: absolute;
+			width: 100%;
+			top: 0;
+			z-index: -1;
+}
+
+.getStarted {
+	color: #0B2969!important;
+}
+
+#CopyRigthFooter {
+			border-top: 2px solid white;
+}
