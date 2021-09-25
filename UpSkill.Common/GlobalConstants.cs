@@ -35,12 +35,20 @@
             public const string PasswordNotMatch = "Password and confirm password must be the same.";
         }
 
+        public class AccountConstants
+        {
+            public const string WrongOldPassword = "Old password is invalid.";
+            public const string DifferentPasswords = "New password and confirm new password must be the same.";
+        }
+
         public class ControllerRoutesConstants
         {
             public const string LoginRoute = "login";
             public const string RegisterRoute = "register";
             public const string LogoutRoute = "logout";
             public const string UserRoute = "user";
+
+            public const string ChangePasswordRoute = "changePassword";
         }
 
         public class MessagesConstants
