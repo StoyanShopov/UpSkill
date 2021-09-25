@@ -6,6 +6,26 @@
 
         public const string AdministratorRoleName = "Administrator";
 
+        public const string CompanyOwnerRoleName = "Owner";
+
+        public const string CompanyEmployeeRoleName = "Employee";
+
+        public const string MotionCompanyName = "Motion Software";
+
+        public const string ScaleFocusCompanyName = "Scale Focus";
+
+        public const string AdministratorCompanyName = "Administrator";
+
+        public const string GraphicDesignerPositionName = "Graphic Designer";
+
+        public const string SoftwareDeveloperPositionName = "Software Developer";
+
+        public const string SeniorSoftwareDeveloperPositionName = "Senior Software Developer";
+
+        public const string OwnerPositionName = "Owner";
+
+        public const string AdministratorPositionName = "Administrator";
+
         public const string AppSettingJson = "appsettings.json";
 
         public const string DefaultConnection = "DefaultConnection";
