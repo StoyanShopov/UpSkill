@@ -34,6 +34,7 @@
             public const string EmailExist = "There is such exist user with this email.";
             public const string UsernameExist = "There is such exist user with this username.";
             public const string PasswordNotMatch = "Password and confirm password must be the same.";
+            public const string ConfirmEmail = "Please confirm your account. From the email we sent to you.";
         }
 
         public class ControllerRoutesConstants
