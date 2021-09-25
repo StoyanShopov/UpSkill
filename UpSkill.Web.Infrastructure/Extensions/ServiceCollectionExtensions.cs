@@ -55,7 +55,7 @@
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>(options =>
                 {
-                    // options.SignIn.RequireConfirmedEmail = true;
+                    options.SignIn.RequireConfirmedEmail = true;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;

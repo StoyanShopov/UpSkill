@@ -27,6 +27,7 @@
         public class IdentityConstants
         {
             public const string JWT = "jwt";
+            public const string Identity = "identity";
 
             public const string UserNotFound = "There is no such user";
             public const string IncorrectEmailOrPassword = "Email or password is incorrect.";
@@ -41,11 +42,19 @@
             public const string RegisterRoute = "register";
             public const string LogoutRoute = "logout";
             public const string UserRoute = "user";
+            public const string VerifyEmailRoute = "verifyEmail";
         }
 
         public class MessagesConstants
         {
             public const string SuccessMessage = "Success";
+        }
+
+        public class EmailSenderConstants
+        {
+            public const string FromEmail = "vasiltatarov3@gmail.com";
+            public const string EmailSubject = "Verify Email";
+            public const string HtmlContent = "<a href=\"{0}\">Click here</a>";
         }
     }
 }

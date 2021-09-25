@@ -14,9 +14,11 @@
     using UpSkill.Services.Messaging;
     using UpSkill.Web.ViewModels.Identity;
 
+    using static Common.GlobalConstants;
     using static Common.GlobalConstants.IdentityConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.MessagesConstants;
+    using static Common.GlobalConstants.EmailSenderConstants;
 
     public class IdentityController : ApiController
     {
@@ -105,7 +107,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("verifyEmail")]
+        [Route(VerifyEmailRoute)]
         public async Task<IActionResult> VerifyEmail(string userId, string token)
         {
             var user = await this.userManager.FindByIdAsync(userId);
@@ -134,18 +136,18 @@
             if (!string.IsNullOrWhiteSpace(emailConfirmationToken))
             {
                 var linkToConfirm = Url.Action(
-                    "verifyEmail",
-                    "identity",
+                    VerifyEmailRoute,
+                    Identity,
                     new { userId = user.Id, token = emailConfirmationToken },
                     Request.Scheme,
                     Request.Host.ToString());
 
                 await this.emailSender.SendEmailAsync(
-                    "vasiltatarov3@gmail.com",
-                    "Test",
+                    FromEmail,
+                    SystemName,
                     email,
-                    "Verify Email",
-                    $"<a href=\"{linkToConfirm}\"></a>");
+                    EmailSubject,
+                    string.Format(HtmlContent, linkToConfirm));
             }
         }
 
