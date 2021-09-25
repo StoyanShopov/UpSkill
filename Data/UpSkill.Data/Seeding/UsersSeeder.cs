@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using UpSkill.Common;
 using UpSkill.Data.Models;
 
@@ -18,68 +17,70 @@ namespace UpSkill.Data.Seeding
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
+            var dbAdministrator = await userManager.FindByEmailAsync(GlobalConstants.AdministratorEmailName);
+
             PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
 
-            List<ApplicationUser> users = new List<ApplicationUser>();
-
-            
-            var adminCompany = await dbContext.Company.FirstOrDefaultAsync(x => x.Name == GlobalConstants.AdministratorCompanyName);           
-            var positionAdministrator = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.AdministratorPositionName);
-
-            ApplicationUser administrator = new ApplicationUser
+            if (dbAdministrator == null)
             {
-                UserName = "administrator",
-                NormalizedUserName = "administrator".ToUpper(),
-                Email = "administrator@test.test",
-                NormalizedEmail = "administrator@test.test".ToUpper(),
-                FirstName = "administrator",
-                LastName = "administrator",
-                Company = adminCompany,
-                Position = positionAdministrator
-            };
+                var adminCompany = await dbContext.Company.FirstOrDefaultAsync(x => x.Name == GlobalConstants.AdministratorCompanyName);
+                var positionAdministrator = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.AdministratorPositionName);
 
-            administrator.PasswordHash = hasher.HashPassword(administrator, "administrator");
-            await userManager.CreateAsync(administrator);
-            await userManager.AddToRoleAsync(administrator, GlobalConstants.AdministratorRoleName);
+                ApplicationUser administrator = new ApplicationUser
+                {
+                    UserName = "administrator",
+                    NormalizedUserName = "administrator".ToUpper(),
+                    Email = "administrator@test.test",
+                    NormalizedEmail = "administrator@test.test".ToUpper(),
+                    FirstName = "administrator",
+                    LastName = "administrator",
+                    Company = adminCompany,
+                    Position = positionAdministrator
+                };
 
-            var positionOwner = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.OwnerPositionName);
-            var motionCompany = await dbContext.Company.FirstOrDefaultAsync(x => x.Name == GlobalConstants.MotionCompanyName);
+                administrator.PasswordHash = hasher.HashPassword(administrator, "administrator");
+                await userManager.CreateAsync(administrator);
+                await userManager.AddToRoleAsync(administrator, GlobalConstants.AdministratorRoleName);
 
-            ApplicationUser ownerMotionSoftware = new ApplicationUser
-            {
-                UserName = "ownerOfMotionSoftware",
-                NormalizedUserName = "ownerOfMotionSoftware".ToUpper(),
-                Email = "ownerOfMotionSoftware@test.test",
-                NormalizedEmail = "ownerOfMotionSoftware@test.test".ToUpper(),
-                FirstName = "ownerOfMotionSoftware",
-                LastName = "ownerOfMotionSoftware",
-                Company = motionCompany,
-                Position = positionOwner,
-                Manager = administrator,
-            };
+                var positionOwner = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.OwnerPositionName);
+                var motionCompany = await dbContext.Company.FirstOrDefaultAsync(x => x.Name == GlobalConstants.MotionCompanyName);
 
-            ownerMotionSoftware.PasswordHash = hasher.HashPassword(ownerMotionSoftware, "ownerOfMotionSoftware");
-            await userManager.CreateAsync(ownerMotionSoftware);
-            await userManager.AddToRoleAsync(ownerMotionSoftware, GlobalConstants.CompanyOwnerRoleName);
+                ApplicationUser ownerMotionSoftware = new ApplicationUser
+                {
+                    UserName = "ownerMotionSoftware",
+                    NormalizedUserName = "ownerMotionSoftware".ToUpper(),
+                    Email = "ownerMotionSoftware@test.test",
+                    NormalizedEmail = "ownerMotionSoftware@test.test".ToUpper(),
+                    FirstName = "ownerMotionSoftware",
+                    LastName = "ownerMotionSoftware",
+                    Company = motionCompany,
+                    Position = positionOwner,
+                    Manager = administrator,
+                };
 
-            var positionSoftwareDeveloper = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.SoftwareDeveloperPositionName);
+                ownerMotionSoftware.PasswordHash = hasher.HashPassword(ownerMotionSoftware, "ownerMotionSoftware");
+                await userManager.CreateAsync(ownerMotionSoftware);
+                await userManager.AddToRoleAsync(ownerMotionSoftware, GlobalConstants.CompanyOwnerRoleName);
 
-            ApplicationUser employeeInMotionSoftware = new ApplicationUser
-               {
-                   UserName = "employeeInMotionSoftware",
-                   NormalizedUserName = "employeeInMotionSoftware".ToUpper(),
-                   Email = "employeeInMotionSoftware@test.test",
-                   NormalizedEmail = "employeeInMotionSoftware@test.test".ToUpper(),
-                   FirstName = "employeeInMotionSoftware",
-                   LastName = "employeeInMotionSoftware",
-                   Company = motionCompany,
-                   Position = positionSoftwareDeveloper,
-                   Manager = ownerMotionSoftware
-            };
+                var positionSoftwareDeveloper = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.SoftwareDeveloperPositionName);
 
-            employeeInMotionSoftware.PasswordHash = hasher.HashPassword(employeeInMotionSoftware, "employeeInMotionSoftware");
-            await userManager.CreateAsync(employeeInMotionSoftware);
-            await userManager.AddToRoleAsync(employeeInMotionSoftware, GlobalConstants.CompanyEmployeeRoleName);
+                ApplicationUser employeeMotionSoftware = new ApplicationUser
+                {
+                    UserName = "employeeMotionSoftware",
+                    NormalizedUserName = "employeeMotionSoftware".ToUpper(),
+                    Email = "employeeMotionSoftware@test.test",
+                    NormalizedEmail = "employeeMotionSoftware@test.test".ToUpper(),
+                    FirstName = "employeeMotionSoftware",
+                    LastName = "employeeMotionSoftware",
+                    Company = motionCompany,
+                    Position = positionSoftwareDeveloper,
+                    Manager = ownerMotionSoftware
+                };
+
+                employeeMotionSoftware.PasswordHash = hasher.HashPassword(employeeMotionSoftware, "employeeMotionSoftware");
+                await userManager.CreateAsync(employeeMotionSoftware);
+                await userManager.AddToRoleAsync(employeeMotionSoftware, GlobalConstants.CompanyEmployeeRoleName);
+            }
         }
     }
 }

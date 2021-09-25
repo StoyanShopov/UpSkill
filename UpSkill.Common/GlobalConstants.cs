@@ -14,7 +14,7 @@
 
         public const string ScaleFocusCompanyName = "Scale Focus";
 
-        public const string AdministratorCompanyName = "Administrator";
+        public const string AdministratorCompanyName = "UpSkill";
 
         public const string GraphicDesignerPositionName = "Graphic Designer";
 
@@ -25,6 +25,12 @@
         public const string OwnerPositionName = "Owner";
 
         public const string AdministratorPositionName = "Administrator";
+
+        public const string AdministratorEmailName = "administrator@test.test";
+
+        public const string OwnerMotionSoftwareEmailName = "ownerOfMotionSoftware@test.test";
+
+        public const string EmployeeMotionSoftwareEmailName = "employeeMo@test.test";
 
         public const string AppSettingJson = "appsettings.json";
 
