@@ -8,7 +8,7 @@
     {
         string GenerateJwtToken(string userId, string userName, string email, string secret);
 
-        Task RegisterAsync(RegisterRequestModel model);
+        Task<bool> RegisterAsync(RegisterRequestModel model);
 
         Task<LoginResponseModel> LoginAsync(LoginRequestModel model);
     }

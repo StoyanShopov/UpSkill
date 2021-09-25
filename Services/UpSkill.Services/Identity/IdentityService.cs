@@ -56,7 +56,7 @@
             return encryptedToken;
         }
 
-        public async Task RegisterAsync(RegisterRequestModel model)
+        public async Task<bool> RegisterAsync(RegisterRequestModel model)
         {
             var company = await this.companies
                 .All()
@@ -76,7 +76,9 @@
                 Company = company,
             };
 
-            await this.userManager.CreateAsync(user, model.Password);
+            var result = await this.userManager.CreateAsync(user, model.Password);
+
+            return result.Succeeded;
         }
 
         public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model)
