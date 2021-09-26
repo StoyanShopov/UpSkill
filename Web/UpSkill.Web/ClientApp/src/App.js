@@ -9,6 +9,7 @@ import CoursesCard from './components/CoursesCard/CoursesCard';
 import EmployeesPositionCard from './components/EmployeesPositionCard/EmployeesPositionCard';
 import Home from './components/Home';
 import Courses from './components/Courses/Courses';
+import Coaches from './components/Coaches/Coaches';
 import Layout from './components/Shared/Layout';
 
 
@@ -25,8 +26,8 @@ function App() {
       <Layout>
         <Route exact path='/' component={Home}/>
         <Route exact path='/Courses' component={Courses}/>
+        <Route exact path='/Coaches' component={Coaches}/>
         {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
-        {/* <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} /> */}
       </Layout>
 
       </>
