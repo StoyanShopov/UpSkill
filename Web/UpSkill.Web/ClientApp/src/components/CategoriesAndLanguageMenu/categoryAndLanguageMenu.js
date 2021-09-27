@@ -98,12 +98,12 @@ function CategoriesAndLanguageMenu({ atPage }) {
                     </fieldset>
                 </div>
 
-                <div className="row">
-                    <img className={atPage + 'Pic'} src={pic} alt="Book" />
-                </div>            
-            </aside>
+        <div className="row">
+          <img className={atPage + 'Pic'} src={pic} alt="Book" />
         </div>
-    );
+      </aside>
+    </div>
+  );
 }
 
 export default CategoriesAndLanguageMenu;

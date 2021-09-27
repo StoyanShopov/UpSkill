@@ -1,0 +1,27 @@
+.card {
+  width: 38rem;
+}
+
+.cardHeader {
+  background-color: #296cfb;
+  color: #ffffff;
+  display: flex;
+  justify-content: left;
+}
+
+.rowText {
+  display: flex;
+  justify-content: left;
+}
+
+strong {
+  color: #296cfb;
+}
+
+#employee {
+  padding-left: 50px;
+}
+
+#position {
+  padding-left: 280px;
+}
