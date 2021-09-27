@@ -23,12 +23,12 @@
 
             var dbAdministrator = await userManager.FindByEmailAsync(AdministratorEmailName);
 
-            PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
-
             if (dbAdministrator == null)
             {
-                var adminCompany = await dbContext.Companies.FirstOrDefaultAsync(x => x.Name == AdministratorCompanyName);
-                var positionAdministrator = await dbContext.Positions.FirstOrDefaultAsync(x => x.Name == AdministratorPositionName);
+                var adminCompany = await dbContext.Companies
+                    .FirstOrDefaultAsync(x => x.Name == AdministratorCompanyName);
+                var positionAdministrator = await dbContext
+                    .Positions.FirstOrDefaultAsync(x => x.Name == AdministratorPositionName);
 
                 ApplicationUser administrator = new ApplicationUser
                 {
@@ -45,8 +45,10 @@
                 await userManager.CreateAsync(administrator, "administrator");
                 await userManager.AddToRoleAsync(administrator, AdministratorRoleName);
 
-                var positionOwner = await dbContext.Positions.FirstOrDefaultAsync(x => x.Name == OwnerPositionName);
-                var motionCompany = await dbContext.Companies.FirstOrDefaultAsync(x => x.Name == MotionCompanyName);
+                var positionOwner = await dbContext.Positions
+                    .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);
+                var motionCompany = await dbContext.Companies
+                    .FirstOrDefaultAsync(x => x.Name == MotionCompanyName);
 
                 ApplicationUser ownerMotionSoftware = new ApplicationUser
                 {
@@ -64,7 +66,8 @@
                 await userManager.CreateAsync(ownerMotionSoftware, "ownerMotionSoftware");
                 await userManager.AddToRoleAsync(ownerMotionSoftware, CompanyOwnerRoleName);
 
-                var positionSoftwareDeveloper = await dbContext.Positions.FirstOrDefaultAsync(x => x.Name == SoftwareDeveloperPositionName);
+                var positionSoftwareDeveloper = await dbContext.Positions
+                    .FirstOrDefaultAsync(x => x.Name == SoftwareDeveloperPositionName);
 
                 ApplicationUser employeeMotionSoftware = new ApplicationUser
                 {

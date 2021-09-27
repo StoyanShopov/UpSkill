@@ -9,6 +9,7 @@
     using UpSkill.Data.Models;
 
     using static UpSkill.Common.GlobalConstants.PositionsNamesConstants;
+
     internal class PositionsSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
