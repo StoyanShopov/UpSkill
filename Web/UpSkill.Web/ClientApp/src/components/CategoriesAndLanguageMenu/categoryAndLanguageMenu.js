@@ -1,38 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Book from '../../assets/Courses-CategoryAndLanguage-Book.png';
 import Person from '../../assets/Coaches-CategoryAndLanguage-Person.png';
 
 import './categoryAndLanguageMenu_Styles.css';
 
-//import { getCategories } from '/services/categoryService';
-//import { getLanguages } from '/services/languageService';
+import { getCategories } from '../../services/categoryService';
+import { getLanguages } from '../../services/languageService';
 
-const categoriesMock =
-        ['Art', 'Design', 'Marketing',
-            'Leadership', 'Data Science',
-            'Personel Development', 'Computer Science'];
-const languagesMock =
-        ['English', 'Spanish', 'German', 'French'];
 
 function CategoriesAndLanguageMenu({ atPage }) {
     
     let pic = atPage === 'Courses' ? Book : Person;
+    let [allCategories, setAllCategories] = useState([]);
+    let [allLanguages, setAllLanguages] = useState([]);
 
-     let [categories, setCategories] = useState([]);
-     let [languages, setLanguages] = useState([]);
+     let [categoriesChosen, setCategories] = useState([]);
+     let [languagesChosen, setLanguages] = useState([]);
 
-    // useEffect(() => {
-    //     getCategories()
-    //         .then(categories => {
-    //             setCategories(categories);
-    //         });
+    useEffect(() => {
+        getCategories()
+            .then(categories => {
+                setAllCategories(categories);
+            });
 
-    //     getLanguages()
-    //         .then(languages => {
-    //             setLanguages(languages);
-    //         });
-    // }, []);
+        getLanguages()
+            .then(languages => {
+                setAllLanguages(languages);
+            });
+    }, []);
 
     function handleChange(e,atForm) {
         let currentValues = e.target
@@ -62,7 +58,7 @@ function CategoriesAndLanguageMenu({ atPage }) {
                             className="categoryForm"
                             onChange={(e) => handleChange(e,"categories")}
                         >
-                            {categoriesMock.map(category => {
+                            {allCategories.map(category => {
                                 return (<div key={category}>
                                     <label htmlFor={category}>
                                         <input
@@ -86,7 +82,7 @@ function CategoriesAndLanguageMenu({ atPage }) {
                             id="language"
                             onChange={(e) => handleChange(e,"languages")}
                         >
-                            {languagesMock.map(language => {
+                            {allLanguages.map(language => {
                                 return (<div key={language}>
                                     <input 
                                     className="m-2 form-check-input searchContent-input"
