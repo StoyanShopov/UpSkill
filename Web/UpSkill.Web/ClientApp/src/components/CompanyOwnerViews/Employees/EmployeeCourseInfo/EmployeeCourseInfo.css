@@ -1,0 +1,15 @@
+.table-row.header-EmployeeCourse {
+    color: #fff;
+    background: #296CFB;
+    font-weight: bold;
+}
+
+.cell-Employees-Courses{
+    color: #fff!important;
+    font-size: 1.1rem!important;
+}
+
+.cell-data-Employees-Courses{
+    color: #296CFB!important;
+    text-decoration: none!important;
+}
