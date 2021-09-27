@@ -22,8 +22,12 @@
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
             var dbAdministrator = await userManager.FindByEmailAsync(AdministratorEmailName);
+            var dbOwnerMotionSoftware = await userManager.FindByEmailAsync(OwnerMotionSoftwareEmailName);
+            var dbEmployeeMotionSoftware = await userManager.FindByEmailAsync(EmployeeMotionSoftwareEmailName);
 
-            if (dbAdministrator == null)
+            if (dbAdministrator == null  
+                && dbOwnerMotionSoftware == null 
+                && dbEmployeeMotionSoftware == null)
             {
                 var adminCompany = await dbContext.Companies
                     .FirstOrDefaultAsync(x => x.Name == AdministratorCompanyName);
