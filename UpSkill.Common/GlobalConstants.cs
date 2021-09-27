@@ -2,41 +2,53 @@
 {
     public static class GlobalConstants
     {
-        public const string SystemName = "UpSkill";
-
-        public const string AdministratorRoleName = "Administrator";
-
-        public const string CompanyOwnerRoleName = "Owner";
-
-        public const string CompanyEmployeeRoleName = "Employee";
-
-        public const string MotionCompanyName = "Motion Software";
-
-        public const string ScaleFocusCompanyName = "Scale Focus";
-
-        public const string AdministratorCompanyName = "UpSkill";
-
-        public const string GraphicDesignerPositionName = "Graphic Designer";
-
-        public const string SoftwareDeveloperPositionName = "Software Developer";
-
-        public const string SeniorSoftwareDeveloperPositionName = "Senior Software Developer";
-
-        public const string OwnerPositionName = "Owner";
-
-        public const string AdministratorPositionName = "Administrator";
-
-        public const string AdministratorEmailName = "administrator@test.test";
-
-        public const string OwnerMotionSoftwareEmailName = "ownerOfMotionSoftware@test.test";
-
-        public const string EmployeeMotionSoftwareEmailName = "employeeMo@test.test";
+        public const string SystemName = "UpSkill";                    
 
         public const string AppSettingJson = "appsettings.json";
 
         public const string DefaultConnection = "DefaultConnection";
 
         public const string ApplicationSettings = "ApplicationSettings";
+
+        public class UsersEmailsNames
+        {
+            public const string AdministratorEmailName = "administrator@test.test";
+
+            public const string OwnerMotionSoftwareEmailName = "ownerOfMotionSoftware@test.test";
+
+            public const string EmployeeMotionSoftwareEmailName = "employeeMo@test.test";
+        }
+
+        public class RolesNamesConstants
+        {
+            public const string AdministratorRoleName = "Administrator";
+
+            public const string CompanyOwnerRoleName = "Owner";
+
+            public const string CompanyEmployeeRoleName = "Employee";
+        }
+
+        public class PositionsNamesConstants
+        {
+            public const string OwnerPositionName = "Owner";
+
+            public const string GraphicDesignerPositionName = "Graphic Designer";
+
+            public const string SoftwareDeveloperPositionName = "Software Developer";
+
+            public const string SeniorSoftwareDeveloperPositionName = "Senior Software Developer";
+
+            public const string AdministratorPositionName = "Administrator";
+        }
+
+        public class CompaniesNamesConstants
+        {
+            public const string MotionCompanyName = "Motion Software";
+
+            public const string ScaleFocusCompanyName = "Scale Focus";
+
+            public const string AdministratorCompanyName = "UpSkill";
+        }
 
         public class AutoMapperConstants
         {

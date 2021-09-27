@@ -1,15 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-
-using UpSkill.Common;
-using UpSkill.Data.Models;
-
-namespace UpSkill.Data.Seeding
+﻿namespace UpSkill.Data.Seeding
 {
+    using System;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using UpSkill.Data.Models;
+
+    using static UpSkill.Common.GlobalConstants.UsersEmailsNames;
+    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
+    using static UpSkill.Common.GlobalConstants.CompaniesNamesConstants;
+    using static UpSkill.Common.GlobalConstants.PositionsNamesConstants;
+
     internal class UsersSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
@@ -17,14 +21,14 @@ namespace UpSkill.Data.Seeding
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
-            var dbAdministrator = await userManager.FindByEmailAsync(GlobalConstants.AdministratorEmailName);
+            var dbAdministrator = await userManager.FindByEmailAsync(AdministratorEmailName);
 
             PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
 
             if (dbAdministrator == null)
             {
-                var adminCompany = await dbContext.Company.FirstOrDefaultAsync(x => x.Name == GlobalConstants.AdministratorCompanyName);
-                var positionAdministrator = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.AdministratorPositionName);
+                var adminCompany = await dbContext.Companies.FirstOrDefaultAsync(x => x.Name == AdministratorCompanyName);
+                var positionAdministrator = await dbContext.Positions.FirstOrDefaultAsync(x => x.Name == AdministratorPositionName);
 
                 ApplicationUser administrator = new ApplicationUser
                 {
@@ -38,12 +42,11 @@ namespace UpSkill.Data.Seeding
                     Position = positionAdministrator
                 };
 
-                administrator.PasswordHash = hasher.HashPassword(administrator, "administrator");
-                await userManager.CreateAsync(administrator);
-                await userManager.AddToRoleAsync(administrator, GlobalConstants.AdministratorRoleName);
+                await userManager.CreateAsync(administrator, "administrator");
+                await userManager.AddToRoleAsync(administrator, AdministratorRoleName);
 
-                var positionOwner = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.OwnerPositionName);
-                var motionCompany = await dbContext.Company.FirstOrDefaultAsync(x => x.Name == GlobalConstants.MotionCompanyName);
+                var positionOwner = await dbContext.Positions.FirstOrDefaultAsync(x => x.Name == OwnerPositionName);
+                var motionCompany = await dbContext.Companies.FirstOrDefaultAsync(x => x.Name == MotionCompanyName);
 
                 ApplicationUser ownerMotionSoftware = new ApplicationUser
                 {
@@ -58,11 +61,10 @@ namespace UpSkill.Data.Seeding
                     Manager = administrator,
                 };
 
-                ownerMotionSoftware.PasswordHash = hasher.HashPassword(ownerMotionSoftware, "ownerMotionSoftware");
-                await userManager.CreateAsync(ownerMotionSoftware);
-                await userManager.AddToRoleAsync(ownerMotionSoftware, GlobalConstants.CompanyOwnerRoleName);
+                await userManager.CreateAsync(ownerMotionSoftware, "ownerMotionSoftware");
+                await userManager.AddToRoleAsync(ownerMotionSoftware, CompanyOwnerRoleName);
 
-                var positionSoftwareDeveloper = await dbContext.Position.FirstOrDefaultAsync(x => x.Name == GlobalConstants.SoftwareDeveloperPositionName);
+                var positionSoftwareDeveloper = await dbContext.Positions.FirstOrDefaultAsync(x => x.Name == SoftwareDeveloperPositionName);
 
                 ApplicationUser employeeMotionSoftware = new ApplicationUser
                 {
@@ -77,9 +79,8 @@ namespace UpSkill.Data.Seeding
                     Manager = ownerMotionSoftware
                 };
 
-                employeeMotionSoftware.PasswordHash = hasher.HashPassword(employeeMotionSoftware, "employeeMotionSoftware");
-                await userManager.CreateAsync(employeeMotionSoftware);
-                await userManager.AddToRoleAsync(employeeMotionSoftware, GlobalConstants.CompanyEmployeeRoleName);
+                await userManager.CreateAsync(employeeMotionSoftware, "employeeMotionSoftware");
+                await userManager.AddToRoleAsync(employeeMotionSoftware, CompanyEmployeeRoleName);
             }
         }
     }

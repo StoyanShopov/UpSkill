@@ -26,7 +26,7 @@ namespace UpSkill.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Company",
+                name: "Companies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -39,11 +39,11 @@ namespace UpSkill.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company", x => x.Id);
+                    table.PrimaryKey("PK_Companies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Position",
+                name: "Positions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -56,7 +56,7 @@ namespace UpSkill.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Position", x => x.Id);
+                    table.PrimaryKey("PK_Positions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,15 +119,15 @@ namespace UpSkill.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Company_CompanyId",
+                        name: "FK_AspNetUsers_Companies_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Company",
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Position_PositionId",
+                        name: "FK_AspNetUsers_Positions_PositionId",
                         column: x => x.PositionId,
-                        principalTable: "Position",
+                        principalTable: "Positions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -282,13 +282,13 @@ namespace UpSkill.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_IsDeleted",
-                table: "Company",
+                name: "IX_Companies_IsDeleted",
+                table: "Companies",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Position_IsDeleted",
-                table: "Position",
+                name: "IX_Positions_IsDeleted",
+                table: "Positions",
                 column: "IsDeleted");
         }
 
@@ -316,10 +316,10 @@ namespace UpSkill.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Company");
+                name: "Companies");
 
             migrationBuilder.DropTable(
-                name: "Position");
+                name: "Positions");
         }
     }
 }

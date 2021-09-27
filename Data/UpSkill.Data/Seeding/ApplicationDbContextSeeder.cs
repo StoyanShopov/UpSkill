@@ -27,7 +27,7 @@
                           {
                               new RolesSeeder(),
                               new CompaniesSeeder(),
-                              new PostionsSeeder(),
+                              new PositionsSeeder(),
                               new UsersSeeder()
                           };
 
