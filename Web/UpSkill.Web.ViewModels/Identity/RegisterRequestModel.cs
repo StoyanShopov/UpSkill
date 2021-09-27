@@ -5,7 +5,13 @@
     public class RegisterRequestModel
     {
         [Required]
-        public string Username { get; set; }
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public string CompanyName { get; set; }
 
         [Required]
         [EmailAddress]
@@ -13,5 +19,8 @@
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public string ConfirmPassword { get; set; }
     }
 }
