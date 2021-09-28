@@ -23,6 +23,7 @@
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
     using UpSkill.Web.Infrastructure.Web.Extensions;
+    using UpSkill.Web.Infrastructure.Services;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
@@ -100,7 +101,8 @@
         }
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-            => services
+            => services 
+                .AddScoped<ICurrentUserService, CurrentUserService>()
                 .AddTransient<IIdentityService, IdentityService>()
                 .AddTransient<IEmailService, EmailService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
