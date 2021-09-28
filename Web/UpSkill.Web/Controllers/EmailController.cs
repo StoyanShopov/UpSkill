@@ -54,7 +54,7 @@
         {
             var origin = Request.Headers[HeaderOrigin];
 
-            var result = await this.emailService.ResendEmailConfirmationLink(email, origin);
+            var result = await this.emailService.ResendEmailConfirmationLinkAsync(email, origin);
 
             if (result.Failure)
             {

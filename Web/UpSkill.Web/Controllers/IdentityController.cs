@@ -108,7 +108,7 @@
 
             var origin = Request.Headers[HeaderOrigin];
 
-            await this.emailService.SendEmailConfirmation(origin, user);
+            await this.emailService.SendEmailConfirmationAsync(origin, user);
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
