@@ -17,6 +17,7 @@
     using UpSkill.Data.Repositories;
     using UpSkill.Services;
     using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Services.Data.Emails;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
@@ -55,7 +56,7 @@
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>(options =>
                 {
-                    options.SignIn.RequireConfirmedEmail = true;
+                    //options.SignIn.RequireConfirmedEmail = true;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
@@ -99,6 +100,7 @@
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
                 .AddTransient<IIdentityService, IdentityService>()
+                .AddTransient<IEmailService, EmailService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>();

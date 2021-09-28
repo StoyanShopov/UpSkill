@@ -90,10 +90,10 @@
                 throw new ArgumentException(UserNotFound);
             }
 
-            if (!user.EmailConfirmed)
-            {
-                throw new ArgumentException(ConfirmEmail);
-            }
+            //if (!user.EmailConfirmed)
+            //{
+            //    throw new ArgumentException(ConfirmEmail);
+            //}
 
             var passwordValid = await this.userManager.CheckPasswordAsync(user, model.Password);
 
