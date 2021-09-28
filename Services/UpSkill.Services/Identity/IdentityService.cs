@@ -9,7 +9,9 @@
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Text;
-    using System.Threading.Tasks;
+    using System.Threading.Tasks; 
+
+    using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
@@ -56,7 +58,7 @@
             return encryptedToken;
         }
 
-        public async Task<bool> RegisterAsync(RegisterRequestModel model)
+        public async Task<Result> RegisterAsync(RegisterRequestModel model)
         {
             var company = await this.companies
                 .All()

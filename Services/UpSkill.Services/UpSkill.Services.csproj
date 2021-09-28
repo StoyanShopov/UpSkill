@@ -10,8 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Data\UpSkill.Data\UpSkill.Data.csproj" />
     <ProjectReference Include="..\..\Web\UpSkill.Web.ViewModels\UpSkill.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\UpSkill.Services.Messaging\UpSkill.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

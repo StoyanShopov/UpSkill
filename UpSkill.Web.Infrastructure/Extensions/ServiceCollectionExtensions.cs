@@ -16,8 +16,9 @@
     using UpSkill.Data.Models;
     using UpSkill.Data.Repositories;
     using UpSkill.Services;
+    using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
-    using UpSkill.Services.Data.Emails;
+    using UpSkill.Services.Email;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
@@ -25,6 +26,7 @@
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
+    using static Common.GlobalConstants.EmailSenderConstants;
 
     public static class ServiceCollectionExtensions
     {
@@ -33,7 +35,7 @@
             IConfiguration configuration)
                 => services
                     .AddTransient<IEmailSender>(x => new SendGridEmailSender(configuration
-                    .GetSection("SendGrid:ApiKey").Value));
+                    .GetSection(SendGridApiKey).Value));
 
         public static AppSettings GetApplicationSettings(
          this IServiceCollection services,

@@ -1,54 +1,44 @@
 ﻿namespace UpSkill.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.WebUtilities;
 
-    using System.Text;
     using System.Threading.Tasks;
 
-    using UpSkill.Data.Models;
-    using UpSkill.Services.Data.Emails;
+    using UpSkill.Services.Contracts.Email;
+    using UpSkill.Web.Infrastructure.Services;
 
+    using static Common.GlobalConstants.MessagesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
     public class EmailController : ApiController
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailService emailService;
+        private readonly ICurrentUserService currentUser;
 
         public EmailController(
-            UserManager<ApplicationUser> userManager,
-            IEmailService emailService)
+            IEmailService emailService, 
+            ICurrentUserService currentUser)
         {
-            this.userManager = userManager;
             this.emailService = emailService;
+            this.currentUser = currentUser;
         }
 
         [HttpGet]
         [AllowAnonymous]
         [Route(VerifyEmailRoute)]
-        public async Task<IActionResult> VerifyEmail(string userId, string token)
+        public async Task<IActionResult> VerifyEmail(string token)
         {
-            var user = await this.userManager.FindByIdAsync(userId);
+            var userId = this.currentUser.GetId(); 
 
-            if (user == null)
+            var result = await this.emailService.VerifyEmailAsync(userId, token);
+
+            if (result.Failure)
             {
-                return BadRequest();
+                return BadRequest(result.Error); 
             }
 
-            var decodedTokenBytes = WebEncoders.Base64UrlDecode(token);
-            var decodedToken = Encoding.UTF8.GetString(decodedTokenBytes);
-
-            var result = await this.userManager.ConfirmEmailAsync(user, decodedToken);
-
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-
-            return BadRequest();
+            return Ok(EmailConfirmed);
         }
 
         [HttpGet]
@@ -56,16 +46,14 @@
         [Route(ResendEmailConfirmationLinkRoute)]
         public async Task<IActionResult> ResendEmailConfirmationLink(string email)
         {
-            var user = await userManager.FindByEmailAsync(email);
-
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
             var origin = Request.Headers[HeaderOrigin];
 
-            await this.emailService.SendEmailConfirmation(origin, user);
+            var result = await this.emailService.ResendEmailConfirmationLink(email, origin);
+
+            if (result.Failure)
+            {
+                return BadRequest(result.Error); 
+            }
 
             return Ok();
         }

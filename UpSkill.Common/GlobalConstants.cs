@@ -12,6 +12,8 @@
 
         public const string ApplicationSettings = "ApplicationSettings";
 
+        public const string Unauthorized = "Unauthorized";
+
         public class AutoMapperConstants
         {
             public const string ReflectionProfile = "ReflectionProfile";
@@ -64,10 +66,15 @@
         public class MessagesConstants
         {
             public const string SuccessMessage = "Success";
+            public const string IncorretcEmail = "Your email is incorrect.";
+            public const string EmailConfirmed = "Email confirmed - you can now login.";
+            public const string EmailsDoNotMatch = "This is not the email you registered with";  
         }
 
         public class EmailSenderConstants
         {
+            public const string SendGridApiKey = "SendGrid:ApiKey";
+
             public const string EmailControllerName = "email";
             public const string FromEmail = "vasiltatarov3@gmail.com";
             public const string EmailSubject = "Verify Email";

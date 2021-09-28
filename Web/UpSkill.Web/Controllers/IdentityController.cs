@@ -11,8 +11,8 @@
 
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
-    using UpSkill.Services.Data.Emails;
     using UpSkill.Web.ViewModels.Identity;
+    using UpSkill.Services.Contracts.Email;
 
     using static Common.GlobalConstants.IdentityConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -48,18 +48,23 @@
 
             var isUserRegistered = await this.identity.RegisterAsync(model);
 
-            if (!isUserRegistered)
+            if (isUserRegistered.Failure)
             {
-                return BadRequest();
-            }
+                return BadRequest(isUserRegistered.Error);
+            } 
 
-            var user = await userManager.FindByEmailAsync(model.Email);
+            await EmailConfirmation(model.Email);  
+
+            return StatusCode(201);
+        }
+
+        private async Task EmailConfirmation(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email); 
 
             var origin = Request.Headers[HeaderOrigin];
 
             await this.emailService.SendEmailConfirmation(origin, user);
-
-            return StatusCode(201);
         }
 
         [HttpPost]
@@ -74,7 +79,6 @@
 
             var embededToken = await this.identity.LoginAsync(model);
 
-            //this adds JWT to the cookie
             Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true
