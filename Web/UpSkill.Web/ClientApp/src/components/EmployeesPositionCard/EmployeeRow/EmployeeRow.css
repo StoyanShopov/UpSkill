@@ -1,12 +1,10 @@
-.card {
-  width: 38rem;
-}
-
-.cardHeader {
-  background-color: #296cfb;
-  color: #ffffff;
+.rowText {
   display: flex;
   justify-content: left;
+}
+
+strong {
+  color: #296cfb;
 }
 
 #employee {

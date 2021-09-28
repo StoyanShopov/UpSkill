@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import EmployeeRow from './EmployeeRow';
+import EmployeeRow from './EmployeeRow/EmployeeRow';
 import './EmployeesPositionCard.css';
 
 function EmployeesPositionCard() {
