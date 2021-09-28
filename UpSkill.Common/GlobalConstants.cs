@@ -45,12 +45,19 @@
 
         public class ControllerRoutesConstants
         {
+            public const string HeaderOrigin = "origin";
+
+            // Identity
             public const string LoginRoute = "login";
             public const string RegisterRoute = "register";
             public const string LogoutRoute = "logout";
             public const string UserRoute = "user";
-            public const string VerifyEmailRoute = "verifyEmail";
 
+            // Email
+            public const string VerifyEmailRoute = "verifyEmail";
+            public const string ResendEmailConfirmationLinkRoute = "resendEmailConfirmationLink";
+
+            // Account
             public const string ChangePasswordRoute = "changePassword";
         }
 
@@ -61,9 +68,11 @@
 
         public class EmailSenderConstants
         {
+            public const string EmailControllerName = "email";
             public const string FromEmail = "vasiltatarov3@gmail.com";
             public const string EmailSubject = "Verify Email";
-            public const string HtmlContent = "<a href=\"{0}\">Click here</a>";
+            public const string HtmlContent = "<p>Verify your email:</p><p><a href='{0}'>CLICK here</a></p>";
+            public const string VerifyUrl = "{0}/{1}/{2}?token={3}&email={4}";
         }
     }
 }

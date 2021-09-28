@@ -11,29 +11,27 @@
 
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
-    using UpSkill.Services.Messaging;
+    using UpSkill.Services.Data.Emails;
     using UpSkill.Web.ViewModels.Identity;
 
-    using static Common.GlobalConstants;
     using static Common.GlobalConstants.IdentityConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.MessagesConstants;
-    using static Common.GlobalConstants.EmailSenderConstants;
 
     public class IdentityController : ApiController
     {
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IEmailSender emailSender;
+        private readonly IEmailService emailService;
 
         public IdentityController(
             IIdentityService identity,
             UserManager<ApplicationUser> userManager,
-            IEmailSender emailSender)
+            IEmailService emailService)
         {
             this.identity = identity;
             this.userManager = userManager;
-            this.emailSender = emailSender;
+            this.emailService = emailService;
         }
 
         [HttpPost]
@@ -55,7 +53,11 @@
                 return BadRequest();
             }
 
-            await SendEmail(model.Email);
+            var user = await userManager.FindByEmailAsync(model.Email);
+
+            var origin = Request.Headers[HeaderOrigin];
+
+            await this.emailService.SendEmailConfirmation(origin, user);
 
             return StatusCode(201);
         }
@@ -103,52 +105,6 @@
                 Id = user.Id,
                 Email = user.Email,
             };
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        [Route(VerifyEmailRoute)]
-        public async Task<IActionResult> VerifyEmail(string userId, string token)
-        {
-            var user = await this.userManager.FindByIdAsync(userId);
-
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
-            var result = await this.userManager.ConfirmEmailAsync(user, token);
-
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-
-            return BadRequest();
-        }
-
-        private async Task SendEmail(string email)
-        {
-            var user = await this.userManager.FindByEmailAsync(email);
-
-            var emailConfirmationToken = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-
-            if (!string.IsNullOrWhiteSpace(emailConfirmationToken))
-            {
-                var linkToConfirm = Url.Action(
-                    VerifyEmailRoute,
-                    Identity,
-                    new { userId = user.Id, token = emailConfirmationToken },
-                    Request.Scheme,
-                    Request.Host.ToString());
-
-                await this.emailSender.SendEmailAsync(
-                    FromEmail,
-                    SystemName,
-                    email,
-                    EmailSubject,
-                    string.Format(HtmlContent, linkToConfirm));
-            }
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
