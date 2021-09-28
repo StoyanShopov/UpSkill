@@ -36,3 +36,39 @@ footer .slants:before {
 #CopyRigthFooter {
 			border-top: 2px solid white;
 }
+
+@media screen and (max-width:768px){
+	.footer-getStartedWrapper{
+		display: flex;
+		justify-content: center;
+	}
+
+	.getStarted{
+		justify-self: center;
+	}
+
+	.footer-serviceList,
+	.footer-companyList{
+		width: fit-content;
+	}
+
+	.footer-socials-item{
+		width: fit-content;
+		padding: 0 1rem;
+	}
+
+	.footer-socials-item::before{
+		font-weight: bolder;
+	}
+
+	.fab{
+		font-size: 2rem;
+	}
+
+	.footer-socials,
+	.footer-socials-list{
+		display: flex!important;
+		flex-direction: row!important;
+		justify-content: center;
+	}
+}
