@@ -58,15 +58,6 @@
             return StatusCode(201);
         }
 
-        private async Task EmailConfirmation(string email)
-        {
-            var user = await userManager.FindByEmailAsync(email); 
-
-            var origin = Request.Headers[HeaderOrigin];
-
-            await this.emailService.SendEmailConfirmation(origin, user);
-        }
-
         [HttpPost]
         [AllowAnonymous]
         [Route(LoginRoute)]
@@ -109,6 +100,15 @@
                 Id = user.Id,
                 Email = user.Email,
             };
+        }
+
+        private async Task EmailConfirmation(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+
+            var origin = Request.Headers[HeaderOrigin];
+
+            await this.emailService.SendEmailConfirmation(origin, user);
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)

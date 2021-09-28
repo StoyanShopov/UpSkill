@@ -2,11 +2,12 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity;
 
     using System.Threading.Tasks;
 
     using UpSkill.Services.Contracts.Email;
-    using UpSkill.Web.Infrastructure.Services;
+    using UpSkill.Data.Models;
 
     using static Common.GlobalConstants.MessagesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -14,24 +15,29 @@
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
-        private readonly ICurrentUserService currentUser;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public EmailController(
             IEmailService emailService, 
-            ICurrentUserService currentUser)
+            UserManager<ApplicationUser> userManager)
         {
             this.emailService = emailService;
-            this.currentUser = currentUser;
+            this.userManager = userManager;
         }
 
         [HttpGet]
         [AllowAnonymous]
         [Route(VerifyEmailRoute)]
-        public async Task<IActionResult> VerifyEmail(string token) 
+        public async Task<IActionResult> VerifyEmail(string token, string email)
         {
-            var userId = this.currentUser.GetId(); 
+            var user = await this.userManager.FindByEmailAsync(email);
 
-            var result = await this.emailService.VerifyEmailAsync(userId, token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var result = await this.emailService.VerifyEmailAsync(user.Id, token);
 
             if (result.Failure)
             {
