@@ -10,9 +10,6 @@
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
             => this.user = httpContextAccessor.HttpContext?.User;
 
-        public string GetUsername()
-           => this.user?.Identity?.Name;
-
         public string GetId()
            => this.user?.GetUserId();
     }
