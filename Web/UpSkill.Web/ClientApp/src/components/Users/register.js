@@ -1,6 +1,6 @@
 import React from "react";
-import loginImg from "../../loginLogo.png";
-import manCase from "../../manCase.png"
+import loginImg from "../../assets/logo-NoBg.png";
+import manCase from "../../assets/manCase.png"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export class Register extends React.Component {
