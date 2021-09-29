@@ -10,8 +10,6 @@
     {
         private readonly ClaimsPrincipal user; 
 
-        private readonly ClaimsPrincipal user;
-
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
             => this.user = httpContextAccessor.HttpContext?.User;
 
