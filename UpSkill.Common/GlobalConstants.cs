@@ -49,17 +49,14 @@
         {
             public const string HeaderOrigin = "origin";
 
-            // Identity
             public const string LoginRoute = "login";
             public const string RegisterRoute = "register";
             public const string LogoutRoute = "logout";
             public const string UserRoute = "user";
 
-            // Email
             public const string VerifyEmailRoute = "verifyEmail";
             public const string ResendEmailConfirmationLinkRoute = "resendEmailConfirmationLink";
 
-            // Account
             public const string ChangePasswordRoute = "changePassword";
         }
 
