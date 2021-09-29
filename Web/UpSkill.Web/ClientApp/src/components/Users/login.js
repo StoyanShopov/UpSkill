@@ -2,12 +2,14 @@ import React from "react";
 import loginImg from "../../assets/logo-NoBg.png";
 import manImg from "../../assets/manKey.png"
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import userService from '@/_services'; 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../_actions';
+
 
 function Login() {
 
@@ -43,7 +45,7 @@ function Login() {
     }
 
     return (
-        <div class="row" ref={this.props.containerRef}>
+        <div class="row">
             <div class="container col-md-6">
                 <img src={manImg} />
             </div>
