@@ -12,7 +12,6 @@ import Courses from './components/Courses/Courses';
 import Coaches from './components/Coaches/Coaches';
 import Layout from './components/Shared/Layout';
 
-
 function App() {
   const [user, setUser] = useState({});
   return (
