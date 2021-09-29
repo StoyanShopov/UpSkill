@@ -11,7 +11,6 @@
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Messaging;
 
-    using static Common.GlobalConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.MessagesConstants;
@@ -49,11 +48,11 @@
 
         public async Task<Result> VerifyEmailAsync(string email, string token) 
         {
-            var user = await this.userManager.FindByEmailAsync(email);  
+            var user = await this.userManager.FindByEmailAsync(email);
 
             if (user == null)
             {
-                return Unauthorized; 
+                return IncorrectEmail;
             }
 
             var decodedTokenBytes = WebEncoders.Base64UrlDecode(token);

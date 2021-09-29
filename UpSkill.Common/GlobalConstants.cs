@@ -68,7 +68,7 @@
             public const string SuccessMessage = "Success";
             public const string IncorrectEmail = "Your email is incorrect.";
             public const string EmailConfirmed = "Email confirmed - you can now login.";
-            public const string EmailsDoNotMatch = "This is not the email you registered with";  
+            public const string EmailsDoNotMatch = "This is not the email you registered with.";
         }
 
         public class EmailSenderConstants
