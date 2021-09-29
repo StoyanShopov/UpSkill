@@ -1,9 +1,10 @@
 ﻿namespace UpSkill.Data
 {
-    using Microsoft.EntityFrameworkCore;
-    using UpSkill.Data.Common.Models;
-
     using System.Linq;
+
+    using Microsoft.EntityFrameworkCore; 
+
+    using UpSkill.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

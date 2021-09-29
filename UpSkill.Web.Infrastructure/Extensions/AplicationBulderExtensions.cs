@@ -1,10 +1,10 @@
 ﻿namespace UpSkill.Web.Infrastructure.Web.Extensions
 {
+    using UpSkill.Data;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-
-    using UpSkill.Data;
 
     using static Common.GlobalConstants.SwaggerConstants; 
 

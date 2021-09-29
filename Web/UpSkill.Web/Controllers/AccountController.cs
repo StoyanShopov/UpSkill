@@ -1,8 +1,8 @@
 ﻿namespace UpSkill.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Web.ViewModels.Account;
     using UpSkill.Services.Contracts.Account;

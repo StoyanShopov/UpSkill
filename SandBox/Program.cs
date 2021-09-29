@@ -1,19 +1,19 @@
 ﻿namespace Sandbox
 {
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using UpSkill.Services.Contracts.Identity;
-    using UpSkill.Services.Identity;
-
     using System;
     using System.Diagnostics;
     using System.IO;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     using CommandLine;
 
+    using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Services.Identity;
     using UpSkill.Data;
     using UpSkill.Data.Common;
     using UpSkill.Data.Common.Repositories;

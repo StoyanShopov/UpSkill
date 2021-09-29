@@ -1,9 +1,9 @@
 ﻿namespace UpSkill.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
-    using System.Threading.Tasks;
 
     using UpSkill.Services.Contracts.Email;
 

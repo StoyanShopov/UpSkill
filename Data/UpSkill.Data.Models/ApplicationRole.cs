@@ -1,8 +1,8 @@
 ﻿namespace UpSkill.Data.Models
 {
-    using Microsoft.AspNetCore.Identity;
-
     using System;
+
+    using Microsoft.AspNetCore.Identity;
 
     using UpSkill.Data.Common.Models;
 

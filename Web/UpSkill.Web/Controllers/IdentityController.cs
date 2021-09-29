@@ -1,13 +1,13 @@
 ﻿namespace UpSkill.Web.Controllers
 {
+    using System.Threading.Tasks;
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-
-    using System.Threading.Tasks;
-    using System.Security.Claims;
 
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;

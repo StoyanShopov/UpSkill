@@ -1,8 +1,8 @@
 ﻿namespace UpSkill.Web.Infrastructure.Services
 {
-    using Microsoft.AspNetCore.Http;
-
     using System.Security.Claims;
+
+    using Microsoft.AspNetCore.Http;
 
     using UpSkill.Web.Infrastructure.Extensions;
 

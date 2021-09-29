@@ -1,9 +1,9 @@
 ﻿namespace UpSkill.Services.Account
 {
-    using Microsoft.AspNetCore.Identity; 
-
     using System.Security.Claims;
     using System.Threading.Tasks; 
+
+    using Microsoft.AspNetCore.Identity;
 
     using UpSkill.Common;
     using UpSkill.Data.Models;

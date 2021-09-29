@@ -1,10 +1,10 @@
 ﻿namespace UpSkill.Services.Email
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.WebUtilities; 
-
     using System.Text;
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.WebUtilities;
 
     using UpSkill.Common;
     using UpSkill.Data.Models;
