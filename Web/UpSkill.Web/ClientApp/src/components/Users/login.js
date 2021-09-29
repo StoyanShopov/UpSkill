@@ -2,7 +2,9 @@ import React from "react";
 import loginImg from "../../assets/logo-NoBg.png";
 import manImg from "../../assets/manKey.png"
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function Login() {
 
@@ -40,7 +42,7 @@ function Login() {
     //}
 
     return (
-        <div class="row" ref={this.props.containerRef}>
+        <div class="row">
             <div class="container col-md-6">
                 <img src={manImg} />
             </div>
@@ -72,13 +74,13 @@ function Login() {
                         </div>
                         <br />
                         <div class="btn-toolbar">
-                            <button class="btn btn-primary col-xs-2" type="button" >
+                            <Button class="btn btn-primary col-xs-2" type="button" >
                                 Login
-                                </button>
+                                </Button>
                             <br />
-                            <button class="btn btn-outline-primary col-xs-2" type="button" >
+                            <Button class="btn btn-outline-primary col-xs-2" type="button" >
                                 Sign Up
-                                 </button>
+                                 </Button>
                         </div>
                     </div>
                 </div>

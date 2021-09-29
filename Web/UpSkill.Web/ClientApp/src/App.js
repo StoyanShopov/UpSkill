@@ -11,28 +11,32 @@ import Home from './components/Home';
 import Courses from './components/Courses/Courses';
 import Coaches from './components/Coaches/Coaches';
 import Layout from './components/Shared/Layout';
+import Login from './components/Users/login';
+import Register from './components/Users/register';
 
 
 function App() {
-  const [user, setUser] = useState({});
-  return (
-    <IdentityContext.Provider value={{ user, setUser }}>
-      <>
-      {/* 
+    const [user, setUser] = useState({});
+    return (
+        <IdentityContext.Provider value={{ user, setUser }}>
+            <>
+                {/* 
           <CoursesCard></CoursesCard>
           <EmployeesPositionCard></EmployeesPositionCard>
        */}
 
-      <Layout>
-        <Route exact path='/' component={Home}/>
-        <Route exact path='/Courses' component={Courses}/>
-        <Route exact path='/Coaches' component={Coaches}/>
-        {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
-      </Layout>
+                <Layout>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/Courses' component={Courses} />
+                    <Route exact path='/Coaches' component={Coaches} />
+                    <Route exact path='/Login' component={Login} />
+                    <Route exact path='/Register' component={Register} />
+                    {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
+                </Layout>
 
-      </>
-    </IdentityContext.Provider >
-  );
+            </>
+        </IdentityContext.Provider >
+    );
 }
 
 export default App;
