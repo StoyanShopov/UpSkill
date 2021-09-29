@@ -50,7 +50,7 @@ function CategoriesAndLanguageMenu({ atPage }) {
             <aside className="d-flex container justify-content-between pt-5 pb-5">
                 <div className="content searchContent">
 
-                    <fieldset className="row">
+                    <fieldset className="row categoryField">
                         <legend className="fw-bolder" htmlFor="category">Category</legend>
                         <form
                             name="category"

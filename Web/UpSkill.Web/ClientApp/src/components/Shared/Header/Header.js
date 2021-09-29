@@ -75,16 +75,16 @@ function Header() {
 						<div className={`collapse nav-bar navbar-burger burger ${isActive ? "show container" : ""}`} id="navbar4">
 							<ul className="navbar-nav mr-auto pl-lg-4 justify-content-center w-100">
 								<li className="nav-item px-lg-2">
-									<NavLink to="/Ask" className="nav-link text-center" exact={true}>
+									<NavLink to="/Language" className="nav-link text-center" exact={true}>
 										<span className="d-inline-block d-lg-none icon-width"><i className="fas fa-globe-europe"></i></span>
 								BG|EN
 							</NavLink>
 								</li>
 								<li className="nav-item px-lg-2">
-									<NavLink className="nav-link text-center" to=""><span className="d-inline-block d-lg-none icon-width"><i className="fas fa-spa"></i></span>Courses</NavLink>
+									<NavLink className="nav-link text-center" to="/Courses"><span className="d-inline-block d-lg-none icon-width"><i className="fas fa-spa"></i></span>Courses</NavLink>
 								</li>
 								<li className="nav-item px-lg-2">
-									<NavLink className="nav-link text-center" to=""><span className="d-inline-block d-lg-none icon-width">
+									<NavLink className="nav-link text-center" to="/Coaches"><span className="d-inline-block d-lg-none icon-width">
 										<i className="far fa-user"></i></span>Coaches</NavLink>
 								</li>
 
