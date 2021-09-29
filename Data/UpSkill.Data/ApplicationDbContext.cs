@@ -8,6 +8,7 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
     using UpSkill.Data.Common.Models;
     using UpSkill.Data.Models;
 
