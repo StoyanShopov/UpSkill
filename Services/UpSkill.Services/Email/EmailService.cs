@@ -46,9 +46,14 @@
             await emailSender.SendEmailAsync(FromEmail, EmailSubject, user.Email, message, verifyUrl);
         }
 
-        public async Task<Result> VerifyEmailAsync(string userId, string token) 
+        public async Task<Result> VerifyEmailAsync(string email, string token) 
         {
-            var user = await this.userManager.FindByIdAsync(userId);
+            var user = await this.userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return IncorrectEmail;
+            }
 
             var decodedTokenBytes = WebEncoders.Base64UrlDecode(token);
             var decodedToken = Encoding.UTF8.GetString(decodedTokenBytes);
@@ -57,7 +62,7 @@
 
             if (!result.Succeeded)
             {
-                return IncorretcEmail;
+                return IncorrectEmail;
             } 
 
             return true; 
