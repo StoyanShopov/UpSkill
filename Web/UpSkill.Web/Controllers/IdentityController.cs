@@ -79,7 +79,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         [Route(LogoutRoute)]
         public IActionResult Logout()
         {
@@ -89,7 +88,6 @@
         }
 
         [HttpGet]
-        [Authorize]
         [Route(UserRoute)]
         public async Task<LoginResponseModel> GetCurrentUser()
         {

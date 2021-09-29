@@ -20,7 +20,7 @@
         [HttpGet]
         [AllowAnonymous]
         [Route(VerifyEmailRoute)]
-        public async Task<IActionResult> VerifyEmail(string token, string email)
+        public async Task<IActionResult> VerifyEmail(string email, string token)
         {
             var result = await this.emailService.VerifyEmailAsync(email, token);
 
