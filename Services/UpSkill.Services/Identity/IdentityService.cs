@@ -35,7 +35,7 @@
             this.appSettings = appSettings.Value;
         }
 
-        public string GenerateJwtTokenAsync(string userId, string userName, string secret, string userEmail)
+        public string GenerateJwtToken(string userId, string userName, string secret, string userEmail)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -105,7 +105,7 @@
                 throw new ArgumentException(IncorrectEmailOrPassword);
             }
 
-            var token = GenerateJwtTokenAsync(
+            var token = GenerateJwtToken(
                 user.Id,
                 user.UserName,
                 this.appSettings.Secret,
