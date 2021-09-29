@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
 
     using UpSkill.Services.Contracts.Email;
-    using UpSkill.Web.Infrastructure.Services;
 
     using static Common.GlobalConstants.MessagesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -14,24 +13,15 @@
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
-        private readonly ICurrentUserService currentUser;
 
-        public EmailController(
-            IEmailService emailService, 
-            ICurrentUserService currentUser)
-        {
-            this.emailService = emailService;
-            this.currentUser = currentUser;
-        }
+        public EmailController(IEmailService emailService) => this.emailService = emailService;
 
         [HttpGet]
         [AllowAnonymous]
         [Route(VerifyEmailRoute)]
-        public async Task<IActionResult> VerifyEmail(string token) 
+        public async Task<IActionResult> VerifyEmail(string email, string token) 
         {
-            var userId = this.currentUser.GetId(); 
-
-            var result = await this.emailService.VerifyEmailAsync(userId, token);
+            var result = await this.emailService.VerifyEmailAsync(email, token);
 
             if (result.Failure)
             {
@@ -48,7 +38,7 @@
         {
             var origin = Request.Headers[HeaderOrigin];
 
-            var result = await this.emailService.ResendEmailConfirmationLink(email, origin);
+            var result = await this.emailService.ResendEmailConfirmationLinkAsync(email, origin);
 
             if (result.Failure)
             {

@@ -1,11 +1,11 @@
 ﻿namespace UpSkill.Data
 {
+    using Microsoft.EntityFrameworkCore;
+
     using System;
     using System.Threading.Tasks;
 
     using UpSkill.Data.Common;
-
-    using Microsoft.EntityFrameworkCore;
 
     public class DbQueryRunner : IDbQueryRunner
     {

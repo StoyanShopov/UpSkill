@@ -64,7 +64,7 @@
 
             var origin = Request.Headers[HeaderOrigin];
 
-            await this.emailService.SendEmailConfirmation(origin, user);
+            await this.emailService.SendEmailConfirmationAsync(origin, user);
         }
 
         [HttpPost]
@@ -88,7 +88,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         [Route(LogoutRoute)]
         public IActionResult Logout()
         {
@@ -98,7 +97,6 @@
         }
 
         [HttpGet]
-        [Authorize]
         [Route(UserRoute)]
         public async Task<LoginResponseModel> GetCurrentUser()
         {

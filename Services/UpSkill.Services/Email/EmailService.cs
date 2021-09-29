@@ -29,7 +29,7 @@
             this.emailSender = emailSender;
         }
 
-        public async Task SendEmailConfirmation(string origin, ApplicationUser user)
+        public async Task SendEmailConfirmationAsync(string origin, ApplicationUser user)
         {
             var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
             token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
@@ -47,9 +47,9 @@
             await emailSender.SendEmailAsync(FromEmail, EmailSubject, user.Email, message, verifyUrl);
         }
 
-        public async Task<Result> VerifyEmailAsync(string userId, string token) 
+        public async Task<Result> VerifyEmailAsync(string email, string token) 
         {
-            var user = await this.userManager.FindByIdAsync(userId); 
+            var user = await this.userManager.FindByEmailAsync(email);  
 
             if (user == null)
             {
@@ -63,13 +63,13 @@
 
             if (!result.Succeeded)
             {
-                return IncorretcEmail;
+                return IncorrectEmail;
             } 
 
             return true; 
         }
 
-        public async Task<Result> ResendEmailConfirmationLink(string email, string origin)
+        public async Task<Result> ResendEmailConfirmationLinkAsync(string email, string origin)
         {
             var user = await userManager.FindByEmailAsync(email);
 
@@ -78,7 +78,7 @@
                 return EmailsDoNotMatch;
             }
 
-            await SendEmailConfirmation(origin, user);
+            await SendEmailConfirmationAsync(origin, user);
 
             return true;
         }

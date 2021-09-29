@@ -24,6 +24,8 @@
     using UpSkill.Web.Filters;
     using UpSkill.Web.Infrastructure.Web.Extensions;
     using UpSkill.Web.Infrastructure.Services;
+    using UpSkill.Services.Contracts.Account;
+    using UpSkill.Services.Account;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
@@ -100,14 +102,18 @@
             return services;
         }
 
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddBussinesServices(this IServiceCollection services) 
             => services 
-                .AddScoped<ICurrentUserService, CurrentUserService>()
                 .AddTransient<IIdentityService, IdentityService>()
-                .AddTransient<IEmailService, EmailService>()
+                .AddTransient<IEmailService, EmailService>() 
+                .AddTransient<IAccountService, AccountService>() 
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>();
+
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+            => services
+                .AddTransient<ICurrentUserService, CurrentUserService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
            => services.AddSwaggerGen(c =>

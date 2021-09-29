@@ -28,7 +28,8 @@
                  .AddDatabase(this.configuration)
                  .AddIdentity()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
-                 .AddApplicationServices()
+                 .AddBussinesServices()
+                 .AddInfrastructureServices() 
                  .AddSwagger()
                  .AddApiControllers();
 

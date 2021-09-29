@@ -1,9 +1,9 @@
 ﻿namespace UpSkill.Data.Configurations
 {
-    using UpSkill.Data.Models;
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using UpSkill.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
