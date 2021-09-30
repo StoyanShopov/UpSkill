@@ -44,7 +44,7 @@
 
             var content = string.Format(HtmlContent, verifyUrl);
 
-            await emailSender.SendEmailAsync(FromEmail, EmailSubject, user.Email, EmailSubject, content);
+            await emailSender.SendEmailAsync(FromEmail, FromName, user.Email, EmailSubject, content);
         }
 
         public async Task<Result> VerifyEmailAsync(string email, string token) 

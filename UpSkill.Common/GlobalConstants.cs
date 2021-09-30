@@ -74,6 +74,7 @@
 
             public const string EmailControllerName = "email";
             public const string FromEmail = "middnight_man@protonmail.com";
+            public const string FromName = "middnight_man";
             public const string EmailSubject = "Verify Email";
             public const string HtmlContent = "<p>Verify your email:</p><p><a href='{0}'>CLICK here</a></p>";
             public const string VerifyUrl = "{0}/{1}/{2}?token={3}&email={4}";
