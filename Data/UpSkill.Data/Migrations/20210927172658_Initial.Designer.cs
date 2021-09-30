@@ -10,8 +10,13 @@ using UpSkill.Data;
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+<<<<<<< HEAD:Data/UpSkill.Data/Migrations/20210923170448_InitialCreate.Designer.cs
     [Migration("20210923170448_InitialCreate")]
     partial class InitialCreate
+=======
+    [Migration("20210927172658_Initial")]
+    partial class Initial
+>>>>>>> feature/#40:Data/UpSkill.Data/Migrations/20210927172658_Initial.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -1,31 +1,59 @@
-namespace UpSkill.Common
+﻿namespace UpSkill.Common
 {
     public static class GlobalConstants
     {
-        public const string SystemName = "UpSkill";
-
-        public const string AdministratorRoleName = "Administrator";
+        public const string SystemName = "UpSkill";                    
 
         public const string AppSettingJson = "appsettings.json";
 
+        public const string Unauthorized = "Unauthorized";
         public const string DefaultConnection = "DefaultConnection";
 
         public const string ApplicationSettings = "ApplicationSettings";
-
-        public const string Unauthorized = "Unauthorized";
-
-        public class AutoMapperConstants
+		public class UsersEmailsNames
         {
-            public const string ReflectionProfile = "ReflectionProfile";
+            public const string AdministratorEmailName = "administrator@test.test";
+
+            public const string OwnerMotionSoftwareEmailName = "ownerOfMotionSoftware@test.test";
+
+            public const string EmployeeMotionSoftwareEmailName = "employeeMo@test.test";
         }
 
-        public class SwaggerConstants
+        public class RolesNamesConstants
         {
-            public const string UpSkillAPI = "UpSkill API";
-            public const string V1 = "v1";
-            public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
+            public const string AdministratorRoleName = "Administrator";
+
+            public const string CompanyOwnerRoleName = "Owner";
+
+            public const string CompanyEmployeeRoleName = "Employee";
         }
 
+        public class PositionsNamesConstants
+        {
+            public const string OwnerPositionName = "Owner";
+
+            public const string GraphicDesignerPositionName = "Graphic Designer";
+
+            public const string SoftwareDeveloperPositionName = "Software Developer";
+
+            public const string SeniorSoftwareDeveloperPositionName = "Senior Software Developer";
+
+            public const string AdministratorPositionName = "Administrator";
+        }
+
+        public class CompaniesNamesConstants
+        {
+            public const string MotionCompanyName = "Motion Software";
+
+            public const string ScaleFocusCompanyName = "Scale Focus";
+
+            public const string AdministratorCompanyName = "UpSkill";
+        }
+
+        public class AutoMapperConstants        
+{
+
+}
         public class IdentityConstants
         {
             public const string JWT = "jwt";
