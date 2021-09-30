@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Web.Controllers
+namespace UpSkill.Web.Controllers
 {
     using System.Threading.Tasks;
 

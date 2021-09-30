@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Common
+namespace UpSkill.Common
 {
     public static class GlobalConstants
     {
@@ -37,6 +37,12 @@
             public const string UsernameExist = "There is such exist user with this username.";
             public const string PasswordNotMatch = "Password and confirm password must be the same.";
             public const string ConfirmEmail = "Please confirm your account. From the email we sent to you.";
+        }
+
+        public class AccountConstants
+        {
+            public const string WrongOldPassword = "Old password is invalid.";
+            public const string DifferentPasswords = "New password and confirm new password must be the same.";
         }
 
         public class AccountConstants
