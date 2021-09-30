@@ -7,10 +7,10 @@
 
     public interface IEmailService
     {
-        Task SendEmailConfirmationAsync(string origin, ApplicationUser user);
+        Task SendEmailConfirmationAsync(string origin, string host, ApplicationUser user);
 
         Task<Result> VerifyEmailAsync(string userId, string token);
 
-        Task<Result> ResendEmailConfirmationLinkAsync(string email, string origin);  
+        Task<Result> ResendEmailConfirmationLinkAsync(string email, string host, string origin);  
     }
 }

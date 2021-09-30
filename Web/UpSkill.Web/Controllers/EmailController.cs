@@ -37,8 +37,9 @@
         public async Task<IActionResult> ResendEmailConfirmationLink(string email)
         {
             var origin = Request.Headers[HeaderOrigin];
+            var host = Request.Host.Value;
 
-            var result = await this.emailService.ResendEmailConfirmationLinkAsync(email, origin);
+            var result = await this.emailService.ResendEmailConfirmationLinkAsync(email, host, origin);
 
             if (result.Failure)
             {

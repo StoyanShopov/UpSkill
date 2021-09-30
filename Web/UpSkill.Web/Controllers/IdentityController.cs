@@ -105,8 +105,9 @@
             var user = await userManager.FindByEmailAsync(email);
 
             var origin = Request.Headers[HeaderOrigin];
+            var host = Request.Host.Value;
 
-            await this.emailService.SendEmailConfirmationAsync(origin, user);
+            await this.emailService.SendEmailConfirmationAsync(origin, host, user);
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
