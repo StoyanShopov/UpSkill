@@ -1,45 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CoachCard from '../../Shared/CoachCard/CoachCard';
 import './CompanyCoaches.css';
 import { Button } from 'react-bootstrap';
 
-const initialCoaches = [
-  {
-    id: 1,
-    fullName: 'Brent Foster',
-    coachField: 'Leadership ',
-    company: 'Google',
-    price: 50,
-    imageUrl: 'https://www.g20.org/wp-content/uploads/2021/01/people.jpg',
-  },
-  {
-    id: 2,
-    fullName: 'Philipa',
-    coachField: 'Leadership',
-    company: 'Amazon',
-    price: 50,
-    imageUrl: 'https://www.g20.org/wp-content/uploads/2021/01/people.jpg',
-  },
-  {
-    id: 3,
-    fullName: 'Test',
-    coachField: 'Leadership',
-    company: 'Google',
-    price: 50,
-    imageUrl: 'https://www.g20.org/wp-content/uploads/2021/01/people.jpg',
-  },
-  {
-    id: 4,
-    fullName: 'Brent Foster',
-    coachField: 'Leadership',
-    company: 'Google',
-    price: 50,
-    imageUrl: 'https://www.g20.org/wp-content/uploads/2021/01/people.jpg',
-  },
-];
+import { getCoaches } from "../../../services/coachService";
 
 export default function CoachList() {
-  const [coaches, setCoaches] = useState(initialCoaches);
+  const [coaches, setCoaches] = useState([]);
+  const initialPageCoaches = 0;
+
+  useEffect(() => {
+    getCoaches(initialPageCoaches)
+        .then(coaches => {
+            setCoaches(coaches);
+        });
+}, []);
+
   return (
     <>
       <div className={'buttonContainer'}>
