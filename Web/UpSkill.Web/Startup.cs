@@ -28,7 +28,8 @@
                  .AddDatabase(this.configuration)
                  .AddIdentity()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
-                 .AddApplicationServices()
+                 .AddBussinesServices()
+                 .AddInfrastructureServices() 
                  .AddSwagger()
                  .AddApiControllers();
 
@@ -36,6 +37,8 @@
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
+
+            services.AddEmailSender(this.configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

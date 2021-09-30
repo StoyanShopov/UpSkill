@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using UpSkill.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+
+    using UpSkill.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

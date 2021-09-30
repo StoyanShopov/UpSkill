@@ -1,15 +1,17 @@
 ﻿namespace UpSkill.Services.Identity
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Options;
-    using Microsoft.IdentityModel.Tokens;
-
     using System;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Tokens;
+
+    using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
@@ -56,7 +58,7 @@
             return encryptedToken;
         }
 
-        public async Task RegisterAsync(RegisterRequestModel model)
+        public async Task<Result> RegisterAsync(RegisterRequestModel model)
         {
             var company = await this.companies
                 .All()
@@ -76,7 +78,9 @@
                 Company = company,
             };
 
-            await this.userManager.CreateAsync(user, model.Password);
+            var result = await this.userManager.CreateAsync(user, model.Password);
+
+            return result.Succeeded;
         }
 
         public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model)
@@ -86,6 +90,11 @@
             if (user == null)
             {
                 throw new ArgumentException(UserNotFound);
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                throw new ArgumentException(ConfirmEmail);
             }
 
             var passwordValid = await this.userManager.CheckPasswordAsync(user, model.Password);

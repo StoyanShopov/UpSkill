@@ -1,17 +1,18 @@
 ﻿namespace UpSkill.Web.Controllers
 {
+    using System.Threading.Tasks;
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
-    using System.Threading.Tasks;
-    using System.Security.Claims;
-
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
+    using UpSkill.Services.Contracts.Email;
 
     using static Common.GlobalConstants.IdentityConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -21,13 +22,16 @@
     {
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IEmailService emailService;
 
         public IdentityController(
             IIdentityService identity,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IEmailService emailService)
         {
             this.identity = identity;
             this.userManager = userManager;
+            this.emailService = emailService;
         }
 
         [HttpPost]
@@ -42,7 +46,14 @@
                 return BadRequest(ModelState);
             }
 
-            await this.identity.RegisterAsync(model);
+            var isUserRegistered = await this.identity.RegisterAsync(model);
+
+            if (isUserRegistered.Failure)
+            {
+                return BadRequest(isUserRegistered.Error);
+            } 
+
+            await EmailConfirmation(model.Email);  
 
             return StatusCode(201);
         }
@@ -59,7 +70,6 @@
 
             var embededToken = await this.identity.LoginAsync(model);
 
-            //this adds JWT to the cookie
             Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true
@@ -69,7 +79,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         [Route(LogoutRoute)]
         public IActionResult Logout()
         {
@@ -79,7 +88,6 @@
         }
 
         [HttpGet]
-        [Authorize]
         [Route(UserRoute)]
         public async Task<LoginResponseModel> GetCurrentUser()
         {
@@ -90,6 +98,16 @@
                 Id = user.Id,
                 Email = user.Email,
             };
+        }
+
+        private async Task EmailConfirmation(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+
+            var origin = Request.Headers[HeaderOrigin];
+            var host = Request.Host.Value;
+
+            await this.emailService.SendEmailConfirmationAsync(origin, host, user);
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
