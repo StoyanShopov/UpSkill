@@ -73,6 +73,12 @@
             public const string DifferentPasswords = "New password and confirm new password must be the same.";
         }
 
+        public class AccountConstants
+        {
+            public const string WrongOldPassword = "Old password is invalid.";
+            public const string DifferentPasswords = "New password and confirm new password must be the same.";
+        }
+
         public class ControllerRoutesConstants
         {
             public const string HeaderOrigin = "origin";
