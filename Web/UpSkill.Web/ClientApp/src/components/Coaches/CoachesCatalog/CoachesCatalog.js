@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import CoachCard from '../../Shared/CoachCard/CoachCard';
+import CoachesCard from './Coaches-Card/Coaches-Card';
 
 import './CoachesCatalog.css';
 
@@ -21,15 +21,16 @@ export default function CoachesCatalog() {
             <div className="container">
                 <div className="row list-unstyled coaches-list">
                     {coaches.map((coach) => (
-                        <div className="col-sm-4">     
-                        <CoachCard
+                        <div className="col-sm-4 text-align-center" key={coach.id}>     
+                        <CoachesCard
                             key={coach.id}
                             coachDetails={coach}
                             displaySession={false}
                             displayPrice={true}
                         >
-                            <Button className="cardButton"> Cancel</Button>
-                        </CoachCard>
+                            <Button className="coaches-cardButton"> Add </Button>
+                            {/* <Button className="coaches-cardButton"> Remove </Button>*/}
+                        </CoachesCard>
                         </div>
                     ))}
                 </div>

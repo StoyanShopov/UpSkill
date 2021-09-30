@@ -7,11 +7,13 @@
 }
 
 .CoursesPic {
-    height: 12rem;
+    height: 17rem;
+    width: 26rem;
 }
 
 .CoachesPic {
-    height: 12rem;
+    height: 17rem;
+    width: 26rem;
 }
 
 .full-width {
@@ -39,7 +41,11 @@
 
 .languageForm {
     border-left: 1px solid black;
-    padding: 0rem 2rem;
+    padding: 1rem 2rem;
+}
+
+.categoryField{
+    padding: 1rem 1rem;
 }
 
 .searchContent {
