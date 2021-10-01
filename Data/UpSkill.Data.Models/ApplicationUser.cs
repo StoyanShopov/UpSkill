@@ -2,7 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations; 
+
     using Microsoft.AspNetCore.Identity;
 
     using UpSkill.Data.Common.Models;
@@ -24,8 +25,7 @@
         [Required]
         public string LastName { get; set; }
 
-        [Required]
-        public int PositionId { get; set; }
+        public int? PositionId { get; set; }
         public Position Position { get; set; }
 
         [Required]

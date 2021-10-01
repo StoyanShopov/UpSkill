@@ -9,11 +9,11 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using UpSkill.Services.Contracts.Identity;
-    using UpSkill.Services.Identity;
 
     using CommandLine;
 
+    using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Services.Identity;
     using UpSkill.Data;
     using UpSkill.Data.Common;
     using UpSkill.Data.Common.Repositories;
@@ -54,7 +54,7 @@
             var sw = Stopwatch.StartNew();
 
             var settingsService = serviceProvider.GetService<IIdentityService>();
-            Console.WriteLine($"Token {settingsService.GenerateJwtToken("id", "pesho", "peshov")}");
+            Console.WriteLine($"Token {settingsService.GenerateJwtToken("id", "pesho", "peshov", "")}");
 
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);

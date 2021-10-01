@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Common
+namespace UpSkill.Common
 {
     public static class GlobalConstants
     {
@@ -120,3 +120,4 @@
         }
     }
 }
+
