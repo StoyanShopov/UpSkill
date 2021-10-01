@@ -10,8 +10,8 @@ using UpSkill.Data;
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210927172658_Initial")]
-    partial class Initial
+    [Migration("20211001234714_PositionNotNullableAndRequired")]
+    partial class PositionNotNullableAndRequired
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
