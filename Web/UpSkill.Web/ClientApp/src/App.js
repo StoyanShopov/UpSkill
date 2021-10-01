@@ -10,6 +10,12 @@ import Home from './components/Home';
 import Courses from './components/Courses/Courses';
 import Coaches from './components/Coaches/Coaches';
 import Layout from './components/Shared/Layout';
+import Login from './components/Users/Login/login';
+import Register from './components/Users/Register/register';
+import IdentityContext  from './Context/IdentityContext';
+// import  from './services';
+
+
 
 
 function App() {

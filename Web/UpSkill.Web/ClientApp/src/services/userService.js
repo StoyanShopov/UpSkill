@@ -1,6 +1,10 @@
-import config from 'config';
-import { handleResponse } from '@/_helpers';
+import axios from 'axios';
 
+//import config from 'config';
+import { useLocation } from 'react-router';
+//import { handleResponse } from '@/_helpers';
+
+//Continue with fetch for now, we gonna research axios later.
 export const userService = {
     login,
     logout,
@@ -14,7 +18,8 @@ function login(email, password) {
         body: JSON.stringify({ email, password })
     };
 
-    return fetch(`${config.apiUrl}/identity/login`, requestOptions)
+    ///TODO: config.js somewhere in src
+    return fetch(`${'config.apiUrl'}/identity/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -36,9 +41,10 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${config.apiUrl}/identity/register`, requestOptions).then(handleResponse);
+    return fetch(`${'config.apiUrl'}/identity/register`, requestOptions).then(handleResponse);
 }
 
+// Good for initial tests, it will be changed in the future
 function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
@@ -46,7 +52,7 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
-                location.reload(true);
+                useLocation().reload(true);
             }
 
             const error = (data && data.message) || response.statusText;

@@ -1,14 +1,11 @@
-import React from "react";
-import loginImg from "../../assets/logo-NoBg.png";
-import manImg from "../../assets/manKey.png"
-import axios from 'axios';
-import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import userService from '@/_services'; 
 import React, { useState, useEffect } from 'react';
+//import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../_actions';
+
+import loginImg from "../../../assets/logo-NoBg.png";
+import manImg from "../../../assets/manKey.png"
+
+import {userService} from '../../../services/userService'; 
 
 
 function Login() {
@@ -19,16 +16,17 @@ function Login() {
     });
     const [submitted, setSubmitted] = useState(false);
     const { email, password } = inputs;
-    const loggingIn = useSelector(state => state.authentication.loggingIn);
-    const dispatch = useDispatch();
+    //const loggingIn = useSelector(state => state.authentication.loggingIn);
+    //const dispatch = useDispatch();
     const location = useLocation();
 
     // reset login status
     useEffect(() => {
-        dispatch(userActions.logout());
+        userService.logout();
     }, []);
 
     function handleChange(e) {
+        
         const { name, value } = e.target;
         setInputs(inputs => ({ ...inputs, [name]: value }));
     }
@@ -37,16 +35,14 @@ function Login() {
         e.preventDefault();
 
         setSubmitted(true);
-        if (username && password) {
-            // get return url from location state or default to home page
-            const { from } = location.state || { from: { pathname: "/" } };
-            dispatch(userActions.login(email, password, from));
+        if (email && password) {
+            userService.login(email, password);
         }
     }
 
     return (
-        <div class="row">
-            <div class="container col-md-6">
+        <div className="row">
+            <div className="container col-md-6">
                 <img src={manImg} />
             </div>
             <div className="base-container col-md-6" >
@@ -62,7 +58,7 @@ function Login() {
                     <div className="form ">
                         <div className="form-group ">
                                 <label htmlFor="email"></label>
-                                <input type="text" name="email" placeholder="Email Address" value={email} onChange={handleChange} className={'form-control' + (submitted && !email ? ' is-invalid' : '')} />
+                                <input type="email" name="email" placeholder="Email Address" value={email} onChange={handleChange} className={'form-control' + (submitted && !email ? ' is-invalid' : '')} />
                                 {submitted && !email &&
                                     <div className="invalid-feedback">Email is required</div>
                                 }
@@ -74,23 +70,18 @@ function Login() {
                                     <div className="invalid-feedback">Password is required</div>
                                 }
                         </div>
-                        <div class="form-check text-primary">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                <label class="form-check-label">Remember me</label>
+                        <div className="form-check text-primary">
+                            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                <label className="form-check-label">Remember me</label>
                         </div>
-                        <div class="link-info">
+                        <div className="link-info">
                             <a href="url">Forgot Password?</a>
                         </div>
                         <br />
-                        <div class="btn-toolbar">
-                                <button >
-                                    {loggingIn && <span class="btn btn-primary col-xs-2" type="button"></span>}
-                                    Login
-                                </button>
-                            <br />
-                                <button>
-                                    <Link to="/register" class="btn btn-outline-primary col-xs-2" type="button"> Sign Up</Link>
-                                 </button>
+                        <div className="btn-toolbar">
+                                <input type="submit" className="btn btn-primary" value="Login"/>
+                                    {/* {loggingIn && <span class="btn btn-primary col-xs-2" type="button"></span>} */}
+                                <Link to="/Register" className="btn btn-outline-primary col-xs-2 mx-3" type="button"> Sign Up</Link>
                         </div>
                     </div>
                     </div>
@@ -100,4 +91,4 @@ function Login() {
     );
 }
 
-export { LoginPage };
+export default Login;
