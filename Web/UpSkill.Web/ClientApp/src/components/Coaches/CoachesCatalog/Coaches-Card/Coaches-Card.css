@@ -1,0 +1,72 @@
+.coaches-Card{
+    margin-top: 2rem;
+    margin-bottom: 6rem;
+    display: inline-block;
+    box-shadow: 0px 3px 10px #00000029;
+    opacity: 1;
+    background-color: #FFFFFF 0% 0% no-repeat padding-box; 
+    width: 22rem;
+    height: 21rem;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.coaches-image{
+    width: 270px;
+    height: 220px;
+    position: relative;
+    top: -3rem;
+}
+
+.coaches-image-wrapper{
+    width: 100%;
+    height: 75%;    
+}
+
+.coaches-image-wrapper-bg{
+    background-color: #1CC18A;
+    height: 172px;
+}
+
+.btn-wrapper{
+    margin-bottom: 1rem;
+}
+
+.coaches-button{
+    display: block;
+    margin: auto;
+    color: white;
+    position: relative;
+    border: none;
+    left: 39%;
+    width: 90px;
+    height: 50px;
+    background: #296CFB 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.coaches-coachField{
+    font: normal normal bold 1.1rem/2rem Arial;
+}
+
+.coaches-fullName{
+    display: block;
+    font: normal normal 1.2rem/2rem Montserrat;
+    letter-spacing: 1.1px;
+}
+.coaches-coachType{
+    margin-top: 10px;
+    display: block;
+    font: normal normal medium 22px/30px Montserrat;
+    letter-spacing: 1.1px;
+    color: #000000;
+
+}
+.coaches-coachPrice{
+    color: #296CFB;
+    letter-spacing: 1.1px;
+    font: normal normal medium 22px/27px Montserrat;
+    font-weight: bold;
+}
