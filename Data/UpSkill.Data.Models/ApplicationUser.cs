@@ -25,7 +25,8 @@
         [Required]
         public string LastName { get; set; }
 
-        public int? PositionId { get; set; }
+        [Required]
+        public int PositionId { get; set; }
         public Position Position { get; set; }
 
         [Required]
