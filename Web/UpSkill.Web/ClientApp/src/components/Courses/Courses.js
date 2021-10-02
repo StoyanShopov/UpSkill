@@ -3,6 +3,8 @@ import CategoriesAndLanguageMenu from '../CategoriesAndLanguageMenu/categoryAndL
 import CoursesCard from '../CoursesCard/CoursesCard';
 import EmployeesPositionCard from '../EmployeesPositionCard/EmployeesPositionCard';
 
+import Coaches from '../Coaches/Coaches';
+
 import './Courses.css';
 
 export default function Courses() {
@@ -10,7 +12,8 @@ export default function Courses() {
     <div className="content">
       <CategoriesAndLanguageMenu atPage="Courses" />
 
-      <EmployeesPositionCard />
+      <CoursesCard />
+      
     </div>
   );
 }
