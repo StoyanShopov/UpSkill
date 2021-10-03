@@ -19,11 +19,15 @@
 }
 
 .background {
-  background: transparent url('../../assets/img/courses/Marketing.png') 0% 0%
-    no-repeat padding-box;
+  background: transparent 0% 0% no-repeat padding-box;
+
   opacity: 0.6;
   width: 14rem;
   height: 10rem;
+}
+
+.backgroundImg {
+  background-image: url('../../../../assets/img/courses/Marketing.png');
 }
 
 .cardText {
