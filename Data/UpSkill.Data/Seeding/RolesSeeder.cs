@@ -4,12 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 	
-	using UpSkill.Common;
     using UpSkill.Data.Models;
 		
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
-
 
     using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 
@@ -38,4 +36,3 @@
         }
     }
 }
-
