@@ -55,5 +55,11 @@
         {
             public const string SuccessMessage = "Success";
         }
+
+        public class AdminControllerConstants
+        {
+            public const string SuccessMessage = "Operation is successfull.";
+            public const string ErrorMessage = "Operation is unsuccessfull.";
+        }
     }
 }

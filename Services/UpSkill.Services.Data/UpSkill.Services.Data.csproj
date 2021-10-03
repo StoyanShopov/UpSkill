@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\UpSkill.Data.Common\UpSkill.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\UpSkill.Data.Models\UpSkill.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\UpSkill.Web.ViewModels\UpSkill.Web.ViewModels.csproj" />
     <ProjectReference Include="..\UpSkill.Services.Mapping\UpSkill.Services.Mapping.csproj" />
   </ItemGroup>
 
