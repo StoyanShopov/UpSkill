@@ -4,8 +4,6 @@ namespace UpSkill.Common
     {
         public const string SystemName = "UpSkill";
 
-        public const string AdministratorRoleName = "Administrator";
-
         public const string AppSettingJson = "appsettings.json";
 
         public const string DefaultConnection = "DefaultConnection";
@@ -24,6 +22,16 @@ namespace UpSkill.Common
             public const string UpSkillAPI = "UpSkill API";
             public const string V1 = "v1";
             public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
+        }
+
+
+        public class UsersEmailsNames
+        {
+            public const string AdministratorEmailName = "administrator@test.test";
+
+            public const string OwnerMotionSoftwareEmailName = "ownerOfMotionSoftware@test.test";
+
+            public const string EmployeeMotionSoftwareEmailName = "employeeMo@test.test";
         }
 
         public class IdentityConstants
@@ -79,5 +87,37 @@ namespace UpSkill.Common
             public const string HtmlContent = "<p>Verify your email:</p><p><a href='{0}'>CLICK here</a></p>";
             public const string VerifyUrl = "https:/{0}/{1}/{2}/{3}?token={4}&email={5}";
         }
+
+        public class RolesNamesConstants
+        {
+            public const string AdministratorRoleName = "Administrator";
+
+            public const string CompanyOwnerRoleName = "Owner";
+
+            public const string CompanyEmployeeRoleName = "Employee";
+        }
+
+        public class PositionsNamesConstants
+        {
+            public const string OwnerPositionName = "Owner";
+
+            public const string GraphicDesignerPositionName = "Graphic Designer";
+
+            public const string SoftwareDeveloperPositionName = "Software Developer";
+
+            public const string SeniorSoftwareDeveloperPositionName = "Senior Software Developer";
+
+            public const string AdministratorPositionName = "Administrator";
+        }
+
+        public class CompaniesNamesConstants
+        {
+            public const string MotionCompanyName = "Motion Software";
+
+            public const string ScaleFocusCompanyName = "Scale Focus";
+
+            public const string AdministratorCompanyName = "UpSkill";
+        }
     }
 }
+
