@@ -1,9 +1,7 @@
 import React from 'react';
-import CategoriesAndLanguageMenu from '../CategoriesAndLanguageMenu/categoryAndLanguageMenu';
-import CoursesCard from '../CoursesCard/CoursesCard';
-import EmployeesPositionCard from '../EmployeesPositionCard/EmployeesPositionCard';
 
-import Coaches from '../Coaches/Coaches';
+import CategoriesAndLanguageMenu from '../CategoriesAndLanguageMenu/categoryAndLanguageMenu';
+import CoursesCatalog from './CoursesCatalog/CoursesCatalog';
 
 import './Courses.css';
 
@@ -11,9 +9,11 @@ export default function Courses() {
   return (
     <div className="content">
       <CategoriesAndLanguageMenu atPage="Courses" />
+      <div className="wrapper row">
 
-      <CoursesCard />
+        <CoursesCatalog />
       
+      </div>
     </div>
   );
 }
