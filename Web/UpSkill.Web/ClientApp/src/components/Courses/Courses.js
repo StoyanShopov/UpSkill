@@ -13,7 +13,6 @@ export default function Courses() {
       <CategoriesAndLanguageMenu atPage="Courses" />
 
       <CoursesCard />
-      
     </div>
   );
 }

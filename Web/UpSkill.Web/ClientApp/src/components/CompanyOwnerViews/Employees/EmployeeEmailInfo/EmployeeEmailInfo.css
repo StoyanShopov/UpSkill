@@ -1,3 +1,43 @@
+.table-row.header-EmployeeCourse {
+    color: #fff;
+    background: #296CFB;
+    font-weight: bold;
+}
+
+.header-EmployeeCourse .cell:nth-child(1){
+    padding-left: 5rem!important;
+}
+
+.add-employee-btn:hover{
+    cursor: pointer;
+}
+
+.cell-Employees-Courses{
+    color: #fff!important;
+    font-size: 1.4rem!important;
+}
+
+.cell-Employees-Courses i{
+    font-size: xxx-large;
+}
+
+.cell-Employees-Courses:nth-child(3){
+    padding: 1rem 0;
+}
+
+.cell-data-Employees-Courses{
+    color: #296CFB!important;
+    text-decoration: none!important;
+    width: 50%;
+}
+
+.email-cell-data{
+    padding-left: 1rem!important;
+    color: black!important;    
+    font-weight: 100!important;
+}
+
+
 .limiter {
     width: 100%;
     margin: 0 auto
@@ -30,6 +70,9 @@
     margin: 0
 }
 
+.table-content{
+    flex-direction: row;
+}
 
 .table-row.header {
     color: #fff;
@@ -51,14 +94,6 @@
     background-color: rgb(241, 240, 240);
 }
 
-@media screen and (max-width:768px) {
-    .table {
-        display: block
-    }
-    .wrapper{
-        display: block
-    }
-}
 
 @media screen and (max-width:768px) {    
     .wrapper,
@@ -66,6 +101,7 @@
         display: block!important;
         width: 100%;
     }
+
     .table-row.header {
         padding: 0;
     }
@@ -74,7 +110,6 @@
         color: gray;
         line-height: 1.2;
         text-transform: uppercase;
-        font-weight: unset!important;
         margin-bottom: 13px;
         content: attr(data-title);
         min-width: 98px;
@@ -86,21 +121,10 @@
     display: table-cell;
 }
 
-@media screen and (max-width:768px) {
-    .cell {
-        display: block;
-    }
-    
-    .wrapper{
-        display: block;
-    }
-}
-
 .table-row .cell {
     font-size: 1rem;
     color: #666;
     line-height: 1.2;
-    font-weight: unset!important;
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-bottom: 2px solid #f2f2f2
@@ -116,9 +140,12 @@
 }
 
 .table-row .cell:nth-child(1) {
-    width: 25rem;
-    font-weight: bold!important;
+    width: 50rem;
     padding-left: 4rem;
+}
+
+.name-cell-data{
+    font-weight: bold!important;
 }
 
 .table-row .cell-data-Employees-Coaches{
@@ -127,7 +154,8 @@
 }
 
 .table-row .cell:nth-child(2) {
-    width: 20rem;
+    width: 60rem;
+    padding-left: 5rem;
 }
 
 .table-row .cell:nth-child(3) {
@@ -137,7 +165,29 @@
 @media(max-width:768px) {    
     .wrapper{
         display: block;
+        margin: .5rem;
     }
+       
+    .wrap-table100 {
+        width: 70%;
+    }
+
+    .table{
+        align-items: center;
+    }
+
+
+    .header-EmployeeCourse{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .add-employee-btn{
+        display: flex!important;
+        justify-content: end;
+        padding: 0!important;
+    }
+
     .table-row {
         border-bottom: 2px solid #f2f2f2;
         padding-bottom: 1rem;
@@ -151,7 +201,25 @@
         padding-left: 1rem;
         padding-top: 1rem;
         padding-bottom: 1rem;
+        display: block;
     }
+    
+    .table-row .cell:nth-child(1)::after {
+        content: attr(href);
+        color: black;
+        width: 100%;
+        line-height: 1.8;
+        display: block;
+    }
+
+    .table-content-emails{
+        display: none;
+    }
+
+    .table-content-names{
+        width: 100%!important;
+    }
+
     .table-row .cell:nth-child(1) {
         padding-left: 1rem;
     }

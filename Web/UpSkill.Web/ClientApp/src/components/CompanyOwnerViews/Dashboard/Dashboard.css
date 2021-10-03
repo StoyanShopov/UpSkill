@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+.employeesOverview-cell{
+    width: 33%;
+}
+
+.employeesOverview-heading{
+    font-weight: 800!important;
+}
+
+.employeesOverview-count,
+.employeesOverview-activeCourses{
+    border-right: 1px solid black;
+}
+
+.employeesOverview-activeCourses,
+.employeesOverview-activeCoaches{
+    padding-left: 3rem;
+}
+
+.employeesOverview h4{
+    font-size: 1.3rem!important;
+}
+
+.employeesOverview-activeCourses h1{
+    font-family: 'Montserrat', sans-serif;
+    color: #296CFB;
+}
+
+.employeesOverview-activeCoaches h1{
+    font-family: 'Montserrat', sans-serif;
+    color: #1CC18A;
+}

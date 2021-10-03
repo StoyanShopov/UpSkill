@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import CoachCard from '../../Shared/CoachCard/CoachCard';
+import CoachesCard from '../../Coaches/CoachesCatalog/Coaches-Card/Coaches-Card';
 import './CompanyCoaches.css';
 import { Button } from 'react-bootstrap';
 
@@ -20,18 +20,18 @@ export default function CoachList() {
     <>
       <div className={'buttonContainer'}>
         {' '}
-        <Button variant="primary">Primary</Button>
+        <input type="button" className="btn btn-outline-primary px-4 m-4" value="Add"/>
       </div>
       <div className="coachesContainer">
         {coaches.map((coach) => (
-          <CoachCard
+          <CoachesCard
             key={coach.id}
             coachDetails={coach}
             displaySession={false}
             displayPrice={true}
           >
             <Button className="cardButton"> Cancel</Button>
-          </CoachCard>
+          </CoachesCard>
         ))}
       </div>
     </>

@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from 'react';
 
-import { getEmployeesCourseGrade } from '../../../../services/employeeService';
+import { getEmployeeWithEmail } from '../../../../services/employeeService';
 
 
-import './EmployeeCourseInfo.css';
+import './EmployeeEmailInfo.css';
 
-export default function EmployeeCourseInfo() {
+export default function EmployeeEmailInfo() {
     let [allEmployees, setallEmployees] = useState([]);
     let [currentPage, setCurrentPage] = useState(0);
 
     useEffect(() => {
-        getEmployeesCourseGrade(currentPage)
+        getEmployeeWithEmail(currentPage)
             .then(employees => {
                 setallEmployees(employees);
             });
@@ -19,7 +19,7 @@ export default function EmployeeCourseInfo() {
     function showMoreEmployees() {
         let next = currentPage+1;
         setCurrentPage(next);
-        getEmployeesCourseGrade(currentPage)
+        getEmployeeWithEmail(currentPage)
             .then(employees => {         
                 setallEmployees([]);
                 setallEmployees(arr=> [...arr,...employees]);
@@ -28,34 +28,47 @@ export default function EmployeeCourseInfo() {
     }
 
     return (
-        <div className="">
                 <div className="wrap-table100 mt-5 shadow mb-5 bg-body rounded">
                     <div className="table">
                         <div className="table-row header-EmployeeCourse">
                             <div className="cell cell-Employees-Courses">
-                                Employee
+                                Employees
                             </div>
                             <div className="cell cell-Employees-Courses">
-                                Course Name
+                                Email
                             </div>
-                            <div className="cell cell-Employees-Courses">
-                                Grade
+                            
+                            <div className="cell cell-Employees-Courses add-employee-btn">
+                            <i className="fas fa-plus-circle"></i>
                             </div>
                         </div>
+                        <div className="table-content d-flex ">
+
+                        <div className="table-content-names w-50">
                         {allEmployees.map(employee=>{
                             return (
-                                <div className="table-row" key={employee.name+employee.hours+employee.id}>
-                                    <div className="cell cell-data-Employees-Courses" data-title="Employee">
+                                <div className="table-row px-3" key={employee.name+employee.email}>
+                                    <div className="cell cell-data-Employees-Courses name-cell-data" data-title="Employee" href={employee.email}>
                                         {employee.name}
-                                    </div>                            
-                                    <div className="cell" data-title="Coach">
-                                        {employee.coach}
-                                    </div>
-                                    <div className="cell" data-title="Hours">
-                                        {employee.hours}h
-                                    </div>
+                                    </div>                                                               
                                 </div>);
                         })}
+                        </div>
+
+                        <div className="table-content-emails w-50">
+
+                        {allEmployees.map(employee=>{
+                            return (
+                                <div className="table-row px-3" key={employee.email}>
+                                    <div className="cell cell-data-Employees-Courses email-cell-data" data-title="EmployeeEmail">
+                                        {employee.email}
+                                    </div>                            
+                                </div>);
+                        })}
+                        </div>
+                         
+                        </div>
+                        
                         <div className="table-row">
                                     <div className="table-viewMoreLink"  data-mdb-ripple-color="dark">
                                         <span className="btn btn-link cell-data-Employees-Courses" onClick={showMoreEmployees}>View More</span>
@@ -63,6 +76,5 @@ export default function EmployeeCourseInfo() {
                                 </div>
                     </div>
                 </div>
-        </div>
     );
 }

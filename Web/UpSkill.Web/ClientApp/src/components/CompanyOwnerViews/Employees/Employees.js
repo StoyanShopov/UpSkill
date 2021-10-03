@@ -1,18 +1,14 @@
 import React from 'react';
-import EmployeeCourseInfo from './EmployeeCourseInfo/EmployeeCourseInfo';
-import EmployeeCoachInfo from './EmployeeCoachInfo/EmployeeCoachInfo';
+import EmployeeEmailInfo from './EmployeeEmailInfo/EmployeeEmailInfo';
 
 import './Employees.css';
 
 
 export default function Employees() {
     return (
-      <div className="content w-100 px-5 main-content">
-          <EmployeeCourseInfo />
-           
-          <EmployeeCoachInfo />
+      <div className="content w-100 main-content">
+          <EmployeeEmailInfo />           
       </div>
     );
   }
 
-  

@@ -1,0 +1,36 @@
+.sidebar-content{    
+    top: 50px;
+    width: 30%;
+    background-color: #296CFB1A;
+    padding: 5rem;
+}
+
+.selectedMenuStyle{    
+    font-Weight: 550;
+    display: block;
+    color: grey;
+}
+
+.nonSelectedMenuStyle{
+    font-Weight: 450;
+    padding: 1.5rem 0;
+    display: block;
+    color: black;
+    border-Top: 1px solid grey;
+}
+
+.nonSelectedMenuStyle:hover{
+    font-weight: 600!important;
+}
+
+.companyOwner-photo{
+    margin-Bottom: 12%;
+    display: flex;
+    margin-top: -4rem;
+}
+
+@media(max-width:1200px) {    
+    .sidebar-content{
+        width: 100%!important;
+    }
+}

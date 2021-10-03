@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import './CoursesCard.css';
 
 function CoursesCard() {
@@ -14,5 +14,6 @@ function CoursesCard() {
     </div>
   );
 }
+
 
 export default CoursesCard;
