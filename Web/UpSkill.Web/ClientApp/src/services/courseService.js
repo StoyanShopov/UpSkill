@@ -5,31 +5,31 @@ const initialCourses = [
     id: 1,
     courseName: 'Marketing',
     coachName: 'Jim Wilber',
-    imageUrl: '../assets/img/courses/Marketing.png',
+    imageName: 'Marketing.png',
   },
   {
     id: 2,
     courseName: 'Design',
     coachName: 'Tom Smith',
-    imageUrl: '../assets/img/courses/Design.png',
+    imageName: 'Design.png',
   },
   {
     id: 3,
     courseName: 'Management',
     coachName: 'Sarah Coleman',
-    imageUrl: '../assets/img/courses/Management.png',
+    imageName: 'Management.png',
   },
   {
     id: 4,
     courseName: 'HTML&CSS',
     coachName: 'David Can',
-    imageUrl: '../assets/img/courses/HTML&CSS.png',
+    imageName: 'HTML&CSS.png',
   },
   {
     id: 5,
     courseName: 'Java',
     coachName: 'Emily Hill',
-    imageUrl: '../assets/img/courses/Java.png',
+    imageName: 'Java.png',
   },
 ];
 

@@ -24,6 +24,7 @@ export default function CoursesCatalog() {
                 key={course.id}
                 courseName={course.courseName}
                 coachName={course.coachName}
+                imageName={course.imageName}
               ></CoursesCard>
             </div>
           ))}
