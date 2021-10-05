@@ -17,16 +17,16 @@ Pass: M6vAQm4dLFbF
 
 ### VS Code Extensions
 
-Auto Rename Tag
-Bracket Pair Colorizer
-Code Spell Checker
-CSS Peek
-EditorConfig for VS Code
-English Support for LanguageTool
-ES7 React/Redux/GraphQL/React-Native snippets
-ESLint
-HTML CSS Suppor
-LanguageTool for Visual Studio Code
-lit-html
-Prettier - Code formatter
-vscode-icons
+* Auto Rename Tag
+* Bracket Pair Colorizer
+* Code Spell Checker
+* CSS Peek
+* EditorConfig for VS Code
+* English Support for LanguageTool
+* ES7 React/Redux/GraphQL/React-Native snippets
+* ESLint
+* HTML CSS Suppor
+* LanguageTool for Visual Studio Code
+* lit-html
+* Prettier - Code formatter
+* vscode-icons
