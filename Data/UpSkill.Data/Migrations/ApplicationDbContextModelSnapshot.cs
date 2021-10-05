@@ -232,7 +232,7 @@ namespace UpSkill.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PositionId")
+                    b.Property<int>("PositionId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
@@ -391,7 +391,9 @@ namespace UpSkill.Data.Migrations
 
                     b.HasOne("UpSkill.Data.Models.Position", "Position")
                         .WithMany("Users")
-                        .HasForeignKey("PositionId");
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Company");
 

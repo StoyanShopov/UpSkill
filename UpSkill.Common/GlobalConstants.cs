@@ -108,6 +108,8 @@ namespace UpSkill.Common
             public const string SeniorSoftwareDeveloperPositionName = "Senior Software Developer";
 
             public const string AdministratorPositionName = "Administrator";
+
+            public const string PositionDoesNotExist = "The position you entered does not exist";  
         }
 
         public class CompaniesNamesConstants
