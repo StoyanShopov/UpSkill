@@ -69,7 +69,7 @@
                 .FirstOrDefaultAsync(x => x.Name == model.CompanyName);
 
             var positionObj = await this.positions
-                .All()
+                .AllAsNoTracking()
                 .FirstOrDefaultAsync(x => x.Name == model.PositionName);  
 
             if (company == null)
