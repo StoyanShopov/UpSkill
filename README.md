@@ -15,6 +15,9 @@
 * Account: softuni-bg
 * Pass: M6vAQm4dLFbF
 
+### React JS course
+* https://youtube.com/playlist?list=PLLI4Kq677Eh_fRSUqWxzWuYdYkiUGGZx-
+
 ### VS Code Extensions
 
 * Auto Rename Tag
