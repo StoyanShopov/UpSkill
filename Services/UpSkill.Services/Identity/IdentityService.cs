@@ -86,10 +86,10 @@
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserName = model.Email,
+                Company = company,
+                PositionId = positionObj.Id,
                 Email = model.Email,
-                Company = company, 
-                PositionId = positionObj.Id
+                UserName = model.Email
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);
