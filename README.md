@@ -12,8 +12,8 @@
 ## Sharing is Caring
 
 ### Pluralsight
-Account: softuni-bg
-Pass: M6vAQm4dLFbF
+* Account: softuni-bg
+* Pass: M6vAQm4dLFbF
 
 ### VS Code Extensions
 
