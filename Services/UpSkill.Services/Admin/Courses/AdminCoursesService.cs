@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Services.SuperAdmin.Courses
+﻿namespace UpSkill.Services.Admin.Courses
 {
     using System;
 
@@ -6,15 +6,15 @@
 
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
-    using UpSkill.Services.Contracts.SuperAdmin.Courses;
+    using UpSkill.Services.Contracts.Admin.Courses;
 
-    public class SuperAdminCoursesService : ISuperAdminCoursesService
+    public class AdminCoursesService : IAdminCoursesService
     {
         private readonly IDeletableEntityRepository<Company> companyRepository;
 
         //Constructor has repository injected as an example
         //    Add (Change it with) the model you will need
-        public SuperAdminCoursesService(IDeletableEntityRepository<Company> companyRepository)
+        public AdminCoursesService(IDeletableEntityRepository<Company> companyRepository)
         {
             this.companyRepository = companyRepository;
         }

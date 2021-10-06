@@ -7,18 +7,18 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using UpSkill.Services.Contracts.SuperAdmin.Courses;
-    using UpSkill.Services.Contracts.SuperAdmin.Users;
+    using UpSkill.Services.Contracts.Admin.Courses;
+    using UpSkill.Services.Contracts.Admin.Users;
 
-    public class SuperAdminController : ApiController
+    public class AdminController : BaseApiController
     {
-        private readonly ISuperAdminCoursesService superAdminCoursesService;
-        private readonly ISuperAdminUsersService superAdminUsersService;
+        private readonly IAdminCoursesService superAdminCoursesService;
+        private readonly IAdminUsersService superAdminUsersService;
 
         //Inject other services if needed
-        public SuperAdminController(
-            ISuperAdminCoursesService superAdminCoursesService,
-            ISuperAdminUsersService superAdminUsersService)
+        public AdminController(
+            IAdminCoursesService superAdminCoursesService,
+            IAdminUsersService superAdminUsersService)
         {
             this.superAdminCoursesService = superAdminCoursesService;
             this.superAdminUsersService = superAdminUsersService;
