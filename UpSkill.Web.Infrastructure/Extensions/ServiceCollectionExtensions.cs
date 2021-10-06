@@ -30,6 +30,8 @@
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
+    using UpSkill.Services.Contracts.SuperAdmin.Users;
+    using UpSkill.Services.SuperAdmin.Users;
 
     public static class ServiceCollectionExtensions
     {
@@ -109,7 +111,8 @@
                 .AddTransient<IAccountService, AccountService>() 
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
-                .AddScoped<IDbQueryRunner, DbQueryRunner>();
+                .AddScoped<IDbQueryRunner, DbQueryRunner>()
+                .AddScoped<ISuperAdminUsersService, SuperAdminUsersService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services

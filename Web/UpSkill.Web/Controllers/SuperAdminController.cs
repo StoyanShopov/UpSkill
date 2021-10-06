@@ -7,54 +7,29 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using UpSkill.Services.Contracts.SuperAdmin.Courses;
     using UpSkill.Services.Contracts.SuperAdmin.Users;
+    using UpSkill.Web.ViewModels.Administration.Users;
 
     public class SuperAdminController : ApiController
     {
-        private readonly ISuperAdminCoursesService superAdminCoursesService;
         private readonly ISuperAdminUsersService superAdminUsersService;
 
         //Inject other services if needed
-        public SuperAdminController(
-            ISuperAdminCoursesService superAdminCoursesService,
-            ISuperAdminUsersService superAdminUsersService)
+        public SuperAdminController(ISuperAdminUsersService superAdminUsersService)
         {
-            this.superAdminCoursesService = superAdminCoursesService;
             this.superAdminUsersService = superAdminUsersService;
         }
 
-
-        //All these are here as an example.
-        //You can delete everything.
-        //https://www.youtube.com/watch?v=0hCSWkC9VPc 
-        //feel blessed
-
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> PromoteUser(UserByEmailViewModel viewModel)
         {
+
             return null;
         }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> DemoteUser(UserByEmailViewModel viewModel)
         {
+
             return null;
-        }
-
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
