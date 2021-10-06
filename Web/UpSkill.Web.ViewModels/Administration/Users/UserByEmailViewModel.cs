@@ -2,6 +2,8 @@
 {
    public class UserByEmailViewModel
     {
-        public string email { get; set; }
+        public string Email { get; set; }
+
+        public string Keyword { get; set; }
     }
 }

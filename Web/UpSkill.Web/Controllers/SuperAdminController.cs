@@ -14,22 +14,17 @@
     {
         private readonly ISuperAdminUsersService superAdminUsersService;
 
-        //Inject other services if needed
         public SuperAdminController(ISuperAdminUsersService superAdminUsersService)
         {
             this.superAdminUsersService = superAdminUsersService;
         }
 
-        public async Task<IActionResult> PromoteUser(UserByEmailViewModel viewModel)
+        public async Task<IActionResult> UpdateUserRole(UserByEmailViewModel viewModel)
         {
+            var user = this.superAdminUsersService
+                           .UpdateUser(viewModel.Email, viewModel.Keyword);
 
-            return null;
-        }
-
-        public async Task<IActionResult> DemoteUser(UserByEmailViewModel viewModel)
-        {
-
-            return null;
+            return Ok($"{viewModel.Email} role was updated successfully!");
         }
     }
 }

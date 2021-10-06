@@ -4,8 +4,6 @@
 
     public interface ISuperAdminUsersService
     {
-        Task PromoteUser(string email);
-
-        Task DemoteUser(string email);
+        Task UpdateUser(string email,string keyword);
     }
 }

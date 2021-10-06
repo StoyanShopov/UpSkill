@@ -32,6 +32,8 @@
     using static Common.GlobalConstants.EmailSenderConstants;
     using UpSkill.Services.Contracts.SuperAdmin.Users;
     using UpSkill.Services.SuperAdmin.Users;
+    using UpSkill.Services.Contracts.SuperAdmin.Courses;
+    using UpSkill.Services.SuperAdmin.Courses;
 
     public static class ServiceCollectionExtensions
     {
@@ -112,7 +114,8 @@
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
-                .AddScoped<ISuperAdminUsersService, SuperAdminUsersService>();
+                .AddScoped<ISuperAdminUsersService, SuperAdminUsersService>()
+                .AddScoped<ISuperAdminCoursesService, SuperAdminCoursesService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
