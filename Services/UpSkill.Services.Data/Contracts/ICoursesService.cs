@@ -4,13 +4,13 @@
 
     using UpSkill.Web.ViewModels.Administration.Courses;
 
-    public interface IRepository
+    public interface ICoursesService
     {
-        Task<string> CreateCourse(CourseFormModel model);
+        Task<string> CreateCourse(CourseInputModel model);
 
         Task<CourseViewModel> GetCourseById(string id);
 
-        Task<string> EditCourse(CourseFormModel model, string id);
+        Task<string> EditCourse(CourseInputModel model, string id);
 
         Task<string> DeleteCourse(string id);
     }

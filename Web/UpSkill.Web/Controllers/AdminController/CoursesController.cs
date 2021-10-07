@@ -1,38 +1,46 @@
-﻿namespace UpSkill.Web.Controllers.SuperAdminController
+﻿namespace UpSkill.Web.Controllers.AdminController
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Admin;
     using UpSkill.Web.ViewModels.Administration.Courses;
 
+    using static Common.GlobalConstants;
     using static Common.GlobalConstants.AdminControllerConstants;
 
-    public class CoursesController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class CoursesController : ApiController
     {
-        private readonly Repository repository;
+        private readonly CoursesService coursesService;
 
-        public CoursesController(Repository repository)
+        public CoursesController(CoursesService coursesService)
         {
-            this.repository = repository;
+            this.coursesService = coursesService;
         }
 
-        public async Task<ActionResult> CreateCourse(CourseFormModel model)
+        [HttpPost]
+        [Route(CreateRouteName)]
+        public async Task<ActionResult> CreateCourse(CourseInputModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ErrorMessage);
             }
 
-            await this.repository.CreateCourse(model);
+            await this.coursesService.CreateCourse(model);
 
             return Ok(SuccessMessage);
         }
 
+        [HttpGet]
+        [Route(GetRouteName)]
         public async Task<ActionResult> GetCourseById(string id)
         {
-            var result = await this.repository.GetCourseById(id);
+            var result = await this.coursesService.GetCourseById(id);
 
             if (result == null)
             {
@@ -42,9 +50,11 @@
             return Ok(result);
         }
 
-        public async Task<ActionResult> EditCourse(CourseFormModel model, string id)
+        [HttpPut]
+        [Route(EditRouteName)]
+        public async Task<ActionResult> EditCourse(CourseInputModel model, string id)
         {
-            var result = await this.repository.EditCourse(model, id);
+            var result = await this.coursesService.EditCourse(model, id);
 
             if (result == null)
             {
@@ -54,9 +64,11 @@
             return Ok(SuccessMessage);
         }
 
+        [HttpDelete]
+        [Route(DeleteRouteName)]
         public async Task<ActionResult> DeleteCourse(string id)
         {
-            var result = await this.repository.DeleteCourse(id);
+            var result = await this.coursesService.DeleteCourse(id);
 
             if (result == null)
             {

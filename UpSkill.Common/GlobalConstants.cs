@@ -58,6 +58,11 @@
 
         public class AdminControllerConstants
         {
+            public const string CreateRouteName = "create";
+            public const string GetRouteName = "get";
+            public const string EditRouteName = "edit";
+            public const string DeleteRouteName = "delete";
+            public const string AdminRoleName = "Administrator";
             public const string SuccessMessage = "Operation is successfull.";
             public const string ErrorMessage = "Operation is unsuccessfull.";
         }

@@ -8,6 +8,7 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
     using UpSkill.Data.Common.Models;
     using UpSkill.Data.Models;
 
@@ -26,6 +27,15 @@
         public DbSet<Company> Companies { get; set; }
 
         public DbSet<Position> Positions { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Language> Languages { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Rating> Ratings { get; set; }
+
 
         public override int SaveChanges() => this.SaveChanges(true);
 

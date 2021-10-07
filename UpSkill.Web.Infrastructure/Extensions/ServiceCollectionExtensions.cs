@@ -1,13 +1,13 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
+    using System.Text; 
+
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models; 
-
-    using System.Text; 
 
     using UpSkill.Data;
     using UpSkill.Data.Common;
@@ -16,6 +16,8 @@
     using UpSkill.Data.Repositories;
     using UpSkill.Services;
     using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Contracts;
     using UpSkill.Services.Identity;
     using UpSkill.Web.Filters;
     using UpSkill.Web.Infrastructure.Web.Extensions;
@@ -90,7 +92,8 @@
                 .AddTransient<IIdentityService, IdentityService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
-                .AddScoped<IDbQueryRunner, DbQueryRunner>();
+                .AddScoped<IDbQueryRunner, DbQueryRunner>()
+                .AddScoped<ICoursesService, CoursesService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
            => services.AddSwaggerGen(c =>

@@ -1,41 +1,38 @@
 ﻿namespace UpSkill.Services.Data.Admin
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts;
     using UpSkill.Web.ViewModels.Administration.Courses;
 
-    public class Repository : IRepository
+    public class CoursesService : ICoursesService
     {
         private readonly IDeletableEntityRepository<Course> courses;
 
-        public Repository(IDeletableEntityRepository<Course> courses)
+        public CoursesService(IDeletableEntityRepository<Course> courses)
         {
             this.courses = courses;
         }
 
-        public async Task<string> CreateCourse(CourseFormModel model)
+        public async Task<string> CreateCourse(CourseInputModel model)
         {
             var newCourse = new Course
             {
-                CourseTitle = model.CourseTitle,
+                Title = model.Title,
                 CreatorFirstName = model.CreatorFirstName,
                 CreatorLastName = model.CreatorLastName,
-                CourseDescription = model.CourseDescription,
+                Description = model.Description,
                 AdditionalInformation = model.AdditionalInformation,
-                CourseImage = model.CourseImage,
-                CourseCategory = model.CourseCategory,
+                Price = model.Price,
                 CategoryId = model.CategoryId,
-                CourseLanguages = model.CourseLanguages,
-                PricePerPerson = model.PricePerPerson,
-                CreatorCompanyLogo = model.CreatorCompanyLogo
+                Category = model.Category,
+                Languages = model.Languages
+                //CourseImage = model.Image,
+                //CreatorCompanyLogo = model.CreatorCompanyLogo,
             };
 
             await courses.AddAsync(newCourse);
@@ -47,7 +44,7 @@
         public async Task<CourseViewModel> GetCourseById(string id)
         {
             var course = await this.courses
-                .All()
+                .AllAsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (course == null)
@@ -58,21 +55,21 @@
             return new CourseViewModel
             {
                 Id = course.Id,
-                CourseTitle = course.CourseTitle,
+                Title = course.Title,
                 CreatorFirstName = course.CreatorFirstName,
                 CreatorLastName = course.CreatorLastName,
-                CourseDescription = course.CourseDescription,
+                Description = course.Description,
                 AdditionalInformation = course.AdditionalInformation,
-                CourseImage = course.CourseImage,
-                CourseCategory = course.CourseCategory,
+                Price = course.Price,
+                Category = course.Category,
                 CategoryId = course.CategoryId,
-                CourseLanguages = course.CourseLanguages,
-                PricePerPerson = course.PricePerPerson,
-                CreatorCompanyLogo = course.CreatorCompanyLogo
+                Languages = course.Languages
+                //CreatorCompanyLogo = course.CreatorCompanyLogo
+                //Image = course.Image,
             };
         }
 
-        public async Task<string> EditCourse(CourseFormModel model, string id)
+        public async Task<string> EditCourse(CourseInputModel model, string id)
         {
             var course = await this.courses
                 .All()
@@ -83,17 +80,18 @@
                 return null;
             }
 
-            course.CourseTitle = model.CourseTitle;
+            course.Title = model.Title;
             course.CreatorFirstName = model.CreatorFirstName;
             course.CreatorLastName = model.CreatorLastName;
-            course.CourseDescription = model.CourseDescription;
+            course.Description = model.Description;
             course.AdditionalInformation = model.AdditionalInformation;
-            course.CourseImage = model.CourseImage;
-            course.CourseCategory = model.CourseCategory;
+            course.Price = model.Price;
             course.CategoryId = model.CategoryId;
-            course.CourseLanguages = model.CourseLanguages;
-            course.PricePerPerson = model.PricePerPerson;
-            course.CreatorCompanyLogo = model.CreatorCompanyLogo;
+            course.Category = model.Category;
+            course.Languages = model.Languages;
+
+            //course.CreatorCompanyLogo = model.CreatorCompanyLogo;
+            //course.Image = model.Image;
 
             await this.courses.SaveChangesAsync();
 

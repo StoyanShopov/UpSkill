@@ -7,8 +7,13 @@
 
     public class Course : BaseDeletableModel<string>
     {
+        public Course()
+        {
+            this.Languages = new HashSet<Language>();
+        }
+
         [Required]
-        public string CourseTitle { get; set; }
+        public string Title { get; set; }
 
         [Required]
         public string CreatorFirstName { get; set; }
@@ -17,27 +22,27 @@
         public string CreatorLastName { get; set; }
 
         [Required]
-        public string CourseDescription { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public string AdditionalInformation { get; set; }
 
-        [Required]
-        public double PricePerPerson { get; set; }
+        public decimal Price { get; set; }
 
-        [Required]
         public int CategoryId { get; set; }
-        public Category CourseCategory { get; set; }
+        public Category Category { get; set; }
 
-        [Required]
-        public byte[] CourseImage { get; set; }
+        public int RatingId { get; set; }
+        public Rating Rating { get; set; }
 
-        [Required]
-        public byte[] CreatorCompanyLogo { get; set; }
+        //TODO: BLOB Storage needed 
 
-        //some rating property
+        //[Required]
+        //public byte[] CourseImage { get; set; }
 
-        [Required]
-        public ICollection<Language> CourseLanguages { get; set; } = new List<Language>();
+        //[Required]
+        //public byte[] CreatorCompanyLogo { get; set; }
+
+        public ICollection<Language> Languages { get; set; }
     }
 }
