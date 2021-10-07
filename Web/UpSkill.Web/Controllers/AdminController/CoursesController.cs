@@ -8,7 +8,6 @@
     using UpSkill.Services.Data.Admin;
     using UpSkill.Web.ViewModels.Administration.Courses;
 
-    using static Common.GlobalConstants;
     using static Common.GlobalConstants.AdminControllerConstants;
 
     [ApiController]
