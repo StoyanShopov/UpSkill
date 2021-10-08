@@ -4,8 +4,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CompanyOwnerSidebar from './components/CompanyOwnerViews/CompanyOwnerSidebar/CopmanyOwnerSidebar'
 import CompanyCoaches from './components/CompanyOwnerViews/CompanyCoaches/CompanyCoaches'
-import CoursesCard from './components/CoursesCard/CoursesCard';
-import EmployeesPositionCard from './components/EmployeesPositionCard/EmployeesPositionCard';
 import Home from './components/Home';
 import Courses from './components/Courses/Courses';
 import Coaches from './components/Coaches/Coaches';
@@ -19,10 +17,6 @@ function App() {
   return (
     <IdentityContext.Provider value={{ user, setUser }}>
       <>
-      {/* 
-          <CoursesCard></CoursesCard>
-          <EmployeesPositionCard></EmployeesPositionCard>
-       */}
 
       <Layout>
         <Route exact path='/' component={Home}/>
