@@ -1,6 +1,7 @@
 ﻿namespace UpSkill.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,14 @@
     //[Authorize(Roles ="Administrator")]
     public class AdminController : ApiController
     {
-        private readonly IAdminUsersService superAdminUsersService;
+        private readonly IAdminUsersService adminUsersService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public AdminController(IAdminUsersService superAdminUsersService,
+        public AdminController(IAdminUsersService adminUsersService,
             UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
-            this.superAdminUsersService = superAdminUsersService;
+            this.adminUsersService = adminUsersService;
         }
 
         [HttpPut]
@@ -42,7 +43,7 @@
                 return BadRequest(UserNotFound);
             }
 
-            var result = await this.superAdminUsersService
+            var result = await this.adminUsersService
                             .Promote(user);
 
             if (result != AssignedSuccessfully)
@@ -69,7 +70,7 @@
                 return BadRequest(UserNotFound);
             }
 
-            var result = await this.superAdminUsersService
+            var result = await this.adminUsersService
                            .Demote(user);
 
             if (result != UnassignedSuccessfully)
