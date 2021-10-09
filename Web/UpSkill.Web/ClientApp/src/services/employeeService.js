@@ -13,11 +13,17 @@ const employeesEmailMock =
         {id:'u23dfdsf', name:'Justin Carter', email:'Leadership@mail.com', hours:'1'},
     ];
 
+const totalCountEmployees = 64;
+
 export const getEmployeeWithEmail = async (currentPage) => {
-//      let res = await request(``, 'Get');
         let arr = [];
         arr.push(...employeesEmailMock
             .slice(0, currentPage * numberEmployeesToShow + numberEmployeesToShow));    
         
        return arr;
+}
+
+export const getEmployeesTotalCountCompanyOwner = async (uId) => {
+    
+   return totalCountEmployees;
 }

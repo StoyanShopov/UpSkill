@@ -1,19 +1,21 @@
 import React, {useState, useEffect} from 'react';
 
 import { getEmployeeWithEmail } from '../../../../services/employeeService';
+import { disableBodyScroll } from '../../../../utils/utils';
 
 
 import './EmployeeEmailInfo.css';
 
-export default function EmployeeEmailInfo() {
+export default function EmployeeEmailInfo({onAddEmployee}) {
     let [allEmployees, setallEmployees] = useState([]);
     let [currentPage, setCurrentPage] = useState(0);
+    let [popupInner, setPopupInner] = useState(0);
 
     useEffect(() => {
         getEmployeeWithEmail(currentPage)
             .then(employees => {
                 setallEmployees(employees);
-            });
+            });        
     }, [currentPage]);
 
     function showMoreEmployees() {
@@ -23,8 +25,12 @@ export default function EmployeeEmailInfo() {
             .then(employees => {         
                 setallEmployees([]);
                 setallEmployees(arr=> [...arr,...employees]);
-                
             });
+    }
+
+    function onAddEmployeesInternal(clicked) {
+        disableBodyScroll();
+        onAddEmployee(clicked);
     }
 
     return (
@@ -38,7 +44,7 @@ export default function EmployeeEmailInfo() {
                                 Email
                             </div>
                             
-                            <div className="cell cell-Employees-Courses add-employee-btn">
+                            <div className="cell cell-Employees-Courses add-employee-btn" onClick={e=> onAddEmployeesInternal(true)}>
                             <i className="fas fa-plus-circle"></i>
                             </div>
                         </div>
@@ -67,8 +73,7 @@ export default function EmployeeEmailInfo() {
                         })}
                         </div>
                          
-                        </div>
-                        
+                        </div>                        
                         <div className="table-row">
                                     <div className="table-viewMoreLink"  data-mdb-ripple-color="dark">
                                         <span className="btn btn-link cell-data-Employees-Courses" onClick={showMoreEmployees}>View More</span>

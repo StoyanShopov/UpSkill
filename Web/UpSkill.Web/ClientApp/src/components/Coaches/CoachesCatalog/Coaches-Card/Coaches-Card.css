@@ -52,7 +52,7 @@
 
 .coaches-fullName{
     display: block;
-    font: normal normal 1.2rem/2rem Montserrat;
+    font: small normal 1.2rem/2rem Montserrat;
     letter-spacing: 1.1px;
 }
 .coaches-coachType{

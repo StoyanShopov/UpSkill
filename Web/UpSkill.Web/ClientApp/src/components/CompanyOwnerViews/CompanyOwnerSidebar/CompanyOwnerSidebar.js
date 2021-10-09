@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
 import React from 'react';
 import { Image } from 'react-bootstrap';
 
@@ -10,9 +10,11 @@ import companyOwnerBadgePic from '../../../assets/companyOwnerBadge-Pic.png';
 
 const SCREEN_HEIGHT = window.innerHeight;
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default function CompanyOwnerSidebar({ menuItems }) {
   let history = useHistory();
+  const location = useLocation();
+  const { pathname } = location;
+  const splitLocation = pathname.split("/");
   const selectedMenuName = history.location.pathname.substring(
     1,
     history.location.pathname.length
@@ -36,15 +38,17 @@ export default function CompanyOwnerSidebar({ menuItems }) {
         </div>
         <div style={{ textAlign: 'start' }}>
           {menuItems.map((menuItem) => (
-            <Link
+            <NavLink
               to={menuItem.path}
               key={menuItem.path}
               style={{ textDecoration: 'none' }}
+              className={splitLocation[2] === `${menuItem.name}` ? `active` : ''}
+              exact={menuItem.exact}
             >
-              <span className="nonSelectedMenuStyle">
+              <span className={menuItem.name==='Log Out'? 'logOut' : 'nonSelectedMenuStyle'}>
                 {menuItem.name}
               </span>
-            </Link>
+            </NavLink>
           ))}
         </div>
       </div>

@@ -30,12 +30,20 @@ footer .slants:before {
 			z-index: -1;
 }
 
+.contentFooter{
+	padding-bottom: 2rem;
+}
+
 .getStarted {
 	color: #0B2969!important;
 }
 
 #CopyRigthFooter {
 			border-top: 2px solid white;
+}
+
+.footer-copyRLogo{
+	font-size: 1.3rem;
 }
 
 @media screen and (max-width:768px){
@@ -46,6 +54,10 @@ footer .slants:before {
 
 	.getStarted{
 		justify-self: center;
+	}
+
+	.footer-content{
+		padding: 0 2rem;
 	}
 
 	.footer-serviceList,

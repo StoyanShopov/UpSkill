@@ -3,7 +3,6 @@ import { Route } from 'react-router';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import CompanyCoaches from './components/CompanyOwnerViews/CompanyCoaches/CompanyCoaches'
 import CompanyOwner from './components/CompanyOwnerViews/CompanyOwner';
 import Home from './components/Home';
 import Courses from './components/Courses/Courses';
