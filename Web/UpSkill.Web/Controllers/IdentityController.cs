@@ -18,7 +18,7 @@
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.MessagesConstants;
 
-    public class IdentityController : ApiController
+    public class IdentityController : BaseApiController
     {
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;

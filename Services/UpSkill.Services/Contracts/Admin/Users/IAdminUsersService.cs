@@ -9,5 +9,4 @@
         Task<string> Promote(ApplicationUser user);
 
         Task<string> Demote(ApplicationUser user);
-    }
 }

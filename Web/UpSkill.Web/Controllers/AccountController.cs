@@ -9,7 +9,7 @@ namespace UpSkill.Web.Controllers
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
         private readonly IAccountService account;
 

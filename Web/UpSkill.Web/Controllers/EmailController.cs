@@ -10,7 +10,7 @@
     using static Common.GlobalConstants.MessagesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
-    public class EmailController : ApiController
+    public class EmailController : BaseApiController
     {
         private readonly IEmailService emailService;
 

@@ -86,6 +86,5 @@
             var user = await this.userManager.FindByEmailAsync(email);
 
             return user;
-        }
     }
 }
