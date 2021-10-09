@@ -39,7 +39,7 @@
             this.positions = positions;
         }
 
-        public string GenerateJwtToken(string userId, string userName, string secret, string userEmail) 
+        public string GenerateJwtToken(string userId, string userName, string secret, string userEmail)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -123,8 +123,7 @@
                 user.Id,
                 user.UserName,
                 this.appSettings.Secret,
-                user.Email
-                );
+                user.Email);
 
             return new LoginResponseModel()
             {
