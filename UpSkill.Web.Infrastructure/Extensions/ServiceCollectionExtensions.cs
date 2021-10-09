@@ -26,6 +26,8 @@
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Services.Contracts.Account;
     using UpSkill.Services.Account;
+    using UpSkill.Services.Data.Contracts;
+    using UpSkill.Services.Data.Admin;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
@@ -85,6 +87,7 @@
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddJwtBearer(x =>
                 {
@@ -106,7 +109,8 @@
             => services 
                 .AddTransient<IIdentityService, IdentityService>()
                 .AddTransient<IEmailService, EmailService>() 
-                .AddTransient<IAccountService, AccountService>() 
+                .AddTransient<IAccountService, AccountService>()  
+                .AddTransient<IAdminUsersService, AdminUsersService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>();

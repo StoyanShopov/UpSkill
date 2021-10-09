@@ -39,7 +39,7 @@
             this.positions = positions;
         }
 
-        public string GenerateJwtToken(string userId, string userName, string secret, string userEmail)
+        public string GenerateJwtToken(string userId, string userName, string secret, string userEmail) 
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -51,6 +51,7 @@
                     new Claim(ClaimTypes.NameIdentifier, userId),
                     new Claim(ClaimTypes.Name, userName),
                     new Claim(ClaimTypes.Email, userEmail)
+                    //Need to add claims for roles
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -122,7 +123,8 @@
                 user.Id,
                 user.UserName,
                 this.appSettings.Secret,
-                user.Email);
+                user.Email
+                );
 
             return new LoginResponseModel()
             {

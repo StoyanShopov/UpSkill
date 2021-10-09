@@ -91,12 +91,13 @@
         [Route(UserRoute)]
         public async Task<LoginResponseModel> GetCurrentUser()
         {
-            var user = await userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+            var user = await userManager
+                .FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email)); 
 
             return new LoginResponseModel
             {
                 Id = user.Id,
-                Email = user.Email,
+                Email = user.Email
             };
         }
 
