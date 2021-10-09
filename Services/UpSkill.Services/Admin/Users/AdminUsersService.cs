@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Services.SuperAdmin.Users
+﻿namespace UpSkill.Services.Admin.Users
 {
     using System.Threading.Tasks;
 
