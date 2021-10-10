@@ -26,8 +26,10 @@
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Services.Contracts.Account;
     using UpSkill.Services.Account;
-    using UpSkill.Services.Data.Contracts;
+    using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Company;
+    using UpSkill.Services.Data.Contracts.Admin;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
@@ -109,7 +111,8 @@
                 .AddTransient<IIdentityService, IdentityService>()
                 .AddTransient<IEmailService, EmailService>() 
                 .AddTransient<IAccountService, AccountService>()  
-                .AddTransient<IAdminUsersService, AdminUsersService>()
+                .AddTransient<IAdminService, AdminService>() 
+                .AddTransient<ICompanyService, CompanyService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>();

@@ -1,10 +1,10 @@
-﻿namespace UpSkill.Web.ViewModels.Administration.Company
+﻿namespace UpSkill.Web.ViewModels.Company
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class InputRequestModel
-    {
+    public class CreateCompanyRequestModel
+    { 
         [Required]
         public string Name { get; set; }
-    } 
+    }
 }

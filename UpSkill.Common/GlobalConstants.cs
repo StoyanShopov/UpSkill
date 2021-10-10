@@ -67,13 +67,13 @@ namespace UpSkill.Common
 
             public const string ChangePasswordRoute = "changePassword";
 
-            public const string Create = "createCompany"; 
+            public const string CreateCompany = "create"; 
 
-            public const string Edit = "editCompany";
+            public const string EditCompany = "edit"; 
 
-            public const string Delete = "deleteCompany";
+            public const string DeleteCompany = "delete";
 
-            public const string AddOwner = "addOwner";
+            public const string AddOwnerCompany = "addOwnerToCompany"; 
         } 
 
         public class MessagesConstants
