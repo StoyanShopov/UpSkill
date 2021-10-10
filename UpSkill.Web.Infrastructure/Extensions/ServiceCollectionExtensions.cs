@@ -112,7 +112,7 @@
                 .AddTransient<IEmailService, EmailService>() 
                 .AddTransient<IAccountService, AccountService>()  
                 .AddTransient<IAdminService, AdminService>() 
-                .AddTransient<ICompanyService, CompanyService>()
+                .AddTransient<ICompanyService, CompaniesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>();

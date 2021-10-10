@@ -10,11 +10,11 @@
     using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
-    public class CompanyController : AdministrationBaseController
+    public class CompaniesController : AdministrationBaseController
     {
         private readonly ICompanyService companyService;
 
-        public CompanyController(ICompanyService companyService)
+        public CompaniesController(ICompanyService companyService)
             => this.companyService = companyService; 
 
         [HttpPost]

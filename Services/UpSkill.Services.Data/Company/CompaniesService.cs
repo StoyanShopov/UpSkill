@@ -12,11 +12,11 @@
 
     using static Common.GlobalConstants.CompaniesConstants;
 
-    public class CompanyService : ICompanyService
+    public class CompaniesService : ICompanyService
     {
         private readonly IDeletableEntityRepository<Company> companies;
 
-        public CompanyService(IDeletableEntityRepository<Company> companies) 
+        public CompaniesService(IDeletableEntityRepository<Company> companies) 
             => this.companies = companies;
 
         public async Task<Result> CreateAsync(CreateCompanyRequestModel model)
@@ -78,9 +78,15 @@
             return true;
         }
 
-        public async Task<Company> GetCompanyByIdAsync(int id)
-            => await this.companies
+        public async Task<ReturnCompanyResponceModel> GetCompanyByIdAsync(int id)
+        {
+            var company = await this.companies
                 .AllAsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
+
+            var model = new ReturnCompanyResponceModel() { Company = company };
+
+            return model;
+        }  
     }
 }

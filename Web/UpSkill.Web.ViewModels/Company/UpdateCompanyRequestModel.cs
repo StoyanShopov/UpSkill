@@ -4,7 +4,6 @@
 
     public class UpdateCompanyRequestModel
     {
-        [Required]
         public int Id { get; set; }
 
         [Required]
