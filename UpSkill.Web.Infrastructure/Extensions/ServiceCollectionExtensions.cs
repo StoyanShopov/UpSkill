@@ -26,6 +26,8 @@
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Services.Contracts.Account;
     using UpSkill.Services.Account;
+    using UpSkill.Services.Blob;
+    using UpSkill.Services.Contracts.Blob;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
@@ -49,12 +51,16 @@
             return applicationSettingsConfiguration.Get<AppSettings>();
         }
 
+
         public static IServiceCollection AddDatabase(
             this IServiceCollection services,
             IConfiguration configuration)
             => services
                 .AddDbContext<ApplicationDbContext>(options => options
                     .UseSqlServer(configuration.GetDefaultConnectionString()));
+
+        
+
 
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
@@ -109,7 +115,8 @@
                 .AddTransient<IAccountService, AccountService>() 
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
-                .AddScoped<IDbQueryRunner, DbQueryRunner>();
+                .AddScoped<IDbQueryRunner, DbQueryRunner>()
+                .AddTransient<IUploadService, UploadService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services

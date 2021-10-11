@@ -8,6 +8,8 @@ namespace UpSkill.Common
 
         public const string DefaultConnection = "DefaultConnection";
 
+        public const string BlobStorage = "BlobStorage";
+
         public const string ApplicationSettings = "ApplicationSettings";
 
         public const string Unauthorized = "Unauthorized";

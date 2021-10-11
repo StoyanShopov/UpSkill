@@ -1,4 +1,7 @@
-﻿namespace UpSkill.Web
+﻿using UpSkill.Services.Blob;
+using UpSkill.Services.Contracts.Blob;
+
+namespace UpSkill.Web
 {
     using System.Reflection;
 
@@ -32,6 +35,7 @@
                  .AddInfrastructureServices() 
                  .AddSwagger()
                  .AddApiControllers();
+                 
 
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -39,6 +43,8 @@
             services.AddSingleton(this.configuration);
 
             services.AddEmailSender(this.configuration);
+
+            //services.AddScoped<IUploadService, UploadService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
