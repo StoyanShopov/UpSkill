@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Contracts.Company 
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks; 
 
     using UpSkill.Common;
@@ -13,6 +14,6 @@
 
         Task<Result> DeleteAsync(int id);
 
-        Task<ReturnCompanyResponseModel> GetCompanyByIdAsync(int id); 
+        Task<IEnumerable<TModel>> GetCompanyByIdAsync<TModel>(int id);  
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace UpSkill.Services.Data.Company 
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks; 
 
     using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Company;
 
     using static Common.GlobalConstants.CompaniesConstants;
@@ -78,15 +81,12 @@
             return true;
         }
 
-        public async Task<ReturnCompanyResponseModel> GetCompanyByIdAsync(int id)
-        {
-            var company = await this.companies
-                .AllAsNoTracking()
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            var model = new ReturnCompanyResponseModel() { Company = company };
-
-            return model;
-        }  
+        public async Task<IEnumerable<TModel>> GetCompanyByIdAsync<TModel>(int id)
+            => await this.companies
+                .AllAsNoTracking() 
+                .Include(c => c.Users)
+                .Where(c => c.Id == id)
+                .To<TModel>()
+                .ToListAsync();
     }
 }
