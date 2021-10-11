@@ -71,6 +71,7 @@
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}"); 
                     endpoints.MapRazorPages();
                 })
                 .ApplyMigrations();

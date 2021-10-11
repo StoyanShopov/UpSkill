@@ -51,6 +51,7 @@
                     new Claim(ClaimTypes.NameIdentifier, userId),
                     new Claim(ClaimTypes.Name, userName),
                     new Claim(ClaimTypes.Email, userEmail)
+                    //Need to add claims for roles
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
