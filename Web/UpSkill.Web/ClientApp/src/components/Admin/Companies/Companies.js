@@ -1,11 +1,16 @@
+import { useState, useEffect } from "react";
 import { getCompanies } from "../../../services/companyService";
 
 export default function Companies() {
+  const [companies, setCompanies] = useState([]);
   
-    const companies = getCompanies();
-    console.log(companies);
+  useEffect(() => {
+    getCompanies().then((companies) => {
+      setCompanies(companies);
+    });
+  }, []);
 
-  return (       
+  return (
     <div>
       <div>
         <mark>Companies</mark> are currently{" "}
