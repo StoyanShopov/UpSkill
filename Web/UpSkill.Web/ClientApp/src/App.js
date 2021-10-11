@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Courses from './components/Courses/Courses';
 import Coaches from './components/Coaches/Coaches';
 import Layout from './components/Shared/Layout';
+import Admin from './components/Admin/Admin';
 
 import IdentityContext from './Context/IdentityContext';
 
@@ -22,6 +23,7 @@ function App() {
         <Route exact path='/' component={Home}/>
         <Route exact path='/Courses' component={Courses}/>
         <Route exact path='/Coaches' component={Coaches}/>
+        <Route exact path='/Admin' component={Admin}/>
         {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
       </Layout>
 
