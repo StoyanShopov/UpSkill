@@ -2,39 +2,96 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Linq;
+
+    using Microsoft.EntityFrameworkCore;
 
     using Common;
+    using Mapping;
     using Contracts.Course;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using Web.ViewModels.Course;
+
+    using static Common.GlobalConstants.CoursesConstants;
+
+
     public class CoursesService : ICoursesService
     {
-        private readonly IDeletableEntityRepository<Course> coursesRepository;
+        private readonly IDeletableEntityRepository<Course> courses;
 
-        public CoursesService(IDeletableEntityRepository<Course> coursesRepository)
+        public CoursesService(IDeletableEntityRepository<Course> courses)
         {
-            this.coursesRepository = coursesRepository;
+            this.courses = courses;
         }
 
-        public Task<Result> CreateAsync(CreateCourseViewModel model)
+        public async Task<Result> CreateAsync(CreateCourseViewModel model)
         {
-            throw new System.NotImplementedException();
+            var course = await GetCourse(0, model.Title);
+
+            if (course != null)
+            {
+                return AlreadyExist;
+            }
+
+            var newCourse = new Course()
+            {
+                Title = model.Title,
+                CoachFirstName = model.CoachFirstName,
+                CoachLastName = model.CoachLastName,
+                Description = model.Description,
+                Price = model.Price,
+                CategoryId = model.CategoryId
+            };
+
+            await this.courses.AddAsync(newCourse);
+            await this.courses.SaveChangesAsync();
+
+            return true;
+        }
+        public async Task<Result> EditAsync(EditCourseViewModel model)
+        {
+            var course = await GetCourse(model.Id, "");
+
+            if (course == null)
+            {
+                return DoesNotExist;
+            }
+
+            course.Title = model.Title;
+            course.CoachFirstName = model.CoachFirstName;
+            course.CoachLastName = model.CoachLastName;
+            course.Description = model.Description;
+            course.Price = model.Price;
+            course.CategoryId = model.CategoryId;
+
+            await this.courses.SaveChangesAsync();
+
+            return true;
         }
 
-        public Task<Result> DeleteAsync(int id)
+        public async Task<Result> DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var course = await GetCourse(id, "");
+
+            if (course == null)
+            {
+                return DoesNotExist;
+            }
+
+            this.courses.Delete(course);
+
+            return true;
         }
 
-        public Task<Result> EditAsync(EditCourseViewModel model)
+        private async Task<Course> GetCourse(int? id, string title)
         {
-            throw new System.NotImplementedException();
-        }
+            var course = await this.courses
+                             .AllAsNoTracking()
+                             .Where(c => c.Title == title || c.Id == id)
+                             .FirstOrDefaultAsync();
 
-        public Task<IEnumerable<TModel>> GetCourseByIdAsync<TModel>(int id)
-        {
-            throw new System.NotImplementedException();
+            return course;
         }
     }
 }

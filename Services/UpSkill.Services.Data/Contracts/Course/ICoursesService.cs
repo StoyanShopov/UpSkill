@@ -14,6 +14,5 @@
 
         Task<Result> DeleteAsync(int id);
 
-        Task<IEnumerable<TModel>> GetCourseByIdAsync<TModel>(int id);
     }
 }

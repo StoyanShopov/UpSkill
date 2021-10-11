@@ -159,6 +159,20 @@ namespace UpSkill.Common
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
         }
+
+        public class CoursesConstants
+        {
+            public const string AlreadyExist = "This course already exist.";
+
+            public const string DoesNotExist = "This course doesn't exist.";
+
+            public const string SuccesfullyCreated = "Successfully created course.";
+
+            public const string SuccesfullyEdited = "You have edited the course successfully.";
+
+            public const string SuccesfullyDeleted = "You have successfully removed the course.";
+
+        }
     }
 }
 
