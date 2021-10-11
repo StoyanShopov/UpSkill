@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getCourses } from "../../../services/courseService";
-import './Courses.css'
+import "./Courses.css";
 
 export default function Courses() {
   const [courses, setCourses] = useState([]);
@@ -14,9 +14,9 @@ export default function Courses() {
   return (
     <div>
       <div>
-        <mark>Courses</mark> are currently <span className='bold-element'>{courses.length}</span>
+        <mark>Courses</mark> are currently{" "}
+        <span className="bold-element">{courses.length}</span>
       </div>
-      
     </div>
   );
 }
