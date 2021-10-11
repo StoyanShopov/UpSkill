@@ -1,5 +1,5 @@
 ﻿namespace UpSkill.Data
-{ 
+{
     using System;
     using System.Linq;
     using System.Reflection;
@@ -25,6 +25,10 @@
         }
 
         public DbSet<Company> Companies { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
 
         public DbSet<Position> Positions { get; set; }
 
