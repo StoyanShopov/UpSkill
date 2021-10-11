@@ -12,6 +12,16 @@ namespace UpSkill.Common
 
         public const string Unauthorized = "Unauthorized";
 
+        public const string UserNotFound = "User not found!";
+
+        public class AdminConstants
+        {
+            public const string AlreadyAssignedToRole = "This user is already updated wtih the corresponding role!";
+
+            public const string AssignedSuccessfully = "User successfully promoted!";
+
+            public const string UnassignedSuccessfully = "User successfully demoted!";
+        }
         public class AutoMapperConstants
         {
             public const string ReflectionProfile = "ReflectionProfile";
@@ -67,14 +77,18 @@ namespace UpSkill.Common
 
             public const string ChangePasswordRoute = "changePassword";
 
-            public const string CreateCompany = "create"; 
+            public const string CreateCompany = "create";
 
-            public const string EditCompany = "edit"; 
+            public const string EditCompany = "edit";
 
             public const string DeleteCompany = "delete";
 
-            public const string AddOwnerCompany = "addOwnerToCompany"; 
-        } 
+            public const string AddOwnerCompany = "addOwnerToCompany";
+
+            public const string Promote = "promote";
+
+            public const string Demote = "demote";
+        }
 
         public class MessagesConstants
         {
@@ -117,7 +131,7 @@ namespace UpSkill.Common
 
             public const string AdministratorPositionName = "Administrator";
 
-            public const string PositionDoesNotExist = "The position you entered does not exist";  
+            public const string PositionDoesNotExist = "The position you entered does not exist";
         }
 
         public class CompaniesNamesConstants
@@ -127,7 +141,7 @@ namespace UpSkill.Common
             public const string ScaleFocusCompanyName = "Scale Focus";
 
             public const string AdministratorCompanyName = "UpSkill";
-        }    
+        }
 
         public class CompaniesConstants
         {
