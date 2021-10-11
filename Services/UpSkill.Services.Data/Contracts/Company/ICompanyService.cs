@@ -13,6 +13,6 @@
 
         Task<Result> DeleteAsync(int id);
 
-        Task<ReturnCompanyResponceModel> GetCompanyByIdAsync(int id); 
+        Task<ReturnCompanyResponseModel> GetCompanyByIdAsync(int id); 
     }
 }

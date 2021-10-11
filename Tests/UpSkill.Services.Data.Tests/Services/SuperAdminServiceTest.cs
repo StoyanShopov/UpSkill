@@ -66,7 +66,7 @@
         }
 
         [Fact]
-        public async Task AddOwnerToCompanyAsyncShouldReturnSuccesfullyAddetOwner()
+        public async Task AddOwnerToCompanyAsyncShouldReturnSuccesfullyAddedOwner()
         {
             const string UserId = "1";
             const int Id = 1;

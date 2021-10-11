@@ -78,13 +78,13 @@
             return true;
         }
 
-        public async Task<ReturnCompanyResponceModel> GetCompanyByIdAsync(int id)
+        public async Task<ReturnCompanyResponseModel> GetCompanyByIdAsync(int id)
         {
             var company = await this.companies
                 .AllAsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            var model = new ReturnCompanyResponceModel() { Company = company };
+            var model = new ReturnCompanyResponseModel() { Company = company };
 
             return model;
         }  
