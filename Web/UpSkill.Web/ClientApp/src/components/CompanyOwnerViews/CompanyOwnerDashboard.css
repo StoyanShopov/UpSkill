@@ -1,0 +1,22 @@
+#companyOwnerRoot{
+    width: 70%!important;
+}
+
+.myProfileFullWidth{
+    background: linear-gradient(90deg, #296CFB1A 50%, #FFF 50%);
+    margin-bottom: 0!important;
+}
+
+.myProfile-content{
+    background-color: white;
+}
+
+.myProfileBottomBg{
+    padding: 5rem;
+    position: absolute;
+    left: 0;
+    bottom: auto;
+    z-index: -1;
+    width: 100%;
+    background: linear-gradient(90deg, #296CFB1A 50%, #FFF 50%);
+}

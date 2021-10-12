@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+  }
+  
+  #sidebar {
+    min-width: 380px;
+    max-width: 380px;
+  }
+  
+  #sidebar.active {
+    margin-left: -250px;
+  }
