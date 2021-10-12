@@ -6,6 +6,7 @@
 
     using Services.Data.Contracts.Course;
     using ViewModels.Course;
+    using Data.Models;
 
 
     [AllowAnonymous]
@@ -16,6 +17,20 @@
         public CoursesController(ICoursesService coursesService)
         {
             this.coursesService = coursesService;
+        }
+
+        [HttpGet]
+        [Route("Details")]
+        public IActionResult Details(int id)
+        {
+            var result = this.coursesService.GetDetailsForCourse(id);
+
+            if (result == null)
+            {
+                return BadRequest("ne raboti");
+            }
+
+            return Ok("ekstra e");
         }
 
         [HttpPost]

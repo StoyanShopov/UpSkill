@@ -49,6 +49,16 @@
 
             return true;
         }
+
+        public Course GetDetailsForCourse(int id)
+        {
+            var course = this.courses
+                             .AllAsNoTracking()
+                             .Where(x => x.Id == id)
+                             .FirstOrDefault();
+
+            return course;
+        }
         public async Task<Result> EditAsync(EditCourseViewModel model)
         {
             var course = await GetCourse(model.Id, "");
@@ -93,5 +103,6 @@
 
             return course;
         }
+
     }
 }
