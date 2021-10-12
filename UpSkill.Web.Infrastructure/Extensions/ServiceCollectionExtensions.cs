@@ -59,7 +59,16 @@
                 .AddDbContext<ApplicationDbContext>(options => options
                     .UseSqlServer(configuration.GetDefaultConnectionString()));
 
-        
+
+        public static IServiceCollection AddBlobStorage(this IServiceCollection services, IConfiguration configuration)
+        {
+            IConfigurationSection blobStorage 
+                = configuration.GetSection(nameof(Services.BlobStorage));
+
+            services.Configure<BlobStorage>(blobStorage);
+
+            return services;
+        }
 
 
         public static IServiceCollection AddIdentity(this IServiceCollection services)

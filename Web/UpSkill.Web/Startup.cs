@@ -44,7 +44,8 @@ namespace UpSkill.Web
 
             services.AddEmailSender(this.configuration);
 
-            //services.AddScoped<IUploadService, UploadService>();
+            services.AddBlobStorage(this.configuration);
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -13,18 +13,16 @@ namespace UpSkill.Services.Blob
 
     public class UploadService : IUploadService
     {
-        private readonly AppSettings appSettings;
+        private readonly BlobStorage blobStorage;
 
-        public UploadService(IOptions<AppSettings> configuration)
+        public UploadService(IOptions<BlobStorage> configuration)
         {
-            this.appSettings = configuration.Value;
+            this.blobStorage = configuration.Value;
         }
 
         public async Task<string> UploadAsync(Stream fileStream, string fileName, string contentType)
         {
-            //var container = new BlobContainerClient(this.appSettings.BlobKey, "titansfirstcontainer");
-
-            var container = new BlobContainerClient("DefaultEndpointsProtocol=https;AccountName=titans;AccountKey=FHelA/DscSkmzKJEzdmVo5yADvjXXa9SVC1ol0XpBokFsYjE62CO9UyYpwoDGDTzZfjTX9FPt2VBxljs/lgRKQ==;EndpointSuffix=core.windows.net", "titansfirstcontainer");
+            var container = new BlobContainerClient(this.blobStorage.BlobKey, this.blobStorage.BlobContainer);
 
             var createResponse = await container.CreateIfNotExistsAsync();
 
