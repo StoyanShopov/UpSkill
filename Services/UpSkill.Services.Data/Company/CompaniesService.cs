@@ -19,7 +19,7 @@
     {
         private readonly IDeletableEntityRepository<Company> companies;
 
-        public CompaniesService(IDeletableEntityRepository<Company> companies) 
+        public CompaniesService(IDeletableEntityRepository<Company> companies)
             => this.companies = companies;
 
         public async Task<Result> CreateAsync(CreateCompanyRequestModel model)
@@ -65,7 +65,7 @@
 
         public async Task<Result> DeleteAsync(int id)
         {
-            var company = await this.companies 
+            var company = await this.companies
                 .All()
                 .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -81,12 +81,23 @@
             return true;
         }
 
-        public async Task<IEnumerable<TModel>> GetCompanyByIdAsync<TModel>(int id)
+        public async Task<TModel> GetCompanyByIdAsync<TModel>(int id)
             => await this.companies
-                .AllAsNoTracking() 
+                .AllAsNoTracking()
                 .Include(c => c.Users)
                 .Where(c => c.Id == id)
                 .To<TModel>()
-                .ToListAsync();
+                .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+            => await this.companies
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
+
+        public Task<TModel> DetailsAsync<TModel>(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

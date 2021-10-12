@@ -1,19 +1,37 @@
 import { NavLink } from "react-router-dom";
-import React, { useState } from 'react'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux"; 
+
+import { logout } from "./../../../actions/auth";
+import { clearMessage } from "../../../actions/message";
+
+import { history } from "../../../helpers/history"; 
 
 import Logo from '../../../assets/logo-NoBg.png';
 import UserProfilePic from '../../../assets/userProfilePic.png';
 import './Header.css';
 
-function Header() {
-	const [isActive, setisActive] = useState(false);
+function Header() { 
+	const [isActive, setisActive] = useState(false);   
 
+	const { user: currentUser } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
+  
+	useEffect(() => {
+	  history.listen((location) => {
+		dispatch(clearMessage()); // clear message when changing location
+	  });
+	}, [dispatch]);
+	
+	const logOut = () => {
+		dispatch(logout());
+	  };
 
-	return (
-		<header className="Header site-header">
+	return ( 
+		<header className="Header site-header"> 
 			<div className="header-wrapper navbar navbar-default ml-5">
 				<div className="navbar header-inner navbar-light shadow bg-light fixed-top">
-				<nav className="nav container navbar-center navbar-expand-lg">
+				<nav className="nav container navbar-center navbar-expand-lg"> 
 					<section className="logoArt mr-auto pl-lg-1">
 						<NavLink to="/" className="logoArt-href">
 							<img src={Logo} alt="LOGO" />
@@ -47,19 +65,39 @@ function Header() {
 
 								<article className="d-flex justify-content-end" style={{ width: 10 +'em'}} id="userProfile">
 									<li className="nav-item px-lg-2  text-decoration-none d-flex justify-content-end">
-										<NavLink to="/MyProfile" className="nav-link col-xl-5 p-0">
-										<img src={UserProfilePic} alt="User Picture" className="img-fluid rounded"></img>
-									</NavLink>
-								</li>
-
-							</article>
-
+									  <NavLink to="/MyProfile" className="nav-link col-xl-5 p-0">
+										<img src={UserProfilePic} alt="User Picture" className="img-fluid rounded" ></img>
+									  </NavLink>
+								</li> 
+							</article>   
+							{currentUser ? (
+                                <div className="navbar-nav ml-auto">
+                                    <li className="nav-item">
+                                        <NavLink to={"/"} className="nav-link"> 
+                                          {currentUser.email}
+                                       </NavLink>
+                                   </li>
+                                  <li className="nav-item">
+                                    <a href="/Login" className="nav-link" onClick={logOut}>
+                                        LogOut
+                                    </a>
+                                  </li>
+                               </div>
+                         ) : (
+                            <div className="navbar-nav ml-auto">
+                                <li className="nav-item">
+			                     <NavLink to="/Login" className="btn btn-outline-info font-weight-bold" exact={true}>
+                                    <b>Login</b>
+                                 </NavLink>
+                                </li>
+                            </div>
+                          )}
 						</ul>
 					</section>
 
 					<section>
 						<article className="nav-item container">
-							<a
+							<a 
 								onClick={() => {
 									setisActive(!isActive);
 								}}
@@ -89,11 +127,11 @@ function Header() {
 								</li>
 
 							</ul>
-						</div>
-					</nav>
+						</div> 
+			 	</nav>
 			</div>
-			</div>
-		</header >
+			</div> 
+		</header > 
 	);
 }
 
