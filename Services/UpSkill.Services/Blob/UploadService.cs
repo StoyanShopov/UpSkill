@@ -22,9 +22,9 @@ namespace UpSkill.Services.Blob
 
         public async Task<string> UploadAsync(Stream fileStream, string fileName, string contentType)
         {
-            var container = new BlobContainerClient(this.appSettings.BlobKey, "titansfirstcontainer");
+            //var container = new BlobContainerClient(this.appSettings.BlobKey, "titansfirstcontainer");
 
-            //var container = new BlobContainerClient("DefaultEndpointsProtocol=https;AccountName=titans;AccountKey=FHelA/DscSkmzKJEzdmVo5yADvjXXa9SVC1ol0XpBokFsYjE62CO9UyYpwoDGDTzZfjTX9FPt2VBxljs/lgRKQ==;EndpointSuffix=core.windows.net", "titansfirstcontainer");
+            var container = new BlobContainerClient("DefaultEndpointsProtocol=https;AccountName=titans;AccountKey=FHelA/DscSkmzKJEzdmVo5yADvjXXa9SVC1ol0XpBokFsYjE62CO9UyYpwoDGDTzZfjTX9FPt2VBxljs/lgRKQ==;EndpointSuffix=core.windows.net", "titansfirstcontainer");
 
             var createResponse = await container.CreateIfNotExistsAsync();
 
