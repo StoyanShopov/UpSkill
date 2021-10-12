@@ -1,0 +1,38 @@
+.cell-header-subscription,
+.cell-header-date{
+    color: #fff!important;
+    font-size: 1.4rem!important;
+    padding-top: 2rem!important;        
+}
+
+.cell-header-subscription{
+    padding-left: 5rem!important;
+}
+
+.cell-header-price{
+    color: #fff!important;
+    font-size: 1.4rem!important;
+    padding-top: 2rem!important;
+    padding-right: 4rem;    
+}
+
+.courses-cell-data{
+    padding-left: 0!important;
+    padding-left: 1rem!important;
+}
+
+.totalForMonth-content{
+    text-align: end;
+    padding-right: 5rem!important;
+}
+
+@media (max-width: 780px) {
+    .cell-header-price{
+        padding-left: 5rem!important;
+    }
+
+    .header-invoice div{
+        font-size: medium!important;
+        padding: 0 1rem!important;
+    }
+}
