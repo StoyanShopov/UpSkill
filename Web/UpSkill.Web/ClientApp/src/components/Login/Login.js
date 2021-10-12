@@ -8,7 +8,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import logo from "../../assets/logo-NoBg.png";
-import manKey from "../../assets/manKey.png";
+import manKey from "../../assets/manKey.png"; 
 
 import { login } from "../../actions/auth";  
 
