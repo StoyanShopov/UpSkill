@@ -80,16 +80,11 @@
 
             var positionObj = await this.positions
                 .AllAsNoTracking()
-                .FirstOrDefaultAsync(x => x.Name == model.PositionName);  
+                .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);  
 
             if (company == null)
             {
-                company = new Company { Name = model.CompanyName, };
-            }
-
-            if (positions == null)
-            {
-                return PositionDoesNotExist; 
+                company = new Company { Name = model.CompanyName };
             }
 
             var user = new ApplicationUser()

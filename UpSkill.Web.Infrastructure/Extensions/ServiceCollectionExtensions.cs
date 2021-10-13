@@ -30,10 +30,13 @@
     using UpSkill.Services.Data.Admin;
     using UpSkill.Services.Data.Company;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Course;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
+
     using static Common.GlobalConstants.PoliciesNamesConstants;
     using static Common.GlobalConstants.RolesNamesConstants;
 
@@ -126,6 +129,7 @@
                 .AddTransient<IEmailService, EmailService>()
                 .AddTransient<IAccountService, AccountService>()
                 .AddTransient<IAdminService, AdminService>()
+                .AddTransient<ICoursesService, CoursesService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
@@ -154,3 +158,4 @@
                     .Add<ModelOrNotFoundActionFilter>());
     }
 }
+

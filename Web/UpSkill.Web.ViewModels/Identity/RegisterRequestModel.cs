@@ -14,9 +14,6 @@
         public string CompanyName { get; set; }
 
         [Required]
-        public string PositionName { get; set; } 
-
-        [Required]
         [EmailAddress]
         public string Email { get; set; }
 
