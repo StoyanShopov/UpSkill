@@ -26,12 +26,20 @@
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Services.Contracts.Account;
     using UpSkill.Services.Account;
+
     using UpSkill.Services.Blob;
     using UpSkill.Services.Contracts.Blob;
+    using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Company;
+    using UpSkill.Services.Data.Contracts.Admin;
+
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Course;
 
     public static class ServiceCollectionExtensions
     {
@@ -117,11 +125,14 @@
             return services;
         }
 
-        public static IServiceCollection AddBussinesServices(this IServiceCollection services) 
-            => services 
+        public static IServiceCollection AddBussinesServices(this IServiceCollection services)
+            => services
                 .AddTransient<IIdentityService, IdentityService>()
-                .AddTransient<IEmailService, EmailService>() 
-                .AddTransient<IAccountService, AccountService>() 
+                .AddTransient<IEmailService, EmailService>()
+                .AddTransient<IAccountService, AccountService>()
+                .AddTransient<IAdminService, AdminService>()
+                .AddTransient<ICoursesService, CoursesService>()
+                .AddTransient<ICompanyService, CompaniesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()

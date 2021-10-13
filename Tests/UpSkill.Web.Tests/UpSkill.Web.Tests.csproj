@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Web\UpSkill.Web\UpSkill.Web.csproj" />
+    <ProjectReference Include="..\UpSkill.Services.Data.Tests\UpSkill.Services.Data.Tests.csproj" />
   </ItemGroup>
 
 </Project>

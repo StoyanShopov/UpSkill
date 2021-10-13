@@ -51,6 +51,7 @@
                     new Claim(ClaimTypes.NameIdentifier, userId),
                     new Claim(ClaimTypes.Name, userName),
                     new Claim(ClaimTypes.Email, userEmail)
+                    //Need to add claims for roles
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -70,16 +71,11 @@
 
             var positionObj = await this.positions
                 .AllAsNoTracking()
-                .FirstOrDefaultAsync(x => x.Name == model.PositionName);  
+                .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);  
 
             if (company == null)
             {
-                company = new Company { Name = model.CompanyName, };
-            }
-
-            if (positions == null)
-            {
-                return PositionDoesNotExist; 
+                company = new Company { Name = model.CompanyName };
             }
 
             var user = new ApplicationUser()
