@@ -12,7 +12,6 @@
         public Course()
         {
             this.Companies = new HashSet<CompanyCourse>();
-            this.Companies = new HashSet<CompanyCourse>();
         } 
 
         public string Title { get; set; }
@@ -30,6 +29,6 @@
 
         public Category Category { get; set; }
 
-        public ICollection<CompanyCourse> Companies { get; set; } 
+        public virtual ICollection<CompanyCourse> Companies { get; set; } 
     }
 }

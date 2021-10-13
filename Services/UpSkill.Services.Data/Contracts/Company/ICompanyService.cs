@@ -18,6 +18,6 @@
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 
-        Task<TModel> DetailsAsync<TModel>(int id); 
+        Task<TModel> DetailsAsync<TModel>(int id);
     }
 }

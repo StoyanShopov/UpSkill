@@ -85,6 +85,7 @@
             => await this.companies
                 .AllAsNoTracking()
                 .Include(c => c.Users)
+                .Include(c => c.Courses)
                 .Where(c => c.Id == id)
                 .To<TModel>()
                 .FirstOrDefaultAsync();
@@ -95,9 +96,7 @@
             .To<TModel>()
             .ToListAsync();
 
-        public Task<TModel> DetailsAsync<TModel>(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+        public async Task<TModel> DetailsAsync<TModel>(int id)
+            => await this.GetCompanyByIdAsync<TModel>(id); 
     }
 }

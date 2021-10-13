@@ -76,6 +76,8 @@ namespace UpSkill.Common
             public const string AddOwnerCompany = "addOwnerToCompany";
 
             public const string Companies = "companies";
+
+            public const string Details = "details"; 
         } 
 
         public class MessagesConstants

@@ -64,5 +64,10 @@
         [Route(Companies)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
             => await this.companyService.GetAllAsync<CompanyListingModel>();
+
+        [HttpGet]
+        [Route(Details)]
+        public async Task<CompanyDetailsModel> GetDetails(int id)
+            => await this.companyService.DetailsAsync<CompanyDetailsModel>(id);
     }
 }
