@@ -27,7 +27,6 @@
             services
                  .AddDatabase(this.configuration)
                  .AddIdentity() 
-                 .AddAuthorizations()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
                  .AddBussinesServices()
                  .AddInfrastructureServices() 

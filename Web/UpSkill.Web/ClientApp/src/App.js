@@ -1,35 +1,39 @@
-import React from "react"; 
-import { Route } from "react-router-dom";
-import { Provider } from 'react-redux'
+import { useState } from 'react';
+import { Route } from 'react-router';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CompanyOwnerSidebar from './components/CompanyOwnerViews/CompanyOwnerSidebar/CopmanyOwnerSidebar'
+import CompanyCoaches from './components/CompanyOwnerViews/CompanyCoaches/CompanyCoaches'
+import CoursesCard from './components/CoursesCard/CoursesCard';
+import EmployeesPositionCard from './components/EmployeesPositionCard/EmployeesPositionCard';
 import Home from './components/Home';
 import Courses from './components/Courses/Courses';
-import Coaches from './components/Coaches/Coaches'; 
-import Login from './components/Login/Login'; 
-import Register from './components/Register/Register';
-import Layout from './components/Shared/Layout'; 
-import store from './store';    
+import Coaches from './components/Coaches/Coaches';
+import Layout from './components/Shared/Layout';
 
-const AppWrapper = () => {   
+import IdentityContext from './Context/IdentityContext';
 
-  return (
-    <Provider store={store}> 
-      <Layout> 
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/Courses' component={Courses}/>
-          <Route exact path='/Coaches' component={Coaches}/>  
-          <Route exact path='/Register' component={Register} />  
-          <Route exact path='/Login' component={Login}/>   
-      </Layout>
-    </Provider>
-  )
-}
 
-function App() {    
-  return (
-    <AppWrapper/> 
-  );
+function App() {
+    const [user, setUser] = useState({});
+    return (
+        <IdentityContext.Provider value={{ user, setUser }}>
+            <>
+                {/* 
+          <CoursesCard></CoursesCard>
+          <EmployeesPositionCard></EmployeesPositionCard>
+       */}
+
+                <Layout>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/Courses' component={Courses} />
+                    <Route exact path='/Coaches' component={Coaches} />
+                    {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
+                </Layout>
+
+            </>
+        </IdentityContext.Provider >
+    );
 }
 
 export default App;

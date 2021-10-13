@@ -106,10 +106,6 @@ namespace UpSkill.Common
             public const string CompanyOwnerRoleName = "Owner";
 
             public const string CompanyEmployeeRoleName = "Employee";
-
-            public const string WritePolicy = "writepolicy"; 
-
-            public const string ReadPolicy = "readpolicy";
         }
 
         public class PositionsNamesConstants
