@@ -81,7 +81,7 @@
             return true;
         }
 
-        public async Task<TModel> GetCompanyByIdAsync<TModel>(int id)
+        public async Task<TModel> GetCompanyDetailsByIdAsync<TModel>(int id)
             => await this.companies
                 .AllAsNoTracking()
                 .Include(c => c.Users)
@@ -95,8 +95,5 @@
             .AllAsNoTracking()
             .To<TModel>()
             .ToListAsync();
-
-        public async Task<TModel> DetailsAsync<TModel>(int id)
-            => await this.GetCompanyByIdAsync<TModel>(id); 
     }
 }

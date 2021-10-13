@@ -148,11 +148,6 @@ namespace UpSkill.Common
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
         } 
-
-        public class ColumTypeConstants
-        {
-            public const string Decimal = "decimal(6,2)"; 
-        }
     }
 }
 

@@ -14,10 +14,8 @@
 
         Task<Result> DeleteAsync(int id);
 
-        Task<TModel> GetCompanyByIdAsync<TModel>(int id);  
+        Task<TModel> GetCompanyDetailsByIdAsync<TModel>(int id);  
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
-
-        Task<TModel> DetailsAsync<TModel>(int id);
     }
 }
