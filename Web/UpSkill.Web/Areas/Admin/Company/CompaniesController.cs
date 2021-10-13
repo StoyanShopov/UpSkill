@@ -59,7 +59,7 @@
 
             return Ok(SuccesfullyDeleted);
         }
-
+//Alert: Check route
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
