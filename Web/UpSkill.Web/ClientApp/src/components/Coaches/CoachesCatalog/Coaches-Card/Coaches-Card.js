@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Coaches-Card.css';
 import { Badge } from 'react-bootstrap';
 
@@ -6,14 +6,26 @@ export default function CoachesCard(props) {
     const {
         displaySession,
         displayPrice,
-        coachDetails: { fullName, company, coachField, imageUrl, price, session },
+        coachDetails: { fullName, company, coachField, imageUrl, imageMock, price, session },
     } = props;
+
+    // const [Image, setImage] = useState();      
+
+    // function loadImage (imageName) {
+    //         import(`${imageMock}`)
+    //             .then(img=> setImage(img.default));        
+    //     };
+
+    // useEffect(() => {
+    //     loadImage(imageMock);
+    // }, []);
+    
 
     return (
         <div className="coaches-Card">
             <div className="coaches-image-wrapper">
-                <div className="coaches-image-wrapper-bg">
-                    <img src={imageUrl} className="coaches-image"></img>
+                <div className="coaches-image-wrapper-bg">                
+                    <img src={imageUrl} className="coaches-image" alt="text"></img> 
                 </div>
             </div>
             <div className="coaches-content w-75">

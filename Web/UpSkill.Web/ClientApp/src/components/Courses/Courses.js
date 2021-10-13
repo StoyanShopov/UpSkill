@@ -1,7 +1,7 @@
 import React from 'react';
+
 import CategoriesAndLanguageMenu from '../CategoriesAndLanguageMenu/categoryAndLanguageMenu';
-import CoursesCard from '../CoursesCard/CoursesCard';
-import EmployeesPositionCard from '../EmployeesPositionCard/EmployeesPositionCard';
+import CoursesCatalog from './CoursesCatalog/CoursesCatalog';
 
 import './Courses.css';
 
@@ -9,8 +9,11 @@ export default function Courses() {
   return (
     <div className="content">
       <CategoriesAndLanguageMenu atPage="Courses" />
+      <div className="wrapper row">
 
-      <EmployeesPositionCard />
+        <CoursesCatalog />
+      
+      </div>
     </div>
   );
 }
