@@ -15,25 +15,25 @@ import IdentityContext from './Context/IdentityContext';
 
 
 function App() {
-    const [user, setUser] = useState({});
-    return (
-        <IdentityContext.Provider value={{ user, setUser }}>
-            <>
-                {/* 
+  const [user, setUser] = useState({});
+  return (
+    <IdentityContext.Provider value={{ user, setUser }}>
+      <>
+      {/* 
           <CoursesCard></CoursesCard>
           <EmployeesPositionCard></EmployeesPositionCard>
        */}
 
-                <Layout>
-                    <Route exact path='/' component={Home} />
-                    <Route exact path='/Courses' component={Courses} />
-                    <Route exact path='/Coaches' component={Coaches} />
-                    {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
-                </Layout>
+      <Layout>
+        <Route exact path='/' component={Home}/>
+        <Route exact path='/Courses' component={Courses}/>
+        <Route exact path='/Coaches' component={Coaches}/>
+        {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
+      </Layout>
 
-            </>
-        </IdentityContext.Provider >
-    );
+      </>
+    </IdentityContext.Provider >
+  );
 }
 
 export default App;
