@@ -12,6 +12,16 @@ namespace UpSkill.Common
 
         public const string Unauthorized = "Unauthorized";
 
+        public const string UserNotFound = "User not found!";
+
+        public class AdminConstants
+        {
+            public const string AlreadyAssignedToRole = "This user is already updated wtih the corresponding role!";
+
+            public const string AssignedSuccessfully = "User successfully promoted!";
+
+            public const string UnassignedSuccessfully = "User successfully demoted!";
+        }
         public class AutoMapperConstants
         {
             public const string ReflectionProfile = "ReflectionProfile";
@@ -23,6 +33,7 @@ namespace UpSkill.Common
             public const string V1 = "v1";
             public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
         }
+
 
         public class UsersEmailsNames
         {
@@ -66,18 +77,20 @@ namespace UpSkill.Common
 
             public const string ChangePasswordRoute = "changePassword";
 
-            public const string CreateCompany = "create"; 
+            public const string CreateRoute = "create";
 
-            public const string EditCompany = "edit"; 
+            public const string EditRoute = "edit";
 
-            public const string DeleteCompany = "delete";
+            public const string DeleteRoute = "delete";
+
+            public const string DetailsRoute = "details";
 
             public const string AddOwnerCompany = "addOwnerToCompany";
 
-            public const string Companies = "companies";
+            public const string Promote = "promote";
 
-            public const string Details = "details"; 
-        } 
+            public const string Demote = "demote";
+        }
 
         public class MessagesConstants
         {
@@ -120,7 +133,7 @@ namespace UpSkill.Common
 
             public const string AdministratorPositionName = "Administrator";
 
-            public const string PositionDoesNotExist = "The position you entered does not exist";  
+            public const string PositionDoesNotExist = "The position you entered does not exist";
         }
 
         public class CompaniesNamesConstants
@@ -130,21 +143,21 @@ namespace UpSkill.Common
             public const string ScaleFocusCompanyName = "Scale Focus";
 
             public const string AdministratorCompanyName = "UpSkill";
-        }    
+        }
 
         public class CompaniesConstants
         {
-            public const string AlreadyExist = "This company already exist.";
+            public const string AlreadyExist = "This already exist.";
 
-            public const string DoesNotExist = "This company doesn't exist.";
+            public const string DoesNotExist = "This doesn't exist.";
 
             public const string UserDoNotExist = "This user with this role does not exist.";
 
-            public const string SuccesfullyCreated = "Successfully created company.";
+            public const string SuccesfullyCreated = "Successfully created.";
 
-            public const string SuccesfullyEdited = "You have edited the company successfully.";
+            public const string SuccesfullyEdited = "Successfully edited.";
 
-            public const string SuccesfullyDeleted = "You have successfully removed the company.";
+            public const string SuccesfullyDeleted = "Successfully removed";
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
         }
