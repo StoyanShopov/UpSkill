@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UpSkill.Data;
 
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211012125408_AddCourseTable")]
+    partial class AddCourseTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,6 +304,9 @@ namespace UpSkill.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -320,24 +325,11 @@ namespace UpSkill.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CourseId");
+
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Companies");
-                });
-
-            modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
-                {
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CompanyId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("CompanyCourses");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
@@ -492,21 +484,11 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("Position");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
+            modelBuilder.Entity("UpSkill.Data.Models.Company", b =>
                 {
-                    b.HasOne("UpSkill.Data.Models.Company", "Company")
-                        .WithMany("Courses")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("UpSkill.Data.Models.Course", "Course")
                         .WithMany("Companies")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Company");
+                        .HasForeignKey("CourseId");
 
                     b.Navigation("Course");
                 });
@@ -535,8 +517,6 @@ namespace UpSkill.Data.Migrations
 
             modelBuilder.Entity("UpSkill.Data.Models.Company", b =>
                 {
-                    b.Navigation("Courses");
-
                     b.Navigation("Users");
                 });
 

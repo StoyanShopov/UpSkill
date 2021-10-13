@@ -24,7 +24,6 @@ namespace UpSkill.Common
             public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
         }
 
-
         public class UsersEmailsNames
         {
             public const string AdministratorEmailName = "administrator@test.test";
@@ -73,7 +72,11 @@ namespace UpSkill.Common
 
             public const string DeleteCompany = "delete";
 
-            public const string AddOwnerCompany = "addOwnerToCompany"; 
+            public const string AddOwnerCompany = "addOwnerToCompany";
+
+            public const string Companies = "companies";
+
+            public const string Details = "details"; 
         } 
 
         public class MessagesConstants
@@ -103,6 +106,10 @@ namespace UpSkill.Common
             public const string CompanyOwnerRoleName = "Owner";
 
             public const string CompanyEmployeeRoleName = "Employee";
+
+            public const string WritePolicy = "writepolicy"; 
+
+            public const string ReadPolicy = "readpolicy";
         }
 
         public class PositionsNamesConstants
@@ -144,6 +151,11 @@ namespace UpSkill.Common
             public const string SuccesfullyDeleted = "You have successfully removed the company.";
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
+        } 
+
+        public class ColumTypeConstants
+        {
+            public const string Decimal = "decimal(6,2)"; 
         }
     }
 }

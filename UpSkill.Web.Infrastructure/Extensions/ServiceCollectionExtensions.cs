@@ -34,6 +34,7 @@
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
 
     public static class ServiceCollectionExtensions
     {
@@ -77,6 +78,16 @@
 
             return services;
         }
+
+        public static IServiceCollection AddAuthorizations(this IServiceCollection services)
+        => services
+            .AddAuthorization(options =>
+            {
+                options.AddPolicy(ReadPolicy,
+                        builder => builder.RequireRole(AdministratorRoleName, CompanyOwnerRoleName, CompanyEmployeeRoleName));
+                options.AddPolicy(WritePolicy,
+                        builder => builder.RequireRole(AdministratorRoleName, CompanyOwnerRoleName, CompanyEmployeeRoleName));
+            });
 
         public static IServiceCollection AddJwtAuthentication(
           this IServiceCollection services,
