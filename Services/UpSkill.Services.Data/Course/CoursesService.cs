@@ -15,7 +15,6 @@
 
     using static Common.GlobalConstants.CompaniesConstants;
 
-
     public class CoursesService : ICoursesService
     {
         private readonly IDeletableEntityRepository<Course> courses;
