@@ -85,6 +85,8 @@ namespace UpSkill.Common
 
             public const string DetailsRoute = "details";
 
+            public const string GetAllRoute = "getall";
+
             public const string AddOwnerCompany = "addOwnerToCompany";
 
             public const string Promote = "promote";

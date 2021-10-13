@@ -59,9 +59,9 @@
 
             return Ok(SuccesfullyDeleted);
         }
-
+//Alert: Check route
         [HttpGet]
-        [Route(Companies)]
+        [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
             => await this.companyService.GetAllAsync<CompanyListingModel>();
 
