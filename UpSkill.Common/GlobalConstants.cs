@@ -147,7 +147,7 @@ namespace UpSkill.Common
             public const string SuccesfullyDeleted = "You have successfully removed the company.";
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
-        } 
+        }
     }
 }
 
