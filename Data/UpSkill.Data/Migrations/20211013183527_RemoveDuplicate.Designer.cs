@@ -10,8 +10,8 @@ using UpSkill.Data;
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211013092824_Refactoring")]
-    partial class Refactoring
+    [Migration("20211013183527_RemoveDuplicate")]
+    partial class RemoveDuplicate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
