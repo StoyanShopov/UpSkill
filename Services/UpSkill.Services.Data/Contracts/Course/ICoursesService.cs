@@ -8,8 +8,7 @@
     using AutoMapper;
     using Mapping;
     using UpSkill.Data.Models;
-
-
+     
     public interface ICoursesService
     {
         Task<Result> CreateAsync(CreateCourseViewModel model);
