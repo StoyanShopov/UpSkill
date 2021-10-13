@@ -68,6 +68,6 @@
         [HttpGet]
         [Route(Details)]
         public async Task<CompanyDetailsModel> GetDetails(int id)
-            => await this.companyService.GetCompanyDetailsByIdAsync<CompanyDetailsModel>(id);
+            => await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
     }
 }
