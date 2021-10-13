@@ -26,7 +26,7 @@
         {
             services
                  .AddDatabase(this.configuration)
-                 .AddIdentity() 
+                 .AddIdentity()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
                  .AddBussinesServices()
                  .AddInfrastructureServices() 
