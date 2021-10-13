@@ -4,9 +4,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Data.Contracts.Course;
     using ViewModels.Course;
-    using Data.Models;
+    using Services.Data.Contracts.Course;
 
     using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -25,7 +24,8 @@
         [HttpGet]
         [Route(DetailsRoute)]
         public async Task<DetailsViewModel> Details(int id)
-        => await this.coursesService.GetByIdAsync<DetailsViewModel>(id);
+        => await this.coursesService
+                     .GetByIdAsync<DetailsViewModel>(id);
 
 
         [HttpPost]
