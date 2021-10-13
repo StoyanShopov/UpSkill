@@ -2,24 +2,24 @@
 {
     using Azure.Storage.Blobs;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using UpSkill.Services;
     using UpSkill.Web.ViewModels.Blob;
 
     [Route("[controller]")]
     [ApiController]
     public class BlobsController : ControllerBase
     {
-        private readonly string azureConnectionString;
-        private readonly string azureContainerName;
+        private readonly string blobConnectionString;
+        private readonly string blobContainerName;
 
-        public BlobsController(IConfiguration configuration)
+        public BlobsController(IOptions<BlobStorage> configuration)
         {
-            //this.azureConnectionString = configuration.GetConnectionString("BlobStorage");
-            this.azureConnectionString = "DefaultEndpointsProtocol=https;AccountName=titans;AccountKey=FHelA/DscSkmzKJEzdmVo5yADvjXXa9SVC1ol0XpBokFsYjE62CO9UyYpwoDGDTzZfjTX9FPt2VBxljs/lgRKQ==;EndpointSuffix=core.windows.net";
-            this.azureContainerName = "titansfirstcontainer";
+            this.blobConnectionString = configuration.Value.BlobKey;
+            this.blobContainerName = configuration.Value.BlobContainer;
         }
 
         [HttpGet]
@@ -27,7 +27,7 @@
         {
             var blobs = new List<BlobResponseModel>();
 
-            var container = new BlobContainerClient(this.azureConnectionString, this.azureContainerName);
+            var container = new BlobContainerClient(this.blobConnectionString, this.blobContainerName);
 
             await foreach (var blobItem in container.GetBlobsAsync())
             {
