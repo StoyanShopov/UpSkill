@@ -77,11 +77,13 @@ namespace UpSkill.Common
 
             public const string ChangePasswordRoute = "changePassword";
 
-            public const string CreateCompany = "create";
+            public const string CreateRoute = "create";
 
-            public const string EditCompany = "edit";
+            public const string EditRoute = "edit";
 
-            public const string DeleteCompany = "delete";
+            public const string DeleteRoute = "delete";
+
+            public const string DetailsRoute = "details";
 
             public const string AddOwnerCompany = "addOwnerToCompany";
 
@@ -145,33 +147,19 @@ namespace UpSkill.Common
 
         public class CompaniesConstants
         {
-            public const string AlreadyExist = "This company already exist.";
+            public const string AlreadyExist = "This already exist.";
 
-            public const string DoesNotExist = "This company doesn't exist.";
+            public const string DoesNotExist = "This doesn't exist.";
 
             public const string UserDoNotExist = "This user with this role does not exist.";
 
-            public const string SuccesfullyCreated = "Successfully created company.";
+            public const string SuccesfullyCreated = "Successfully created.";
 
-            public const string SuccesfullyEdited = "You have edited the company successfully.";
+            public const string SuccesfullyEdited = "Successfully edited.";
 
-            public const string SuccesfullyDeleted = "You have successfully removed the company.";
+            public const string SuccesfullyDeleted = "Successfully removed";
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
-        }
-
-        public class CoursesConstants
-        {
-            public const string AlreadyExist = "This course already exist.";
-
-            public const string DoesNotExist = "This course doesn't exist.";
-
-            public const string SuccesfullyCreated = "Successfully created course.";
-
-            public const string SuccesfullyEdited = "You have edited the course successfully.";
-
-            public const string SuccesfullyDeleted = "You have successfully removed the course.";
-
         }
     }
 }

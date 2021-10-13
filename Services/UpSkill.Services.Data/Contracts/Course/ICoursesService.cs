@@ -18,7 +18,7 @@
 
         Task<Result> DeleteAsync(int id);
 
-        Course GetDetailsForCourse(int id);
+        Task<TModel> GetByIdAsync<TModel>(int id);
 
     }
 }

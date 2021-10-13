@@ -13,7 +13,7 @@
     using UpSkill.Data.Models;
     using Web.ViewModels.Course;
 
-    using static Common.GlobalConstants.CoursesConstants;
+    using static Common.GlobalConstants.CompaniesConstants;
 
 
     public class CoursesService : ICoursesService
@@ -50,12 +50,13 @@
             return true;
         }
 
-        public Course GetDetailsForCourse(int id)
+        public async Task<TModel> GetByIdAsync<TModel>(int id)
         {
-            var course = this.courses
+            var course = await this.courses
                              .AllAsNoTracking()
                              .Where(x => x.Id == id)
-                             .FirstOrDefault();
+                             .To<TModel>()
+                             .FirstOrDefaultAsync();
 
             return course;
         }
@@ -90,6 +91,7 @@
             }
 
             this.courses.Delete(course);
+            await this.courses.SaveChangesAsync();
 
             return true;
         }
@@ -97,7 +99,7 @@
         private async Task<Course> GetCourse(int? id, string title)
         {
             var course = await this.courses
-                             .AllAsNoTracking()
+                             .All()
                              .Where(c => c.Title == title || c.Id == id)
                              .FirstOrDefaultAsync();
 

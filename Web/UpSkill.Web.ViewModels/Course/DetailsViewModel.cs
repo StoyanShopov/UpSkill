@@ -1,7 +1,12 @@
 ﻿namespace UpSkill.Web.ViewModels.Course
 {
-    public class CreateCourseViewModel
+    using Data.Models;
+    using Services.Mapping;
+
+    public class DetailsViewModel : IMapFrom<Course>
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string CoachFirstName { get; set; }

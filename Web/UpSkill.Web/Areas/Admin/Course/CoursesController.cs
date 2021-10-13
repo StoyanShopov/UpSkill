@@ -8,6 +8,9 @@
     using ViewModels.Course;
     using Data.Models;
 
+    using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.ControllerRoutesConstants;
+
 
     [AllowAnonymous]
     public class CoursesController : AdministrationBaseController
@@ -20,21 +23,13 @@
         }
 
         [HttpGet]
-        [Route("Details")]
-        public IActionResult Details(int id)
-        {
-            var result = this.coursesService.GetDetailsForCourse(id);
+        [Route(DetailsRoute)]
+        public async Task<DetailsViewModel> Details(int id)
+        => await this.coursesService.GetByIdAsync<DetailsViewModel>(id);
 
-            if (result == null)
-            {
-                return BadRequest("ne raboti");
-            }
-
-            return Ok("ekstra e");
-        }
 
         [HttpPost]
-        [Route("Create")]
+        [Route(CreateRoute)]
         public async Task<IActionResult> Create(CreateCourseViewModel model)
         {
             var result = await this.coursesService.CreateAsync(model);
@@ -44,11 +39,11 @@
                 return BadRequest(result.Error);
             }
 
-            return Ok("ekstra e");
+            return Ok(SuccesfullyCreated);
         }
 
         [HttpPut]
-        [Route("Edit")]
+        [Route(EditRoute)]
         public async Task<IActionResult> Edit(EditCourseViewModel model)
         {
             var result = await this.coursesService.EditAsync(model);
@@ -58,11 +53,11 @@
                 return BadRequest(result.Error);
             }
 
-            return Ok("ekstra e");
+            return Ok(SuccesfullyEdited);
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route(DeleteRoute)]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await this.coursesService.DeleteAsync(id);
@@ -72,7 +67,7 @@
                 return BadRequest(result.Error);
             }
 
-            return Ok("ekstra e");
+            return Ok(SuccesfullyDeleted);
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿namespace UpSkill.Web.ViewModels.Course
 {
-    //TODO
-    //Fix category prop with dropdown/ etc...
     public class EditCourseViewModel
     {
         public int Id { get; set; }
