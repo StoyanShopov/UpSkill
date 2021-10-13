@@ -74,8 +74,7 @@
 
         public async Task<string> Demote(ApplicationUser user)
         {
-            var demotion = await this.userManager
-                                     .RemoveFromRoleAsync(user, CompanyOwnerRoleName);
+            var demotion = await this.userManager.RemoveFromRoleAsync(user, CompanyOwnerRoleName);
 
             if (!demotion.Succeeded)
             {
