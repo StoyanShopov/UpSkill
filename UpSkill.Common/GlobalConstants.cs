@@ -24,7 +24,6 @@ namespace UpSkill.Common
             public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
         }
 
-
         public class UsersEmailsNames
         {
             public const string AdministratorEmailName = "administrator@test.test";
@@ -73,7 +72,11 @@ namespace UpSkill.Common
 
             public const string DeleteCompany = "delete";
 
-            public const string AddOwnerCompany = "addOwnerToCompany"; 
+            public const string AddOwnerCompany = "addOwnerToCompany";
+
+            public const string Companies = "companies";
+
+            public const string Details = "details"; 
         } 
 
         public class MessagesConstants

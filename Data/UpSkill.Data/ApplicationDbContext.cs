@@ -28,6 +28,12 @@
 
         public DbSet<Position> Positions { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<CompanyCourse> CompanyCourses { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -71,6 +77,10 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder
+                .Entity<CompanyCourse>()
+                .HasKey(c => new { c.CompanyId, c.CourseId }); 
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

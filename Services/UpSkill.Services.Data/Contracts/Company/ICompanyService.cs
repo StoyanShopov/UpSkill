@@ -14,6 +14,8 @@
 
         Task<Result> DeleteAsync(int id);
 
-        Task<IEnumerable<TModel>> GetCompanyByIdAsync<TModel>(int id);  
+        Task<TModel> GetByIdAsync<TModel>(int id);  
+
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
     }
 }

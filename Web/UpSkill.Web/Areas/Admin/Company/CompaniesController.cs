@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Company
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -58,5 +59,15 @@
 
             return Ok(SuccesfullyDeleted); 
         }
+
+        [HttpGet]
+        [Route(Companies)]
+        public async Task<IEnumerable<CompanyListingModel>> GetAll()
+            => await this.companyService.GetAllAsync<CompanyListingModel>();
+
+        [HttpGet]
+        [Route(Details)]
+        public async Task<CompanyDetailsModel> GetDetails(int id)
+            => await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
     }
 }
