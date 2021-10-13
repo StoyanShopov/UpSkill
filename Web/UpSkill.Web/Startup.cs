@@ -25,13 +25,14 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                 .AddDatabase(this.configuration)
-                 .AddIdentity()
-                 .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
-                 .AddBussinesServices()
-                 .AddInfrastructureServices() 
-                 .AddSwagger()
-                 .AddApiControllers();
+                  .AddDatabase(this.configuration)
+                  .AddIdentity()
+                  .AddAuthorizations()
+                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
+                  .AddBussinesServices()
+                  .AddInfrastructureServices()
+                  .AddSwagger()
+                  .AddApiControllers();
 
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();

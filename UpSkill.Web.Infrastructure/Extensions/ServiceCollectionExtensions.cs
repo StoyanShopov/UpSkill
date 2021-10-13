@@ -34,6 +34,8 @@
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
+    using static Common.GlobalConstants.PoliciesNamesConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
 
     public static class ServiceCollectionExtensions
     {
@@ -78,6 +80,18 @@
             return services;
         }
 
+        public static IServiceCollection AddAuthorizations(this IServiceCollection services)
+        {
+            services
+                .AddAuthorization(options =>
+                {
+                    options.AddPolicy(AdministratorOnly,
+                         policy => policy.RequireRole(AdministratorRoleName));
+                });
+
+            return services;
+        }
+
         public static IServiceCollection AddJwtAuthentication(
           this IServiceCollection services,
           AppSettings appSettings)
@@ -106,12 +120,12 @@
             return services;
         }
 
-        public static IServiceCollection AddBussinesServices(this IServiceCollection services) 
-            => services 
+        public static IServiceCollection AddBussinesServices(this IServiceCollection services)
+            => services
                 .AddTransient<IIdentityService, IdentityService>()
-                .AddTransient<IEmailService, EmailService>() 
-                .AddTransient<IAccountService, AccountService>()  
-                .AddTransient<IAdminService, AdminService>() 
+                .AddTransient<IEmailService, EmailService>()
+                .AddTransient<IAccountService, AccountService>()
+                .AddTransient<IAdminService, AdminService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))

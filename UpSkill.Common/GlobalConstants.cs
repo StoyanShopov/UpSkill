@@ -67,14 +67,14 @@ namespace UpSkill.Common
 
             public const string ChangePasswordRoute = "changePassword";
 
-            public const string CreateCompany = "create"; 
+            public const string CreateCompany = "create";
 
-            public const string EditCompany = "edit"; 
+            public const string EditCompany = "edit";
 
             public const string DeleteCompany = "delete";
 
-            public const string AddOwnerCompany = "addOwnerToCompany"; 
-        } 
+            public const string AddOwnerCompany = "addOwnerToCompany";
+        }
 
         public class MessagesConstants
         {
@@ -117,7 +117,7 @@ namespace UpSkill.Common
 
             public const string AdministratorPositionName = "Administrator";
 
-            public const string PositionDoesNotExist = "The position you entered does not exist";  
+            public const string PositionDoesNotExist = "The position you entered does not exist";
         }
 
         public class CompaniesNamesConstants
@@ -127,7 +127,7 @@ namespace UpSkill.Common
             public const string ScaleFocusCompanyName = "Scale Focus";
 
             public const string AdministratorCompanyName = "UpSkill";
-        }    
+        }
 
         public class CompaniesConstants
         {
@@ -144,6 +144,11 @@ namespace UpSkill.Common
             public const string SuccesfullyDeleted = "You have successfully removed the company.";
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
+        }
+
+        public class PoliciesNamesConstants
+        {
+            public const string AdministratorOnly = "AdministratorOnly";
         }
     }
 }
