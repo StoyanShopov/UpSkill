@@ -1,21 +1,18 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-
-namespace UpSkill.Services.Blob
+﻿namespace UpSkill.Services.Blob
 {
-    using AutoMapper.Configuration;
     using Azure.Storage.Blobs;
     using Azure.Storage.Blobs.Models;
+    using Microsoft.Extensions.Options;
     using System.IO;
     using System.Threading.Tasks;
+
     using UpSkill.Services.Contracts.Blob;
 
-    public class UploadService : IUploadService
+    public class BlobService : IBlobService
     {
         private readonly BlobStorage blobStorage;
 
-        public UploadService(IOptions<BlobStorage> configuration)
+        public BlobService(IOptions<BlobStorage> configuration)
         {
             this.blobStorage = configuration.Value;
         }
