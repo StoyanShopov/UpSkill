@@ -24,7 +24,6 @@ namespace UpSkill.Common
             public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
         }
 
-
         public class UsersEmailsNames
         {
             public const string AdministratorEmailName = "administrator@test.test";
