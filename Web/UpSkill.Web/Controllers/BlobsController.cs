@@ -1,33 +1,33 @@
 ﻿namespace UpSkill.Web.Controllers
 {
     using Azure.Storage.Blobs;
+    using Azure.Storage.Blobs.Models;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
+
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
     using UpSkill.Services;
     using UpSkill.Services.Contracts.Blob;
-    using UpSkill.Web.ViewModels.Blob;
 
     [Route("[controller]")]
     [ApiController]
     public class BlobsController : ControllerBase
     {
-        private readonly IBlobService uploadService;
+        private readonly IBlobService blobService;
         private readonly string blobConnectionString;
         private readonly string blobContainerName;
 
         public BlobsController(
-            IOptions<BlobStorage> configuration, 
-            IBlobService uploadService)
+            IOptions<BlobStorage> configuration,
+            IBlobService blobService)
         {
             this.blobConnectionString = configuration.Value.BlobKey;
             this.blobContainerName = configuration.Value.BlobContainer;
-            this.uploadService = uploadService ?? throw new ArgumentNullException(nameof(uploadService));
+            this.blobService = blobService ?? throw new ArgumentNullException(nameof(blobService));
         }
 
         [HttpPost("upload"),
@@ -44,7 +44,7 @@
                     //var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.Trim('"');
                     //var fileUrl = await uploadService.UploadAsync(file.OpenReadStream(), fileName, file.ContentType);
 
-                    var fileUrl = await uploadService.UploadAsync(file.OpenReadStream(), file.ContentType);
+                    var fileUrl = await blobService.UploadAsync(file.OpenReadStream(), file.ContentType);
 
                     return Ok(new { fileUrl });
                 }
@@ -60,26 +60,15 @@
         }
 
         [HttpGet("catalog")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
-            var blobs = new List<BlobResponseModel>();
-
-            var container = new BlobContainerClient(this.blobConnectionString, this.blobContainerName);
-
-            await foreach (var blobItem in container.GetBlobsAsync())
-            {
-                var uri = container.Uri.AbsoluteUri;
-                var name = blobItem.Name;
-                var fullUri = uri + "/" + name;
-
-                blobs.Add(new BlobResponseModel { Name = name, Uri = fullUri, ContentType = blobItem.Properties.ContentType });
-            }
+            var blobs = await blobService.GetAllBlobs(blobConnectionString, blobContainerName);
 
             return Ok(blobs);
         }
 
         [HttpGet("download/{name}")]
-        public async Task<IActionResult> Download(string name)
+        public async Task<IActionResult> DownloadAsync(string name)
         {
             var container = new BlobContainerClient(this.blobConnectionString, this.blobContainerName);
 
@@ -93,6 +82,18 @@
             }
 
             return BadRequest();
+        }
+
+        [HttpGet("delete/{name}")]
+        public async Task<IActionResult> DeleteAsync(string name)
+        {
+            var container = new BlobContainerClient(this.blobConnectionString, this.blobContainerName); 
+            
+            var blob = container.GetBlobClient(name);
+
+            await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
+
+            return StatusCode(202);
         }
     }
 }

@@ -1,23 +1,18 @@
-﻿using UpSkill.Services.Blob;
-using UpSkill.Services.Contracts.Blob;
-
-namespace UpSkill.Web
+﻿namespace UpSkill.Web
 {
-    using System.Reflection;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
-    using UpSkill.Web.ViewModels;
+    using System.Reflection;
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
     using UpSkill.Services.Mapping;
-    using UpSkill.Web.Web.Extensions;
     using UpSkill.Web.Infrastructure.Web.Extensions;
+    using UpSkill.Web.ViewModels;
+    using UpSkill.Web.Web.Extensions;
 
     public class Startup
     {
