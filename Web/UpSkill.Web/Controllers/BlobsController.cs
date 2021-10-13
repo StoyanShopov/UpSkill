@@ -41,9 +41,10 @@
 
                 if (file.Length > 0)
                 {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.Trim('"');
+                    //var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.Trim('"');
+                    //var fileUrl = await uploadService.UploadAsync(file.OpenReadStream(), fileName, file.ContentType);
 
-                    var fileUrl = await uploadService.UploadAsync(file.OpenReadStream(), fileName, file.ContentType);
+                    var fileUrl = await uploadService.UploadAsync(file.OpenReadStream(), file.ContentType);
 
                     return Ok(new { fileUrl });
                 }

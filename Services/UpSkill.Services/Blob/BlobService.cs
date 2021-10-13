@@ -1,4 +1,7 @@
-﻿namespace UpSkill.Services.Blob
+﻿using System;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
+
+namespace UpSkill.Services.Blob
 {
     using Azure.Storage.Blobs;
     using Azure.Storage.Blobs.Models;
@@ -17,7 +20,7 @@
             this.blobStorage = configuration.Value;
         }
 
-        public async Task<string> UploadAsync(Stream fileStream, string fileName, string contentType)
+        public async Task<string> UploadAsync(Stream fileStream,  string contentType)
         {
             var container = new BlobContainerClient(this.blobStorage.BlobKey, this.blobStorage.BlobContainer);
 
@@ -26,7 +29,7 @@
             if (createResponse != null && createResponse.GetRawResponse().Status == 201)
                 await container.SetAccessPolicyAsync(PublicAccessType.Blob);
 
-            var blob = container.GetBlobClient(fileName);
+            var blob = container.GetBlobClient( Guid.NewGuid().ToString());
 
             await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
 
