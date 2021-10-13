@@ -119,13 +119,27 @@ function Header() {
 							</NavLink>
 								</li>
 								<li className="nav-item px-lg-2">
-									<NavLink className="nav-link text-center" to="/Courses"><span className="d-inline-block d-lg-none icon-width"><i className="fas fa-spa"></i></span>Courses</NavLink>
+									<NavLink className="nav-link text-center" 
+										to="/Courses">
+											<span className="d-inline-block d-lg-none icon-width"><i className="fas fa-spa"></i></span>Courses
+									</NavLink>
 								</li>
 								<li className="nav-item px-lg-2">
-									<NavLink className="nav-link text-center" to="/Coaches"><span className="d-inline-block d-lg-none icon-width">
-										<i className="far fa-user"></i></span>Coaches</NavLink>
+									<NavLink className="nav-link text-center"
+										to="/Coaches">
+										<span className="d-inline-block d-lg-none icon-width">
+										<i className="fas fa-chalkboard-teacher"></i>
+										</span>Coaches
+									</NavLink>
 								</li>
-
+								<li className="nav-item px-lg-2">
+									<NavLink className="nav-link text-center" 		
+										to="/MyProfile">
+										<span className="d-inline-block d-lg-none icon-width">
+										<i className="far fa-user"></i>
+										</span>MyProfile										
+									</NavLink>
+								</li>
 							</ul>
 						</div> 
 			 	</nav>

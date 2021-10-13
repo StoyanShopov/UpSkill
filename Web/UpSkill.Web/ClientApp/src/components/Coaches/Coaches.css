@@ -11,3 +11,7 @@
 #sidebar.active {
     margin-left: -250px;
 }
+
+@media screen  and (max-width: 600px){
+    
+}
