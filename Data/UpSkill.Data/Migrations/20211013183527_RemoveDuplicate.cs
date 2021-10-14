@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UpSkill.Data.Migrations
 {
-    public partial class AddCoursesCategories : Migration
+    public partial class RemoveDuplicate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,10 +31,7 @@ namespace UpSkill.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CoachFirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CoachLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(6,2)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -52,10 +49,39 @@ namespace UpSkill.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CompanyCourses",
+                columns: table => new
+                {
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyCourses", x => new { x.CompanyId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_CompanyCourses_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CompanyCourses_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_IsDeleted",
                 table: "Categories",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanyCourses_CourseId",
+                table: "CompanyCourses",
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_CategoryId",
