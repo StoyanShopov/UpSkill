@@ -96,5 +96,8 @@
 
             return true;
         }
+
+        public async Task GetAll()
+        => await this.courses.All().ToListAsync();
     }
 }
