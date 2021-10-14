@@ -26,10 +26,15 @@
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Services.Contracts.Account;
     using UpSkill.Services.Account;
+    using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Company;
+    using UpSkill.Services.Data.Contracts.Admin;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
 
     public static class ServiceCollectionExtensions
     {
@@ -74,6 +79,16 @@
             return services;
         }
 
+        public static IServiceCollection AddAuthorizations(this IServiceCollection services)
+        => services
+            .AddAuthorization(options =>
+            {
+                options.AddPolicy(ReadPolicy,
+                        builder => builder.RequireRole(AdministratorRoleName, CompanyOwnerRoleName, CompanyEmployeeRoleName));
+                options.AddPolicy(WritePolicy,
+                        builder => builder.RequireRole(AdministratorRoleName, CompanyOwnerRoleName, CompanyEmployeeRoleName));
+            });
+
         public static IServiceCollection AddJwtAuthentication(
           this IServiceCollection services,
           AppSettings appSettings)
@@ -106,7 +121,9 @@
             => services 
                 .AddTransient<IIdentityService, IdentityService>()
                 .AddTransient<IEmailService, EmailService>() 
-                .AddTransient<IAccountService, AccountService>() 
+                .AddTransient<IAccountService, AccountService>()  
+                .AddTransient<IAdminService, AdminService>() 
+                .AddTransient<ICompanyService, CompaniesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>();

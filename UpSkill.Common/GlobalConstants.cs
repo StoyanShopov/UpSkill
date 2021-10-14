@@ -4,8 +4,6 @@ namespace UpSkill.Common
     {
         public const string SystemName = "UpSkill";
 
-        public const string AdministratorRoleName = "Administrator";
-
         public const string AppSettingJson = "appsettings.json";
 
         public const string DefaultConnection = "DefaultConnection";
@@ -24,6 +22,15 @@ namespace UpSkill.Common
             public const string UpSkillAPI = "UpSkill API";
             public const string V1 = "v1";
             public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
+        }
+
+        public class UsersEmailsNames
+        {
+            public const string AdministratorEmailName = "administrator@test.test";
+
+            public const string OwnerMotionSoftwareEmailName = "ownerOfMotionSoftware@test.test";
+
+            public const string EmployeeMotionSoftwareEmailName = "employeeMo@test.test";
         }
 
         public class IdentityConstants
@@ -58,7 +65,19 @@ namespace UpSkill.Common
             public const string ResendEmailConfirmationLinkRoute = "resendEmailConfirmationLink";
 
             public const string ChangePasswordRoute = "changePassword";
-        }
+
+            public const string CreateCompany = "create"; 
+
+            public const string EditCompany = "edit"; 
+
+            public const string DeleteCompany = "delete";
+
+            public const string AddOwnerCompany = "addOwnerToCompany";
+
+            public const string Companies = "companies";
+
+            public const string Details = "details"; 
+        } 
 
         public class MessagesConstants
         {
@@ -79,5 +98,65 @@ namespace UpSkill.Common
             public const string HtmlContent = "<p>Verify your email:</p><p><a href='{0}'>CLICK here</a></p>";
             public const string VerifyUrl = "https:/{0}/{1}/{2}/{3}?token={4}&email={5}";
         }
+
+        public class RolesNamesConstants
+        {
+            public const string AdministratorRoleName = "Administrator";
+
+            public const string CompanyOwnerRoleName = "Owner";
+
+            public const string CompanyEmployeeRoleName = "Employee";
+
+            public const string WritePolicy = "writepolicy"; 
+
+            public const string ReadPolicy = "readpolicy";
+        }
+
+        public class PositionsNamesConstants
+        {
+            public const string OwnerPositionName = "Owner";
+
+            public const string GraphicDesignerPositionName = "Graphic Designer";
+
+            public const string SoftwareDeveloperPositionName = "Software Developer";
+
+            public const string SeniorSoftwareDeveloperPositionName = "Senior Software Developer";
+
+            public const string AdministratorPositionName = "Administrator";
+
+            public const string PositionDoesNotExist = "The position you entered does not exist";  
+        }
+
+        public class CompaniesNamesConstants
+        {
+            public const string MotionCompanyName = "Motion Software";
+
+            public const string ScaleFocusCompanyName = "Scale Focus";
+
+            public const string AdministratorCompanyName = "UpSkill";
+        }    
+
+        public class CompaniesConstants
+        {
+            public const string AlreadyExist = "This company already exist.";
+
+            public const string DoesNotExist = "This company doesn't exist.";
+
+            public const string UserDoNotExist = "This user with this role does not exist.";
+
+            public const string SuccesfullyCreated = "Successfully created company.";
+
+            public const string SuccesfullyEdited = "You have edited the company successfully.";
+
+            public const string SuccesfullyDeleted = "You have successfully removed the company.";
+
+            public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
+        } 
+
+        public class ColumTypeConstants
+        {
+            public const string Decimal = "decimal(6,2)"; 
+        }
     }
 }
+

@@ -18,21 +18,25 @@
     using UpSkill.Web.ViewModels.Identity;
 
     using static UpSkill.Common.GlobalConstants.IdentityConstants;
+    using static UpSkill.Common.GlobalConstants.PositionsNamesConstants; 
 
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Company> companies;
-        private readonly AppSettings appSettings;
+        private readonly IDeletableEntityRepository<Position> positions;
+        private readonly AppSettings appSettings; 
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IOptions<AppSettings> appSettings,
-            IDeletableEntityRepository<Company> companies)
+            IDeletableEntityRepository<Company> companies, 
+            IDeletableEntityRepository<Position> positions)
         {
             this.userManager = userManager;
             this.companies = companies;
             this.appSettings = appSettings.Value;
+            this.positions = positions;
         }
 
         public string GenerateJwtToken(string userId, string userName, string secret, string userEmail)
@@ -47,6 +51,7 @@
                     new Claim(ClaimTypes.NameIdentifier, userId),
                     new Claim(ClaimTypes.Name, userName),
                     new Claim(ClaimTypes.Email, userEmail)
+                    //Need to add claims for roles
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -64,18 +69,23 @@
                 .All()
                 .FirstOrDefaultAsync(x => x.Name == model.CompanyName);
 
+            var positionObj = await this.positions
+                .AllAsNoTracking()
+                .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);  
+
             if (company == null)
             {
-                company = new Company { Name = model.CompanyName, };
+                company = new Company { Name = model.CompanyName };
             }
 
             var user = new ApplicationUser()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserName = model.Email,
-                Email = model.Email,
                 Company = company,
+                PositionId = positionObj.Id,
+                Email = model.Email,
+                UserName = model.Email
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);

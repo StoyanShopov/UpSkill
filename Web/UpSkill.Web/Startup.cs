@@ -26,7 +26,8 @@
         {
             services
                  .AddDatabase(this.configuration)
-                 .AddIdentity()
+                 .AddIdentity() 
+                 .AddAuthorizations()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
                  .AddBussinesServices()
                  .AddInfrastructureServices() 
@@ -71,6 +72,7 @@
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}"); 
                     endpoints.MapRazorPages();
                 })
                 .ApplyMigrations();
