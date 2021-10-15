@@ -15,7 +15,7 @@ import Layout from './components/Shared/Layout';
 import Notifications from './components/Shared/Notifications/Notifications';
 
 import Auth from "./reducers/auth";
-import notificationContext from "./Context/NotificationContext";
+import NotificationContext from "./Context/NotificationContext";
 import store from './store';    
 
 const AppWrapper = (props) => {   
@@ -23,12 +23,12 @@ const AppWrapper = (props) => {
   
   return (
     <Provider store={store}> 
-     <notificationContext.Provider value={[notification, setNotification]} >
+     <NotificationContext.Provider value={[notification, setNotification]} >
       <Layout> 
         <Notifications state={notification.state} message={notification.message} />
           {props.children}   
       </Layout>
-      </notificationContext.Provider >
+      </NotificationContext.Provider >
     </Provider>
   )
 }
