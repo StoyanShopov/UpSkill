@@ -167,6 +167,10 @@ namespace UpSkill.Common
         public class PoliciesNamesConstants
         {
             public const string AdministratorOnly = "AdministratorOnly";
+
+            public const string OwnerOnly = "OwnerOnly";
+
+            public const string EmployeeOnly = "EmployeeOnly";
         }
     }
 }

@@ -90,6 +90,12 @@
                 {
                     options.AddPolicy(AdministratorOnly,
                          policy => policy.RequireRole(AdministratorRoleName));
+
+                    options.AddPolicy(OwnerOnly,
+                         policy => policy.RequireRole(CompanyOwnerRoleName));
+
+                    options.AddPolicy(EmployeeOnly,
+                         policy => policy.RequireRole(CompanyEmployeeRoleName));
                 });
 
             return services;
