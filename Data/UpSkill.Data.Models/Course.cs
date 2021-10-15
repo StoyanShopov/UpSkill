@@ -21,8 +21,6 @@ namespace UpSkill.Data.Models
 
         public int CategoryId { get; set; }
 
-
-        [Column(TypeName = PriceFormat)]
         public decimal Price { get; set; }
 
         public Category Category { get; set; }

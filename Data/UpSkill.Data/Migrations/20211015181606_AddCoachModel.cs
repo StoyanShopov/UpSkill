@@ -4,7 +4,7 @@
 
     using Microsoft.EntityFrameworkCore.Migrations;
 
-    public partial class AddCoachTable : Migration
+    public partial class AddCoachModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,7 @@
             migrationBuilder.AddColumn<decimal>(
                 name: "Price",
                 table: "Courses",
-                type: "decimal(6,2)",
+                type: "decimal(18,2)",
                 nullable: false,
                 defaultValue: 0m);
 
