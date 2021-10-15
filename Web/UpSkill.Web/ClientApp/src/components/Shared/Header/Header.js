@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"; 
 
-import { logout } from "./../../../actions/auth";
 import { clearMessage } from "../../../actions/message";
 
 import { history } from "../../../helpers/history"; 
@@ -14,19 +13,16 @@ import './Header.css';
 function Header() { 
 	const [isActive, setisActive] = useState(false);   
 
-	const { user: currentUser } = useSelector((state) => state.auth);
+	let currentUser = JSON.parse(localStorage.getItem('user'));
+
 	const dispatch = useDispatch();
   
 	useEffect(() => {
 	  history.listen((location) => {
 		dispatch(clearMessage()); // clear message when changing location
 	  });
-	}, [dispatch]);
+	}, []);
 	
-	const logOut = () => {
-		dispatch(logout());
-	  };
-
 	return ( 
 		<header className="Header site-header"> 
 			<div className="header-wrapper navbar navbar-default ml-5">
@@ -66,7 +62,7 @@ function Header() {
 								<article className="d-flex justify-content-end" style={{ width: 10 +'em'}} id="userProfile">
 									<li className="nav-item px-lg-2  text-decoration-none d-flex justify-content-end">
 									  <NavLink to="/MyProfile" className="nav-link col-xl-5 p-0">
-										<img src={UserProfilePic} alt="User Picture" className="img-fluid rounded" ></img>
+										<img src={UserProfilePic} alt="User" className="img-fluid rounded" ></img>
 									  </NavLink>
 								</li> 
 							</article>   
@@ -78,9 +74,9 @@ function Header() {
                                        </NavLink>
                                    </li>
                                   <li className="nav-item">
-                                    <a href="/Login" className="nav-link" onClick={logOut}>
+									<NavLink to="/Logout" className="nav-link btn btn-secondary">
                                         LogOut
-                                    </a>
+                                    </NavLink>
                                   </li>
                                </div>
                          ) : (
@@ -97,7 +93,7 @@ function Header() {
 
 					<section>
 						<article className="nav-item container">
-							<a 
+							<btn 
 								onClick={() => {
 									setisActive(!isActive);
 								}}
@@ -106,7 +102,7 @@ function Header() {
 								aria-label="menu"
 								aria-expanded="false">
 								<span className="navbar-toggler-icon"></span>
-							</a>
+							</btn>
 						</article>
 					</section>
 
@@ -119,27 +115,13 @@ function Header() {
 							</NavLink>
 								</li>
 								<li className="nav-item px-lg-2">
-									<NavLink className="nav-link text-center" 
-										to="/Courses">
-											<span className="d-inline-block d-lg-none icon-width"><i className="fas fa-spa"></i></span>Courses
-									</NavLink>
+									<NavLink className="nav-link text-center" to="/Courses"><span className="d-inline-block d-lg-none icon-width"><i className="fas fa-spa"></i></span>Courses</NavLink>
 								</li>
 								<li className="nav-item px-lg-2">
-									<NavLink className="nav-link text-center"
-										to="/Coaches">
-										<span className="d-inline-block d-lg-none icon-width">
-										<i className="fas fa-chalkboard-teacher"></i>
-										</span>Coaches
-									</NavLink>
+									<NavLink className="nav-link text-center" to="/Coaches"><span className="d-inline-block d-lg-none icon-width">
+										<i className="far fa-user"></i></span>Coaches</NavLink>
 								</li>
-								<li className="nav-item px-lg-2">
-									<NavLink className="nav-link text-center" 		
-										to="/MyProfile">
-										<span className="d-inline-block d-lg-none icon-width">
-										<i className="far fa-user"></i>
-										</span>MyProfile										
-									</NavLink>
-								</li>
+
 							</ul>
 						</div> 
 			 	</nav>

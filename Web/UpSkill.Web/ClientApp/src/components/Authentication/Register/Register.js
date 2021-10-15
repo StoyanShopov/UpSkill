@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";  
 
 import Form from "react-validation/build/form";
@@ -6,10 +6,12 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
-import logo from "../../assets/logo-NoBg.png";
-import manCase from "../../assets/manCase.png";
+import logo from "../../../assets/logo-NoBg.png";
+// import manCase from "../../../assets/manCase.png";
  
-import { register } from "../../actions/auth"; 
+import notificationContext from "../../../Context/NotificationContext";
+
+import { register } from "../../../actions/auth"; 
 
 const required = (value) => {
   if (!value) {
@@ -64,6 +66,8 @@ const Register = () => {
   const [successful, setSuccessful] = useState(false);
 
   const { message } = useSelector(state => state.message);
+  let [notification, setNotification] = useContext(notificationContext);
+
   const dispatch = useDispatch();
 
   const onChangeFirstName = (e) => {
@@ -107,9 +111,11 @@ const Register = () => {
       dispatch(register(firstName, lastName, companyName, email, password, confirmPassword))
         .then(() => {
           setSuccessful(true);
+          setNotification({type:'REGISTER_SUCCESS', payload: `Welcome ${email}!`});
         })
         .catch(() => {
           setSuccessful(false);
+          setNotification({type:'REGISTER_FAIL', payload: ``});
         });
     }
   };
@@ -117,7 +123,7 @@ const Register = () => {
   return (
     <div className="row">
     <div className="container col-md-6">
-        <img src={manCase} alt="" />
+        {/* <img src={manCase} alt="IMG" /> */}
     </div>
     <div className="base-container col-md-6" >
         <div className="image">

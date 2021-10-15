@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from 'react-router-dom'; 
 import { Link } from 'react-router-dom'; 
@@ -7,20 +7,12 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import logo from "../../assets/logo-NoBg.png";
-import manKey from "../../assets/manKey.png"; 
+import logo from "../../../assets/logo-NoBg.png";
+// import manKey from "../../../assets/manKey.png"; 
 
-import { login } from "../../actions/auth";  
+import notificationContext from "../../../Context/NotificationContext";
 
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-}; 
+import { login } from "../../../actions/auth";  
 
 const Login = (props) => {
   const form = useRef();
@@ -32,6 +24,8 @@ const Login = (props) => {
 
   const { isLoggedIn } = useSelector(state => state.auth);
   const { message } = useSelector(state => state.message); 
+
+  let [notification, setNotification] = useContext(notificationContext);
 
   const dispatch = useDispatch();
 
@@ -56,6 +50,7 @@ const Login = (props) => {
       dispatch(login(email, password))
         .then(() => {
           props.history.push("/");
+          setNotification({type:'LOGIN_SUCCESS', payload: `Welcome ${email}!`});
         })
         .catch(() => {
           setLoading(false);
@@ -66,13 +61,13 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/"/>;
+    return <Redirect to="/" />;
   }
 
   return (
     <div className="row">
       <div className="container col-md-6">
-        <img src={manKey} alt="" />
+        {/* <img src={manKey} alt="IMG" /> */}
       </div>
       <div className="base-container col-md-6">
         <div className="image">
@@ -141,5 +136,15 @@ const Login = (props) => {
     </div>
   );
 }
+
+const required = (value) => {
+  if (!value) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        This field is required!
+      </div>
+    );
+  }
+}; 
 
 export default Login;

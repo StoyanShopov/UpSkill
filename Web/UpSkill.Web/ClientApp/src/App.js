@@ -1,34 +1,48 @@
-import React from "react"; 
+import React, {useReducer} from "react"; 
 import { Route } from "react-router-dom";
 import { Provider } from 'react-redux'
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Home from './components/Home';
 import Courses from './components/Courses/Courses';
 import Coaches from './components/Coaches/Coaches'; 
-import Login from './components/Login/Login'; 
-import Register from './components/Register/Register';
+import Login from './components/Authentication/Login/Login'; 
+import Logout from './components/Authentication/Logout/Logout'; 
+import Register from './components/Authentication/Register/Register';
 import Layout from './components/Shared/Layout'; 
+import Notifications from './components/Shared/Notifications/Notifications';
+
+import Auth from "./reducers/auth";
+import notificationContext from "./Context/NotificationContext";
 import store from './store';    
 
-const AppWrapper = () => {   
-
+const AppWrapper = (props) => {   
+  const [notification, setNotification ] = useReducer(Auth, {type: '', state: 'none', message: ''});
+  
   return (
     <Provider store={store}> 
+     <notificationContext.Provider value={[notification, setNotification]} >
       <Layout> 
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/Courses' component={Courses}/>
-          <Route exact path='/Coaches' component={Coaches}/>  
-          <Route exact path='/Register' component={Register} />  
-          <Route exact path='/Login' component={Login}/>   
+        <Notifications state={notification.state} message={notification.message} />
+          {props.children}   
       </Layout>
+      </notificationContext.Provider >
     </Provider>
   )
 }
 
 function App() {    
   return (
-    <AppWrapper/> 
+    <AppWrapper>
+      <Route exact path='/' component={Home}/>
+          <Route exact path='/Courses' component={Courses}/>
+          <Route exact path='/Coaches' component={Coaches}/>  
+          <Route exact path='/Register' component={Register} />  
+          <Route exact path='/Login' component={Login}/>
+          <Route exact path='/Logout' component={Logout}/>
+      </AppWrapper> 
   );
 }
 
