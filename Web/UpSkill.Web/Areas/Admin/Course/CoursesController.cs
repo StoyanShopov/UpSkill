@@ -1,15 +1,14 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+	using System.Threading.Tasks;
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
 
-    using ViewModels.Course;
-    using Services.Data.Contracts.Course;
+	using ViewModels.Course;
+	using Services.Data.Contracts.Course;
 
-    using static Common.GlobalConstants.CompaniesConstants;
-    using static Common.GlobalConstants.ControllerRoutesConstants;
-
+	using static Common.GlobalConstants.CompaniesConstants;
+	using static Common.GlobalConstants.ControllerRoutesConstants;
 
     [AllowAnonymous]
     public class CoursesController : AdministrationBaseController
@@ -40,6 +39,20 @@
             }
 
             return Ok(SuccesfullyCreated);
+        }
+
+        [HttpPost]
+        [Route(AddCompanyOwnerToCourseRoute)]
+        public async Task<IActionResult> AddCompany(AddCompanyToCourseViewModel model)
+        {
+            var result = await this.coursesService.AddCompanyAsync(model);
+
+            if (result.Failure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
         }
 
         [HttpPut]

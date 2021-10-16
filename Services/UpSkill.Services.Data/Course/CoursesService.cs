@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
     using System.Linq;
-
     using Microsoft.EntityFrameworkCore;
 
     using Common;
@@ -11,17 +10,33 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using Web.ViewModels.Course;
+    using Microsoft.AspNetCore.Identity;
 
     using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
+    using static Common.GlobalConstants.AdminConstants;
+    using static Common.GlobalConstants.AccountConstants;
+	using UpSkill.Data.Common.Models;
 
-    //Coaches table is missing right now so most of the logic is commented
-    public class CoursesService : ICoursesService
+	//Coaches table is missing right now so most of the logic is commented
+	public class CoursesService : ICoursesService
     {
+        private readonly IRepository<CompanyCourse> companyCourses;
         private readonly IDeletableEntityRepository<Course> courses;
+        private readonly IDeletableEntityRepository<Company> companies;
 
-        public CoursesService(IDeletableEntityRepository<Course> courses)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public CoursesService(
+            UserManager<ApplicationUser> userManager,
+            IRepository<CompanyCourse> companyCourses,
+            IDeletableEntityRepository<Course> courses,
+            IDeletableEntityRepository<Company> companies)
         {
             this.courses = courses;
+            this.companies = companies;
+            this.companyCourses = companyCourses;
+            this.userManager = userManager;
         }
 
         public async Task<Result> CreateAsync(CreateCourseViewModel model)
@@ -101,5 +116,51 @@
 
             return true;
         }
-    }
+
+		public async Task<Result> AddCompanyAsync(AddCompanyToCourseViewModel model)
+		{
+            var user = await userManager.FindByEmailAsync(model.CurrentUserEmail);
+
+            if (user == null || !await userManager.IsInRoleAsync(user, AdministratorRoleName))
+                return (UserNotAnAdmin);
+            
+            var companyOwner = await userManager.FindByEmailAsync(model.CompanyOwnerEmail);
+            var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
+
+			if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
+				return UserNotInCompanyOwnerRole;
+
+            var company = await this.GetFirst(model.CompanyId, (IDeletableEntityRepository<BaseDeletableModel<int>>)this.companies);            
+            if (company == null)
+                return DoesNotExist;            
+
+            var course = await this.GetFirst(model.CourseId, (IDeletableEntityRepository<BaseDeletableModel<int>>)this.courses);
+            if (course == null)
+                return DoesNotExist;
+            
+            var companyCourse = new CompanyCourse
+            {
+                CompanyId = model.CompanyId,
+                Company = company as Company,
+                CourseId = model.CourseId,
+                Course = course as Course
+            };
+			
+			await companyCourses.AddAsync(companyCourse);
+
+            await this.companyCourses.SaveChangesAsync();
+
+            return true;
+        }
+
+		private async Task<BaseDeletableModel<int>> GetFirst(int id,
+            IDeletableEntityRepository<BaseDeletableModel<int>> repository)
+		{            
+            var company = await repository
+               .AllAsNoTracking()
+               .FirstOrDefaultAsync(c => c .Id == id);
+
+            return company;
+        }
+	}
 }

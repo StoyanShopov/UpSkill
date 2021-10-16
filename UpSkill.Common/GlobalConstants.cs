@@ -20,6 +20,8 @@ namespace UpSkill.Common
 
             public const string AssignedSuccessfully = "User successfully promoted!";
 
+            public const string UserNotAnAdmin = "User must be an Administrator to perform this action!";
+
             public const string UnassignedSuccessfully = "User successfully demoted!";
         }
         public class AutoMapperConstants
@@ -61,6 +63,7 @@ namespace UpSkill.Common
         {
             public const string WrongOldPassword = "Old password is invalid.";
             public const string DifferentPasswords = "New password and confirm new password must be the same.";
+            public const string UserNotInCompanyOwnerRole = "This user is not a company owner!";
         }
 
         public class ControllerRoutesConstants
@@ -92,6 +95,8 @@ namespace UpSkill.Common
             public const string Promote = "promote";
 
             public const string Demote = "demote";
+
+            public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
         }
 
         public class MessagesConstants
@@ -162,6 +167,8 @@ namespace UpSkill.Common
             public const string SuccesfullyDeleted = "Successfully removed";
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
+
+            public const string SuccesfullyAddedCompanyOwnerToGivenCourse = "You have successfully added a company to this course.";
         }
     }
 }
