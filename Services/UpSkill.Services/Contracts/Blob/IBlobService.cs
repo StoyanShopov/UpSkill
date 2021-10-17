@@ -1,7 +1,7 @@
-﻿using Azure.Storage.Blobs;
-
-namespace UpSkill.Services.Contracts.Blob
+﻿namespace UpSkill.Services.Contracts.Blob
 {
+
+    using Azure.Storage.Blobs;
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;

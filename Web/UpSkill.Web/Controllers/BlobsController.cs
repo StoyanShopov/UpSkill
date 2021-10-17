@@ -41,7 +41,7 @@
 
                 if (file.Length > 0)
                 {
-                    var fileUrl = await blobService.UploadAsync(file.OpenReadStream(), file.ContentType);
+                    var fileUrl = await this.blobService.UploadAsync(file.OpenReadStream(), file.ContentType);
 
                     return Ok(new { fileUrl });
                 }
@@ -59,7 +59,7 @@
         [HttpGet("catalog")]
         public async Task<IActionResult> GetAsync()
         {
-            var blobs = await blobService.GetAllBlobs(blobConnectionString, blobContainerName);
+            var blobs = await this.blobService.GetAllBlobs(blobConnectionString, blobContainerName);
 
             return Ok(blobs);
         }
@@ -67,7 +67,7 @@
         [HttpGet("download/{name}")]
         public async Task<IActionResult> DownloadAsync(string name)
         {
-            var blob = blobService.DownloadBlobByName(name);
+            var blob = this.blobService.DownloadBlobByName(name);
 
             if (!await blob.ExistsAsync()) return BadRequest();
             var response = await blob.DownloadAsync();
@@ -79,13 +79,9 @@
         [HttpGet("delete/{name}")]
         public async Task<IActionResult> DeleteAsync(string name)
         {
-            var container = new BlobContainerClient(this.blobConnectionString, this.blobContainerName); 
-            
-            var blob = container.GetBlobClient(name);
+            var statusCode = await this.blobService.DeleteBlobAsync(name);
 
-            await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
-
-            return StatusCode(202);
+            return StatusCode(statusCode);
         }
     }
 }
