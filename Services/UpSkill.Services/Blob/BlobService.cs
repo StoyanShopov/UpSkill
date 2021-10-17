@@ -57,5 +57,23 @@
 
             return blobs;
         }
+
+        public BlobClient DownloadBlobByName(string name)
+        {
+            var container = new BlobContainerClient(this.blobStorage.BlobKey, this.blobStorage.BlobContainer);
+
+            return container.GetBlobClient(name);
+        }
+
+        public async Task<int> DeleteBlobAsync(string name)
+        {
+            var container = new BlobContainerClient(this.blobStorage.BlobKey, this.blobStorage.BlobContainer);
+
+            var blob = container.GetBlobClient(name);
+
+            var result = await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
+
+            return result ? 202 : 404;
+        }
     }
 }

@@ -41,9 +41,6 @@
 
                 if (file.Length > 0)
                 {
-                    //var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.Trim('"');
-                    //var fileUrl = await uploadService.UploadAsync(file.OpenReadStream(), fileName, file.ContentType);
-
                     var fileUrl = await blobService.UploadAsync(file.OpenReadStream(), file.ContentType);
 
                     return Ok(new { fileUrl });
@@ -70,18 +67,13 @@
         [HttpGet("download/{name}")]
         public async Task<IActionResult> DownloadAsync(string name)
         {
-            var container = new BlobContainerClient(this.blobConnectionString, this.blobContainerName);
+            var blob = blobService.DownloadBlobByName(name);
 
-            var blob = container.GetBlobClient(name);
+            if (!await blob.ExistsAsync()) return BadRequest();
+            var response = await blob.DownloadAsync();
 
-            if (await blob.ExistsAsync())
-            {
-                var response = await blob.DownloadAsync();
+            return File(response.Value.Content, response.Value.ContentType, name);
 
-                return File(response.Value.Content, response.Value.ContentType, name);
-            }
-
-            return BadRequest();
         }
 
         [HttpGet("delete/{name}")]

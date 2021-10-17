@@ -1,4 +1,6 @@
-﻿namespace UpSkill.Services.Contracts.Blob
+﻿using Azure.Storage.Blobs;
+
+namespace UpSkill.Services.Contracts.Blob
 {
     using System.Collections.Generic;
     using System.IO;
@@ -11,5 +13,9 @@
         Task<string> UploadAsync(Stream fileStream,  string contentType);
 
         Task<ICollection<BlobResponseModel>> GetAllBlobs(string blobConnectionString, string blobContainerName);
+
+        BlobClient DownloadBlobByName(string name);
+
+        Task<int> DeleteBlobAsync(string name);
     }
 }
