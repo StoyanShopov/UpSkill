@@ -8,7 +8,7 @@
     using AutoMapper;
     using Mapping;
     using UpSkill.Data.Models;
-     
+
     public interface ICoursesService
     {
         Task<Result> CreateAsync(CreateCourseViewModel model);
@@ -19,5 +19,6 @@
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 
+        Task<ICollection<TModel>> GetAllAsync<TModel>();
     }
 }

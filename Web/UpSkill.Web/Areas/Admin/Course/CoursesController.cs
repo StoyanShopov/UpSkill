@@ -9,7 +9,7 @@
 
     using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
-
+    using System.Collections.Generic;
 
     [AllowAnonymous]
     public class CoursesController : AdministrationBaseController
@@ -69,5 +69,15 @@
 
             return Ok(SuccesfullyDeleted);
         }
+
+        [HttpGet]
+        [Route(GetAllRoute)]
+        public async Task<IEnumerable<DetailsViewModel>> GetAll()
+          => await this.coursesService.GetAllAsync<DetailsViewModel>();
+
+        [HttpGet]
+        [Route(DetailsRoute)]
+        public async Task<DetailsViewModel> GetDetails(int id)
+            => await this.coursesService.GetByIdAsync<DetailsViewModel>(id);
     }
 }

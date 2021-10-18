@@ -13,6 +13,7 @@
     using Web.ViewModels.Course;
 
     using static Common.GlobalConstants.CompaniesConstants;
+    using System.Collections.Generic;
 
     public class CoursesService : ICoursesService
     {
@@ -49,12 +50,6 @@
 
             return true;
         }
-
-        public async Task<TModel> GetByIdAsync<TModel>(int id)
-        => await this.courses.AllAsNoTracking()
-                             .Where(x => x.Id == id)
-                             .To<TModel>()
-                             .FirstOrDefaultAsync();
 
         public async Task<Result> EditAsync(EditCourseViewModel model)
         {
@@ -96,5 +91,16 @@
 
             return true;
         }
+
+        public async Task<TModel> GetByIdAsync<TModel>(int id)
+       => await this.courses.AllAsNoTracking()
+                            .Where(x => x.Id == id)
+                            .To<TModel>()
+                            .FirstOrDefaultAsync();
+
+        public async Task<ICollection<TModel>> GetAllAsync<TModel>()
+        => await this.courses.All()
+                             .To<TModel>()
+                             .ToListAsync();
     }
 }
