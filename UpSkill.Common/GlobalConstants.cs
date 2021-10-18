@@ -14,7 +14,7 @@ namespace UpSkill.Common
 
         public const string UserNotFound = "User not found!";
 
-        public const string PriceFormat = "decimal(6, 2)";
+        public const string NewCourseRequest = "New Course Request";
 
         public class AdminConstants
         {
@@ -94,6 +94,8 @@ namespace UpSkill.Common
             public const string Promote = "promote";
 
             public const string Demote = "demote";
+
+            public const string NewCourseRequest = "requestCourse";
         }
 
         public class MessagesConstants
@@ -165,6 +167,14 @@ namespace UpSkill.Common
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
         }
+
+        public class RequestCourseConstants
+        {
+            public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
+                                              "<p>Requester Email: {1}</p>" +
+                                              "<p>Description: {2}</p>" +
+                                              "<p>Category: {3}</p>";
+        }                   
     }
 }
 

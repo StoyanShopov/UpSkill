@@ -7,20 +7,27 @@
 
     using Common;
     using Mapping;
+    using Messaging;
     using Contracts.Course;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using Web.ViewModels.Course;
 
+    using static Common.GlobalConstants;
+    using static Common.GlobalConstants.UsersEmailsNames;
     using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.RequestCourseConstants;
 
     public class CoursesService : ICoursesService
     {
         private readonly IDeletableEntityRepository<Course> courses;
+        private readonly IEmailSender emailSender;
 
-        public CoursesService(IDeletableEntityRepository<Course> courses)
+        public CoursesService(IDeletableEntityRepository<Course> courses,
+             IEmailSender emailSender)
         {
             this.courses = courses;
+            this.emailSender = emailSender;
         }
 
         public async Task<Result> CreateAsync(CreateCourseViewModel model)
@@ -97,7 +104,21 @@
             return true;
         }
 
-        public async Task GetAll()
-        => await this.courses.All().ToListAsync();
+        public async Task RequestCourseAsync(RequestCourseViewModel model)
+        {
+            var content = string.Format(HtmlContent,
+                                 model.RequesterEmail,
+                                 model.RequesterFullName,
+                                 model.Description,
+                                 model.Category);
+
+            await this.emailSender
+                       .SendEmailAsync(model.RequesterEmail,
+                                       model.RequesterFullName,
+                                       AdministratorEmailName,
+                                       NewCourseRequest,
+                                       content);
+            
+        }
     }
 }

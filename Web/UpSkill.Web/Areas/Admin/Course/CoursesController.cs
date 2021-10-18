@@ -1,6 +1,8 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
+    using System;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +11,6 @@
 
     using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
-
 
     [AllowAnonymous]
     public class CoursesController : AdministrationBaseController
@@ -68,6 +69,22 @@
             }
 
             return Ok(SuccesfullyDeleted);
+        }
+
+        [HttpPost]
+        [Route(NewCourseRequest)]
+        public async Task<IActionResult> RequestCourse(RequestCourseViewModel model)
+        {
+            try
+            {
+                await this.coursesService.RequestCourseAsync(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok("👍");
         }
     }
 }
