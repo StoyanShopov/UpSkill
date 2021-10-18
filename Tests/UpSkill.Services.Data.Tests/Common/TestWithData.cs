@@ -12,24 +12,44 @@
         {
             var fakeDatabase = new FakeUpSkillDbContext(databaseName);
 
-            await AddFakeCompany(fakeDatabase);
+            await AddFakeData(fakeDatabase);
 
-            this.Database = fakeDatabase.Data; 
+            this.Database = fakeDatabase.Data;
         }
 
-        protected ApplicationDbContext Database { get; private set; }  
+        protected ApplicationDbContext Database { get; private set; }
 
-        private static async Task AddFakeCompany(FakeUpSkillDbContext dbContext)
+        private static async Task AddFakeData(FakeUpSkillDbContext dbContext)
             => await dbContext.AddFakeDataAsync(new Company()
             {
                 Id = 1,
                 Name = "TestCompany"
             },
-            new ApplicationUser() 
-            { 
-                Id = "1", 
-                Email = "user@example.com", 
+            new ApplicationUser()
+            {
+                Id = "1",
+                Email = "user@example.com",
                 CompanyId = 0
+            },
+            new Course()
+            {
+                Id = 1,
+                Title = "Title",
+                Description = "Description",
+                Price = 12,
+                CoachId = 1,
+                CategoryId = 1,
+
+            },
+            new Course()
+            {
+                Id = 2,
+                Title = "Titl2e",
+                Description = "Descri2ption",
+                Price = 122,
+                CoachId = 2,
+                CategoryId = 2,
+
             });
     }
 }

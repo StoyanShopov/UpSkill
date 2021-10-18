@@ -16,6 +16,7 @@
         [Fact]
         public async Task CreateAsyncShouldCreateNewCourse()
         {
+            const int Id = 1;
             const string CourseTitle = "Title";
             const string CourseDescription = "Description";
             const decimal CoursePrice = 420;
@@ -26,7 +27,7 @@
 
             var course = new Course()
             {
-                Id = 1,
+                Id = Id,
                 Title = CourseTitle,
                 Description = CourseDescription,
                 Price = CoursePrice,
@@ -34,7 +35,7 @@
                 CategoryId = CourseCategoryId,
             };
 
-            await Task.FromResult(repository.Setup(r => r.AddAsync(course)));
+            var result = await Task.FromResult(repository.Setup(r => r.AddAsync(course)));
 
             Assert.NotNull(course);
 
@@ -85,6 +86,7 @@
                 .Courses
                 .FindAsync(Id);
 
+            course.Id = Id;
             course.Title = EditedCourseTitle;
             course.Description = EditedCourseDescription;
             course.Price = EditedPrice;
@@ -124,31 +126,12 @@
         [Fact]
         public async Task GetAllAsyncShouldGetAllCourses()
         {
-            const string CourseTitle = "Title";
-            const string CourseDescription = "Description";
-            const decimal CoursePrice = 420;
-            const int CourseCoachId = 1;
-            const int CourseCategoryId = 1;
-
             const string DatabaseName = "GetAllCourses";
             const int DatabaseRecordsCount = 2;
 
             await this.InitializeDatabase(DatabaseName);
 
             var repository = new Mock<IDeletableEntityRepository<Course>>();
-
-            var course = new Course()
-            {
-                Id = 1,
-                Title = CourseTitle,
-                Description = CourseDescription,
-                Price = CoursePrice,
-                CoachId = CourseCoachId,
-                CategoryId = CourseCategoryId,
-            };
-
-            await Task.FromResult(repository.Setup(r => r.AddAsync(course)));
-            await Task.FromResult(repository.Setup(r => r.AddAsync(course)));
 
             var courses = await this.Database
                 .Courses.ToListAsync();
