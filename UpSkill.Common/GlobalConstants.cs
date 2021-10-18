@@ -165,6 +165,16 @@ namespace UpSkill.Common
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
         }
+
+        public class PoliciesNamesConstants
+        {
+            public const string AdministratorOnly = "AdministratorOnly";
+
+            public const string OwnerOnly = "OwnerOnly";
+
+            public const string EmployeeOnly = "EmployeeOnly";
+        }
     }
 }
+
 

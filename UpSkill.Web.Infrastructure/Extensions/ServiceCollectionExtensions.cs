@@ -30,12 +30,15 @@
     using UpSkill.Services.Data.Admin;
     using UpSkill.Services.Data.Company;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Course;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
-    using UpSkill.Services.Data.Contracts.Course;
-    using UpSkill.Services.Data.Course;
+
+    using static Common.GlobalConstants.PoliciesNamesConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
 
     public static class ServiceCollectionExtensions
     {
@@ -76,6 +79,24 @@
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            return services;
+        }
+
+        public static IServiceCollection AddAuthorizations(this IServiceCollection services)
+        {
+            services
+                .AddAuthorization(options =>
+                {
+                    options.AddPolicy(AdministratorOnly,
+                         policy => policy.RequireRole(AdministratorRoleName));
+
+                    options.AddPolicy(OwnerOnly,
+                         policy => policy.RequireRole(CompanyOwnerRoleName));
+
+                    options.AddPolicy(EmployeeOnly,
+                         policy => policy.RequireRole(CompanyEmployeeRoleName));
+                });
 
             return services;
         }
@@ -143,3 +164,4 @@
                     .Add<ModelOrNotFoundActionFilter>());
     }
 }
+
