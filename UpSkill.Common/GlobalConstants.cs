@@ -14,6 +14,8 @@ namespace UpSkill.Common
 
         public const string UserNotFound = "User not found!";
 
+        public const string PriceFormat = "decimal(6, 2)";
+
         public class AdminConstants
         {
             public const string AlreadyAssignedToRole = "This user is already updated wtih the corresponding role!";
@@ -85,7 +87,7 @@ namespace UpSkill.Common
 
             public const string DetailsRoute = "details";
 
-            public const string GetAllRoute = "getall";
+            public const string GetAllRoute = "getAll";
 
             public const string AddOwnerCompany = "addOwnerToCompany";
 

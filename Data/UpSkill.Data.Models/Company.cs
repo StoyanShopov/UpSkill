@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using UpSkill.Data.Common.Models;
+    using Common.Models;
 
     public class Company : BaseDeletableModel<int>
     {

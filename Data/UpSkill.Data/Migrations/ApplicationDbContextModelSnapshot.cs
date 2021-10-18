@@ -179,6 +179,9 @@ namespace UpSkill.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -249,6 +252,8 @@ namespace UpSkill.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("CourseId");
+
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("ManagerId");
@@ -293,6 +298,38 @@ namespace UpSkill.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Coaches");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Company", b =>
@@ -350,6 +387,9 @@ namespace UpSkill.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CoachId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -365,12 +405,17 @@ namespace UpSkill.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CoachId");
 
                     b.HasIndex("IsDeleted");
 
@@ -466,6 +511,10 @@ namespace UpSkill.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("UpSkill.Data.Models.Course", null)
+                        .WithMany("Users")
+                        .HasForeignKey("CourseId");
+
                     b.HasOne("UpSkill.Data.Models.ApplicationUser", "Manager")
                         .WithMany("ChildUsers")
                         .HasForeignKey("ManagerId");
@@ -510,7 +559,15 @@ namespace UpSkill.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("UpSkill.Data.Models.Coach", "Coach")
+                        .WithMany("Courses")
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Coach");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.ApplicationUser", b =>
@@ -524,6 +581,11 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("Roles");
                 });
 
+            modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
             modelBuilder.Entity("UpSkill.Data.Models.Company", b =>
                 {
                     b.Navigation("Courses");
@@ -534,6 +596,8 @@ namespace UpSkill.Data.Migrations
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
                 {
                     b.Navigation("Companies");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Position", b =>
