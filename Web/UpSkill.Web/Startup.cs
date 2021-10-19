@@ -23,6 +23,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services
+
                  .AddDatabase(this.configuration)
                  .AddBlobStorage(this.configuration)
                  .AddIdentity()
@@ -31,7 +32,7 @@
                  .AddInfrastructureServices() 
                  .AddSwagger()
                  .AddApiControllers();
-                 
+              
 
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();

@@ -16,6 +16,8 @@ namespace UpSkill.Common
 
         public const string UserNotFound = "User not found!";
 
+        public const string PriceFormat = "decimal(6, 2)";
+
         public class AdminConstants
         {
             public const string AlreadyAssignedToRole = "This user is already updated wtih the corresponding role!";
@@ -93,7 +95,7 @@ namespace UpSkill.Common
 
             public const string DetailsRoute = "details";
 
-            public const string GetAllRoute = "getall";
+            public const string GetAllRoute = "getAll";
 
             public const string AddOwnerCompany = "addOwnerToCompany";
 
@@ -177,6 +179,16 @@ namespace UpSkill.Common
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
         }
+
+        public class PoliciesNamesConstants
+        {
+            public const string AdministratorOnly = "AdministratorOnly";
+
+            public const string OwnerOnly = "OwnerOnly";
+
+            public const string EmployeeOnly = "EmployeeOnly";
+        }
     }
 }
+
 

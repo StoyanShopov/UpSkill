@@ -43,3 +43,9 @@ export const getEmployeesCoachHours = async (currentPage) => {
         
        return arr;
 }
+
+export const getAllEmployees = async () => {
+
+    const allEmployees = employeesCoachMock.concat(employeesCoursesMock);
+    return allEmployees;
+}
