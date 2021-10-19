@@ -34,6 +34,8 @@
 
         public DbSet<CompanyCourse> CompanyCourses { get; set; }
 
+        public DbSet<Coach> Coaches { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -80,7 +82,7 @@
 
             builder
                 .Entity<CompanyCourse>()
-                .HasKey(c => new { c.CompanyId, c.CourseId }); 
+                .HasKey(c => new { c.CompanyId, c.CourseId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

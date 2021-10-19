@@ -52,15 +52,12 @@
                 return AlreadyExist;
             }
 
-            //TODO
-            //The coach table must be added first
             var newCourse = new Course()
             {
                 Title = model.Title,
-                //CoachFirstName = model.CoachFirstName,
-                //CoachLastName = model.CoachLastName,
+                CoachId = model.CoachId,
                 Description = model.Description,
-                //Price = model.Price,
+                Price = model.Price,
                 CategoryId = model.CategoryId
             };
 
@@ -89,10 +86,9 @@
             }
 
             course.Title = model.Title;
-            //course.CoachFirstName = model.CoachFirstName;
-            //course.CoachLastName = model.CoachLastName;
+            course.CoachId = model.CoachId;
             course.Description = model.Description;
-            //course.Price = model.Price;
+            course.Price = model.Price;
             course.CategoryId = model.CategoryId;
 
             await this.courses.SaveChangesAsync();

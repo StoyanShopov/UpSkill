@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace UpSkill.Data.Migrations
+﻿namespace UpSkill.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class RemoveDuplicate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
