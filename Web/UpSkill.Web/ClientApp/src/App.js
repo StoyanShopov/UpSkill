@@ -13,7 +13,7 @@ import Logout from './components/Authentication/Logout/Logout';
 import Register from './components/Authentication/Register/Register';
 import Layout from './components/Shared/Layout'; 
 import Notifications from './components/Shared/Notifications/Notifications';
-
+import Employee from './components/Employee/Employee'; 
 import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
 import store from './store';    
@@ -39,6 +39,7 @@ function App() {
       <Route exact path='/' component={Home}/>
           <Route exact path='/Courses' component={Courses}/>
           <Route exact path='/Coaches' component={Coaches}/>  
+          <Route exact path='/Employee' component={Employee}/>
           <Route exact path='/Register' component={Register} />  
           <Route exact path='/Login' component={Login}/>
           <Route exact path='/Logout' component={Logout}/>
