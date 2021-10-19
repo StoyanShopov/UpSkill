@@ -9,8 +9,7 @@
 
 	using static Common.GlobalConstants.CompaniesConstants;
 	using static Common.GlobalConstants.ControllerRoutesConstants;
-
-    [AllowAnonymous]
+    
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICoursesService coursesService;
