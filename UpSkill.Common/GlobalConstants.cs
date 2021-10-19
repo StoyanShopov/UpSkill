@@ -170,6 +170,31 @@ namespace UpSkill.Common
 
             public const string SuccesfullyAddedCompanyOwnerToGivenCourse = "You have successfully added a company to this course.";
         }
+
+        public class CategoriesNamesConstants
+        {
+            public const string Physics = "Physics";
+
+            public const string Finance = "Finance";
+        }
+
+        public class CoursesNamesConstants
+        {
+            public const string TheoryOfSpecialRelativity = "Theory of General Relativity";
+
+            public const string FinancialAnalysisAndValuationForLawyers = "Financial Analysis and Valuation for Lawyers";
+
+            public const string StatisticalPhysics = "Statistical Physics I";
+        }
+
+        public class CoursesDescriptionConstants
+        {
+            public const string TheoryOfSpecialRelativityDescription = "E = mc^2";
+
+            public const string FinancialAnalysisAndValuationForLawyersDescription = "Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or client’s financial goals while increasing profitability and minimizing risks.";
+
+            public const string StatisticalPhysicsDescription = "This course offers an introduction to probability, statistical mechanics, and thermodynamics. Numerous examples are used to illustrate a wide variety of physical phenomena such as magnetism, polyatomic gases, thermal radiation, electrons in solids, and noise in electronic devices.";
+        }
     }
 }
 

@@ -1,40 +1,41 @@
 ﻿namespace UpSkill.Services.Data.Course
 {
-    using System.Threading.Tasks;
-    using System.Linq;
-    using Microsoft.EntityFrameworkCore;
+	using System.Threading.Tasks;
+	using System.Linq;
+	using Microsoft.EntityFrameworkCore;
 
-    using Common;
-    using Mapping;
-    using Contracts.Course;
-    using UpSkill.Data.Common.Repositories;
-    using UpSkill.Data.Models;
-    using Web.ViewModels.Course;
-    using Microsoft.AspNetCore.Identity;
+	using Common;
+	using Mapping;
+	using Contracts.Course;
+	using UpSkill.Data.Common.Repositories;
+	using UpSkill.Data.Models;
+	using Web.ViewModels.Course;
+	using Microsoft.AspNetCore.Identity;
 
-    using static Common.GlobalConstants.CompaniesConstants;
-    using static Common.GlobalConstants.RolesNamesConstants;
-    using static Common.GlobalConstants.AdminConstants;
-    using static Common.GlobalConstants.AccountConstants;
+	using static Common.GlobalConstants.CompaniesConstants;
+	using static Common.GlobalConstants.RolesNamesConstants;
+	using static Common.GlobalConstants.AdminConstants;
+	using static Common.GlobalConstants.AccountConstants;
+	using UpSkill.Services.Data.Contracts.Company;
 	using UpSkill.Data.Common.Models;
 
 	//Coaches table is missing right now so most of the logic is commented
 	public class CoursesService : ICoursesService
     {
+        private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
         private readonly IDeletableEntityRepository<Course> courses;
-        private readonly IDeletableEntityRepository<Company> companies;
 
         private readonly UserManager<ApplicationUser> userManager;
 
         public CoursesService(
             UserManager<ApplicationUser> userManager,
+            ICompanyService companiesService,
             IRepository<CompanyCourse> companyCourses,
-            IDeletableEntityRepository<Course> courses,
-            IDeletableEntityRepository<Company> companies)
+            IDeletableEntityRepository<Course> courses)
         {
             this.courses = courses;
-            this.companies = companies;
+            this.companiesService = companiesService;
             this.companyCourses = companyCourses;
             this.userManager = userManager;
         }
@@ -130,37 +131,40 @@
 			if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
 				return UserNotInCompanyOwnerRole;
 
-            var company = await this.GetFirst(model.CompanyId, (IDeletableEntityRepository<BaseDeletableModel<int>>)this.companies);            
-            if (company == null)
-                return DoesNotExist;            
+			var company = await this.companiesService.GetDbModelByIdAsync(model.CompanyId);
+			if (company == null)
+				return DoesNotExist;
 
-            var course = await this.GetFirst(model.CourseId, (IDeletableEntityRepository<BaseDeletableModel<int>>)this.courses);
+			var course = await this.GetDbModelByIdAsync(model.CourseId);
             if (course == null)
                 return DoesNotExist;
             
             var companyCourse = new CompanyCourse
             {
                 CompanyId = model.CompanyId,
-                Company = company as Company,
                 CourseId = model.CourseId,
-                Course = course as Course
             };
-			
-			await companyCourses.AddAsync(companyCourse);
+
+            var companyCourseExist = await companyCourses
+                .AllAsNoTracking()
+                .Where(cc => cc.CourseId == model.CourseId
+                && cc.CompanyId == model.CompanyId)
+                .FirstOrDefaultAsync() != null;
+
+            if (companyCourseExist)
+                return AlreadyExist;
+
+            await companyCourses.AddAsync(companyCourse);
 
             await this.companyCourses.SaveChangesAsync();
 
             return true;
         }
 
-		private async Task<BaseDeletableModel<int>> GetFirst(int id,
-            IDeletableEntityRepository<BaseDeletableModel<int>> repository)
-		{            
-            var company = await repository
-               .AllAsNoTracking()
-               .FirstOrDefaultAsync(c => c .Id == id);
-
-            return company;
-        }
-	}
+        public async Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id)
+        => await this.courses
+            .AllAsNoTracking()
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
+    }
 }

@@ -7,7 +7,8 @@
     using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Common;
-    using UpSkill.Data.Common.Repositories;
+	using UpSkill.Data.Common.Models;
+	using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Mapping;
@@ -92,8 +93,14 @@
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
             => await this.companies
-            .AllAsNoTracking()
-            .To<TModel>()
-            .ToListAsync();
+                .AllAsNoTracking()
+                .To<TModel>()
+                .ToListAsync();
+
+        public async Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id)
+            => await this.companies
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
     }
 }
