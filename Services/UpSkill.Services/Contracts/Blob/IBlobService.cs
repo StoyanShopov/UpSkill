@@ -12,10 +12,10 @@
     {
         Task<string> UploadAsync(Stream fileStream,  string contentType);
 
-        Task<ICollection<BlobResponseModel>> GetAllBlobs(string blobConnectionString, string blobContainerName);
+        Task<ICollection<BlobResponseModel>> GetAllBlobs();
 
         BlobClient DownloadBlobByName(string name);
 
-        Task<int> DeleteBlobAsync(string name);
+        Task<bool> DeleteBlobAsync(string name);
     }
 }

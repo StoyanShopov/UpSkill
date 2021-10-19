@@ -9,7 +9,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
-
     using UpSkill.Services.Contracts.Blob;
     using UpSkill.Web.ViewModels.Blob;
 
@@ -40,11 +39,11 @@
             return blob.Uri.ToString();
         }
 
-        public async Task<ICollection<BlobResponseModel>> GetAllBlobs(string blobConnectionString, string blobContainerName)
+        public async Task<ICollection<BlobResponseModel>> GetAllBlobs()
         {
             var blobs = new List<BlobResponseModel>();
 
-            var container = new BlobContainerClient(blobConnectionString, blobContainerName);
+            var container = new BlobContainerClient(this.blobStorage.BlobKey, this.blobStorage.BlobContainer);
 
             await foreach (var blobItem in container.GetBlobsAsync())
             {
@@ -65,15 +64,14 @@
             return container.GetBlobClient(name);
         }
 
-        public async Task<int> DeleteBlobAsync(string name)
+        public async Task<bool> DeleteBlobAsync(string name)
         {
             var container = new BlobContainerClient(this.blobStorage.BlobKey, this.blobStorage.BlobContainer);
 
             var blob = container.GetBlobClient(name);
 
-            var result = await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
+            return await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
 
-            return result ? 202 : 404;
         }
     }
 }

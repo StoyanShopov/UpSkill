@@ -65,6 +65,12 @@ namespace UpSkill.Common
             public const string DifferentPasswords = "New password and confirm new password must be the same.";
         }
 
+        public class BlobConstants
+        {
+            public const string SuccessfullyDeleted = "This file is successfully deleted.";
+            public const string UnsuccessfullyDeleted = "The requested resource was not found.";
+        }
+
         public class ControllerRoutesConstants
         {
             public const string HeaderOrigin = "origin";
@@ -99,9 +105,7 @@ namespace UpSkill.Common
 
             public const string Upload = "upload";
 
-            public const string DeleteByName = "delete/{name}";
-
-            public const string DownloadByName = "download/{name}";
+            public const string DownloadByName = "download";
         }
 
         public class MessagesConstants

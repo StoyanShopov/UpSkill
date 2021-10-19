@@ -1,35 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace UpSkill.Web.Controllers
+﻿namespace UpSkill.Web.Controllers
 {
-    using Azure.Storage.Blobs;
-    using Azure.Storage.Blobs.Models;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Options;
 
     using System;
     using System.Linq;
     using System.Threading.Tasks;
 
-    using UpSkill.Services;
     using UpSkill.Services.Contracts.Blob;
 
     using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
+    using static UpSkill.Common.GlobalConstants.BlobConstants;
 
     [AllowAnonymous]
     public class BlobsController : ApiController
     {
         private readonly IBlobService blobService;
-        private readonly string blobConnectionString;
-        private readonly string blobContainerName;
 
-        public BlobsController(
-            IOptions<BlobStorage> configuration,
-            IBlobService blobService)
+        public BlobsController(IBlobService blobService)
         {
-            this.blobConnectionString = configuration.Value.BlobKey;
-            this.blobContainerName = configuration.Value.BlobContainer;
             this.blobService = blobService ?? throw new ArgumentNullException(nameof(blobService));
         }
 
@@ -55,14 +44,14 @@ namespace UpSkill.Web.Controllers
             }
             catch (Exception exception)
             {
-                return StatusCode(500, $"Internal server error: {exception}");
+                return StatusCode(500, exception);
             }
         }
 
         [HttpGet(GetAllBlobs)]
         public async Task<IActionResult> GetAsync()
         {
-            var blobs = await this.blobService.GetAllBlobs(blobConnectionString, blobContainerName);
+            var blobs = await this.blobService.GetAllBlobs();
 
             return Ok(blobs);
         }
@@ -79,12 +68,15 @@ namespace UpSkill.Web.Controllers
 
         }
 
-        [HttpGet(DeleteByName)]
+        [HttpGet(DeleteRoute)]
         public async Task<IActionResult> DeleteAsync(string name)
         {
-            var statusCode = await this.blobService.DeleteBlobAsync(name);
+            var result = await this.blobService.DeleteBlobAsync(name);
 
-            return StatusCode(statusCode);
+            if (result)
+                return Ok(SuccessfullyDeleted);
+
+            return NotFound(UnsuccessfullyDeleted);
         }
     }
 }
