@@ -15,8 +15,9 @@
     using UpSkill.Services.Mapping;
     using UpSkill.Web.Web.Extensions;
     using UpSkill.Web.Infrastructure.Web.Extensions;
+	using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
-    public class Startup
+	public class Startup
     {
         private readonly IConfiguration configuration;
 
@@ -33,6 +34,11 @@
                   .AddInfrastructureServices()
                   .AddSwagger()
                   .AddApiControllers();
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
 
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -59,6 +65,11 @@
                 app.UseMigrationsEndPoint();
             }
 
+
+            app
+                .UseStaticFiles()
+                .UseSpaStaticFiles();
+
             app
                 .UseSwaggerUI()
                 .UseRouting()
@@ -76,6 +87,16 @@
                     endpoints.MapRazorPages();
                 })
                 .ApplyMigrations();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            }); 
         }
     }
 }
