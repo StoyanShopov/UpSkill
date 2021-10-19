@@ -24,6 +24,7 @@
         {
             services
                  .AddDatabase(this.configuration)
+                 .AddBlobStorage(this.configuration)
                  .AddIdentity()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
                  .AddBussinesServices()
@@ -38,8 +39,6 @@
             services.AddSingleton(this.configuration);
 
             services.AddEmailSender(this.configuration);
-
-            services.AddBlobStorage(this.configuration);
 
         }
 
