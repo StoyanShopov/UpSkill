@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Identity;
 
-    using UpSkill.Data.Common.Models;
+    using Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

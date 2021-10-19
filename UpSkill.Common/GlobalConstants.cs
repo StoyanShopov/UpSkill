@@ -14,6 +14,8 @@ namespace UpSkill.Common
 
         public const string UserNotFound = "User not found!";
 
+        public const string PriceFormat = "decimal(6, 2)";
+
         public class AdminConstants
         {
             public const string AlreadyAssignedToRole = "This user is already updated wtih the corresponding role!";
@@ -88,7 +90,7 @@ namespace UpSkill.Common
 
             public const string DetailsRoute = "details";
 
-            public const string GetAllRoute = "getall";
+            public const string GetAllRoute = "getAll";
 
             public const string AddOwnerCompany = "addOwnerToCompany";
 
@@ -195,6 +197,16 @@ namespace UpSkill.Common
 
             public const string StatisticalPhysicsDescription = "This course offers an introduction to probability, statistical mechanics, and thermodynamics. Numerous examples are used to illustrate a wide variety of physical phenomena such as magnetism, polyatomic gases, thermal radiation, electrons in solids, and noise in electronic devices.";
         }
+
+        public class PoliciesNamesConstants
+        {
+            public const string AdministratorOnly = "AdministratorOnly";
+
+            public const string OwnerOnly = "OwnerOnly";
+
+            public const string EmployeeOnly = "EmployeeOnly";
+        }
     }
 }
+
 
