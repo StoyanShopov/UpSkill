@@ -94,6 +94,14 @@ namespace UpSkill.Common
             public const string Promote = "promote";
 
             public const string Demote = "demote";
+
+            public const string GetAllBlobs = "catalog";
+
+            public const string Upload = "upload";
+
+            public const string DeleteByName = "delete/{name}";
+
+            public const string DownloadByName = "download/{name}";
         }
 
         public class MessagesConstants

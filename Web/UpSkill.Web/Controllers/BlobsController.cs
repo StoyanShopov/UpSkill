@@ -1,4 +1,6 @@
-﻿namespace UpSkill.Web.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace UpSkill.Web.Controllers
 {
     using Azure.Storage.Blobs;
     using Azure.Storage.Blobs.Models;
@@ -13,9 +15,10 @@
     using UpSkill.Services;
     using UpSkill.Services.Contracts.Blob;
 
-    [Route("[controller]")]
-    [ApiController]
-    public class BlobsController : ControllerBase
+    using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
+
+    [AllowAnonymous]
+    public class BlobsController : ApiController
     {
         private readonly IBlobService blobService;
         private readonly string blobConnectionString;
@@ -30,7 +33,7 @@
             this.blobService = blobService ?? throw new ArgumentNullException(nameof(blobService));
         }
 
-        [HttpPost("upload"),
+        [HttpPost(Upload),
          DisableRequestSizeLimit]
         public async Task<IActionResult> UploadAsync()
         {
@@ -56,7 +59,7 @@
             }
         }
 
-        [HttpGet("catalog")]
+        [HttpGet(GetAllBlobs)]
         public async Task<IActionResult> GetAsync()
         {
             var blobs = await this.blobService.GetAllBlobs(blobConnectionString, blobContainerName);
@@ -64,7 +67,7 @@
             return Ok(blobs);
         }
 
-        [HttpGet("download/{name}")]
+        [HttpGet(DownloadByName)]
         public async Task<IActionResult> DownloadAsync(string name)
         {
             var blob = this.blobService.DownloadBlobByName(name);
@@ -76,7 +79,7 @@
 
         }
 
-        [HttpGet("delete/{name}")]
+        [HttpGet(DeleteByName)]
         public async Task<IActionResult> DeleteAsync(string name)
         {
             var statusCode = await this.blobService.DeleteBlobAsync(name);
