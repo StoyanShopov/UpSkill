@@ -2,11 +2,14 @@
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
     using System.Reflection;
+
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
     using UpSkill.Services.Mapping;
@@ -34,12 +37,19 @@
                  .AddApiControllers();
               
 
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
+
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
 
             services.AddEmailSender(this.configuration);
+
+            services.AddApplicationInsightsTelemetry();
 
         }
 
@@ -61,6 +71,10 @@
             }
 
             app
+                .UseStaticFiles()
+                .UseSpaStaticFiles();
+
+            app
                 .UseSwaggerUI()
                 .UseRouting()
                 .UseCors(options => options
@@ -73,10 +87,20 @@
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
-                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}"); 
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();
                 })
                 .ApplyMigrations();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
         }
     }
 }

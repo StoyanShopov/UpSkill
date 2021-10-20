@@ -1,6 +1,6 @@
 ﻿namespace UpSkill.Services.Contracts.Identity
 {
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
 
     using UpSkill.Common;
     using UpSkill.Data.Models;

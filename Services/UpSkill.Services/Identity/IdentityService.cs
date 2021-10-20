@@ -27,12 +27,12 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
-        private readonly AppSettings appSettings; 
+        private readonly AppSettings appSettings;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IOptions<AppSettings> appSettings,
-            IDeletableEntityRepository<Company> companies, 
+            IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Position> positions)
         {
             this.userManager = userManager;
@@ -46,7 +46,7 @@
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
 
-            List<string> roles = (await userManager.GetRolesAsync(user)).ToList();
+            List<string> roles = (await this.userManager.GetRolesAsync(user)).ToList();
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -56,10 +56,10 @@
                     { ClaimTypes.Name, user.UserName },
                     { ClaimTypes.Email, user.Email },
                 },
-                
+
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };           
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+            };
 
             foreach (string role in roles)
             {
@@ -80,7 +80,7 @@
 
             var positionObj = await this.positions
                 .AllAsNoTracking()
-                .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);  
+                .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);
 
             if (company == null)
             {
@@ -94,7 +94,7 @@
                 Company = company,
                 PositionId = positionObj.Id,
                 Email = model.Email,
-                UserName = model.Email
+                UserName = model.Email,
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);
@@ -123,11 +123,11 @@
                 throw new ArgumentException(IncorrectEmailOrPassword);
             }
 
-            var token = await GenerateJwtToken(user, this.appSettings.Secret);
+            var token = await this.GenerateJwtToken(user, this.appSettings.Secret);
 
             return new LoginResponseModel()
             {
-                Token = token
+                Token = token,
             };
         }
     }

@@ -2,7 +2,7 @@
 {
     using System.Linq;
 
-    using Microsoft.EntityFrameworkCore; 
+    using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Data.Common.Models;
 

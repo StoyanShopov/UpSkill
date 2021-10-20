@@ -1,4 +1,4 @@
-namespace UpSkill.Common
+ï»¿namespace UpSkill.Common
 {
     public static class GlobalConstants
     {
@@ -24,8 +24,11 @@ namespace UpSkill.Common
 
             public const string AssignedSuccessfully = "User successfully promoted!";
 
+            public const string UserNotAnAdmin = "User must be an Administrator to perform this action!";
+
             public const string UnassignedSuccessfully = "User successfully demoted!";
         }
+
         public class AutoMapperConstants
         {
             public const string ReflectionProfile = "ReflectionProfile";
@@ -37,7 +40,6 @@ namespace UpSkill.Common
             public const string V1 = "v1";
             public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
         }
-
 
         public class UsersEmailsNames
         {
@@ -65,6 +67,7 @@ namespace UpSkill.Common
         {
             public const string WrongOldPassword = "Old password is invalid.";
             public const string DifferentPasswords = "New password and confirm new password must be the same.";
+            public const string UserNotInCompanyOwnerRole = "This user is not a company owner!";
         }
 
         public class BlobConstants
@@ -103,11 +106,15 @@ namespace UpSkill.Common
 
             public const string Demote = "demote";
 
+
             public const string GetAllBlobs = "catalog";
 
             public const string Upload = "upload";
 
             public const string DownloadByName = "download";
+
+            public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
+
         }
 
         public class MessagesConstants
@@ -178,6 +185,33 @@ namespace UpSkill.Common
             public const string SuccesfullyDeleted = "Successfully removed";
 
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
+
+            public const string SuccesfullyAddedCompanyOwnerToGivenCourse = "You have successfully added a company to this course.";
+        }
+
+        public class CategoriesNamesConstants
+        {
+            public const string Physics = "Physics";
+
+            public const string Finance = "Finance";
+        }
+
+        public class CoursesNamesConstants
+        {
+            public const string TheoryOfSpecialRelativity = "Theory of General Relativity";
+
+            public const string FinancialAnalysisAndValuationForLawyers = "Financial Analysis and Valuation for Lawyers";
+
+            public const string StatisticalPhysics = "Statistical Physics I";
+        }
+
+        public class CoursesDescriptionConstants
+        {
+            public const string TheoryOfSpecialRelativityDescription = "E = mc^2";
+
+            public const string FinancialAnalysisAndValuationForLawyersDescription = "Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or client’s financial goals while increasing profitability and minimizing risks.";
+
+            public const string StatisticalPhysicsDescription = "This course offers an introduction to probability, statistical mechanics, and thermodynamics. Numerous examples are used to illustrate a wide variety of physical phenomena such as magnetism, polyatomic gases, thermal radiation, electrons in solids, and noise in electronic devices.";
         }
 
         public class PoliciesNamesConstants
@@ -190,5 +224,3 @@ namespace UpSkill.Common
         }
     }
 }
-
-

@@ -1,7 +1,7 @@
 ﻿namespace UpSkill.Services.Account
 {
     using System.Security.Claims;
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
 
@@ -21,7 +21,7 @@
 
         public async Task<Result> ChangePasswordAsync(ChangePasswordRequestModel model)
         {
-            var user = await userManager.FindByEmailAsync(ClaimTypes.Email);
+            var user = await this.userManager.FindByEmailAsync(ClaimTypes.Email);
 
             if (user == null)
             {

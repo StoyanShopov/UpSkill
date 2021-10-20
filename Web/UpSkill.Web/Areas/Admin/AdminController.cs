@@ -1,14 +1,15 @@
 ﻿namespace UpSkill.Web.Areas.Admin
 {
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
     using UpSkill.Web.ViewModels.Administration.Company;
 
-    using static Common.GlobalConstants.AdminConstants;
     using static Common.GlobalConstants;
+    using static Common.GlobalConstants.AdminConstants;
     using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
@@ -33,26 +34,26 @@
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyAddedOwnerToGivenCompany);
+            return this.Ok(SuccesfullyAddedOwnerToGivenCompany);
         }
 
         [HttpPut]
         [Route(Promote)]
         public async Task<IActionResult> PromoteUser(string email)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
-            var user = await GetUser(email);
+            var user = await this.GetUser(email);
 
             if (user == null)
             {
-                return BadRequest(UserNotFound);
+                return this.BadRequest(UserNotFound);
             }
 
             var result = await this.adminService
@@ -60,26 +61,26 @@
 
             if (result != AssignedSuccessfully)
             {
-                return BadRequest(result);
+                return this.BadRequest(result);
             }
 
-            return Ok(result);
+            return this.Ok(result);
         }
 
         [HttpPut]
         [Route(Demote)]
         public async Task<IActionResult> DemoteUser(string email)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
-            var user = await GetUser(email);
+            var user = await this.GetUser(email);
 
             if (user == null)
             {
-                return BadRequest(UserNotFound);
+                return this.BadRequest(UserNotFound);
             }
 
             var result = await this.adminService
@@ -87,10 +88,10 @@
 
             if (result != UnassignedSuccessfully)
             {
-                return BadRequest(result);
+                return this.BadRequest(result);
             }
 
-            return Ok(result);
+            return this.Ok(result);
         }
 
         private async Task<ApplicationUser> GetUser(string email)
