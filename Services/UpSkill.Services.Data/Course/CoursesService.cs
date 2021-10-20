@@ -1,16 +1,16 @@
 ﻿namespace UpSkill.Services.Data.Course
 {
-    using System.Threading.Tasks;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
-    using Common;
-    using Mapping;
-    using Contracts.Course;
+    using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
-    using Web.ViewModels.Course;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Mapping;
+    using UpSkill.Web.ViewModels.Course;
 
     using static Common.GlobalConstants.CompaniesConstants;
 
@@ -41,7 +41,7 @@
                 CoachId = model.CoachId,
                 Description = model.Description,
                 Price = model.Price,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
             };
 
             await this.courses.AddAsync(newCourse);
@@ -56,11 +56,11 @@
                              .To<TModel>()
                              .FirstOrDefaultAsync();
 
-        public async Task<Result> EditAsync(EditCourseViewModel model)
+        public async Task<Result> EditAsync(EditCourseViewModel model, int id)
         {
             var course = await this.courses
                              .All()
-                             .Where(c => c.Id == model.Id)
+                             .Where(c => c.Id == id)
                              .FirstOrDefaultAsync();
 
             if (course == null)

@@ -16,29 +16,28 @@
     using UpSkill.Data.Models;
     using UpSkill.Data.Repositories;
     using UpSkill.Services;
+    using UpSkill.Services.Account;
+    using UpSkill.Services.Contracts.Account;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Company;
+    using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Course;
     using UpSkill.Services.Email;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
-    using UpSkill.Web.Infrastructure.Web.Extensions;
     using UpSkill.Web.Infrastructure.Services;
-    using UpSkill.Services.Contracts.Account;
-    using UpSkill.Services.Account;
-    using UpSkill.Services.Data.Contracts.Company;
-    using UpSkill.Services.Data.Admin;
-    using UpSkill.Services.Data.Company;
-    using UpSkill.Services.Data.Contracts.Admin;
-    using UpSkill.Services.Data.Contracts.Course;
-    using UpSkill.Services.Data.Course;
+    using UpSkill.Web.Infrastructure.Web.Extensions;
 
     using static Common.GlobalConstants;
-    using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
-
     using static Common.GlobalConstants.PoliciesNamesConstants;
     using static Common.GlobalConstants.RolesNamesConstants;
+    using static Common.GlobalConstants.SwaggerConstants;
 
     public static class ServiceCollectionExtensions
     {
@@ -88,14 +87,17 @@
             services
                 .AddAuthorization(options =>
                 {
-                    options.AddPolicy(AdministratorOnly,
-                         policy => policy.RequireRole(AdministratorRoleName));
+                    options.AddPolicy(
+                        AdministratorOnly,
+                        policy => policy.RequireRole(AdministratorRoleName));
 
-                    options.AddPolicy(OwnerOnly,
-                         policy => policy.RequireRole(CompanyOwnerRoleName));
+                    options.AddPolicy(
+                        OwnerOnly,
+                        policy => policy.RequireRole(CompanyOwnerRoleName));
 
-                    options.AddPolicy(EmployeeOnly,
-                         policy => policy.RequireRole(CompanyEmployeeRoleName));
+                    options.AddPolicy(
+                        EmployeeOnly,
+                        policy => policy.RequireRole(CompanyEmployeeRoleName));
                 });
 
             return services;
@@ -122,7 +124,7 @@
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
                     };
                 });
 
@@ -153,7 +155,7 @@
                    new OpenApiInfo
                    {
                        Title = UpSkillAPI,
-                       Version = V1
+                       Version = V1,
                    });
            });
 
@@ -164,4 +166,3 @@
                     .Add<ModelOrNotFoundActionFilter>());
     }
 }
-

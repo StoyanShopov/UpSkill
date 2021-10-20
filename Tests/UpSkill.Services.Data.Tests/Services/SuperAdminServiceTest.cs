@@ -1,29 +1,29 @@
 ﻿namespace UpSkill.Services.Data.Tests.Services
 {
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
+
+    using Moq;
 
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Common;
 
-    using Moq; 
-
     using Xunit;
 
     public class SuperAdminServiceTest : TestWithData
-    { 
+    {
         [Fact]
         public async Task CreateAsynShouldCreateANewCompany()
-        {          
+        {
             const string TestCompany = "TestCompany";
             var repository = new Mock<IDeletableEntityRepository<Company>>();
             var company = new Company()
             {
                 Id = 1,
-                Name = TestCompany
+                Name = TestCompany,
             };
 
-            var result = await Task.FromResult(repository.Setup(r=> r.AddAsync(company)));
+            var result = await Task.FromResult(repository.Setup(r => r.AddAsync(company)));
 
             Assert.NotNull(company);
             Assert.Equal(TestCompany, company.Name);
@@ -35,18 +35,18 @@
             const int Id = 1;
             const string DatabaseName = "DeleteCompany";
             await this.InitializeDatabase(DatabaseName);
-            var repository = new Mock<IDeletableEntityRepository<Company>>(); 
+            var repository = new Mock<IDeletableEntityRepository<Company>>();
             var company = await this.Database
                 .Companies
                 .FindAsync(Id);
 
             var result = repository.Setup(r => r.Delete(company));
 
-            Assert.NotNull(company); 
+            Assert.NotNull(company);
             Assert.True(company.IsDeleted = true);
-        } 
+        }
 
-        [Fact] 
+        [Fact]
         public async Task EditAsyncShouldEditCompany()
         {
             const int Id = 1;
@@ -57,7 +57,7 @@
             var company = await this.Database
                 .Companies
                 .FindAsync(Id);
-            company.Name = UpdatedCompanyName; 
+            company.Name = UpdatedCompanyName;
 
             var result = repository.Setup(r => r.Update(company));
 
@@ -85,7 +85,7 @@
             Assert.NotNull(user);
             Assert.NotNull(company);
             Assert.Equal(Id, user.CompanyId);
-            Assert.Contains(user, company.Users); 
+            Assert.Contains(user, company.Users);
         }
-    } 
+    }
 }

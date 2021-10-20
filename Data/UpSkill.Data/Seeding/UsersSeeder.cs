@@ -9,10 +9,10 @@
 
     using UpSkill.Data.Models;
 
-    using static UpSkill.Common.GlobalConstants.UsersEmailsNames;
-    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
     using static UpSkill.Common.GlobalConstants.CompaniesNamesConstants;
     using static UpSkill.Common.GlobalConstants.PositionsNamesConstants;
+    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
+    using static UpSkill.Common.GlobalConstants.UsersEmailsNames;
 
     internal class UsersSeeder : ISeeder
     {
@@ -72,7 +72,7 @@
                 LastName = "employeeMotionSoftware",
                 Company = motionCompany,
                 Position = positionSoftwareDeveloper,
-                Manager = ownerMotionSoftware
+                Manager = ownerMotionSoftware,
             };
         }
 
@@ -105,7 +105,7 @@
                 FirstName = "administrator",
                 LastName = "administrator",
                 Company = adminCompany,
-                Position = positionAdministrator
+                Position = positionAdministrator,
             };
         }
     }
