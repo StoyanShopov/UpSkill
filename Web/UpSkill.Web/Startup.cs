@@ -46,6 +46,8 @@
             services.AddSingleton(this.configuration);
 
             services.AddEmailSender(this.configuration);
+
+            services.AddApplicationInsightsTelemetry();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
