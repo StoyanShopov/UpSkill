@@ -16,11 +16,11 @@
 * Pass: M6vAQm4dLFbF
 
 ### Azure Database 
-(In MS SQL SERVER)
-    Server name: ourupskill.database.windows.net
-    Authentication: SQL Server Authentication
-        Login: mamkamu
-        Password: OgiELud123*
+* (In MS SQL SERVER)
+   * Server name: ourupskill.database.windows.net
+   * Authentication: SQL Server Authentication
+       * Login: mamkamu
+       * Password: OgiELud123*
 
 ### React JS course
 * https://youtube.com/playlist?list=PLLI4Kq677Eh_fRSUqWxzWuYdYkiUGGZx-
