@@ -18,27 +18,27 @@
             {
                 new Category
                 {
-                    Name = Physics, 
+                    Name = Physics,
                     DeletedOn = null,
-                    IsDeleted = false
+                    IsDeleted = false,
                 },
                 new Category
                 {
                     Name = Finance,
                     DeletedOn = null,
-                    IsDeleted = false
+                    IsDeleted = false,
                 },
             };
 
-			foreach (Category category in categoriesList)
-			{
-				var dbCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Name == category.Name);
+            foreach (Category category in categoriesList)
+            {
+                var dbCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Name == category.Name);
 
-				if (dbCategory == null)
-				{
-					await dbContext.Categories.AddAsync(category);
-				}
-			}
-		}
+                if (dbCategory == null)
+                {
+                    await dbContext.Categories.AddAsync(category);
+                }
+            }
+        }
     }
 }

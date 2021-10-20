@@ -7,8 +7,8 @@
     using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Common;
-	using UpSkill.Data.Common.Models;
-	using UpSkill.Data.Common.Repositories;
+    using UpSkill.Data.Common.Models;
+    using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Mapping;

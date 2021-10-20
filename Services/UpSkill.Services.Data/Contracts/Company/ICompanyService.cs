@@ -4,8 +4,8 @@
     using System.Threading.Tasks;
 
     using UpSkill.Common;
-	using UpSkill.Data.Common.Models;
-	using UpSkill.Web.ViewModels.Company;
+    using UpSkill.Data.Common.Models;
+    using UpSkill.Web.ViewModels.Company;
 
     public interface ICompanyService
     {

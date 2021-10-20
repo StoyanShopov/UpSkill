@@ -1,5 +1,7 @@
 ﻿namespace UpSkill.Web
 {
+    using System.Reflection;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -7,9 +9,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
-    using System.Reflection;
-
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
     using UpSkill.Services.Mapping;
@@ -32,10 +31,9 @@
                  .AddIdentity()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
                  .AddBussinesServices()
-                 .AddInfrastructureServices() 
+                 .AddInfrastructureServices()
                  .AddSwagger()
                  .AddApiControllers();
-              
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -50,7 +48,6 @@
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
