@@ -9,7 +9,7 @@
     {
         Task<Result> CreateAsync(CreateCourseViewModel model);
 
-        Task<Result> EditAsync(EditCourseViewModel model);
+        Task<Result> EditAsync(EditCourseViewModel model, int id);
 
         Task<Result> DeleteAsync(int id);
 

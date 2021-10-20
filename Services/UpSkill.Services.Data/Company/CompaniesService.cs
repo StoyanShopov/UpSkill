@@ -45,11 +45,11 @@
             return true;
         }
 
-        public async Task<Result> EditAsync(UpdateCompanyRequestModel model)
+        public async Task<Result> EditAsync(UpdateCompanyRequestModel model, int id)
         {
             var company = await this.companies
              .All()
-             .FirstOrDefaultAsync(c => c.Id == model.Id);
+             .FirstOrDefaultAsync(c => c.Id == id);
 
             if (company == null)
             {

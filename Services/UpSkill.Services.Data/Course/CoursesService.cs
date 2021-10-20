@@ -56,11 +56,11 @@
                              .To<TModel>()
                              .FirstOrDefaultAsync();
 
-        public async Task<Result> EditAsync(EditCourseViewModel model)
+        public async Task<Result> EditAsync(EditCourseViewModel model, int id)
         {
             var course = await this.courses
                              .All()
-                             .Where(c => c.Id == model.Id)
+                             .Where(c => c.Id == id)
                              .FirstOrDefaultAsync();
 
             if (course == null)

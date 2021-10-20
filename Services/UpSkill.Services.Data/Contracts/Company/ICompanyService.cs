@@ -10,7 +10,7 @@
     {
         Task<Result> CreateAsync(CreateCompanyRequestModel model);
 
-        Task<Result> EditAsync(UpdateCompanyRequestModel model);
+        Task<Result> EditAsync(UpdateCompanyRequestModel model, int id);
 
         Task<Result> DeleteAsync(int id);
 

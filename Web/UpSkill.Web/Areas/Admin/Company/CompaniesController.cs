@@ -19,7 +19,6 @@
             => this.companyService = companyService;
 
         [HttpPost]
-        [Route(CreateRoute)]
         public async Task<IActionResult> Create(CreateCompanyRequestModel model)
         {
             var reuslt = await this.companyService.CreateAsync(model);
@@ -33,10 +32,9 @@
         }
 
         [HttpPut]
-        [Route(EditRoute)]
-        public async Task<IActionResult> Edit(UpdateCompanyRequestModel model)
+        public async Task<IActionResult> Edit(UpdateCompanyRequestModel model, int id)
         {
-            var result = await this.companyService.EditAsync(model);
+            var result = await this.companyService.EditAsync(model, id);
 
             if (result.Failure)
             {
@@ -47,7 +45,6 @@
         }
 
         [HttpDelete]
-        [Route(DeleteRoute)]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await this.companyService.DeleteAsync(id);

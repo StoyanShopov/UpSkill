@@ -26,7 +26,6 @@
                      .GetByIdAsync<DetailsViewModel>(id);
 
         [HttpPost]
-        [Route(CreateRoute)]
         public async Task<IActionResult> Create(CreateCourseViewModel model)
         {
             var result = await this.coursesService.CreateAsync(model);
@@ -40,10 +39,9 @@
         }
 
         [HttpPut]
-        [Route(EditRoute)]
-        public async Task<IActionResult> Edit(EditCourseViewModel model)
+        public async Task<IActionResult> Edit(EditCourseViewModel model, int id)
         {
-            var result = await this.coursesService.EditAsync(model);
+            var result = await this.coursesService.EditAsync(model, id);
 
             if (result.Failure)
             {
@@ -54,7 +52,6 @@
         }
 
         [HttpDelete]
-        [Route(DeleteRoute)]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await this.coursesService.DeleteAsync(id);
