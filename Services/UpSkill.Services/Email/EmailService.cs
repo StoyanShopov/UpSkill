@@ -12,8 +12,8 @@
     using UpSkill.Services.Messaging;
 
     using static Common.GlobalConstants;
-    using static Common.GlobalConstants.EmailSenderConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.EmailSenderConstants;
     using static Common.GlobalConstants.MessagesConstants;
 
     public class EmailService : IEmailService
@@ -31,7 +31,7 @@
 
         public async Task SendEmailConfirmationAsync(string origin, string host, ApplicationUser user)
         {
-            var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            var token = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
             token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
 
             var verifyUrl = string.Format(
@@ -45,10 +45,10 @@
 
             var content = string.Format(HtmlContent, verifyUrl);
 
-            await emailSender.SendEmailAsync(FromEmail, FromName, user.Email, EmailSubject, content);
+            await this.emailSender.SendEmailAsync(FromEmail, FromName, user.Email, EmailSubject, content);
         }
 
-        public async Task<Result> VerifyEmailAsync(string email, string token) 
+        public async Task<Result> VerifyEmailAsync(string email, string token)
         {
             var user = await this.userManager.FindByEmailAsync(email);
 
@@ -65,21 +65,21 @@
             if (!result.Succeeded)
             {
                 return IncorrectEmail;
-            } 
+            }
 
-            return true; 
+            return true;
         }
 
         public async Task<Result> ResendEmailConfirmationLinkAsync(string email, string host, string origin)
         {
-            var user = await userManager.FindByEmailAsync(email);
+            var user = await this.userManager.FindByEmailAsync(email);
 
             if (user == null)
             {
                 return EmailsDoNotMatch;
             }
 
-            await SendEmailConfirmationAsync(origin, host, user);
+            await this.SendEmailConfirmationAsync(origin, host, user);
 
             return true;
         }

@@ -1,8 +1,8 @@
-﻿namespace UpSkill.Services.Data.Company 
+﻿namespace UpSkill.Services.Data.Company
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -35,7 +35,7 @@
 
             var company = new Company()
             {
-                Name = model.Name
+                Name = model.Name,
             };
 
             await this.companies.AddAsync(company);

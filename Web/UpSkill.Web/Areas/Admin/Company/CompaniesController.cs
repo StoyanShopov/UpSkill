@@ -26,10 +26,10 @@
 
             if (reuslt.Failure)
             {
-                return BadRequest(reuslt.Error);
+                return this.BadRequest(reuslt.Error);
             }
 
-            return StatusCode(201, SuccesfullyCreated);
+            return this.StatusCode(201, SuccesfullyCreated);
         }
 
         [HttpPut]
@@ -40,10 +40,10 @@
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyEdited);
+            return this.Ok(SuccesfullyEdited);
         }
 
         [HttpDelete]
@@ -54,12 +54,12 @@
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyDeleted);
+            return this.Ok(SuccesfullyDeleted);
         }
-//Alert: Check route
+
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()

@@ -1,17 +1,15 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
+
     using Microsoft.AspNetCore.Mvc;
 
-    using ViewModels.Course;
-    using Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Web.ViewModels.Course;
 
     using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
-
-    [AllowAnonymous]
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICoursesService coursesService;
@@ -27,7 +25,6 @@
         => await this.coursesService
                      .GetByIdAsync<DetailsViewModel>(id);
 
-
         [HttpPost]
         [Route(CreateRoute)]
         public async Task<IActionResult> Create(CreateCourseViewModel model)
@@ -36,10 +33,10 @@
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyCreated);
+            return this.Ok(SuccesfullyCreated);
         }
 
         [HttpPut]
@@ -50,10 +47,10 @@
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyEdited);
+            return this.Ok(SuccesfullyEdited);
         }
 
         [HttpDelete]
@@ -64,10 +61,10 @@
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyDeleted);
+            return this.Ok(SuccesfullyDeleted);
         }
     }
 }

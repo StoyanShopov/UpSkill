@@ -7,8 +7,8 @@
 
     using UpSkill.Services.Contracts.Email;
 
-    using static Common.GlobalConstants.MessagesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.MessagesConstants;
 
     public class EmailController : ApiController
     {
@@ -19,16 +19,16 @@
         [HttpGet]
         [AllowAnonymous]
         [Route(VerifyEmailRoute)]
-        public async Task<IActionResult> VerifyEmail(string email, string token) 
+        public async Task<IActionResult> VerifyEmail(string email, string token)
         {
             var result = await this.emailService.VerifyEmailAsync(email, token);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error); 
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(EmailConfirmed);
+            return this.Ok(EmailConfirmed);
         }
 
         [HttpGet]
@@ -36,17 +36,17 @@
         [Route(ResendEmailConfirmationLinkRoute)]
         public async Task<IActionResult> ResendEmailConfirmationLink(string email)
         {
-            var origin = Request.Headers[HeaderOrigin];
-            var host = Request.Host.Value;
+            var origin = this.Request.Headers[HeaderOrigin];
+            var host = this.Request.Host.Value;
 
             var result = await this.emailService.ResendEmailConfirmationLinkAsync(email, host, origin);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error); 
+                return this.BadRequest(result.Error);
             }
 
-            return Ok();
+            return this.Ok();
         }
     }
 }

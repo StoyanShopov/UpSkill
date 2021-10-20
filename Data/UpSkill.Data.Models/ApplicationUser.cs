@@ -6,7 +6,7 @@
 
     using Microsoft.AspNetCore.Identity;
 
-    using Common.Models;
+    using UpSkill.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -27,10 +27,12 @@
 
         [Required]
         public int PositionId { get; set; }
+
         public Position Position { get; set; }
 
         [Required]
         public int CompanyId { get; set; }
+
         public Company Company { get; set; }
 
         public string ManagerId { get; set; }

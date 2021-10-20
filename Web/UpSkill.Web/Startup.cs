@@ -4,20 +4,20 @@
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
-    using UpSkill.Web.ViewModels;
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
     using UpSkill.Services.Mapping;
-    using UpSkill.Web.Web.Extensions;
     using UpSkill.Web.Infrastructure.Web.Extensions;
-	using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+    using UpSkill.Web.ViewModels;
+    using UpSkill.Web.Web.Extensions;
 
-	public class Startup
+    public class Startup
     {
         private readonly IConfiguration configuration;
 
@@ -59,12 +59,11 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
-            //if (env.IsDevelopment())
-            //{
+            if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
-            //}
-
+            }
 
             app
                 .UseStaticFiles()
@@ -83,7 +82,7 @@
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
-                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}"); 
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();
                 })
                 .ApplyMigrations();
@@ -96,7 +95,7 @@
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
-            }); 
+            });
         }
     }
 }
