@@ -36,11 +36,11 @@
                     Title = StatisticalPhysics,
                     Description = StatisticalPhysicsDescription,
                     CategoryId = 3,
-                    IsDeleted = false
+                    IsDeleted = false,
                 },
             };
 
-			foreach (Course course in coursesList)
+            foreach (Course course in coursesList)
 			{
 				var dbCourse = await dbContext.Courses.FirstOrDefaultAsync(x => x.Title == course.Title);
 
