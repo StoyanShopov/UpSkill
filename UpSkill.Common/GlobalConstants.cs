@@ -1,4 +1,4 @@
-ï»¿namespace UpSkill.Common
+﻿namespace UpSkill.Common
 {
     public static class GlobalConstants
     {
@@ -106,7 +106,6 @@
 
             public const string Demote = "demote";
 
-
             public const string GetAllBlobs = "catalog";
 
             public const string Upload = "upload";
@@ -114,7 +113,6 @@
             public const string DownloadByName = "download";
 
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
-
         }
 
         public class MessagesConstants
