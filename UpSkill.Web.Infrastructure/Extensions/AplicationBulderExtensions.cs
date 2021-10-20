@@ -1,12 +1,12 @@
 ﻿namespace UpSkill.Web.Infrastructure.Web.Extensions
 {
-    using UpSkill.Data;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
 
-    using static Common.GlobalConstants.SwaggerConstants; 
+    using UpSkill.Data;
+
+    using static Common.GlobalConstants.SwaggerConstants;
 
     public static class AplicationBulderExtensions
     {
@@ -15,7 +15,7 @@
               .UseSwagger()
               .UseSwaggerUI(options =>
               {
-                  options.SwaggerEndpoint(SwaggerHttpPath, UpSkillAPI); 
+                  options.SwaggerEndpoint(SwaggerHttpPath, UpSkillAPI);
               });
 
         public static void ApplyMigrations(this IApplicationBuilder app)

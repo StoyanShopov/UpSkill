@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
 
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -30,7 +30,7 @@
                               new CategoriesSeeder(),
                               new CoursesSeeder(),
                               new PositionsSeeder(),
-                              new UsersSeeder()
+                              new UsersSeeder(),
                           };
 
             foreach (var seeder in seeders)

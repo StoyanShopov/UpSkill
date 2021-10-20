@@ -21,21 +21,23 @@
             await AddFakeCourse(fakeDatabase);
 
             this.Database = fakeDatabase.Data; 
+
         }
 
-        protected ApplicationDbContext Database { get; private set; }  
+        protected ApplicationDbContext Database { get; private set; }
 
         private static async Task AddFakeCompany(FakeUpSkillDbContext dbContext)
-            => await dbContext.AddFakeDataAsync(new Company()
+            => await dbContext.AddFakeDataAsync(
+                new Company()
             {
                 Id = 1,
-                Name = "TestCompany"
+                Name = "TestCompany",
             },
-            new ApplicationUser() 
-            { 
-                Id = "1", 
-                Email = "user@example.com", 
-                CompanyId = 0
+                new ApplicationUser()
+            {
+                Id = "1",
+                Email = "user@example.com",
+                CompanyId = 0,
             });
 
         private static async Task AddFakeCourse(FakeUpSkillDbContext dbContext)

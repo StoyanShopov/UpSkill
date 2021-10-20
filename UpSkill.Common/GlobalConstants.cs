@@ -1,4 +1,4 @@
-namespace UpSkill.Common
+﻿namespace UpSkill.Common
 {
     public static class GlobalConstants
     {
@@ -26,6 +26,7 @@ namespace UpSkill.Common
 
             public const string UnassignedSuccessfully = "User successfully demoted!";
         }
+
         public class AutoMapperConstants
         {
             public const string ReflectionProfile = "ReflectionProfile";
@@ -37,7 +38,6 @@ namespace UpSkill.Common
             public const string V1 = "v1";
             public const string SwaggerHttpPath = "/swagger/v1/swagger.json";
         }
-
 
         public class UsersEmailsNames
         {
@@ -208,5 +208,3 @@ namespace UpSkill.Common
         }
     }
 }
-
-

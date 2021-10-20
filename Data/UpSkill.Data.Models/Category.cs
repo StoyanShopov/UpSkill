@@ -1,6 +1,6 @@
 ﻿namespace UpSkill.Data.Models
 {
-    using Common.Models;
+    using UpSkill.Data.Common.Models;
 
     public class Category : BaseDeletableModel<int>
     {

@@ -11,10 +11,12 @@
 	using Moq;
 
 	using Xunit;
+   
 	using UpSkill.Services.Data.Course;
-	using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 	using UpSkill.Services.Data.Contracts.Company;
 	using UpSkill.Web.ViewModels.Course;
+   
+	using static UpSkill.Common.GlobalConstants.RolesNamesConstants;   
 
 	public class SuperAdminServiceTest : TestWithData
 	{

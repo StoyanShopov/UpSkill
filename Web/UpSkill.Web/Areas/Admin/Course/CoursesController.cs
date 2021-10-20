@@ -24,19 +24,17 @@
         => await this.coursesService
                      .GetByIdAsync<DetailsViewModel>(id);
 
-
         [HttpPost]
-        [Route(CreateRoute)]
         public async Task<IActionResult> Create(CreateCourseViewModel model)
         {
             var result = await this.coursesService.CreateAsync(model);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyCreated);
+            return this.Ok(SuccesfullyCreated);
         }
 
         [HttpPost]
@@ -54,31 +52,29 @@
         }
 
         [HttpPut]
-        [Route(EditRoute)]
-        public async Task<IActionResult> Edit(EditCourseViewModel model)
+        public async Task<IActionResult> Edit(EditCourseViewModel model, int id)
         {
-            var result = await this.coursesService.EditAsync(model);
+            var result = await this.coursesService.EditAsync(model, id);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyEdited);
+            return this.Ok(SuccesfullyEdited);
         }
 
         [HttpDelete]
-        [Route(DeleteRoute)]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await this.coursesService.DeleteAsync(id);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyDeleted);
+            return this.Ok(SuccesfullyDeleted);
         }
     }
 }

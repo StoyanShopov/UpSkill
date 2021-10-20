@@ -21,6 +21,7 @@
 
 	//Coaches table is missing right now so most of the logic is commented
 	public class CoursesService : ICoursesService
+
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
@@ -58,7 +59,7 @@
                 CoachId = model.CoachId,
                 Description = model.Description,
                 Price = model.Price,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
             };
 
             await this.courses.AddAsync(newCourse);
@@ -73,11 +74,11 @@
                              .To<TModel>()
                              .FirstOrDefaultAsync();
 
-        public async Task<Result> EditAsync(EditCourseViewModel model)
+        public async Task<Result> EditAsync(EditCourseViewModel model, int id)
         {
             var course = await this.courses
                              .All()
-                             .Where(c => c.Id == model.Id)
+                             .Where(c => c.Id == id)
                              .FirstOrDefaultAsync();
 
             if (course == null)

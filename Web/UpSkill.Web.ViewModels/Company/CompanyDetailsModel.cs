@@ -2,8 +2,8 @@
 {
     using AutoMapper;
 
-    using UpSkill.Services.Mapping;
     using UpSkill.Data.Models;
+    using UpSkill.Services.Mapping;
 
     public class CompanyDetailsModel : IMapFrom<Company>, IHaveCustomMappings
     {
@@ -16,12 +16,14 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Company, CompanyDetailsModel>()
-                .ForMember(c => c.UsersCount,
+                .ForMember(
+                c => c.UsersCount,
                 c => c.MapFrom(c => c.Users.Count));
 
             configuration.CreateMap<Company, CompanyDetailsModel>()
-                .ForMember(c => c.CoursesCount,
-                c => c.MapFrom(c => c.Courses.Count)); 
+                .ForMember(
+                c => c.CoursesCount,
+                c => c.MapFrom(c => c.Courses.Count));
         }
     }
 }

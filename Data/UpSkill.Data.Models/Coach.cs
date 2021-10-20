@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using Common.Models;
+    using UpSkill.Data.Common.Models;
 
     public class Coach : BaseDeletableModel<int>
     {
