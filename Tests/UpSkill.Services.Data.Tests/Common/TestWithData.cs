@@ -1,9 +1,9 @@
 ﻿namespace UpSkill.Services.Data.Tests.Common
 {
-	using Microsoft.AspNetCore.Identity;
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity;
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
@@ -20,8 +20,7 @@
 
             await AddFakeCourse(fakeDatabase);
 
-            this.Database = fakeDatabase.Data; 
-
+            this.Database = fakeDatabase.Data;
         }
 
         protected ApplicationDbContext Database { get; private set; }
@@ -60,15 +59,15 @@
             {
                 Id = "1",
                 Name = AdministratorRoleName,
-                IsDeleted = false
+                IsDeleted = false,
             },
             new ApplicationUser()
             {
                 Id = "2",
                 Email = "admin@example.com",
                 CompanyId = 0,
-                Roles = new List<IdentityUserRole<string>> 
-                    { new IdentityUserRole<string> { UserId = "2", RoleId = "1"} },
+                Roles = new List<IdentityUserRole<string>>
+                    { new IdentityUserRole<string> { UserId = "2", RoleId = "1" } },
             });
     }
 }

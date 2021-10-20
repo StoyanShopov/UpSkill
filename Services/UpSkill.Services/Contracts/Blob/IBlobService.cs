@@ -1,10 +1,10 @@
 ﻿namespace UpSkill.Services.Contracts.Blob
 {
-
-    using Azure.Storage.Blobs;
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
+
+    using Azure.Storage.Blobs;
 
     using UpSkill.Web.ViewModels.Blob;
 

@@ -1,14 +1,13 @@
 ﻿namespace UpSkill.Services.Blob
 {
-    using Azure.Storage.Blobs;
-    using Azure.Storage.Blobs.Models;
-
-    using Microsoft.Extensions.Options;
-
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
+
+    using Azure.Storage.Blobs;
+    using Azure.Storage.Blobs.Models;
+    using Microsoft.Extensions.Options;
     using UpSkill.Services.Contracts.Blob;
     using UpSkill.Web.ViewModels.Blob;
 
@@ -28,9 +27,11 @@
             var createResponse = await container.CreateIfNotExistsAsync();
 
             if (createResponse != null && createResponse.GetRawResponse().Status == 201)
+            {
                 await container.SetAccessPolicyAsync(PublicAccessType.Blob);
+            }
 
-            var blob = container.GetBlobClient( Guid.NewGuid().ToString());
+            var blob = container.GetBlobClient(Guid.NewGuid().ToString());
 
             await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
 
@@ -71,7 +72,6 @@
             var blob = container.GetBlobClient(name);
 
             return await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
-
         }
     }
 }

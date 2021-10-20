@@ -1,16 +1,15 @@
 ﻿namespace UpSkill.Web.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
     using System;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using UpSkill.Services.Contracts.Blob;
 
-    using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
     using static UpSkill.Common.GlobalConstants.BlobConstants;
+    using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
 
     [AllowAnonymous]
     public class BlobsController : ApiController
@@ -22,29 +21,29 @@
             this.blobService = blobService ?? throw new ArgumentNullException(nameof(blobService));
         }
 
-        [HttpPost(Upload),
-         DisableRequestSizeLimit]
+        [HttpPost(Upload)]
+        [DisableRequestSizeLimit]
         public async Task<IActionResult> UploadAsync()
         {
             try
             {
-                var formCollection = await Request.ReadFormAsync();
-                var file = formCollection.Files.First();
+                var formCollection = await this.Request.ReadFormAsync();
+                var file = formCollection.Files[0];
 
                 if (file.Length > 0)
                 {
                     var fileUrl = await this.blobService.UploadAsync(file.OpenReadStream(), file.ContentType);
 
-                    return Ok(new { fileUrl });
+                    return this.Ok(new { fileUrl });
                 }
                 else
                 {
-                    return BadRequest();
+                    return this.BadRequest();
                 }
             }
             catch (Exception exception)
             {
-                return StatusCode(500, exception);
+                return this.StatusCode(500, exception);
             }
         }
 
@@ -53,7 +52,7 @@
         {
             var blobs = await this.blobService.GetAllBlobs();
 
-            return Ok(blobs);
+            return this.Ok(blobs);
         }
 
         [HttpGet(DownloadByName)]
@@ -61,11 +60,14 @@
         {
             var blob = this.blobService.DownloadBlobByName(name);
 
-            if (!await blob.ExistsAsync()) return BadRequest();
+            if (!await blob.ExistsAsync())
+            {
+                return this.BadRequest();
+            }
+
             var response = await blob.DownloadAsync();
 
-            return File(response.Value.Content, response.Value.ContentType, name);
-
+            return this.File(response.Value.Content, response.Value.ContentType, name);
         }
 
         [HttpGet(DeleteRoute)]
@@ -74,9 +76,11 @@
             var result = await this.blobService.DeleteBlobAsync(name);
 
             if (result)
-                return Ok(SuccessfullyDeleted);
+            {
+                return this.Ok(SuccessfullyDeleted);
+            }
 
-            return NotFound(UnsuccessfullyDeleted);
+            return this.NotFound(UnsuccessfullyDeleted);
         }
     }
 }
