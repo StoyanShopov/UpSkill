@@ -8,6 +8,8 @@
 
         public const string DefaultConnection = "DefaultConnection";
 
+        public const string BlobStorage = "BlobStorage";
+
         public const string ApplicationSettings = "ApplicationSettings";
 
         public const string Unauthorized = "Unauthorized";
@@ -68,6 +70,12 @@
             public const string UserNotInCompanyOwnerRole = "This user is not a company owner!";
         }
 
+        public class BlobConstants
+        {
+            public const string SuccessfullyDeleted = "This file is successfully deleted.";
+            public const string UnsuccessfullyDeleted = "The requested resource was not found.";
+        }
+
         public class ControllerRoutesConstants
         {
             public const string HeaderOrigin = "origin";
@@ -97,6 +105,12 @@
             public const string Promote = "promote";
 
             public const string Demote = "demote";
+
+            public const string GetAllBlobs = "catalog";
+
+            public const string Upload = "upload";
+
+            public const string DownloadByName = "download";
 
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
         }
@@ -193,7 +207,7 @@
         {
             public const string TheoryOfSpecialRelativityDescription = "E = mc^2";
 
-            public const string FinancialAnalysisAndValuationForLawyersDescription = "Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or client’s financial goals while increasing profitability and minimizing risks.";
+            public const string FinancialAnalysisAndValuationForLawyersDescription = "Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or clientâ€™s financial goals while increasing profitability and minimizing risks.";
 
             public const string StatisticalPhysicsDescription = "This course offers an introduction to probability, statistical mechanics, and thermodynamics. Numerous examples are used to illustrate a wide variety of physical phenomena such as magnetism, polyatomic gases, thermal radiation, electrons in solids, and noise in electronic devices.";
         }

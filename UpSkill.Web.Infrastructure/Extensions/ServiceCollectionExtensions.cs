@@ -20,6 +20,20 @@
     using UpSkill.Services.Contracts.Account;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
+
+    using UpSkill.Services.Email;
+    using UpSkill.Services.Identity;
+    using UpSkill.Services.Messaging;
+    using UpSkill.Web.Filters;
+    using UpSkill.Web.Infrastructure.Web.Extensions;
+    using UpSkill.Web.Infrastructure.Services;
+    using UpSkill.Services.Contracts.Account;
+    using UpSkill.Services.Account;
+
+    using UpSkill.Services.Blob;
+    using UpSkill.Services.Contracts.Blob;
+    using UpSkill.Services.Data.Contracts.Company;
+
     using UpSkill.Services.Data.Admin;
     using UpSkill.Services.Data.Company;
     using UpSkill.Services.Data.Contracts.Admin;
@@ -32,6 +46,7 @@
     using UpSkill.Web.Filters;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.Infrastructure.Web.Extensions;
+
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
@@ -57,12 +72,25 @@
             return applicationSettingsConfiguration.Get<AppSettings>();
         }
 
+
         public static IServiceCollection AddDatabase(
             this IServiceCollection services,
             IConfiguration configuration)
             => services
                 .AddDbContext<ApplicationDbContext>(options => options
                     .UseSqlServer(configuration.GetDefaultConnectionString()));
+
+
+        public static IServiceCollection AddBlobStorage(this IServiceCollection services, IConfiguration configuration)
+        {
+            IConfigurationSection blobStorage 
+                = configuration.GetSection(nameof(Services.BlobStorage));
+
+            services.Configure<BlobStorage>(blobStorage);
+
+            return services;
+        }
+
 
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
@@ -141,7 +169,8 @@
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
-                .AddScoped<IDbQueryRunner, DbQueryRunner>();
+                .AddScoped<IDbQueryRunner, DbQueryRunner>()
+                .AddTransient<IBlobService, BlobService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
