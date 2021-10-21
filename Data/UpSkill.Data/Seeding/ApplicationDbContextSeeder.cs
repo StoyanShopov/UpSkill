@@ -28,6 +28,7 @@
                                new RolesSeeder(),
                                new CompaniesSeeder(),
                                new CategoriesSeeder(),
+                               new CoachesSeeder(),
                                new CoursesSeeder(),
                                new PositionsSeeder(),
                                new UsersSeeder(),

@@ -20,22 +20,22 @@
                 {
                     Title = TheoryOfSpecialRelativity,
                     Description = TheoryOfSpecialRelativityDescription,
-                    CategoryId = 3,
-                    IsDeleted = false,
+                    CategoryId = 1,
+                    CoachId = 1,
                 },
                 new Course
                 {
                     Title = FinancialAnalysisAndValuationForLawyers,
                     Description = FinancialAnalysisAndValuationForLawyersDescription,
-                    CategoryId = 4,
-                    IsDeleted = false,
+                    CategoryId = 2,
+                    CoachId = 1,
                 },
                 new Course
                 {
                     Title = StatisticalPhysics,
                     Description = StatisticalPhysicsDescription,
-                    CategoryId = 3,
-                    IsDeleted = false,
+                    CategoryId = 2,
+                    CoachId = 1,
                 },
             };
 
