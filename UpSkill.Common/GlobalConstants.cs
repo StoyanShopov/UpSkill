@@ -220,5 +220,14 @@
 
             public const string EmployeeOnly = "EmployeeOnly";
         }
+
+        public class EmployeeConstants
+        {
+            public const string EmailExists = "An employee with this email already exists.";
+
+            public const string SuccessMessage = "You have successfully added an employee.";
+
+            public const string NoEmployeesFound = "Currently there are no employees added to this company.";
+        }
     }
 }
