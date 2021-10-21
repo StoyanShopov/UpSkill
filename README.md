@@ -1,4 +1,4 @@
-# Titans Team
+# UpSkill
 
 # Build Status
 [![CI/CD UpSkill](https://github.com/StoyanShopov/Titans/actions/workflows/development_ourupskill.yml/badge.svg?branch=development)](https://github.com/StoyanShopov/Titans/actions/workflows/development_ourupskill.yml)
