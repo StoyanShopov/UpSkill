@@ -10,7 +10,7 @@ const CompanyList = (props) => {
     useEffect((companies) => {
 
         retriveCompanies().then(data => {
-           
+
             setCompanies(data);
         });
 
@@ -18,10 +18,10 @@ const CompanyList = (props) => {
 
 
 
-    const deleteCompanyHandler = (id)=>{
-       props.getCompanyId(id);
-    }; 
-  
+    const deleteCompanyHandler = (id) => {
+        props.getCompanyId(id);
+    };
+
 
 
     return (
@@ -31,14 +31,14 @@ const CompanyList = (props) => {
             <div className="ui celled list">
                 {companies.map((company) => {
                     return (
-                       
-                            <CompanyCard company={company} clickHandler={deleteCompanyHandler}  key={company.id} />
-                        
+
+                        <CompanyCard company={company} clickHandler={deleteCompanyHandler} key={company.id} />
+
 
                     )
-                    }
+                }
                 )
-            };               
+                };
             </div>
 
             <Link to="/AddCompany">
@@ -47,7 +47,7 @@ const CompanyList = (props) => {
             <br />
             <Link to="/">
                 <button className="ui button blue center">Back</button>
-                </Link>
+            </Link>
 
         </div>
 

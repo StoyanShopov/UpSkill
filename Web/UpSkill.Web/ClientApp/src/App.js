@@ -17,7 +17,7 @@ import EditCompany from "./components/Companies/EditCompany/EditCompany";
 import {removeCompanyHandler} from "../src/services/companyService";
 import Layout from './components/Shared/Layout'; 
 import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
-//import store from './store';    
+import store from './store';    
 
 import IdentityContext from './Context/IdentityContext';
 
@@ -27,14 +27,13 @@ function App() {
 
 
   return (
-     <IdentityContext.Provider
-     store={store}> 
+     <IdentityContext.Provider  store={store}> 
       <Layout> 
           <Route exact path='/' component={Home}/>
           <Route exact path='/Courses' component={Courses}/>
           <Route exact path='/Coaches' component={Coaches}/>  
-          {/* <Route exact path='/Register' component={Register} />  
-          <Route exact path='/Login' component={Login}/>    */}
+          <Route exact path='/Register' component={Register} />  
+          <Route exact path='/Login' component={Login}/>   
           <Route exact path='/AddCompany' component={AddCompany}/>   
           <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
           <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
