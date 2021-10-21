@@ -9,12 +9,12 @@ import EmployeesPositionCard from './components/EmployeesPositionCard/EmployeesP
 import Home from './components/Home';
 import Courses from './components/Courses/Courses';
 import Coaches from './components/Coaches/Coaches'; 
-// import Login from './components/Login/Login'; 
-// import Register from './components/Register/Register';
+import Login from './components/Login/Login'; 
+ import Register from './components/Register/Register';
 import AddCompany from "./components/Companies/AddCompany/AddCompany";
 import CompanyDetails from "./components/Companies/CompanyDetails/CompanyDetails";
 import EditCompany from "./components/Companies/EditCompany/EditCompany";
-import {removeCompanyHandler,retriveCompanies} from "../src/services/companyService";
+import {removeCompanyHandler} from "../src/services/companyService";
 import Layout from './components/Shared/Layout'; 
 import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
 //import store from './store';    
@@ -27,8 +27,8 @@ function App() {
 
 
   return (
-    // <IdentityContext.Provider
-    // store={store}> 
+     <IdentityContext.Provider
+     store={store}> 
       <Layout> 
           <Route exact path='/' component={Home}/>
           <Route exact path='/Courses' component={Courses}/>
@@ -42,7 +42,7 @@ function App() {
       </Layout>
 
       
-   // </IdentityContext.Provider >
+   </IdentityContext.Provider >
   );
 }
 
