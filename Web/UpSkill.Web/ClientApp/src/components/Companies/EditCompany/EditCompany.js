@@ -8,19 +8,7 @@ function EditCompany (props){
 
     const [name,setName]=useState(props.location.state.company.name);
    
-    const [id,setId]=useState(props.location.state.company.id);
-
-    const [companies, setCompanies] = useState([])
-
-    useEffect((companies) => {
-
-        retriveCompanies().then(data => {
-           
-            setCompanies(data);
-        });
-
-    }, [companies])
-
+    const [id,setId]=useState(props.location.state.company.id);    
 
   const  update= (e) => {
     e.preventDefault();
@@ -31,6 +19,7 @@ function EditCompany (props){
     }
     const company = {
         id,
+        name
       
     }
    updateCompanyHandler(company);

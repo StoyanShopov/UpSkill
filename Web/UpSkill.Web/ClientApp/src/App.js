@@ -25,22 +25,10 @@ import IdentityContext from './Context/IdentityContext';
 function App() {
   const [user, setUser] = useState({});
 
-// const [companies,setCompanies] = useState([]);
-//   useEffect(() => {
-      
-//     const getAllCompanies = async ()=> {
-//       const allCompanies= await retriveCompanies();
-//       if (allCompanies)  setCompanies(allCompanies)    
-//     }
-//     getAllCompanies();
-//     }, []);
-  
-//     useEffect(() => {
-    
-//     }, [companies])
+
   return (
-    //  <IdentityContext.Provider
-    //  // store={store}> 
+    // <IdentityContext.Provider
+    // store={store}> 
       <Layout> 
           <Route exact path='/' component={Home}/>
           <Route exact path='/Courses' component={Courses}/>
@@ -54,7 +42,7 @@ function App() {
       </Layout>
 
       
-    //</IdentityContext.Provider >
+   // </IdentityContext.Provider >
   );
 }
 

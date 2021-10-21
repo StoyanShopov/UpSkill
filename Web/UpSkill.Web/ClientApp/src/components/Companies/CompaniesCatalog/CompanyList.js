@@ -20,13 +20,7 @@ const CompanyList = (props) => {
 
     const deleteCompanyHandler = (id)=>{
        props.getCompanyId(id);
-    };
-
-
-    // const newCompanyList = companies.filter((company)=>{
-    //     return company.id !== companies.id;
-    //   });
-    //   setCompanies(newCompanyList);
+    }; 
   
 
 
@@ -42,9 +36,9 @@ const CompanyList = (props) => {
                         
 
                     )
-                }
+                    }
                 )
-                };
+            };               
             </div>
 
             <Link to="/AddCompany">

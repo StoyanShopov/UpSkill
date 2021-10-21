@@ -349,4 +349,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /Web/UpSkill.Web/ClientApp/src/assets
-Web/UpSkill.Web/ClientApp/package-lock.json
+

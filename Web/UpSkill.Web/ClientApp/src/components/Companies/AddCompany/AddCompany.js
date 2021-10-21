@@ -7,14 +7,12 @@ import { addCompanyHandler ,retriveCompanies} from "../../../services/companySer
 
 function AddCompany (props){
 
-    const [name,setName]=useState("");
-  
-    const [companies, setCompanies] = useState([])
+    const [name,setName]=useState("");  
+    const [companies, setCompanies] = useState([]);
 
     useEffect((companies) => {
 
-        retriveCompanies().then(data => {
-           
+        retriveCompanies().then(data => {           
             setCompanies(data);
         });
 
@@ -42,8 +40,7 @@ const add= (e) => {
     const name= e.target.value;
     setName(name);
   };
-
-   
+     
         return(
             
 <div className="ui main">

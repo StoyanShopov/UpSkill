@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = () =>{
+const HeaderCompanies = () =>{
     return(
         <div className="ui fixed menu">
             <div className="ui container center">
@@ -10,4 +10,4 @@ const Header = () =>{
     );
 }
 
-export default Header;
+export default HeaderCompanies;
