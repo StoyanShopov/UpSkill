@@ -104,8 +104,6 @@
 
             public const string Promote = "promote";
 
-            public const string AddOwnerCompany = "addOwnerToCompany";
-
             public const string Companies = "companies";
 
             public const string Details = "details"; 

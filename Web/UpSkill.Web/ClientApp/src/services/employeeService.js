@@ -23,13 +23,11 @@ export const getEmployeeWithEmail = async (currentPage) => {
        return arr;
 }
 
-export const getEmployeesTotalCountCompanyOwner = async (uId) => {
-    
+export const getEmployeesTotalCountCompanyOwner = async (uId) => {    
    return totalCountEmployees;
 }
 
 export const getAllEmployees = async () => {
-
-    const allEmployees = employeesCoachMock.concat(employeesCoursesMock);
+    const allEmployees = employeesEmailMock;
     return allEmployees;
 }

@@ -2,6 +2,7 @@
     transform: translate(16px, 10px);
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 
 .table-monthHeading-wrapper .cell:nth-child(1) {
@@ -16,11 +17,12 @@
 
 .table-monthHeading span{
     font-size: 1.3rem;
-    padding-top: .7rem;
+    padding-top: .2rem;
 }
 
 .table-monthHeading button{
     font-size: 1.5rem;
+    background: none;
 }
 
 .header-CoursesEnrolled{
