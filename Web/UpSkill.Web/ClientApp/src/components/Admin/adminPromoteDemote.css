@@ -1,3 +1,16 @@
 .btn-space{
-    margin-right: 50px ;
+    margin-left: 3vh ;
+}
+
+.dataContainer{
+    display: flex;
+    padding-top: 2vh;
+}
+
+.rows{
+    flex-wrap: wrap;
+}
+
+#email{
+    width: 50vh;
 }

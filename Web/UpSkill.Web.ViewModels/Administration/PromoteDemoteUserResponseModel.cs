@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace UpSkill.Web.ViewModels.Administration
+﻿namespace UpSkill.Web.ViewModels.Administration
 {
+    using System.Collections.Generic;
+
     public class PromoteDemoteUserResponseModel
     {
         public string Email { get; set; }

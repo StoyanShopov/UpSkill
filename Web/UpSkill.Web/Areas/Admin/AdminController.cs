@@ -47,11 +47,6 @@
         [Route(Promote)]
         public async Task<IActionResult> PromoteUser(string email)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
             var user = await this.userManager.FindByEmailAsync(email);
 
             if (user == null)
@@ -59,8 +54,7 @@
                 return this.BadRequest(UserNotFound);
             }
 
-            var result = await this.adminService
-                            .Promote(user);
+            var result = await this.adminService.Promote(user);
 
             if (result != AssignedSuccessfully)
             {
@@ -74,11 +68,6 @@
         [Route(Demote)]
         public async Task<IActionResult> DemoteUser(string email)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(this.ModelState);
-            }
-
             var user = await this.userManager.FindByEmailAsync(email);
 
             if (user == null)
@@ -86,8 +75,7 @@
                 return this.BadRequest(UserNotFound);
             }
 
-            var result = await this.adminService
-                           .Demote(user);
+            var result = await this.adminService.Demote(user);
 
             if (result != UnassignedSuccessfully)
             {
