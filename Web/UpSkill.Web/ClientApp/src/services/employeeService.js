@@ -1,3 +1,22 @@
+import axios from "axios";
+
+const API_URL = "https://localhost:44319/Employee/Courses/";   
+
+let data = []; 
+export const getCourses = (id, title, coachFirstName, coachLastName, image) => {
+  return axios.get(API_URL + "getAll", {
+    id,
+    title, 
+    coachFirstName, 
+    coachLastName,
+    image,
+  })
+  .then((response) => {
+    data = response.data  
+    return data;
+  }); 
+};
+
 const numberEmployeesToShow = 3;
 
 const employeesEmailMock =
