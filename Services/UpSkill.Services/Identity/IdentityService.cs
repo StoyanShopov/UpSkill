@@ -1,7 +1,9 @@
 ﻿namespace UpSkill.Services.Identity
 {
     using System;
+    using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
@@ -18,19 +20,19 @@
     using UpSkill.Web.ViewModels.Identity;
 
     using static UpSkill.Common.GlobalConstants.IdentityConstants;
-    using static UpSkill.Common.GlobalConstants.PositionsNamesConstants; 
+    using static UpSkill.Common.GlobalConstants.PositionsNamesConstants;
 
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
-        private readonly AppSettings appSettings; 
+        private readonly AppSettings appSettings;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IOptions<AppSettings> appSettings,
-            IDeletableEntityRepository<Company> companies, 
+            IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Position> positions)
         {
             this.userManager = userManager;
@@ -39,23 +41,30 @@
             this.positions = positions;
         }
 
-        public string GenerateJwtToken(string userId, string userName, string secret, string userEmail)
+        public async Task<string> GenerateJwtToken(ApplicationUser user, string secret)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
 
+            List<string> roles = (await this.userManager.GetRolesAsync(user)).ToList();
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
+                Claims = new Dictionary<string, object>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, userId),
-                    new Claim(ClaimTypes.Name, userName),
-                    new Claim(ClaimTypes.Email, userEmail)
-                    //Need to add claims for roles
-                }),
+                    { ClaimTypes.NameIdentifier, user.Id },
+                    { ClaimTypes.Name, user.UserName },
+                    { ClaimTypes.Email, user.Email },
+                },
+
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
+
+            foreach (string role in roles)
+            {
+                tokenDescriptor.Claims.Add(ClaimTypes.Role, role);
+            }
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var encryptedToken = tokenHandler.WriteToken(token);
@@ -71,7 +80,7 @@
 
             var positionObj = await this.positions
                 .AllAsNoTracking()
-                .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);  
+                .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);
 
             if (company == null)
             {
@@ -85,7 +94,7 @@
                 Company = company,
                 PositionId = positionObj.Id,
                 Email = model.Email,
-                UserName = model.Email
+                UserName = model.Email,
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);
@@ -114,15 +123,11 @@
                 throw new ArgumentException(IncorrectEmailOrPassword);
             }
 
-            var token = GenerateJwtToken(
-                user.Id,
-                user.UserName,
-                this.appSettings.Secret,
-                user.Email);
+            var token = await this.GenerateJwtToken(user, this.appSettings.Secret);
 
             return new LoginResponseModel()
             {
-                Token = token
+                Token = token,
             };
         }
     }

@@ -93,7 +93,7 @@ function Header() {
 
 					<section>
 						<article className="nav-item container">
-							<btn 
+							<div 
 								onClick={() => {
 									setisActive(!isActive);
 								}}
@@ -102,7 +102,7 @@ function Header() {
 								aria-label="menu"
 								aria-expanded="false">
 								<span className="navbar-toggler-icon"></span>
-							</btn>
+							</div>
 						</article>
 					</section>
 
@@ -119,9 +119,12 @@ function Header() {
 								</li>
 								<li className="nav-item px-lg-2">
 									<NavLink className="nav-link text-center" to="/Coaches"><span className="d-inline-block d-lg-none icon-width">
-										<i className="far fa-user"></i></span>Coaches</NavLink>
+										<i className="fas fa-chalkboard-teacher"></i></span>Coaches</NavLink>
 								</li>
-
+								<li className="nav-item px-lg-2">
+									<NavLink className="nav-link text-center" to="/MyProfile"><span className="d-inline-block d-lg-none icon-width">
+										<i className="far fa-user"></i></span>My Profile</NavLink>
+								</li>
 							</ul>
 						</div> 
 			 	</nav>

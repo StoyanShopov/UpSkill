@@ -35,7 +35,7 @@ export default function EmployeeEmailInfo({onAddEmployee}) {
 
     return (
                 <div className="wrap-table100 mt-5 shadow mb-5 bg-body rounded">
-                    <div className="table">
+                    <div className="ourTable">
                         <div className="table-row header-EmployeeCourse">
                             <div className="cell cell-Employees-Courses">
                                 Employees

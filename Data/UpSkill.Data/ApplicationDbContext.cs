@@ -1,5 +1,5 @@
 ﻿namespace UpSkill.Data
-{ 
+{
     using System;
     using System.Linq;
     using System.Reflection;
@@ -26,13 +26,15 @@
 
         public DbSet<Company> Companies { get; set; }
 
-        public DbSet<Position> Positions { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Course> Courses { get; set; }
 
+        public DbSet<Position> Positions { get; set; }
+
         public DbSet<CompanyCourse> CompanyCourses { get; set; }
+
+        public DbSet<Coach> Coaches { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -80,7 +82,7 @@
 
             builder
                 .Entity<CompanyCourse>()
-                .HasKey(c => new { c.CompanyId, c.CourseId }); 
+                .HasKey(c => new { c.CompanyId, c.CourseId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

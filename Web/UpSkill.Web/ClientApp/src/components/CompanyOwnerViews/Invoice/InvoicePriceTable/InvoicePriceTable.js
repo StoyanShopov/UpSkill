@@ -27,7 +27,7 @@ function InvoicePriceTable() {
 
     return (
         <div className="wrap-table100 mt-5 shadow mb-5 bg-body rounded">
-        <div className="table">
+        <div className="ourTable">
             <div className="table-row table-monthHeading-wrapper header-EmployeeCourse align-content-center">
                 <div className="cell px-2 table-monthHeading">
                 <button className="fw-bolder" onClick={e => changeMount(-1)}>{'<'}</button>

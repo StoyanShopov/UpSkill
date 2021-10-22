@@ -20,7 +20,7 @@
                 SoftwareDeveloperPositionName,
                 SeniorSoftwareDeveloperPositionName,
                 AdministratorPositionName,
-                OwnerPositionName
+                OwnerPositionName,
             };
 
             var positions = new List<Position>();
@@ -29,7 +29,7 @@
             {
                 var newPosition = new Position
                 {
-                    Name = positionName
+                    Name = positionName,
                 };
 
                 positions.Add(newPosition);
