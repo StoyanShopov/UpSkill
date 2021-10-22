@@ -6,6 +6,14 @@
 
         public const string AppSettingJson = "appsettings.json";
 
+        public const string Authorization = "Authorization";
+
+        public const string Bearer = "Bearer";
+
+        public const string JWT = "JWT";
+
+        public const string AuthorizationDescription = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"";
+
         public const string DefaultConnection = "DefaultConnection";
 
         public const string BlobStorage = "BlobStorage";
@@ -168,7 +176,7 @@
             public const string AdministratorCompanyName = "UpSkill";
         }
 
-        public class CompaniesConstants
+        public class ControllersResponseMessages
         {
             public const string AlreadyExist = "This already exist.";
 

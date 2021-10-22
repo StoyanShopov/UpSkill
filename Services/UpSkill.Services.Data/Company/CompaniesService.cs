@@ -14,7 +14,7 @@
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Company;
 
-    using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CompaniesService : ICompanyService
     {

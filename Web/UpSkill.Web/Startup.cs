@@ -33,6 +33,7 @@
                  .AddBussinesServices()
                  .AddInfrastructureServices()
                  .AddSwagger()
+                 .AddSwagenAuthorization()
                  .AddApiControllers();
 
             services.AddSpaStaticFiles(configuration =>

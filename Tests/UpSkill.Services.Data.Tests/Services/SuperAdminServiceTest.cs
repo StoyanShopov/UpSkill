@@ -163,6 +163,65 @@
             Assert.True(result.Succeeded);
         }
 
+        [Fact]
+        public async Task CreateAsynShouldCreateANewCoach()
+        {
+            const string TestFirstName = "TestCoachFirstName";
+            const string TestLastName = "TestCoachLastName";
+            var repository = new Mock<IDeletableEntityRepository<Coach>>();
+            var coach = new Coach()
+            {
+                Id = 1,
+                FirstName = TestFirstName,
+                LastName = TestLastName,
+            };
+
+            var result = await Task.FromResult(repository.Setup(r => r.AddAsync(coach)));
+
+            Assert.NotNull(coach);
+            Assert.Equal(TestFirstName, coach.FirstName);
+            Assert.Equal(TestLastName, coach.LastName);
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldEditCoach()
+        {
+            const int Id = 1;
+            const string UpdatedCoachFirstName = "UpdatedFirstName";
+            const string UpdatedCoachLasttName = "UpdatedLastName";
+            const string DatabaseName = "EditCoach";
+            await this.InitializeDatabase(DatabaseName);
+            var repository = new Mock<IDeletableEntityRepository<Coach>>();
+            var coach = await this.Database
+                .Coaches
+                .FindAsync(Id);
+            coach.FirstName = UpdatedCoachFirstName;
+            coach.LastName = UpdatedCoachLasttName;
+
+            var result = repository.Setup(r => r.Update(coach));
+
+            Assert.NotNull(coach);
+            Assert.Equal(UpdatedCoachFirstName, coach.FirstName);
+            Assert.Equal(UpdatedCoachLasttName, coach.LastName);
+        }
+
+        [Fact]
+        public async Task DeleteAsyncShouldDeleteACoach()
+        {
+            const int Id = 1;
+            const string DatabaseName = "DeleteCoach";
+            await this.InitializeDatabase(DatabaseName);
+            var repository = new Mock<IDeletableEntityRepository<Coach>>();
+            var coach = await this.Database
+                .Coaches
+                .FindAsync(Id);
+
+            var result = repository.Setup(r => r.Delete(coach));
+
+            Assert.NotNull(coach);
+            Assert.True(coach.IsDeleted = true);
+        }
+
         private static Mock<UserManager<TUser>> MockUserManager<TUser>(List<TUser> ls)
             where TUser : class
         {
