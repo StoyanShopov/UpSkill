@@ -27,3 +27,9 @@ export const getEmployeesTotalCountCompanyOwner = async (uId) => {
     
    return totalCountEmployees;
 }
+
+export const getAllEmployees = async () => {
+
+    const allEmployees = employeesCoachMock.concat(employeesCoursesMock);
+    return allEmployees;
+}

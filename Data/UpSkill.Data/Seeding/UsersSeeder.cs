@@ -9,10 +9,10 @@
 
     using UpSkill.Data.Models;
 
-    using static UpSkill.Common.GlobalConstants.UsersEmailsNames;
-    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
     using static UpSkill.Common.GlobalConstants.CompaniesNamesConstants;
     using static UpSkill.Common.GlobalConstants.PositionsNamesConstants;
+    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
+    using static UpSkill.Common.GlobalConstants.UsersEmailsNames;
 
     internal class UsersSeeder : ISeeder
     {
@@ -67,11 +67,12 @@
                 NormalizedUserName = "employeeMotionSoftware".ToUpper(),
                 Email = "employeeMotionSoftware@test.test",
                 NormalizedEmail = "employeeMotionSoftware@test.test".ToUpper(),
+                EmailConfirmed = true,
                 FirstName = "employeeMotionSoftware",
                 LastName = "employeeMotionSoftware",
                 Company = motionCompany,
                 Position = positionSoftwareDeveloper,
-                Manager = ownerMotionSoftware
+                Manager = ownerMotionSoftware,
             };
         }
 
@@ -83,6 +84,7 @@
                 NormalizedUserName = "ownerMotionSoftware".ToUpper(),
                 Email = "ownerMotionSoftware@test.test",
                 NormalizedEmail = "ownerMotionSoftware@test.test".ToUpper(),
+                EmailConfirmed = true,
                 FirstName = "ownerMotionSoftware",
                 LastName = "ownerMotionSoftware",
                 Company = motionCompany,
@@ -99,10 +101,11 @@
                 NormalizedUserName = "administrator".ToUpper(),
                 Email = "administrator@test.test",
                 NormalizedEmail = "administrator@test.test".ToUpper(),
+                EmailConfirmed = true,
                 FirstName = "administrator",
                 LastName = "administrator",
                 Company = adminCompany,
-                Position = positionAdministrator
+                Position = positionAdministrator,
             };
         }
     }

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
 
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -25,10 +25,13 @@
 
             var seeders = new List<ISeeder>
                           {
-                              new RolesSeeder(),
-                              new CompaniesSeeder(),
-                              new PositionsSeeder(),
-                              new UsersSeeder()
+                               new RolesSeeder(),
+                               new CompaniesSeeder(),
+                               new CategoriesSeeder(),
+                               new CoachesSeeder(),
+                               new CoursesSeeder(),
+                               new PositionsSeeder(),
+                               new UsersSeeder(),
                           };
 
             foreach (var seeder in seeders)

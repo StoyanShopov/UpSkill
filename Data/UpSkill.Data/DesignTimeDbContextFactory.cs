@@ -1,12 +1,12 @@
 ﻿namespace UpSkill.Data
 {
-    using System.IO; 
+    using System.IO;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
 
-    using static UpSkill.Common.GlobalConstants; 
+    using static UpSkill.Common.GlobalConstants;
 
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
@@ -14,7 +14,7 @@
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(AppSettingJson, optional: false, reloadOnChange: true) 
+                .AddJsonFile(AppSettingJson, optional: false, reloadOnChange: true)
                 .Build();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();

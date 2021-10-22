@@ -16,58 +16,55 @@
         private readonly ICompanyService companyService;
 
         public CompaniesController(ICompanyService companyService)
-            => this.companyService = companyService; 
+            => this.companyService = companyService;
 
         [HttpPost]
-        [Route(CreateCompany)]
         public async Task<IActionResult> Create(CreateCompanyRequestModel model)
         {
             var reuslt = await this.companyService.CreateAsync(model);
 
             if (reuslt.Failure)
             {
-                return BadRequest(reuslt.Error); 
+                return this.BadRequest(reuslt.Error);
             }
 
-            return StatusCode(201, SuccesfullyCreated);
-        } 
+            return this.StatusCode(201, SuccesfullyCreated);
+        }
 
-        [HttpPut] 
-        [Route(EditCompany)]
-        public async Task<IActionResult> Edit(UpdateCompanyRequestModel model)
+        [HttpPut]
+        public async Task<IActionResult> Edit(UpdateCompanyRequestModel model, int id)
         {
-            var result = await this.companyService.EditAsync(model);
+            var result = await this.companyService.EditAsync(model, id);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error); 
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyEdited);
-        } 
+            return this.Ok(SuccesfullyEdited);
+        }
 
-        [HttpDelete]  
-        [Route(DeleteCompany)]
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await this.companyService.DeleteAsync(id);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error); 
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyDeleted); 
+            return this.Ok(SuccesfullyDeleted);
         }
 
         [HttpGet]
-        [Route(Companies)]
+        [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
             => await this.companyService.GetAllAsync<CompanyListingModel>();
 
         [HttpGet]
-        [Route(Details)]
+        [Route(DetailsRoute)]
         public async Task<CompanyDetailsModel> GetDetails(int id)
-            => await this.companyService.DetailsAsync<CompanyDetailsModel>(id);
+            => await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
     }
 }
