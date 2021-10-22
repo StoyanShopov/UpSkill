@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { getCompanies } from "../../../services/companyService";
+import { retriveCompanies } from "../../../services/companyService";
 
 export default function Companies() {
   const [companies, setCompanies] = useState([]);
   
   useEffect(() => {
-    getCompanies().then((companies) => {
+    retriveCompanies().then((companies) => {
       setCompanies(companies);
     });
   }, []);

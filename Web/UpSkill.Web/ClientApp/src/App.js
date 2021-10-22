@@ -15,7 +15,12 @@ import CompanyOwner from './components/CompanyOwnerViews/CompanyOwner';
 import Login from './components/Authentication/Login/Login'; 
 import Logout from './components/Authentication/Logout/Logout'; 
 import Register from './components/Authentication/Register/Register';
-import Employee from './components/Employee/Employee'; 
+import Employee from './components/Employee/Employee';
+import AddCompany from "./components/Companies/AddCompany/AddCompany";
+import CompanyDetails from "./components/Companies/CompanyDetails/CompanyDetails";
+import EditCompany from "./components/Companies/EditCompany/EditCompany";
+import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
+import {removeCompanyHandler} from "../src/services/companyService";
 import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
 import store from './store';    
@@ -47,6 +52,11 @@ function App() {
           <Route exact path='/Register' component={Register} />  
           <Route exact path='/Login' component={Login}/>
           <Route exact path='/Logout' component={Logout}/>
+          <Route exact path='/AddCompany' component={AddCompany}/>   
+          <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
+          <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
+          <Route exact path="/Admin/Companies/edit" component={EditCompany}/>  
+      
       </AppWrapper> 
   );
 }
