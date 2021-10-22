@@ -15,7 +15,7 @@ import CompanyOwner from './components/CompanyOwnerViews/CompanyOwner';
 import Login from './components/Authentication/Login/Login'; 
 import Logout from './components/Authentication/Logout/Logout'; 
 import Register from './components/Authentication/Register/Register';
-
+import Employee from './components/Employee/Employee'; 
 import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
 import store from './store';    
@@ -42,6 +42,7 @@ function App() {
           <Route exact path='/Admin' component={Admin}/>
           <Route exact path='/Courses' component={Courses}/>
           <Route exact path='/Coaches' component={Coaches}/>  
+          <Route exact path='/Employee' component={Employee}/>
           <Route exact path='/MyProfile' component={CompanyOwner}/>  
           <Route exact path='/Register' component={Register} />  
           <Route exact path='/Login' component={Login}/>
