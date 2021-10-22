@@ -1,11 +1,11 @@
-namespace UpSkill.Web.Controllers
+﻿namespace UpSkill.Web.Controllers
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
-    using UpSkill.Web.ViewModels.Account;
     using UpSkill.Services.Contracts.Account;
+    using UpSkill.Web.ViewModels.Account;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
@@ -23,10 +23,10 @@ namespace UpSkill.Web.Controllers
 
             if (result.Failure)
             {
-                return BadRequest(result.Error); 
+                return this.BadRequest(result.Error);
             }
 
-            return Ok();
+            return this.Ok();
         }
     }
 }

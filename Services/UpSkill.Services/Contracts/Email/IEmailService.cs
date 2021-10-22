@@ -1,6 +1,6 @@
 ﻿namespace UpSkill.Services.Contracts.Email
 {
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
 
     using UpSkill.Common;
     using UpSkill.Data.Models;
@@ -11,6 +11,6 @@
 
         Task<Result> VerifyEmailAsync(string userId, string token);
 
-        Task<Result> ResendEmailConfirmationLinkAsync(string email, string host, string origin);  
+        Task<Result> ResendEmailConfirmationLinkAsync(string email, string host, string origin);
     }
 }

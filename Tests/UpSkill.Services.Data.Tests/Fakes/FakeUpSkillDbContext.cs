@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Services.Data.Tests.Fakes 
+﻿namespace UpSkill.Services.Data.Tests.Fakes
 {
     using System.Threading.Tasks;
 
@@ -14,15 +14,15 @@
                 .UseInMemoryDatabase(name)
                 .Options;
 
-            this.Data = new ApplicationDbContext(options); 
+            this.Data = new ApplicationDbContext(options);
         }
 
-        public ApplicationDbContext Data { get; }  
+        public ApplicationDbContext Data { get; }
 
         public async Task AddFakeDataAsync(params object[] data)
-        { 
+        {
             this.Data.AddRange(data);
-            await this.Data.SaveChangesAsync(); 
-        } 
+            await this.Data.SaveChangesAsync();
+        }
     }
 }

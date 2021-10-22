@@ -1,23 +1,23 @@
 ﻿namespace UpSkill.Services.Data.Contracts.Course
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Common;
-    using Web.ViewModels.Course;
-    using AutoMapper;
-    using Mapping;
-    using UpSkill.Data.Models;
-     
+    using UpSkill.Common;
+    using UpSkill.Data.Common.Models;
+    using UpSkill.Web.ViewModels.Course;
+
     public interface ICoursesService
     {
         Task<Result> CreateAsync(CreateCourseViewModel model);
 
-        Task<Result> EditAsync(EditCourseViewModel model);
+        Task<Result> EditAsync(EditCourseViewModel model, int id);
 
         Task<Result> DeleteAsync(int id);
 
+        Task<Result> AddCompanyAsync(AddCompanyToCourseViewModel model);
+
         Task<TModel> GetByIdAsync<TModel>(int id);
 
+        Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id);
     }
 }
