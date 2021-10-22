@@ -8,7 +8,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import logo from "../../../assets/logo-NoBg.png";
-// import manKey from "../../../assets/manKey.png"; 
+import manKey from "../../../assets/manKey.png"; 
 
 import notificationContext from "../../../Context/NotificationContext";
 
@@ -67,7 +67,7 @@ const Login = (props) => {
   return (
     <div className="row">
       <div className="container col-md-6">
-        {/* <img src={manKey} alt="IMG" /> */}
+        <img src={manKey} alt="IMG" />
       </div>
       <div className="base-container col-md-6">
         <div className="image">
