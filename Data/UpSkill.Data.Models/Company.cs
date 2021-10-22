@@ -10,7 +10,7 @@
         public Company()
         {
             this.Users = new HashSet<ApplicationUser>();
-            this.Courses = new HashSet<CompanyCourse>();
+            this.Courses = new HashSet<CompanyCourse>(); 
         }
 
         [Required]

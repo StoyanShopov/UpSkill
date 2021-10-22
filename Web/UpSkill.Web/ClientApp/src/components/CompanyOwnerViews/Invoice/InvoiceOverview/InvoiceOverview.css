@@ -1,0 +1,26 @@
+.invoice-status{
+    color: #296CFB;    
+}
+
+.invoice-date-wrapper h4:nth-child(2){
+    color: #296CFB;    
+    padding-top: 1rem;
+}
+
+.btn-download{
+    display: flow-root;
+    position: relative;
+    top: 2rem;
+}
+
+
+@media (max-width:780px) {
+    .Overview{
+        padding-left: 2rem!important;
+        padding-right: 2rem!important;
+    }
+
+    .invoice-status{
+        font-size: small;
+    }
+}

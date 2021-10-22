@@ -93,9 +93,12 @@
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
             => await this.companies
-                .AllAsNoTracking()
-                .To<TModel>()
-                .ToListAsync();
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
+
+        public async Task<TModel> DetailsAsync<TModel>(int id)
+            => await this.GetByIdAsync<TModel>(id);                 
 
         public async Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id)
             => await this.companies

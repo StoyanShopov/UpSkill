@@ -16,7 +16,8 @@
 @media screen and (max-width: 1200px) {
     .coaches-list{
         flex-direction: column; 
-            display: flex;
-            justify-content: center;
+        display: flex;
+        justify-content: center;
+        --bs-gutter-x: 0rem;
     }
 }

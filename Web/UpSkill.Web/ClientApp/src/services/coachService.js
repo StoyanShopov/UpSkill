@@ -1,6 +1,9 @@
 const numberCoachesToShow = 6;
+const numberCoachesSessionsToShow = 3;
 
-const initialCoaches = [
+const activeCoachesCompanyOwnerCount = 3;
+
+const initialCoachesMock = [
     {
       id: 'lsdl21k12o1212',
       fullName: 'Anne Foster',
@@ -59,12 +62,45 @@ const initialCoaches = [
     },
   ];
 
+  const coachesCompanyOwnerMock = [
+    { id:'8', name: 'August', coaches: [
+            { name: 'Brent Foster', enrolled: 3 },
+            { name: 'Phillip Pena', enrolled: 15 },
+            { name: 'Veronica Casey', enrolled: 2 },
+            { name: 'Sara Dean', enrolled: 5 },
+            { name: 'John Brown', enrolled: 1 }
+    ]},
+    {id:'9', name: 'September', coaches: [
+        { name: 'Veronica Casey', enrolled: 8 },
+        { name: 'Phillip Pena', enrolled: 4 },
+        { name: 'John Brown', enrolled: 3 },
+        { name: 'Sara Dean', enrolled: 9 }
+    ]},
+    {id:'10', name: 'October', coaches: [
+        { name: 'Sara Dean', enrolled: 9 },
+        { name: 'Brent Foster', enrolled: 1 },
+        { name: 'John Brown', enrolled: 3 }
+    ]}];
+
 export const getCoaches = async (currentPage) => {
-    //      let res = await request(``, 'Get');
             let arr = [];
-            arr.push(...initialCoaches
+            arr.push(...initialCoachesMock
                 .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));    
             
            return arr;
     }
+    
+
+export const getActiveCoachesCompanyOwner = async (uId) => {
+              
+             return activeCoachesCompanyOwnerCount;
+}
+  
+export const getCoachesSessionsForCompanyOwner = async (uId, currentPage, currentMount) => {
+        let mount = coachesCompanyOwnerMock.filter(m=> m.id == currentMount)[0];
+        let arr = mount.coaches
+            .slice(0, currentPage * numberCoachesSessionsToShow + numberCoachesSessionsToShow);    
+        
+       return [mount.name, arr];
+}
     

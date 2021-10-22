@@ -1,9 +1,27 @@
 .main-content{
     padding-top: 2rem;
+    padding-left: 6rem;
 }
 
-@media(max-width:768px) {    
+
+@media(max-width:1400px) {    
     .main-content{
-        padding: 0!important;
+        padding-left: 2rem;
     }
+}
+
+@media(max-width:1300px) {    
+    .main-content{
+        width: 99%!important;
+    }
+    .wrap-table100 {
+        width: 100%;
+    }
+    
+}
+
+@media(max-width:700px) {    
+    .main-content{
+        width: 96%!important;
+    }   
 }
