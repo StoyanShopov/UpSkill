@@ -7,7 +7,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import logo from "../../../assets/logo-NoBg.png";
-// import manCase from "../../../assets/manCase.png";
+import manCase from "../../../assets/manCase.png";
  
 import notificationContext from "../../../Context/NotificationContext";
 
@@ -123,7 +123,7 @@ const Register = () => {
   return (
     <div className="row">
     <div className="container col-md-6">
-        {/* <img src={manCase} alt="IMG" /> */}
+        {<img src={manCase} alt="IMG" />}
     </div>
     <div className="base-container col-md-6" >
         <div className="image">
