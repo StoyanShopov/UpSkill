@@ -9,6 +9,7 @@ import Courses from './components/Courses/Courses';
 import Coaches from './components/Coaches/Coaches';
 import Layout from './components/Shared/Layout';
 import Admin from './components/Admin/Admin';
+import AdminPromoteDemote from './components/Admin/AdminPromoteDemote'
 
 import IdentityContext from './Context/IdentityContext';
 
@@ -24,6 +25,7 @@ function App() {
         <Route exact path='/Courses' component={Courses}/>
         <Route exact path='/Coaches' component={Coaches}/>
         <Route exact path='/Admin' component={Admin}/>
+        <Route exact path='/PromoteDemote' component={AdminPromoteDemote}/>
         {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
       </Layout>
 
