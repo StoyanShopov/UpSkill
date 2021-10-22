@@ -98,7 +98,7 @@
             .ToListAsync();
 
         public async Task<TModel> DetailsAsync<TModel>(int id)
-            => await this.GetByIdAsync<TModel>(id);                 
+            => await this.GetByIdAsync<TModel>(id);
 
         public async Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id)
             => await this.companies

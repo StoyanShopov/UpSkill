@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace UpSkill.Data.Migrations
+﻿namespace UpSkill.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class CompanyCoursesTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,7 @@ namespace UpSkill.Data.Migrations
                 columns: table => new
                 {
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    CourseId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
