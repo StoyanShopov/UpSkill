@@ -15,8 +15,6 @@ import CompanyOwner from './components/CompanyOwnerViews/CompanyOwner';
 import Login from './components/Authentication/Login/Login'; 
 import Logout from './components/Authentication/Logout/Logout'; 
 import Register from './components/Authentication/Register/Register';
-import Layout from './components/Shared/Layout'; 
-import Notifications from './components/Shared/Notifications/Notifications';
 import Employee from './components/Employee/Employee'; 
 import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
