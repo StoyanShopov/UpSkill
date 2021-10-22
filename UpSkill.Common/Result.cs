@@ -15,7 +15,7 @@
             => new Result
             {
                 Succeeded = false,
-                Error = error
+                Error = error,
             };
     }
 }

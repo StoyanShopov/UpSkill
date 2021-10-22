@@ -8,7 +8,7 @@
     using AutoMapper;
     using AutoMapper.Configuration;
 
-    using static Common.GlobalConstants.AutoMapperConstants; 
+    using static Common.GlobalConstants.AutoMapperConstants;
 
     public static class AutoMapperConfig
     {

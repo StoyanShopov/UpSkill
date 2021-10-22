@@ -3,11 +3,11 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-	
-    using UpSkill.Data.Models;
-		
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using UpSkill.Data.Models;
 
     using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 
