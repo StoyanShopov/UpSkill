@@ -12,5 +12,7 @@
         Task<Result> EditAsync(UpdateCoachRequestMode model, int id);
 
         Task<Result> DeleteAsync(int id);
+
+        Task<TModel> GetByIdAsync<TModel>(int id);
     }
 }

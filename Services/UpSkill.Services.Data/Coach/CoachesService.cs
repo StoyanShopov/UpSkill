@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Coach
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Coach;
+    using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Coach;
 
     using static Common.GlobalConstants.ControllersResponseMessages;
@@ -81,5 +83,12 @@
 
             return true;
         }
+
+        public async Task<TModel> GetByIdAsync<TModel>(int id)
+            => await this.coaches
+            .AllAsNoTracking()
+            .Where(c => c.Id == id)
+            .To<TModel>()
+            .FirstOrDefaultAsync();
     }
 }
