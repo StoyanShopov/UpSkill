@@ -4,6 +4,7 @@
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -54,52 +55,63 @@
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
-            using (var serviceScope = app.ApplicationServices.CreateScope())
+            try
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            }
+                AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
-            }
-
-            app
-                .UseStaticFiles()
-                .UseSpaStaticFiles();
-
-            app
-                .UseSwaggerUI()
-                .UseRouting()
-                .UseCors(options => options
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod())
-                .UseHttpsRedirection()
-                .UseAuthentication()
-                .UseAuthorization()
-                .UseEndpoints(endpoints =>
+                using (var serviceScope = app.ApplicationServices.CreateScope())
                 {
-                    endpoints.MapControllers();
-                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                    endpoints.MapRazorPages();
-                })
-                .ApplyMigrations();
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+                    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    dbContext.Database.Migrate();
+                    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                }
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    app.UseDeveloperExceptionPage();
+                    app.UseMigrationsEndPoint();
                 }
-            });
+
+                app
+                    .UseStaticFiles()
+                    .UseSpaStaticFiles();
+
+                app
+                    .UseSwaggerUI()
+                    .UseRouting()
+                    .UseCors(options => options
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod())
+                    .UseHttpsRedirection()
+                    .UseAuthentication()
+                    .UseAuthorization()
+                    .UseEndpoints(endpoints =>
+                    {
+                        endpoints.MapControllers();
+                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapRazorPages();
+                    })
+                    .ApplyMigrations();
+
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
+
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseReactDevelopmentServer(npmScript: "start");
+                    }
+                });
+            }
+            catch (System.Exception ex)
+            {
+                app.Run(async context =>
+                {
+                    context.Response.ContentType = "text/plain";
+                    await context.Response.WriteAsync(ex.Message);
+                });
+            }
         }
     }
 }
