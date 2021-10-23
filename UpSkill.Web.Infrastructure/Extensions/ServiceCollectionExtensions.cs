@@ -17,12 +17,16 @@
     using UpSkill.Data.Repositories;
     using UpSkill.Services;
     using UpSkill.Services.Account;
+    using UpSkill.Services.Blob;
     using UpSkill.Services.Contracts.Account;
+    using UpSkill.Services.Contracts.Blob;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Coach;
     using UpSkill.Services.Data.Company;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Course;
     using UpSkill.Services.Data.Course;
@@ -63,6 +67,16 @@
             => services
                 .AddDbContext<ApplicationDbContext>(options => options
                     .UseSqlServer(configuration.GetDefaultConnectionString()));
+
+        public static IServiceCollection AddBlobStorage(this IServiceCollection services, IConfiguration configuration)
+        {
+            IConfigurationSection blobStorage
+                = configuration.GetSection(nameof(Services.BlobStorage));
+
+            services.Configure<BlobStorage>(blobStorage);
+
+            return services;
+        }
 
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
@@ -139,9 +153,11 @@
                 .AddTransient<IAdminService, AdminService>()
                 .AddTransient<ICoursesService, CoursesService>()
                 .AddTransient<ICompanyService, CompaniesService>()
+                .AddTransient<ICoachServices, CoachesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
-                .AddScoped<IDbQueryRunner, DbQueryRunner>();
+                .AddScoped<IDbQueryRunner, DbQueryRunner>()
+                .AddTransient<IBlobService, BlobService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
@@ -158,6 +174,35 @@
                        Version = V1,
                    });
            });
+
+        public static IServiceCollection AddSwagenAuthorization(this IServiceCollection services)
+            => services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(Bearer, new OpenApiSecurityScheme()
+                {
+                    Name = Authorization,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = Bearer,
+                    BearerFormat = JWT,
+                    In = ParameterLocation.Header,
+                    Description = AuthorizationDescription,
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = Bearer,
+                            },
+                        },
+                        System.Array.Empty<string>()
+                    },
+                });
+            });
 
         public static void AddApiControllers(this IServiceCollection services)
             => services

@@ -6,7 +6,17 @@
 
         public const string AppSettingJson = "appsettings.json";
 
+        public const string Authorization = "Authorization";
+
+        public const string Bearer = "Bearer";
+
+        public const string JWT = "JWT";
+
+        public const string AuthorizationDescription = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"";
+
         public const string DefaultConnection = "DefaultConnection";
+
+        public const string BlobStorage = "BlobStorage";
 
         public const string ApplicationSettings = "ApplicationSettings";
 
@@ -68,6 +78,12 @@
             public const string UserNotInCompanyOwnerRole = "This user is not a company owner!";
         }
 
+        public class BlobConstants
+        {
+            public const string SuccessfullyDeleted = "This file is successfully deleted.";
+            public const string UnsuccessfullyDeleted = "The requested resource was not found.";
+        }
+
         public class ControllerRoutesConstants
         {
             public const string HeaderOrigin = "origin";
@@ -96,7 +112,17 @@
 
             public const string Promote = "promote";
 
+            public const string Companies = "companies";
+
+            public const string Details = "details"; 
+         
             public const string Demote = "demote";
+
+            public const string GetAllBlobs = "catalog";
+
+            public const string Upload = "upload";
+
+            public const string DownloadByName = "download";
 
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
         }
@@ -128,6 +154,10 @@
             public const string CompanyOwnerRoleName = "Owner";
 
             public const string CompanyEmployeeRoleName = "Employee";
+
+            public const string WritePolicy = "writepolicy"; 
+
+            public const string ReadPolicy = "readpolicy";
         }
 
         public class PositionsNamesConstants
@@ -154,7 +184,7 @@
             public const string AdministratorCompanyName = "UpSkill";
         }
 
-        public class CompaniesConstants
+        public class ControllersResponseMessages
         {
             public const string AlreadyExist = "This already exist.";
 
@@ -193,7 +223,7 @@
         {
             public const string TheoryOfSpecialRelativityDescription = "E = mc^2";
 
-            public const string FinancialAnalysisAndValuationForLawyersDescription = "Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or client’s financial goals while increasing profitability and minimizing risks.";
+            public const string FinancialAnalysisAndValuationForLawyersDescription = "Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or clientâ€™s financial goals while increasing profitability and minimizing risks.";
 
             public const string StatisticalPhysicsDescription = "This course offers an introduction to probability, statistical mechanics, and thermodynamics. Numerous examples are used to illustrate a wide variety of physical phenomena such as magnetism, polyatomic gases, thermal radiation, electrons in solids, and noise in electronic devices.";
         }

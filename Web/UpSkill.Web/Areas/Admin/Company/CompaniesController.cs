@@ -8,8 +8,8 @@
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Web.ViewModels.Company;
 
-    using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CompaniesController : AdministrationBaseController
     {

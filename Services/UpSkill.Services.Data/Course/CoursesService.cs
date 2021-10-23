@@ -1,27 +1,26 @@
 ﻿namespace UpSkill.Services.Data.Course
 {
-	using System.Threading.Tasks;
-	using System.Linq;
-	using Microsoft.EntityFrameworkCore;
+    using System.Linq;
+    using System.Threading.Tasks;
 
-	using Common;
-	using Mapping;
-	using Contracts.Course;
-	using UpSkill.Data.Common.Repositories;
-	using UpSkill.Data.Models;
-	using Web.ViewModels.Course;
-	using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using UpSkill.Common;
+    using UpSkill.Data.Common.Models;
+    using UpSkill.Data.Common.Repositories;
+    using UpSkill.Data.Models;
+    using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Mapping;
+    using UpSkill.Web.ViewModels.Course;
 
-	using static Common.GlobalConstants.CompaniesConstants;
-	using static Common.GlobalConstants.RolesNamesConstants;
-	using static Common.GlobalConstants.AdminConstants;
-	using static Common.GlobalConstants.AccountConstants;
-	using UpSkill.Services.Data.Contracts.Company;
-	using UpSkill.Data.Common.Models;
+    using static Common.GlobalConstants.AccountConstants;
+    using static Common.GlobalConstants.AdminConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
+    using static Common.GlobalConstants.RolesNamesConstants;
 
-	//Coaches table is missing right now so most of the logic is commented
-	public class CoursesService : ICoursesService
-
+    // Coaches table is missing right now so most of the logic is commented
+    public class CoursesService : ICoursesService
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
@@ -115,43 +114,53 @@
             return true;
         }
 
-		public async Task<Result> AddCompanyAsync(AddCompanyToCourseViewModel model)
-		{
-            var user = await userManager.FindByEmailAsync(model.CurrentUserEmail);
+        public async Task<Result> AddCompanyAsync(AddCompanyToCourseViewModel model)
+        {
+            var user = await this.userManager.FindByEmailAsync(model.CurrentUserEmail);
 
-            if (user == null || !await userManager.IsInRoleAsync(user, AdministratorRoleName))
-                return (UserNotAnAdmin);
-            
-            var companyOwner = await userManager.FindByEmailAsync(model.CompanyOwnerEmail);
+            if (user == null || !await this.userManager.IsInRoleAsync(user, AdministratorRoleName))
+            {
+                return UserNotAnAdmin;
+            }
+
+            var companyOwner = await this.userManager.FindByEmailAsync(model.CompanyOwnerEmail);
             var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
 
-			if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
-				return UserNotInCompanyOwnerRole;
+            if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
+            {
+                return UserNotInCompanyOwnerRole;
+            }
 
-			var company = await this.companiesService.GetDbModelByIdAsync(model.CompanyId);
-			if (company == null)
-				return DoesNotExist;
-
-			var course = await this.GetDbModelByIdAsync(model.CourseId);
-            if (course == null)
+            var company = await this.companiesService.GetDbModelByIdAsync(model.CompanyId);
+            if (company == null)
+            {
                 return DoesNotExist;
-            
+            }
+
+            var course = await this.GetDbModelByIdAsync(model.CourseId);
+            if (course == null)
+            {
+                return DoesNotExist;
+            }
+
             var companyCourse = new CompanyCourse
             {
                 CompanyId = model.CompanyId,
                 CourseId = model.CourseId,
             };
 
-            var companyCourseExist = await companyCourses
+            var companyCourseExist = await this.companyCourses
                 .AllAsNoTracking()
                 .Where(cc => cc.CourseId == model.CourseId
                 && cc.CompanyId == model.CompanyId)
                 .FirstOrDefaultAsync() != null;
 
             if (companyCourseExist)
+            {
                 return AlreadyExist;
+            }
 
-            await companyCourses.AddAsync(companyCourse);
+            await this.companyCourses.AddAsync(companyCourse);
 
             await this.companyCourses.SaveChangesAsync();
 

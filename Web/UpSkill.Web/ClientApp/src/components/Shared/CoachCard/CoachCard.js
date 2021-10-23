@@ -12,7 +12,7 @@ export default function CoachCard(props) {
   return (
     <div className="card">
       <div>
-        <img src={imageUrl} className="image"></img>
+        <img src={imageUrl} className="image" alt=""></img>
       </div>
       <span className="fullName">{fullName}</span>
       <span className="coachField">{coachField} Coach</span>

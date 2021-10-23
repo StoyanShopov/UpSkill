@@ -3,8 +3,9 @@
     using System.Threading.Tasks;
 
     using UpSkill.Common;
-  	using UpSkill.Data.Common.Models;
-  	using UpSkill.Web.ViewModels.Course;
+    using UpSkill.Data.Common.Models;
+    using UpSkill.Web.ViewModels.Course;
+
     public interface ICoursesService
     {
         Task<Result> CreateAsync(CreateCourseViewModel model);
@@ -18,6 +19,5 @@
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id);
-
     }
 }

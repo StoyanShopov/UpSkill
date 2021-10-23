@@ -7,14 +7,14 @@
     using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Common;
-	using UpSkill.Data.Common.Models;
-	using UpSkill.Data.Common.Repositories;
+    using UpSkill.Data.Common.Models;
+    using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Company;
 
-    using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CompaniesService : ICompanyService
     {
@@ -93,9 +93,12 @@
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
             => await this.companies
-                .AllAsNoTracking()
-                .To<TModel>()
-                .ToListAsync();
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
+
+        public async Task<TModel> DetailsAsync<TModel>(int id)
+            => await this.GetByIdAsync<TModel>(id);                 
 
         public async Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id)
             => await this.companies

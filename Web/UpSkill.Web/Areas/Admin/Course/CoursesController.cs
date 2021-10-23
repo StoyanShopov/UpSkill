@@ -1,14 +1,15 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
-	using System.Threading.Tasks;
-	using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
-	using ViewModels.Course;
-	using Services.Data.Contracts.Course;
+    using Microsoft.AspNetCore.Mvc;
 
-	using static Common.GlobalConstants.CompaniesConstants;
-	using static Common.GlobalConstants.ControllerRoutesConstants;
-    
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Web.ViewModels.Course;
+
+    using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
+
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICoursesService coursesService;
@@ -45,10 +46,10 @@
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
+            return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
         }
 
         [HttpPut]
