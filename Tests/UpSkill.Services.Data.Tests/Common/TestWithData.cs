@@ -55,6 +55,12 @@
                 CategoryId = 1,
                 IsDeleted = false,
             },
+            new Coach()
+            {
+                Id = 1,
+                FirstName = "FakeFirstName",
+                LastName = "FakeLastName",
+            },
             new ApplicationRole()
             {
                 Id = "1",
