@@ -50,5 +50,5 @@ jobs:
         with:
           app-name: 'ourupskill'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4D896146AD444FE4AC33CD14467D9DFE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_17FC2155C82F46E6BA09739FED29E769 }}
           package: .
