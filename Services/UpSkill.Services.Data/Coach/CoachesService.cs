@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Coach
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -83,6 +84,12 @@
 
             return true;
         }
+
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+            => await this.coaches
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
             => await this.coaches

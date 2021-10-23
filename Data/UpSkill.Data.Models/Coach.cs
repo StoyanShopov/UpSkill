@@ -15,6 +15,10 @@
 
         public string LastName { get; set; }
 
+        public int FileId { get; set; }
+
+        public File File { get; set; }
+
         public virtual ICollection<Course> Courses { get; set; }
     }
 }
