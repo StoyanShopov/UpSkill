@@ -12,7 +12,7 @@ function FooterMenu() {
             <div className="content-wrapper container-fluid">
                 <div className="content container contentFooter">
                     <div className="row justify-content-between">
-                        <div className="col-md-4">
+                        <div className="col-md-4 footer-content">
                             <h2><img src={FooterLOGO} alt="Footer Logo" className="w-25" /> upskill</h2>
                             <p className="pr-5 pt-3 pb-3">Upskill gives everyone the opportunity to grow professionally and develop into specialist in every field.</p>
                             <div className="footer-getStartedWrapper">
@@ -54,7 +54,7 @@ function FooterMenu() {
             <div id="CopyRigthFooter" className="mt-4 border-top-2 border-white content-wrapper container-fluid">
                 <div className="content container">
                     <div className="row d-flex justify-content-center">
-                        <span className="col-md-4 text-center">&copy; UpSkill {(new Date().getFullYear())}</span>
+                        <span className="col-md-4 text-center footer-copyRLogo">&copy; UpSkill {(new Date().getFullYear())}</span>
                         </div>
                 </div>
             </div>

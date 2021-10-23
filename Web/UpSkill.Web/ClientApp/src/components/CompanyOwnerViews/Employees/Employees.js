@@ -1,18 +1,18 @@
-import React from 'react';
-import EmployeeCourseInfo from './EmployeeCourseInfo/EmployeeCourseInfo';
-import EmployeeCoachInfo from './EmployeeCoachInfo/EmployeeCoachInfo';
+import React, {useEffect, useState} from 'react';
+import EmployeeEmailInfo from './EmployeeEmailInfo/EmployeeEmailInfo';
+import AddEmployeePopup from './AddEmployee/AddEmployee';
 
 import './Employees.css';
 
 
 export default function Employees() {
-    return (
-      <div className="content w-100 px-5 main-content">
-          <EmployeeCourseInfo />
-           
-          <EmployeeCoachInfo />
+  const [addEmployeePopup, setAddEmployeePopup] = useState(false);
+  
+  return (
+      <div className="content w-100 main-content">
+          <EmployeeEmailInfo onAddEmployee={setAddEmployeePopup} />
+          <AddEmployeePopup trigger={addEmployeePopup} onAddEmployee={setAddEmployeePopup}/>           
       </div>
     );
   }
 
-  

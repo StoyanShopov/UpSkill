@@ -1,6 +1,5 @@
 .coaches-Card{
-    margin-top: 2rem;
-    margin-bottom: 6rem;
+    margin: 2rem auto 6rem auto;
     display: inline-block;
     box-shadow: 0px 3px 10px #00000029;
     opacity: 1;
@@ -53,7 +52,7 @@
 
 .coaches-fullName{
     display: block;
-    font: normal normal 1.2rem/2rem Montserrat;
+    font: small normal 1.2rem/2rem Montserrat;
     letter-spacing: 1.1px;
 }
 .coaches-coachType{

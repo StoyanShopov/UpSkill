@@ -3,11 +3,12 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+
     using UpSkill.Services.Data.Contracts.Course;
     using UpSkill.Web.ViewModels.Course;
 
-    using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CoursesController : AdministrationBaseController
     {

@@ -16,7 +16,7 @@
 
     using static Common.GlobalConstants.AccountConstants;
     using static Common.GlobalConstants.AdminConstants;
-    using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
     using static Common.GlobalConstants.RolesNamesConstants;
 
     // Coaches table is missing right now so most of the logic is commented

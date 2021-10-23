@@ -28,11 +28,13 @@
 
                  .AddDatabase(this.configuration)
                  .AddBlobStorage(this.configuration)
-                 .AddIdentity()
+                 .AddIdentity() 
+                 .AddAuthorizations()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
                  .AddBussinesServices()
                  .AddInfrastructureServices()
                  .AddSwagger()
+                 .AddSwagenAuthorization()
                  .AddApiControllers();
 
             services.AddSpaStaticFiles(configuration =>
