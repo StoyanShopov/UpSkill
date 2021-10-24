@@ -1,0 +1,89 @@
+
+
+
+.courses-Card {
+  margin-top: 2rem;
+  margin-bottom: 6rem;
+  display: inline-block;
+  box-shadow: 0px 3px 10px #00000029;
+  opacity: 1;
+  background-color: #ffffff 0% 0% no-repeat padding-box;
+  width: 22rem;
+  height: 21rem;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.courses-image-title {
+  /* text-transform: uppercase;
+  font-size: xx-large;
+  color: white; 
+  text-shadow: 0 0 2px black; */
+  text-align: right;
+  font: normal normal 800 40px/152px Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+.courses-image-wrapper {
+  width: 100%;    
+  background: transparent url("../../../../assets/img/courses/Marketing.png") 100%
+    100% no-repeat padding-box;
+    background-size: cover;
+  display: flex;
+  font: normal normal medium 22px/30px Montserrat;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  /* opacity: 0.9;    */
+}
+
+/* .courses-image-wrapper-bg{
+    background-color: #1CC18A;
+    height: 172px;
+} */
+
+.btn-wrapper {
+  font: normal normal bold 18px/22px Montserrat; 
+  letter-spacing: 0.9px;
+  color: #ffffff;
+  align-items: center;
+  display: flex;
+  flex-direction: inline;
+}
+
+.courses-cardButton {
+  width: 125px;
+  height: 40px;
+  margin: 15px;
+  color: white;
+  border: none;
+  background: #296cfb 0% 0% no-repeat padding-box;
+}
+
+.courses-Field {
+  font: normal normal bold 18px/22px Arial;
+  margin-right: 1rem;
+}
+
+.coursesfullName { 
+  display: block;
+  align-items: center;
+  font: normal normal 18px/22px Montserrat;
+  letter-spacing: 0.9px;
+}
+.courses-coachType {
+  margin-top: 10px;
+  display: block;
+  font: normal normal medium 18px/22px Montserrat;
+  letter-spacing: 0.9px;
+  color: #000000;
+}
+.courses-coachPrice {
+  color: #296cfb;
+  letter-spacing: 1.1px;
+  font: normal normal medium 22px/27px Montserrat;
+  font-weight: bold;
+}

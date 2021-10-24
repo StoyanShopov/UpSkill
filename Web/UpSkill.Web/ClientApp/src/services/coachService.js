@@ -5,7 +5,7 @@ const activeCoachesCompanyOwnerCount = 3;
 
 const initialCoachesMock = [
     {
-      id: 'lsdl21k12o1212',
+      id: '1',
       fullName: 'Anne Foster',
       coachField: 'Leadership ',
       company: 'Google',
@@ -13,7 +13,7 @@ const initialCoachesMock = [
       imageUrl: 'https://i.guim.co.uk/img/uploads/2017/10/09/Sonia_Sodha,_L.png?width=300&quality=85&auto=format&fit=max&s=045793b916f0ff6e7228468ca6aa61c5',
     },
     {
-      id: 'gbv23ghk12o1212',
+      id: '2',
       fullName: 'Philipa Key',
       coachField: 'Nutrition',
       company: 'Amazon',
@@ -21,7 +21,7 @@ const initialCoachesMock = [
       imageUrl: 'https://static.independent.co.uk/s3fs-public/Rachel_Hosie.png',
     },
     {
-      id: 'uiy343k12o1212',
+      id: '3',
       fullName: 'Jenna Jameson',
       coachField: 'Management',
       company: 'Google',
@@ -29,7 +29,7 @@ const initialCoachesMock = [
       imageUrl: 'https://i.guim.co.uk/img/uploads/2017/10/06/Laura-Bates,-L.png?width=300&quality=85&auto=format&fit=max&s=0349fb29cd3cef227473ea2c4dd11b2f',
     },
     {
-      id: 'vbk3423dffxz',
+      id: '4',
       fullName: 'Brent Foster',
       coachField: 'Leadership',
       company: 'Google',
@@ -37,7 +37,7 @@ const initialCoachesMock = [
       imageUrl: 'https://secure.gravatar.com/avatar/03fd0c159222fdf134fe37e9a8b74f0e?s=400&d=mm&r=g',
     },    
     {
-      id: 'koclvko34jk3o4j',
+      id: '5',
       fullName: 'Jimmy Hanks',
       coachField: 'Art',
       company: 'Google',
@@ -45,7 +45,7 @@ const initialCoachesMock = [
       imageUrl: 'http://www.lukasman.cz/wp-content/uploads/2020/09/foto-homepage-1-1024x549.png',
     },  
     {
-      id: 'cvoojro3oko2k32',
+      id: '6',
       fullName: 'Ben Levis',
       coachField: 'Management',
       company: 'Google',
@@ -53,7 +53,7 @@ const initialCoachesMock = [
       imageUrl: 'https://www.freepnglogos.com/uploads/man-png/man-your-company-formations-formation-registrations-10.png',
     },    
     {
-      id: 'hvjji3434ioi32',
+      id: '7',
       fullName: 'Emma Milton',
       coachField: 'Nutrition',
       company: 'Google',
@@ -84,12 +84,24 @@ const initialCoachesMock = [
 
 export const getCoaches = async (currentPage) => {
             let arr = [];
-            arr.push(...initialCoachesMock
-                .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));    
-            
+            arr.push(...initialCoachesMock)
+            // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));    
+
            return arr;
     }
     
+    export const getCoachesNames = async (currentPage) => {
+      let arr = [];
+      initialCoachesMock.map(c => 
+        {         
+          let objectReturn={label: c.fullName, value: c.id}
+          arr.push(objectReturn)
+        }
+        )
+      // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));    
+      console.log(arr);
+     return arr;
+}
 
 export const getActiveCoachesCompanyOwner = async (uId) => {
               
