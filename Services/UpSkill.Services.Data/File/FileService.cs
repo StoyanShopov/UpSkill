@@ -25,7 +25,7 @@
             this.blobService = blobService;
         }
 
-        public async Task<int> UploadFileAsync(string fileModel)
+        public async Task<int> CreateAsync(string fileModel)
         {
             using var memoryStream = new MemoryStream();
 

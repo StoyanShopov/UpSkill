@@ -42,7 +42,7 @@
                 return AlreadyExist;
             }
 
-            var file = await this.fileService.UploadFileAsync(fileModel);
+            var file = await this.fileService.CreateAsync(fileModel);
 
             var coach = new Coach()
             {

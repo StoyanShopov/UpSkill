@@ -50,7 +50,7 @@
                          .Where(c => c.Title == model.Title)
                          .FirstOrDefaultAsync();
 
-            var file = this.fileService.UploadFileAsync(fileModel);
+            var file = this.fileService.CreateAsync(fileModel);
 
             if (course != null)
             {

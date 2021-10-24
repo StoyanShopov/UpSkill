@@ -4,6 +4,6 @@
 
     public interface IFileService
     {
-        Task<int> UploadFileAsync(string fileModel);
+        Task<int> CreateAsync(string fileModel);
     }
 }
