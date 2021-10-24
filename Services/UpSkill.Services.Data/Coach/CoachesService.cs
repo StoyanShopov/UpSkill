@@ -10,6 +10,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Coach;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Coach;
 
@@ -18,11 +19,17 @@
     public class CoachesService : ICoachServices
     {
         private readonly IDeletableEntityRepository<Coach> coaches;
+        private readonly IFileService fileService;
 
-        public CoachesService(IDeletableEntityRepository<Coach> coaches)
-            => this.coaches = coaches;
+        public CoachesService(
+            IDeletableEntityRepository<Coach> coaches,
+            IFileService fileService)
+        {
+            this.coaches = coaches;
+            this.fileService = fileService;
+        }
 
-        public async Task<Result> CreateAsync(CreateCoachRequestModel model)
+        public async Task<Result> CreateAsync(CreateCoachRequestModel model, string fileModel)
         {
             var coachObj = await this.coaches
                 .AllAsNoTracking()
@@ -35,10 +42,13 @@
                 return AlreadyExist;
             }
 
+            var file = await this.fileService.UploadFileAsync(fileModel);
+
             var coach = new Coach()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                FileId = file,
             };
 
             await this.coaches.AddAsync(coach);

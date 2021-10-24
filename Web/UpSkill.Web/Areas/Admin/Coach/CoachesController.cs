@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Contracts.Coach;
@@ -19,9 +20,9 @@
             => this.coachServices = coachServices;
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCoachRequestModel model)
+        public async Task<IActionResult> Create([FromForm] CreateCoachRequestModel model, IFormFile file)
         {
-            var result = await this.coachServices.CreateAsync(model);
+            var result = await this.coachServices.CreateAsync(model, file.ToString());
 
             if (result.Failure)
             {

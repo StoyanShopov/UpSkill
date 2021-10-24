@@ -8,7 +8,7 @@
 
     public interface ICoachServices
     {
-        Task<Result> CreateAsync(CreateCoachRequestModel model);
+        Task<Result> CreateAsync(CreateCoachRequestModel model, string fileModel);
 
         Task<Result> EditAsync(UpdateCoachRequestMode model, int id);
 

@@ -8,7 +8,7 @@
 
     public interface ICoursesService
     {
-        Task<Result> CreateAsync(CreateCourseViewModel model);
+        Task<Result> CreateAsync(CreateCourseViewModel model, string fileModel);
 
         Task<Result> EditAsync(EditCourseViewModel model, int id);
 

@@ -11,6 +11,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Course;
 
@@ -19,12 +20,12 @@
     using static Common.GlobalConstants.ControllersResponseMessages;
     using static Common.GlobalConstants.RolesNamesConstants;
 
-    // Coaches table is missing right now so most of the logic is commented
     public class CoursesService : ICoursesService
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
         private readonly IDeletableEntityRepository<Course> courses;
+        private readonly IFileService fileService;
 
         private readonly UserManager<ApplicationUser> userManager;
 
@@ -32,20 +33,24 @@
             UserManager<ApplicationUser> userManager,
             ICompanyService companiesService,
             IRepository<CompanyCourse> companyCourses,
-            IDeletableEntityRepository<Course> courses)
+            IDeletableEntityRepository<Course> courses,
+            IFileService fileService)
         {
             this.courses = courses;
             this.companiesService = companiesService;
             this.companyCourses = companyCourses;
             this.userManager = userManager;
+            this.fileService = fileService;
         }
 
-        public async Task<Result> CreateAsync(CreateCourseViewModel model)
+        public async Task<Result> CreateAsync(CreateCourseViewModel model, string fileModel)
         {
             var course = await this.courses
                          .All()
                          .Where(c => c.Title == model.Title)
                          .FirstOrDefaultAsync();
+
+            var file = this.fileService.UploadFileAsync(fileModel);
 
             if (course != null)
             {

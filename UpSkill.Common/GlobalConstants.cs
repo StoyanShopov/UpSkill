@@ -114,8 +114,8 @@
 
             public const string Companies = "companies";
 
-            public const string Details = "details"; 
-         
+            public const string Details = "details";
+
             public const string Demote = "demote";
 
             public const string GetAllBlobs = "catalog";
@@ -155,7 +155,7 @@
 
             public const string CompanyEmployeeRoleName = "Employee";
 
-            public const string WritePolicy = "writepolicy"; 
+            public const string WritePolicy = "writepolicy";
 
             public const string ReadPolicy = "readpolicy";
         }
