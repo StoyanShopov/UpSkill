@@ -76,11 +76,13 @@
             return true;
         }
 
-        public async Task<Result> EditAsync(UpdateCoachRequestMode model, int id)
+        public async Task<Result> EditAsync(UpdateCoachRequestMode model, int id, string fileModel)
         {
             var coach = await this.coaches
                 .All()
                 .FirstOrDefaultAsync(c => c.Id == id);
+
+            var file = await this.fileService.EditAsync(id, fileModel);
 
             if (coach == null)
             {
@@ -89,6 +91,7 @@
 
             coach.FirstName = model.FirstName;
             coach.LastName = model.LastName;
+            coach.FileId = file;
 
             await this.coaches.SaveChangesAsync();
 

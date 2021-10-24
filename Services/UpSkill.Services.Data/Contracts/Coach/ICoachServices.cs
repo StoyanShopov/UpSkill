@@ -10,7 +10,7 @@
     {
         Task<Result> CreateAsync(CreateCoachRequestModel model, string fileModel);
 
-        Task<Result> EditAsync(UpdateCoachRequestMode model, int id);
+        Task<Result> EditAsync(UpdateCoachRequestMode model, int id, string fileModel);
 
         Task<Result> DeleteAsync(int id);
 

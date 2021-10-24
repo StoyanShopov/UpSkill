@@ -33,9 +33,9 @@
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit(UpdateCoachRequestMode model, int id)
+        public async Task<IActionResult> Edit([FromForm] UpdateCoachRequestMode model, int id, IFormFile file)
         {
-            var result = await this.coachServices.EditAsync(model, id);
+            var result = await this.coachServices.EditAsync(model, id, file.ToString());
 
             if (result.Failure)
             {

@@ -52,5 +52,25 @@
 
             return dbFile.Id;
         }
+
+        public async Task<int> EditAsync(int id, string fileModel)
+        {
+            var file = await this.files
+                .All()
+                .Where(f => f.Id == id)
+                .FirstOrDefaultAsync();
+
+            await this.blobService.DeleteBlobAsync(file.FilePath);
+
+            file.FilePath = fileModel;
+
+            await this.files.SaveChangesAsync();
+
+            using var memoryStream = new MemoryStream();
+
+            var fileObj = await this.CreateAsync(fileModel);
+
+            return fileObj;
+        }
     }
 }
