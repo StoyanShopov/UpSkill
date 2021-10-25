@@ -11,6 +11,5 @@
         public int CoachId { get; set; }
 
         public int CategoryId { get; set; }
-
     }
 }

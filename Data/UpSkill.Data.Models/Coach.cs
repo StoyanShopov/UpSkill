@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using Common.Models;
+    using UpSkill.Data.Common.Models;
 
     public class Coach : BaseDeletableModel<int>
     {
@@ -15,6 +15,6 @@
 
         public string LastName { get; set; }
 
-        public ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

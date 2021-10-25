@@ -12,7 +12,7 @@
     using UpSkill.Web.ViewModels.Administration.Company;
 
     using static Common.GlobalConstants.AdminConstants;
-    using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
     using static Common.GlobalConstants.RolesNamesConstants;
 
     public class AdminService : IAdminService
@@ -70,7 +70,6 @@
 
             return AssignedSuccessfully;
         }
-
 
         public async Task<string> Demote(ApplicationUser user)
         {

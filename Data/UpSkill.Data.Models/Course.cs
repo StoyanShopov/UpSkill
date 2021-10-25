@@ -1,11 +1,8 @@
-namespace UpSkill.Data.Models
+﻿namespace UpSkill.Data.Models
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
 
-    using Common.Models;
-
-    using static UpSkill.Common.GlobalConstants;
+    using UpSkill.Data.Common.Models;
 
     public class Course : BaseDeletableModel<int>
     {
@@ -21,8 +18,6 @@ namespace UpSkill.Data.Models
 
         public int CategoryId { get; set; }
 
-
-        [Column(TypeName = PriceFormat)]
         public decimal Price { get; set; }
 
         public Category Category { get; set; }
@@ -34,6 +29,5 @@ namespace UpSkill.Data.Models
         public virtual ICollection<CompanyCourse> Companies { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
-
     }
 }

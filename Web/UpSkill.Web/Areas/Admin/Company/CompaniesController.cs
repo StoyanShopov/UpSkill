@@ -8,8 +8,8 @@
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Web.ViewModels.Company;
 
-    using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CompaniesController : AdministrationBaseController
     {
@@ -19,47 +19,44 @@
             => this.companyService = companyService;
 
         [HttpPost]
-        [Route(CreateRoute)]
         public async Task<IActionResult> Create(CreateCompanyRequestModel model)
         {
             var reuslt = await this.companyService.CreateAsync(model);
 
             if (reuslt.Failure)
             {
-                return BadRequest(reuslt.Error);
+                return this.BadRequest(reuslt.Error);
             }
 
-            return StatusCode(201, SuccesfullyCreated);
+            return this.StatusCode(201, SuccesfullyCreated);
         }
 
         [HttpPut]
-        [Route(EditRoute)]
-        public async Task<IActionResult> Edit(UpdateCompanyRequestModel model)
+        public async Task<IActionResult> Edit(UpdateCompanyRequestModel model, int id)
         {
-            var result = await this.companyService.EditAsync(model);
+            var result = await this.companyService.EditAsync(model, id);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyEdited);
+            return this.Ok(SuccesfullyEdited);
         }
 
         [HttpDelete]
-        [Route(DeleteRoute)]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await this.companyService.DeleteAsync(id);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyDeleted);
+            return this.Ok(SuccesfullyDeleted);
         }
-//Alert: Check route
+
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
