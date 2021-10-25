@@ -31,7 +31,11 @@ const login = (email, password) => {
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
+  return axios
+    .post(API_URL + "logout")
+    .then((res) => {
+        localStorage.removeItem("user");      
+    });
 };
 
 const identity = {

@@ -12,7 +12,6 @@ function MyProfile() {
     var {isLoggedIn, isCompanyOwner, isEmployee, isAdmin} = store.getState().auth;
     
     useEffect(() => {
-        console.log(store.getState().auth.user);
         if(!isLoggedIn)
             history.push("/");
     }, []);

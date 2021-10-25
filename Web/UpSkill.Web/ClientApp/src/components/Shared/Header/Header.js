@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux"; 
+import { useDispatch } from "react-redux"; 
 import { ReactReduxContext } from 'react-redux'
 
 import { clearMessage } from "../../../actions/message";
@@ -15,7 +15,7 @@ function Header() {
 	const [isActive, setisActive] = useState(false);   
 
 	const { store } = useContext(ReactReduxContext)
-    var {isLoggedIn, isCompanyOwner, isEmployee, isAdmin, user} = store.getState().auth;
+    var {isLoggedIn, user} = store.getState().auth;
 
 	const dispatch = useDispatch();
   
