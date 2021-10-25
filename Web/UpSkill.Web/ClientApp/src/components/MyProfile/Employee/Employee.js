@@ -12,7 +12,6 @@ const menuItems = [
   { name: 'Courses', path: '/MyProfile/Courses', exact: true, component: Courses },
   { name: 'Coaches', path: '/MyProfile/Coaches', exact: true, component: CompanyCoaches }, 
   { name: 'Grades', path: '/MyProfile/Grades', exact: true, component: Courses },
-  { name: 'Log Out', path: '/LogOut', exact: true, component: Courses },
 ];
 
 export default function Employee() { 

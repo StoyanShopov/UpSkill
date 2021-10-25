@@ -46,6 +46,7 @@ export default function EmployeeSidebar({ menuItems }) {
               </span>
             </NavLink>
           ))}
+          <NavLink to="/Logout" className="nav-link logOut">Log Out</NavLink>
         </div>
       </div>
   );
