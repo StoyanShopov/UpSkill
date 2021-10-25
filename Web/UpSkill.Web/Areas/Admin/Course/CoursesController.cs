@@ -53,7 +53,7 @@
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit(EditCourseViewModel model, int id)
+        public async Task<IActionResult> Edit([FromForm] EditCourseViewModel model, int id)
         {
             var result = await this.coursesService.EditAsync(model, id);
 
