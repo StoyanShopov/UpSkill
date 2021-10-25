@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux"; 
+import { ReactReduxContext } from 'react-redux'
 
 import { clearMessage } from "../../../actions/message";
 
@@ -13,7 +14,8 @@ import './Header.css';
 function Header() { 
 	const [isActive, setisActive] = useState(false);   
 
-	let currentUser = JSON.parse(localStorage.getItem('user'));
+	const { store } = useContext(ReactReduxContext)
+    var {isLoggedIn, isCompanyOwner, isEmployee, isAdmin, user} = store.getState().auth;
 
 	const dispatch = useDispatch();
   
@@ -66,11 +68,11 @@ function Header() {
 									  </NavLink>
 								</li> 
 							</article>   
-							{currentUser ? (
+							{isLoggedIn ? (
                                 <div className="navbar-nav ml-auto">
                                     <li className="nav-item">
-                                        <NavLink to={"/"} className="nav-link"> 
-                                          {currentUser.email}
+                                        <NavLink to={"/MyProfile"} className="nav-link"> 
+                                          {user.email}
                                        </NavLink>
                                    </li>
                                   <li className="nav-item">
