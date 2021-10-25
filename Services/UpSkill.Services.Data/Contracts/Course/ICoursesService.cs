@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Contracts.Course
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using UpSkill.Common;
@@ -19,5 +20,7 @@
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id);
+
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
     }
 }

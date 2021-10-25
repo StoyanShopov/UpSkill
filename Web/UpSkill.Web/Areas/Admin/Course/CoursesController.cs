@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -77,5 +78,10 @@
 
             return this.Ok(SuccesfullyDeleted);
         }
+
+        [HttpGet]
+        [Route(GetAllRoute)]
+        public async Task<IEnumerable<DetailsViewModel>> GetAll()
+        => await this.coursesService.GetAllAsync<DetailsViewModel>();
     }
 }

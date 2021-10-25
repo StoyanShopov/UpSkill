@@ -1,6 +1,8 @@
 ﻿namespace UpSkill.Data.Models
 {
-    public class CompanyCourse
+    using UpSkill.Data.Common.Models;
+
+    public class CompanyCourse : BaseDeletableModel<int>
     {
         public int CompanyId { get; set; }
 
