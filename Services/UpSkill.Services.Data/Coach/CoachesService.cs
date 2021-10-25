@@ -29,7 +29,7 @@
             this.fileService = fileService;
         }
 
-        public async Task<Result> CreateAsync(CreateCoachRequestModel model, string fileModel)
+        public async Task<Result> CreateAsync(CreateCoachRequestModel model)
         {
             var coachObj = await this.coaches
                 .AllAsNoTracking()
@@ -37,12 +37,14 @@
                 c => c.FirstName == model.FirstName
                 && c.LastName == model.LastName);
 
+            await this.fileService.CreateAsync(model.File);
+
             if (coachObj != null)
             {
                 return AlreadyExist;
             }
 
-            var file = await this.fileService.CreateAsync(fileModel);
+            var file = await this.fileService.CreateAsync(model.File);
 
             var coach = new Coach()
             {
@@ -76,13 +78,13 @@
             return true;
         }
 
-        public async Task<Result> EditAsync(UpdateCoachRequestMode model, int id, string fileModel)
+        public async Task<Result> EditAsync(UpdateCoachRequestMode model, int id)
         {
             var coach = await this.coaches
                 .All()
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            var file = await this.fileService.EditAsync(id, fileModel);
+            var file = await this.fileService.EditAsync(coach.FileId, model.File);
 
             if (coach == null)
             {

@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Contracts.Course;
@@ -27,9 +26,9 @@
                      .GetByIdAsync<DetailsViewModel>(id);
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateCourseViewModel model, IFormFile file)
+        public async Task<IActionResult> Create([FromForm] CreateCourseViewModel model)
         {
-            var result = await this.coursesService.CreateAsync(model, file.ToString());
+            var result = await this.coursesService.CreateAsync(model);
 
             if (result.Failure)
             {

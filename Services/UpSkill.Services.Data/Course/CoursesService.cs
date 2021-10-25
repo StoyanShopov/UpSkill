@@ -3,8 +3,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+
     using UpSkill.Common;
     using UpSkill.Data.Common.Models;
     using UpSkill.Data.Common.Repositories;
@@ -43,14 +45,14 @@
             this.fileService = fileService;
         }
 
-        public async Task<Result> CreateAsync(CreateCourseViewModel model, string fileModel)
+        public async Task<Result> CreateAsync(CreateCourseViewModel model)
         {
             var course = await this.courses
                          .All()
                          .Where(c => c.Title == model.Title)
                          .FirstOrDefaultAsync();
 
-            var file = this.fileService.CreateAsync(fileModel);
+            await this.fileService.CreateAsync(model.File);
 
             if (course != null)
             {
@@ -85,6 +87,8 @@
                              .Where(c => c.Id == id)
                              .FirstOrDefaultAsync();
 
+            var file = await this.fileService.EditAsync(course.FileId, model.File);
+
             if (course == null)
             {
                 return DoesNotExist;
@@ -95,6 +99,7 @@
             course.Description = model.Description;
             course.Price = model.Price;
             course.CategoryId = model.CategoryId;
+            course.FileId = file;
 
             await this.courses.SaveChangesAsync();
 

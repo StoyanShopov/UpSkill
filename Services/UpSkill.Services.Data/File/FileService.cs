@@ -1,9 +1,9 @@
 ﻿namespace UpSkill.Services.Data.File
 {
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Data.Common.Repositories;
@@ -25,11 +25,9 @@
             this.blobService = blobService;
         }
 
-        public async Task<int> CreateAsync(string fileModel)
+        public async Task<int> CreateAsync(IFormFile fileModel)
         {
-            using var memoryStream = new MemoryStream();
-
-            var file = await this.blobService.UploadAsync(memoryStream, fileModel);
+            var file = await this.blobService.UploadAsync(fileModel);
 
             var fileObj = await this.files
                 .AllAsNoTracking()
@@ -53,24 +51,20 @@
             return dbFile.Id;
         }
 
-        public async Task<int> EditAsync(int id, string fileModel)
+        public async Task<int> EditAsync(int? id, IFormFile fileModel)
         {
-            var file = await this.files
+            var fileObj = await this.files
                 .All()
                 .Where(f => f.Id == id)
                 .FirstOrDefaultAsync();
 
-            await this.blobService.DeleteBlobAsync(file.FilePath);
+            await this.blobService.DeleteBlobAsync(fileObj.FilePath);
 
-            file.FilePath = fileModel;
+            this.files.HardDelete(fileObj);
 
-            await this.files.SaveChangesAsync();
+            var file = await this.CreateAsync(fileModel);
 
-            using var memoryStream = new MemoryStream();
-
-            var fileObj = await this.CreateAsync(fileModel);
-
-            return fileObj;
+            return file;
         }
     }
 }

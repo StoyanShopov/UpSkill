@@ -2,6 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
+
     public class CreateCoachRequestModel
     {
         [Required]
@@ -9,5 +11,7 @@
 
         [Required]
         public string LastName { get; set; }
+
+        public IFormFile File { get; set; }
     }
 }
