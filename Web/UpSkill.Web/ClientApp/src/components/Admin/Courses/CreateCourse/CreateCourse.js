@@ -24,7 +24,6 @@ const customStyles = {
   }),
 };
 
-
 export default function CreateCourse({ closeModal }) {
   const [title, setTitle] = useState("");
   const [coachName, setCoachName] = useState("");
@@ -38,9 +37,7 @@ export default function CreateCourse({ closeModal }) {
   const [coaches, setCoaches] = useState({});
   const [coachId, setCoachId] = useState(0);
   const [categories, setCategories] = useState([]);
-
   const [errors, setErrors] = useState({});
-
 
   let handleValidation = () => {
     let fields = {
@@ -114,8 +111,8 @@ export default function CreateCourse({ closeModal }) {
     if (handleValidation()) {
       setIsSuccess(true);
       setSuccess("Submitted successfully");
-      let courseReturn = {        
-        title,   
+      let courseReturn = {
+        title,
         description,
         price,
         coachId,
@@ -193,7 +190,7 @@ export default function CreateCourse({ closeModal }) {
                 <p style={{ color: "red", marginLeft: "15px" }}>
                   {errors["coachName"]}
                 </p>
-              </div>           
+              </div>
             </div>
 
             <div className="form-group" style={{ marginBottom: "-1rem" }}>
@@ -243,7 +240,7 @@ export default function CreateCourse({ closeModal }) {
                 <p style={{ color: "red", marginLeft: "15px" }}>
                   {errors["category"]}
                 </p>
-              </div>            
+              </div>
             </div>
 
             <div className="btn-createcourse-container">

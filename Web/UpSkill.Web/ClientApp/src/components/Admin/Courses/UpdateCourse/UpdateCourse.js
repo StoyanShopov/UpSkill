@@ -4,7 +4,7 @@ import "../CreateCourse/CreateCourse.css";
 import "./UpdateCourse.css";
 import { updateCourses } from "../../../../services/adminCourseService";
 import { getCoachesNames } from "../../../../services/coachService";
-import { getCategoriesForCourses} from "../../../../services/categoryService";
+import { getCategoriesForCourses } from "../../../../services/categoryService";
 import Select from "react-select";
 
 const required = (value) => {
@@ -26,7 +26,7 @@ const vPrice = (value) => {
     );
   }
 };
-const customStyles= {
+const customStyles = {
   control: (provided, state) => ({
     ...provided,
     width: "30rem",
@@ -34,19 +34,18 @@ const customStyles= {
     border: "2px solid #296cfb",
     opacity: "1",
     marginLeft: "0.5rem",
-    marginBottom:"-10px",
-    marginTop:"-1.5rem",
+    marginBottom: "-10px",
+    marginTop: "-1.5rem",
 
-    borderRadius: "5px"
+    borderRadius: "5px",
   }),
   menu: (provided, state) => ({
-    ...provided,    
+    ...provided,
     marginLeft: "10px",
-    marginTop: "0px"
-   
-  })
-}
-export default function UpdateCourse({closeModal}) {
+    marginTop: "0px",
+  }),
+};
+export default function UpdateCourse({ closeModal }) {
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [coachName, setCoachName] = useState("");
@@ -55,72 +54,67 @@ export default function UpdateCourse({closeModal}) {
   const [category, setCategory] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [errors, setErrors] =useState({})
-  const [coachId, setCoachId]=useState(0);
-  const[categories, setCategories] = useState([]);  
-  const [coaches, setCoaches] = useState({}); 
+  const [errors, setErrors] = useState({});
+  const [coachId, setCoachId] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [coaches, setCoaches] = useState({});
   const [isSuccess, setIsSuccess] = useState(false);
   const [success, setSuccess] = useState("");
 
-
-
-
-  let handleValidation =() => {
-    let fields= {
+  let handleValidation = () => {
+    let fields = {
       title,
       coachName,
       description,
       price,
-      category
+      category,
     };
-    let errorsValidation= {};
-    let formIsValid=true;
+    let errorsValidation = {};
+    let formIsValid = true;
 
     //Title
     if (!fields["title"]) {
       formIsValid = false;
       errorsValidation["title"] = "Cannot be empty";
-    } 
-    
+    }
+
     //Coach
     if (!fields["coachName"]) {
       formIsValid = false;
       errorsValidation["coachName"] = "Cannot be empty";
-    } 
+    }
 
-    if (!fields["description"]  || fields["description"].length < 5) {
+    if (!fields["description"] || fields["description"].length < 5) {
       formIsValid = false;
-      errorsValidation["description"] = "Cannot be empty or less than 5 characters";
-    } 
-
-    
+      errorsValidation["description"] =
+        "Cannot be empty or less than 5 characters";
+    }
 
     if (!fields["category"]) {
       formIsValid = false;
       errorsValidation["category"] = "Cannot be empty";
-    } 
+    }
 
     if (fields["price"] < 0) {
       formIsValid = false;
       errorsValidation["price"] = "Cannot be negative number";
-    } 
-    
+    }
+
     setErrors(errorsValidation);
     return formIsValid;
-    
-  }
+  };
 
   useEffect(() => {
     setId(localStorage.getItem("ID"));
     setFirstName(localStorage.getItem("FirstName"));
-    setLastName(localStorage.getItem("LastName"));    
+    setLastName(localStorage.getItem("LastName"));
     setPrice(localStorage.getItem("Price"));
     setDescription(localStorage.getItem("Description"));
     setTitle(localStorage.getItem("Title"));
     setCategory(localStorage.getItem("CategoryId"));
-    setCoachName(localStorage.getItem("FullName"));    
+    setCoachName(localStorage.getItem("FullName"));
   }, []);
- 
+
   let onchangeTitle = (el) => {
     let title = el.target.value;
     setTitle(title);
@@ -138,67 +132,65 @@ export default function UpdateCourse({closeModal}) {
     setCategory(el.value);
   };
 
- let onChangeNameSelect= (el) => {   
-  setCoachId(el.value)
-  setCoachName(el.label);  
- }
+  let onChangeNameSelect = (el) => {
+    setCoachId(el.value);
+    setCoachName(el.label);
+  };
 
- let handleSubmit = (event) => {
-  event.preventDefault();  
+  let handleSubmit = (event) => {
+    event.preventDefault();
 
-  if (handleValidation()) {
-    setIsSuccess(true);
-    setSuccess("Submitted successfully");
-    let courseReturn = {
-      id,
-      title,
-      // coachFirstName: firstName,
-      // coachLastName: lastName,
-      description,
-      price,
-      coachId,
-      categoryId: category,
-      // imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
-    };  
-    console.log(courseReturn)
-    updateCourses(courseReturn);
-  } else {    
-    setSuccess("Form has errors.");
-  }
-}; 
-
-  
+    if (handleValidation()) {
+      setIsSuccess(true);
+      setSuccess("Submitted successfully");
+      let courseReturn = {
+        id,
+        title,
+        // coachFirstName: firstName,
+        // coachLastName: lastName,
+        description,
+        price,
+        coachId,
+        categoryId: category,
+        // imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
+      };
+      console.log(courseReturn);
+      updateCourses(courseReturn);
+    } else {
+      setSuccess("Form has errors.");
+    }
+  };
 
   useEffect(() => {
-    getCoachesNames().then((arr) => {   
-    setCoaches(arr);
-   
-    });    
+    getCoachesNames().then((arr) => {
+      setCoaches(arr);
+    });
   }, []);
 
   useEffect(() => {
-    getCategoriesForCourses().then((arr) => {   
-    setCategories(arr);
-   
-    });    
+    getCategoriesForCourses().then((arr) => {
+      setCategories(arr);
+    });
   }, []);
 
   return (
     <div className="update-course-container">
-         <div className="UpdateCloseBtn">
+      <div className="UpdateCloseBtn">
         <button className="update-x-btn" onClick={() => closeModal(false)}>
           X
-        </button>  
+        </button>
       </div>
-      <div className="update-course-header">   
-      <h1>Update {title}</h1>      
+      <div className="update-course-header">
+        <h1>Update {title}</h1>
       </div>
       <div className="update-form-container">
-      {isSuccess ? (
-          <span style={{ color: "green", marginBottom: "1rem" }}>{success}</span>
+        {isSuccess ? (
+          <span style={{ color: "green", marginBottom: "1rem" }}>
+            {success}
+          </span>
         ) : (
           <span style={{ color: "red", marginBottom: "1rem" }}>{success}</span>
-        )} 
+        )}
         <Form onSubmit={handleSubmit}>
           <div>
             <div className="form-group">
@@ -212,23 +204,26 @@ export default function UpdateCourse({closeModal}) {
                 onChange={onchangeTitle}
                 validations={[required]}
               />
-              <p style={{ color: "red", marginLeft: "15px" }}>{errors["title"]}</p>
-            </div>            
+              <p style={{ color: "red", marginLeft: "15px" }}>
+                {errors["title"]}
+              </p>
+            </div>
             <div className="form-group">
               <label htmlFor="coachName"></label>
               <Select
-              styles={customStyles}
-              options={coaches}
-              defaultValue={{
-                label: "Coach Name",
-                value: "",
-              }}              
-              // value={{label: String(coachName), value:String(coachName)}}
-              onChange={onChangeNameSelect}
-              >
-              </Select>
-              <span style={{ color: "red", marginLeft: "15px" }}>{errors["coachName"]}</span>
-               </div>
+                styles={customStyles}
+                options={coaches}
+                defaultValue={{
+                  label: "Coach Name",
+                  value: "",
+                }}
+                // value={{label: String(coachName), value:String(coachName)}}
+                onChange={onChangeNameSelect}
+              ></Select>
+              <span style={{ color: "red", marginLeft: "15px" }}>
+                {errors["coachName"]}
+              </span>
+            </div>
             <div className="form-group">
               <label htmlFor="description"></label>
               <input
@@ -240,7 +235,9 @@ export default function UpdateCourse({closeModal}) {
                 onChange={onchangeDescription}
                 validations={[required]}
               />
-              <p style={{ color: "red", marginLeft: "15px" }}>{errors["description"]}</p>
+              <p style={{ color: "red", marginLeft: "15px" }}>
+                {errors["description"]}
+              </p>
             </div>
             <div className="form-group">
               <label htmlFor="price"></label>
@@ -253,31 +250,36 @@ export default function UpdateCourse({closeModal}) {
                 onChange={onchangePrice}
                 validations={[required, vPrice]}
               />
-              <p style={{ color: "red", marginLeft: "15px" }}>{errors["price"]}</p>
+              <p style={{ color: "red", marginLeft: "15px" }}>
+                {errors["price"]}
+              </p>
             </div>
             <div className="form-group">
               <label htmlFor="category"></label>
               <Select
-                  maxMenuHeight={180} 
-              styles={customStyles}
-              options={categories}
-              defaultValue={{
-                label: "Category",
-                value: "",
-              }}              
-              // value={{label: String(coachName), value:String(coachName)}}
-              onChange={onchangeCategory}
-              >
-              </Select>         
-              <span style={{ color: "red", marginLeft: "15px" }}>{errors["category"]}</span>
+                maxMenuHeight={180}
+                styles={customStyles}
+                options={categories}
+                defaultValue={{
+                  label: "Category",
+                  value: "",
+                }}
+                // value={{label: String(coachName), value:String(coachName)}}
+                onChange={onchangeCategory}
+              ></Select>
+              <span style={{ color: "red", marginLeft: "15px" }}>
+                {errors["category"]}
+              </span>
             </div>
 
             <div className="btn-update-course-container">
               <div>
                 <button
-                 className="btn btn-outline-primary cancel-button"
-                 onClick={() => closeModal(false)}
-                 >Cancel</button>         
+                  className="btn btn-outline-primary cancel-button"
+                  onClick={() => closeModal(false)}
+                >
+                  Cancel
+                </button>
                 <input
                   className="btn btn-primary submit-button"
                   type="submit"

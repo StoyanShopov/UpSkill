@@ -6,7 +6,7 @@
   height: 40rem;
   display: inline-block;
   background: white 0% 0% no-repeat padding-box;
-  border-radius: 12px; 
+  border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   opacity: 1;
   display: flex;
@@ -15,8 +15,7 @@
   flex-direction: column;
 }
 
-
-.form-container {  
+.form-container {
   margin-top: 0rem;
   /* top: 185px;
   margin-left: 30%; */
@@ -25,16 +24,13 @@
   background: white 0% 0% no-repeat padding-box;
   display: flex;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   flex-direction: column;
- 
- 
 }
 
 .CreateCloseBtn {
-  
   margin-top: -3rem;
-  border-radius: 12px; 
+  border-radius: 12px;
   background-color: white;
   width: 100%;
   height: 3rem;
@@ -42,7 +38,7 @@
   justify-content: flex-end;
 }
 
-.the-xbtn{  
+.the-xbtn {
   margin-right: 0.5rem;
   color: black;
   font-size: 2rem;
@@ -50,7 +46,6 @@
   border: none;
   cursor: pointer;
 }
-
 
 /* .form-container {
   margin-top: 30px;
@@ -88,14 +83,3 @@
   display: flex;
   flex-direction: column;
 }
-
-/* .create-course-img{
-    margin-top: 30px;
-    top: 185px;
-    margin-right: 10%;
-    width: 500px;
-    height: 500px;   
-    width: 60%;
-    height: 60%;
-    background:  url("https://i.ibb.co/9Twgqz8/Rectangle-1221.png") 0% no-repeat padding-box;
-} */

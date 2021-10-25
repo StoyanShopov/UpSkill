@@ -9,8 +9,7 @@ import DetailsModal from "../Modals/DetailsModal";
 import CreateCourseModal from "../Modals/CreateCourseModal/CreateCourseModal";
 import UpdateCourseModal from "../Modals/UpdateCourseModal/UpdateCourseModal";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
-import { enableBodyScroll, disableBodyScroll } from "../../../../utils/utils"
-
+import { enableBodyScroll, disableBodyScroll } from "../../../../utils/utils";
 
 export default function AdminCourses() {
   const [courses, setCourses] = useState([]);
@@ -18,8 +17,6 @@ export default function AdminCourses() {
   const [openCreateCourse, setOpenCreateCourse] = useState(false);
   const [openUpdateCourse, setOpenUpdateCourse] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
- 
-
 
   const setData = (data) => {
     let {
@@ -41,17 +38,13 @@ export default function AdminCourses() {
     localStorage.setItem("Description", description);
   };
 
-const checkPopUp= () => {
-  if(openCreateCourse || openDelete || openUpdateCourse || openModal){
-    
-    disableBodyScroll();
-
-  }
-  else{
-    
-    enableBodyScroll();
-  }
-}
+  const checkPopUp = () => {
+    if (openCreateCourse || openDelete || openUpdateCourse || openModal) {
+      disableBodyScroll();
+    } else {
+      enableBodyScroll();
+    }
+  };
 
   const getData = () => {
     getCourses().then((courses) => {
@@ -81,7 +74,7 @@ const checkPopUp= () => {
   }, []);
 
   return (
-    <>
+    <div>
       <div className="container">
         <div className="row list-unstyled courses-list">
           <div className="create-button-wrapper">
@@ -93,7 +86,7 @@ const checkPopUp= () => {
               }}
             >
               Add
-            </button>        
+            </button>
           </div>
           {courses.map((course) => (
             <div className="col text-align-center">
@@ -108,7 +101,9 @@ const checkPopUp= () => {
                   className="btn btn-secondary m-2"
                   exact={true}
                   onClick={() => getUpdateData(course)}
-                >Edit</button>               
+                >
+                  Edit
+                </button>
                 <button
                   className="btn btn-primary ml-2"
                   onClick={() => setOpenDelete(true)}
@@ -116,12 +111,14 @@ const checkPopUp= () => {
                   Delete
                 </button>
               </AdminCoursesCard>
-              {openDelete && (<ConfirmDelete 
-              deleteItem ={onDelete}
-              closeModal={setOpenDelete} 
-              itemName="course" 
-              id={course.id}
-               ></ConfirmDelete>)}
+              {openDelete && (
+                <ConfirmDelete
+                  deleteItem={onDelete}
+                  closeModal={setOpenDelete}
+                  itemName="course"
+                  id={course.id}
+                ></ConfirmDelete>
+              )}
             </div>
           ))}
         </div>
@@ -135,9 +132,9 @@ const checkPopUp= () => {
       )}
       {openUpdateCourse && (
         <UpdateCourseModal
-        closeUpdateCourseModal={setOpenUpdateCourse}
+          closeUpdateCourseModal={setOpenUpdateCourse}
         ></UpdateCourseModal>
       )}
-    </>
+    </div>
   );
 }

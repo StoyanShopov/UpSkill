@@ -4,23 +4,19 @@ import GoogleLogo from "../../../../assets/img/courses/Image 39.png";
 import "./DetailsModal.css";
 
 function DetailsModal({ closeModal }) {
-  
   const [title, setTitle] = useState("");
   const [coachName, setCoachName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("");
 
-    
-
-  useEffect(() => {        
+  useEffect(() => {
     setPrice(localStorage.getItem("Price"));
     setDescription(localStorage.getItem("Description"));
     setTitle(localStorage.getItem("Title"));
     setCategory(localStorage.getItem("CategoryId"));
-    setCoachName(localStorage.getItem("FullName"));    
+    setCoachName(localStorage.getItem("FullName"));
   }, []);
-
 
   return (
     <div className="detailsModal-background">

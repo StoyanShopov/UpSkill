@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from "react";
 import CreateCourse from "../../CreateCourse/CreateCourse";
 
-function CreateCourseModal({closeCreateCourseModal}) {
-  
-  
-
+function CreateCourseModal({ closeCreateCourseModal }) {
   return (
-    <div className="detailsModal-background">      
-          
-          <div className="create-course-wrapper"><CreateCourse closeModal={closeCreateCourseModal}></CreateCourse>  </div>                  
-    
-      
+    <div className="detailsModal-background">
+      <div className="create-course-wrapper">
+        <CreateCourse closeModal={closeCreateCourseModal}></CreateCourse>{" "}
+      </div>
     </div>
   );
 }
