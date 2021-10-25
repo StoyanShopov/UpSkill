@@ -28,7 +28,7 @@
 
                  .AddDatabase(this.configuration)
                  .AddBlobStorage(this.configuration)
-                 .AddIdentity() 
+                 .AddIdentity()
                  .AddAuthorizations()
                  .AddJwtAuthentication(services.GetApplicationSettings(this.configuration))
                  .AddBussinesServices()
