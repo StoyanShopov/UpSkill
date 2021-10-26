@@ -11,51 +11,56 @@ const initialCourses = [
   {
     id: "21312asdsa123",
     title: "Marketing",
-    coachFirstName: "Jim",
-    coachLastName: "Wilber",
+    coachName: "Jim Wilber",
     description: "First steps into Marketing",
     price: 50.0,
     categoryId: 1,
+    coachId: 2,
+    categoryName: "Marketing",
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
   },
   {
     id: "321313adasd",
     title: "Design",
-    coachFirstName: "Tom",
-    coachLastName: "Smith",
+    coachName: "Tom Smith",
     description: "You wil learn basic Design principles...",
     price: 60,
     categoryId: 1,
+    coachId: 1,
+    categoryName: "Marketing",
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
   },
   {
     id: "3242432324",
     title: "Management",
-    coachFirstName: "Sarah",
-    coachLastName: "Coleman",
+    coachName: "Sarah Coleman",
     description: "You will aquire basic management knowledge...",
     price: 80,
     categoryId: 1,
+    coachId: 2,
+    categoryName: "Marketing",
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
   },
   {
     id: "32424324",
     title: "Management",
-    coachFirstName: "Sarah",
-    coachLastName: "Coleman",
+    coachName: "Sarah Coleman",
     description: "You will aquire basic management knowledge...",
     price: 80,
     categoryId: 1,
+    coachId: 2,
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
+    categoryName: "Marketing",
   },
   {
     id: "324324",
     title: "Management",
-    coachFirstName: "Sara",
-    coachLastName: "Coleman",
+    coachId: 2,
+    coachName: "Sarah Coleman",
     description: "You will aquire basic management knowledge...",
     price: 80,
     categoryId: 1,
+    categoryName: "Marketing",
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
   },
 ];
@@ -73,53 +78,54 @@ export const getCourses = async (currentPage) => {
 };
 
 //Get the real data from Db
-export const getCoursesDb = async () => {
-  let returnCourses = [];
-  try {
-    let returnCoaches = [];
-    let returnCourse = {};
 
-    let returnCategories = [];
+// export const getCoursesDb = async () => {
+//   let returnCourses = [];
+//   try {
+//     let returnCoaches = [];
+//     let returnCourse = {};
 
-    getCategoriesForCourses().then((categories) => {
-      categories.forEach((ca) => returnCategories.push(ca));
-    });
+//     let returnCategories = [];
 
-    getCoachesNames().then((coaches) =>
-      coaches.forEach((c) => returnCoaches.push(c))
-    );
+//     getCategoriesForCourses().then((categories) => {
+//       categories.forEach((ca) => returnCategories.push(ca));
+//     });
 
-    console.log(returnCategories);
-    console.log(returnCoaches);
+//     getCoachesNames().then((coaches) =>
+//       coaches.forEach((c) => returnCoaches.push(c))
+//     );
 
-    const resp = await axios.get(API_URL+"/getAll");
-    let respData = resp.data;
-    console.log(respData);
+//     console.log(returnCategories);
+//     console.log(returnCoaches);
 
-    respData.map((c) => {
-      returnCourse = c;
-      console.log(returnCourse);
-      let currentCoach = returnCoaches.find(
-        (c) => c.value == returnCourse.coachId
-      );
+//     const resp = await axios.get(API_URL+"/getAll");
+//     let respData = resp.data;
+//     console.log(respData);
 
-      if (currentCoach) {
-        returnCourse["coachName"] = currentCoach.label;
-      }
+//     respData.map((c) => {
+//       returnCourse = c;
+//       console.log(returnCourse);
+//       let currentCoach = returnCoaches.find(
+//         (c) => c.value == returnCourse.coachId
+//       );
 
-      let currentCategory = returnCategories.find(
-        (ca) => ca.value == returnCourse.categoryId
-      );
+//       if (currentCoach) {
+//         returnCourse["coachName"] = currentCoach.label;
+//       }
 
-      if (currentCategory) {
-        returnCourse["categoryName"] = currentCategory.label;
-      }      
-      returnCourses.push(returnCourse);
-    });
+//       let currentCategory = returnCategories.find(
+//         (ca) => ca.value == returnCourse.categoryId
+//       );
 
-    return returnCourses;
-  } catch (error) {}
-};
+//       if (currentCategory) {
+//         returnCourse["categoryName"] = currentCategory.label;
+//       }
+//       returnCourses.push(returnCourse);
+//     });
+
+//     return returnCourses;
+//   } catch (error) {}
+// };
 
 // export const getCourses = async () => {
 //   try {
