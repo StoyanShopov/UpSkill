@@ -1,11 +1,9 @@
-namespace UpSkill.Data.Models
+﻿namespace UpSkill.Data.Models
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel.DataAnnotations;
 
-    using Common.Models;
-
-    using static UpSkill.Common.GlobalConstants;
+    using UpSkill.Data.Common.Models;
 
     public class Course : BaseDeletableModel<int>
     {
@@ -15,6 +13,7 @@ namespace UpSkill.Data.Models
             this.Users = new HashSet<ApplicationUser>();
         }
 
+        [Required]
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -29,9 +28,12 @@ namespace UpSkill.Data.Models
 
         public Coach Coach { get; set; }
 
+        public int? FileId { get; set; }
+
+        public File File { get; set; }
+
         public virtual ICollection<CompanyCourse> Companies { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
-
     }
 }

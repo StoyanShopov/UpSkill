@@ -313,19 +313,26 @@ namespace UpSkill.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("FileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FileId");
 
                     b.HasIndex("IsDeleted");
 
@@ -345,6 +352,9 @@ namespace UpSkill.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("FileId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -356,6 +366,8 @@ namespace UpSkill.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FileId");
 
                     b.HasIndex("IsDeleted");
 
@@ -399,6 +411,9 @@ namespace UpSkill.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FileId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -409,6 +424,7 @@ namespace UpSkill.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -417,9 +433,41 @@ namespace UpSkill.Data.Migrations
 
                     b.HasIndex("CoachId");
 
+                    b.HasIndex("FileId");
+
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("UpSkill.Data.Models.File", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Position", b =>
@@ -532,6 +580,24 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("Position");
                 });
 
+            modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
+                {
+                    b.HasOne("UpSkill.Data.Models.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
+                    b.Navigation("File");
+                });
+
+            modelBuilder.Entity("UpSkill.Data.Models.Company", b =>
+                {
+                    b.HasOne("UpSkill.Data.Models.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
+                    b.Navigation("File");
+                });
+
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
                 {
                     b.HasOne("UpSkill.Data.Models.Company", "Company")
@@ -565,9 +631,15 @@ namespace UpSkill.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("UpSkill.Data.Models.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId");
+
                     b.Navigation("Category");
 
                     b.Navigation("Coach");
+
+                    b.Navigation("File");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.ApplicationUser", b =>

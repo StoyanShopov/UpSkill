@@ -18,9 +18,8 @@
             {
                 MotionCompanyName,
                 ScaleFocusCompanyName,
-                AdministratorCompanyName
+                AdministratorCompanyName,
             };
-
 
             var companies = new List<Company>();
 
@@ -28,7 +27,7 @@
             {
                 var newCompany = new Company
                 {
-                    Name = companyName
+                    Name = companyName,
                 };
 
                 companies.Add(newCompany);
@@ -38,11 +37,11 @@
             {
                 var dbCompany = await dbContext.Companies.FirstOrDefaultAsync(x => x.Name == company.Name);
 
-                if(dbCompany == null)
+                if (dbCompany == null)
                 {
                     await dbContext.Companies.AddAsync(company);
-                }               
-            }            
+                }
+            }
         }
     }
 }

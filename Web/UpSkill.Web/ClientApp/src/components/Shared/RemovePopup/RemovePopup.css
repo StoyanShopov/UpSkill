@@ -1,0 +1,11 @@
+.popup-inner-remove{
+    max-width: 30rem!important;
+    height: 20rem!important;
+}
+
+.addEmployee-actions-confirm,
+.addEmployee-actions-cancel,
+.addEmployee-actions-save{
+    font-size: larger;
+    letter-spacing: .1rem;
+}

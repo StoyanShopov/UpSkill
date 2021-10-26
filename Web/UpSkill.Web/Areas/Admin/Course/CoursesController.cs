@@ -1,17 +1,15 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
+
     using Microsoft.AspNetCore.Mvc;
 
-    using ViewModels.Course;
-    using Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Web.ViewModels.Course;
 
-    using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
-    using System.Collections.Generic;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
-    [AllowAnonymous]
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICoursesService coursesService;
@@ -27,57 +25,57 @@
         => await this.coursesService
                      .GetByIdAsync<DetailsViewModel>(id);
 
-
         [HttpPost]
-        [Route(CreateRoute)]
-        public async Task<IActionResult> Create(CreateCourseViewModel model)
+        public async Task<IActionResult> Create([FromForm] CreateCourseViewModel model)
         {
             var result = await this.coursesService.CreateAsync(model);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyCreated);
+            return this.Ok(SuccesfullyCreated);
         }
 
-        [HttpPut]
-        [Route(EditRoute)]
-        public async Task<IActionResult> Edit(EditCourseViewModel model)
+        [HttpPost]
+        [Route(AddCompanyOwnerToCourseRoute)]
+        public async Task<IActionResult> AddCompany(AddCompanyToCourseViewModel model)
         {
-            var result = await this.coursesService.EditAsync(model);
+            var result = await this.coursesService.AddCompanyAsync(model);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyEdited);
+            return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromForm] EditCourseViewModel model, int id)
+        {
+            var result = await this.coursesService.EditAsync(model, id);
+
+            if (result.Failure)
+            {
+                return this.BadRequest(result.Error);
+            }
+
+            return this.Ok(SuccesfullyEdited);
         }
 
         [HttpDelete]
-        [Route(DeleteRoute)]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await this.coursesService.DeleteAsync(id);
 
             if (result.Failure)
             {
-                return BadRequest(result.Error);
+                return this.BadRequest(result.Error);
             }
 
-            return Ok(SuccesfullyDeleted);
+            return this.Ok(SuccesfullyDeleted);
         }
-
-        [HttpGet]
-        [Route(GetAllRoute)]
-        public async Task<IEnumerable<DetailsViewModel>> GetAll()
-          => await this.coursesService.GetAllAsync<DetailsViewModel>();
-
-        [HttpGet]
-        [Route(DetailsRoute)]
-        public async Task<DetailsViewModel> GetDetails(int id)
-            => await this.coursesService.GetByIdAsync<DetailsViewModel>(id);
     }
 }

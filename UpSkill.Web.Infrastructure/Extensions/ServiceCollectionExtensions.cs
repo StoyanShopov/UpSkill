@@ -16,26 +16,34 @@
     using UpSkill.Data.Models;
     using UpSkill.Data.Repositories;
     using UpSkill.Services;
+    using UpSkill.Services.Account;
+    using UpSkill.Services.Blob;
+    using UpSkill.Services.Contracts.Account;
+    using UpSkill.Services.Contracts.Blob;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Coach;
+    using UpSkill.Services.Data.Company;
+    using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Coach;
+    using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Contracts.File;
+    using UpSkill.Services.Data.Course;
+    using UpSkill.Services.Data.File;
     using UpSkill.Services.Email;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
-    using UpSkill.Web.Infrastructure.Web.Extensions;
     using UpSkill.Web.Infrastructure.Services;
-    using UpSkill.Services.Contracts.Account;
-    using UpSkill.Services.Account;
-    using UpSkill.Services.Data.Contracts.Company;
-    using UpSkill.Services.Data.Admin;
-    using UpSkill.Services.Data.Company;
-    using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Web.Infrastructure.Web.Extensions;
 
     using static Common.GlobalConstants;
-    using static Common.GlobalConstants.SwaggerConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
-    using UpSkill.Services.Data.Contracts.Course;
-    using UpSkill.Services.Data.Course;
+    using static Common.GlobalConstants.PoliciesNamesConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
+    using static Common.GlobalConstants.SwaggerConstants;
 
     public static class ServiceCollectionExtensions
     {
@@ -62,6 +70,16 @@
                 .AddDbContext<ApplicationDbContext>(options => options
                     .UseSqlServer(configuration.GetDefaultConnectionString()));
 
+        public static IServiceCollection AddBlobStorage(this IServiceCollection services, IConfiguration configuration)
+        {
+            IConfigurationSection blobStorage
+                = configuration.GetSection(nameof(Services.BlobStorage));
+
+            services.Configure<BlobStorage>(blobStorage);
+
+            return services;
+        }
+
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services
@@ -76,6 +94,27 @@
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            return services;
+        }
+
+        public static IServiceCollection AddAuthorizations(this IServiceCollection services)
+        {
+            services
+                .AddAuthorization(options =>
+                {
+                    options.AddPolicy(
+                        AdministratorOnly,
+                        policy => policy.RequireRole(AdministratorRoleName));
+
+                    options.AddPolicy(
+                        OwnerOnly,
+                        policy => policy.RequireRole(CompanyOwnerRoleName));
+
+                    options.AddPolicy(
+                        EmployeeOnly,
+                        policy => policy.RequireRole(CompanyEmployeeRoleName));
+                });
 
             return services;
         }
@@ -101,7 +140,7 @@
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
                     };
                 });
 
@@ -116,9 +155,12 @@
                 .AddTransient<IAdminService, AdminService>()
                 .AddTransient<ICoursesService, CoursesService>()
                 .AddTransient<ICompanyService, CompaniesService>()
+                .AddTransient<ICoachServices, CoachesService>()
+                .AddTransient<IFileService, FileService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
-                .AddScoped<IDbQueryRunner, DbQueryRunner>();
+                .AddScoped<IDbQueryRunner, DbQueryRunner>()
+                .AddTransient<IBlobService, BlobService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
@@ -132,9 +174,38 @@
                    new OpenApiInfo
                    {
                        Title = UpSkillAPI,
-                       Version = V1
+                       Version = V1,
                    });
            });
+
+        public static IServiceCollection AddSwagenAuthorization(this IServiceCollection services)
+            => services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(Bearer, new OpenApiSecurityScheme()
+                {
+                    Name = Authorization,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = Bearer,
+                    BearerFormat = JWT,
+                    In = ParameterLocation.Header,
+                    Description = AuthorizationDescription,
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = Bearer,
+                            },
+                        },
+                        System.Array.Empty<string>()
+                    },
+                });
+            });
 
         public static void AddApiControllers(this IServiceCollection services)
             => services

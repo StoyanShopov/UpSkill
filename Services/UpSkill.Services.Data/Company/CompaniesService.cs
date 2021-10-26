@@ -1,19 +1,20 @@
-﻿namespace UpSkill.Services.Data.Company 
+﻿namespace UpSkill.Services.Data.Company
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks; 
+    using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Common;
+    using UpSkill.Data.Common.Models;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Company;
 
-    using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CompaniesService : ICompanyService
     {
@@ -35,7 +36,7 @@
 
             var company = new Company()
             {
-                Name = model.Name
+                Name = model.Name,
             };
 
             await this.companies.AddAsync(company);
@@ -45,11 +46,11 @@
             return true;
         }
 
-        public async Task<Result> EditAsync(UpdateCompanyRequestModel model)
+        public async Task<Result> EditAsync(UpdateCompanyRequestModel model, int id)
         {
             var company = await this.companies
              .All()
-             .FirstOrDefaultAsync(c => c.Id == model.Id);
+             .FirstOrDefaultAsync(c => c.Id == id);
 
             if (company == null)
             {
@@ -95,5 +96,14 @@
             .AllAsNoTracking()
             .To<TModel>()
             .ToListAsync();
+
+        public async Task<TModel> DetailsAsync<TModel>(int id)
+            => await this.GetByIdAsync<TModel>(id);
+
+        public async Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id)
+            => await this.companies
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
     }
 }
