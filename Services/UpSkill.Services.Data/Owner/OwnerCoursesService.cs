@@ -6,6 +6,7 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Owner;
@@ -22,15 +23,18 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<CompanyCourse> companiesCourses;
+        private readonly IDeletableEntityRepository<Company> companies;
         private readonly IEmailSender emailSender;
 
         public OwnerCoursesService(
             UserManager<ApplicationUser> userManager,
             IDeletableEntityRepository<CompanyCourse> companiesCourses,
+            IDeletableEntityRepository<Company> companies,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.companiesCourses = companiesCourses;
+            this.companies = companies;
             this.emailSender = emailSender;
         }
 
@@ -53,42 +57,56 @@
 
         }
 
-        public async Task EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
+        public async Task<Result> EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
             var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
+            var coursesInCompany = await this.companiesCourses
+                                             .All()
+                                             .Where(c => c.CompanyId == user.CompanyId &&
+                                                         c.CourseId == viewModel.CourseId)
+                                             .ToListAsync();
 
-            var companyCourse = new CompanyCourse
+            if (coursesInCompany == null)
             {
-                CompanyId = user.CompanyId,
-                CourseId = viewModel.CourseId,
-            };
+                var companyCourse = new CompanyCourse
+                {
+                    CompanyId = user.CompanyId,
+                    CourseId = viewModel.CourseId,
+                };
 
-            await this.companiesCourses.AddAsync(companyCourse);
-            await this.companiesCourses.SaveChangesAsync();
+                await this.companiesCourses.AddAsync(companyCourse);
+                await this.companiesCourses.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
 
-        public async Task DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
+        public async Task<Result> DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
             var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
-
             var courseToRemove = await this.companiesCourses
                                            .All()
-                                           .Where(c => c.CourseId == viewModel.CourseId &&
-                                                       c.CompanyId == user.CompanyId)
+                                           .Where(c => c.CompanyId == user.CompanyId &&
+                                                       c.CourseId == viewModel.CourseId)
                                            .FirstOrDefaultAsync();
 
-            this.companiesCourses.Delete(courseToRemove);
-            await this.companiesCourses.SaveChangesAsync();
+            if (courseToRemove != null)
+            {
+                this.companiesCourses.Delete(courseToRemove);
+                await this.companiesCourses.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<IEnumerable<TModel>> GetAll<TModel>()
-        {
-            var courses = await this.companiesCourses
-                                    .All()
-                                    .To<TModel>()
-                                    .ToListAsync();
-
-            return courses;
-        }
+        => await this.companiesCourses
+                     .All()
+                     .To<TModel>()
+                     .ToListAsync();
     }
 }

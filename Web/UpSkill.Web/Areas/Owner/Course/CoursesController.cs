@@ -40,19 +40,35 @@
         }
 
         [HttpPut]
-        public async Task EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
+        [Route("enable")]
+        public async Task<IActionResult> EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
-            await this.coursesService.EnableCourse(viewModel);
+            var result = await this.coursesService.EnableCourse(viewModel);
+
+            if (result.Failure)
+            {
+                return this.BadRequest(result.Error);
+            }
+
+            return this.Ok(result.Succeeded);
         }
 
         [HttpPut]
-        public async Task DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
+        [Route("disable")]
+        public async Task<IActionResult> DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
-            await this.coursesService.DisableCourse(viewModel);
+            var result = await this.coursesService.DisableCourse(viewModel);
+
+            if (result.Failure)
+            {
+                return this.BadRequest(result.Error);
+            }
+
+            return this.Ok(result.Succeeded);
         }
 
         [HttpGet]
-        [Route(GetAllRoute)]
+        [Route("getall")]
         public async Task<IEnumerable<DetailsViewModel>> GetAll()
            => await this.coursesService.GetAll<DetailsViewModel>();
     }

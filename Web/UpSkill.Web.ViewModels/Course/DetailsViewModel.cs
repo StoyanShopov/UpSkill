@@ -3,7 +3,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Mapping;
 
-    public class DetailsViewModel : IMapFrom<Course>
+    public class DetailsViewModel : IMapFrom<Course>, IMapFrom<CompanyCourse>
     {
         public int Id { get; set; }
 

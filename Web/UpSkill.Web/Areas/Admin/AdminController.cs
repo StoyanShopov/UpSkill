@@ -95,6 +95,7 @@
             return this.Ok(result);
         }
 
+        [HttpGet]
         private async Task<ApplicationUser> GetUser(string email)
         {
             var user = await this.userManager.FindByEmailAsync(email);

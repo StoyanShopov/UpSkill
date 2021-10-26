@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using UpSkill.Common;
     using UpSkill.Web.ViewModels.Course;
     using UpSkill.Web.ViewModels.Owner;
 
@@ -10,9 +11,9 @@
     {
         Task RequestCourseAsync(RequestCourseViewModel model);
 
-        Task EnableCourse(GetOwnerAndCourseByIdViewModel viewModel);
+        Task<Result> EnableCourse(GetOwnerAndCourseByIdViewModel viewModel);
 
-        Task DisableCourse(GetOwnerAndCourseByIdViewModel viewModel);
+        Task<Result> DisableCourse(GetOwnerAndCourseByIdViewModel viewModel);
 
         Task<IEnumerable<TModel>> GetAll<TModel>();
     }

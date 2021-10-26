@@ -1,6 +1,6 @@
 ﻿namespace UpSkill.Web.ViewModels.Owner
 {
-    public class GetOwnerAndCourseByIdViewModel
+    public class GetOwnerAndCourseByIdViewModel 
     {
         public string OwnerId { get; set; }
 
