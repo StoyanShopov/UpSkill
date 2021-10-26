@@ -3,7 +3,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +26,7 @@
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
         private readonly IDeletableEntityRepository<Course> courses;
+        private readonly IDeletableEntityRepository<File> files;
         private readonly IFileService fileService;
 
         private readonly UserManager<ApplicationUser> userManager;
@@ -36,12 +36,14 @@
             ICompanyService companiesService,
             IRepository<CompanyCourse> companyCourses,
             IDeletableEntityRepository<Course> courses,
+            IDeletableEntityRepository<File> files,
             IFileService fileService)
         {
             this.courses = courses;
             this.companiesService = companiesService;
             this.companyCourses = companyCourses;
             this.userManager = userManager;
+            this.files = files;
             this.fileService = fileService;
         }
 
@@ -52,7 +54,12 @@
                          .Where(c => c.Title == model.Title)
                          .FirstOrDefaultAsync();
 
-            await this.fileService.CreateAsync(model.File);
+            var file = await this.fileService.CreateAsync(model.File);
+
+            var fileObj = await this.files
+               .All()
+               .Where(f => f.Id == file)
+               .FirstOrDefaultAsync();
 
             if (course != null)
             {
@@ -66,9 +73,13 @@
                 Description = model.Description,
                 Price = model.Price,
                 CategoryId = model.CategoryId,
+                FileId = file,
             };
 
             await this.courses.AddAsync(newCourse);
+
+            fileObj.Courses.Add(newCourse);
+
             await this.courses.SaveChangesAsync();
 
             return true;
