@@ -55,8 +55,9 @@
 
 .detailsModal-title {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: start;
+  /* align-items: center;
+  justify-content: center; */
   width: 15rem;
   margin-bottom: 15px;
 }

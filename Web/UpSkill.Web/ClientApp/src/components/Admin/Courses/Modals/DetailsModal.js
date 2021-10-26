@@ -29,7 +29,7 @@ function DetailsModal({ closeModal }) {
           </div>
           <div className="header-els-container">
             <div className="detailsModal-title">
-              <h1>{title}</h1>
+              <h3>{title}</h3>
             </div>
             <div className="row detailsModal-coach-info">
               <div className="col-2 detailsModal-img-coach-wrapper">
@@ -43,7 +43,7 @@ function DetailsModal({ closeModal }) {
                 <span>Created by</span>
                 <h3>{coachName}</h3>
                 <h6>
-                  <img src={GoogleLogo}></img>
+                  <img src={GoogleLogo} alt="Google logo"></img>
                 </h6>
               </div>
             </div>

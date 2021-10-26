@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AdminCoursesCard from "../AdminCourseCard/AdminCourseCard";
 import {
   getCourses,
+  getCoursesDb,
   deleteCourses,
 } from "../../../../services/adminCourseService";
 import "./AdminCourses.css";
@@ -22,18 +23,19 @@ export default function AdminCourses() {
     let {
       id,
       title,
-      coachFirstName,
-      coachLastName,
+      coachName,
+      coachId,
+      categoryName,
       description,
       categoryId,
       price,
     } = data;
     localStorage.setItem("ID", id);
-    localStorage.setItem("FirstName", coachFirstName);
-    localStorage.setItem("LastName", coachLastName);
-    localStorage.setItem("FullName", `${coachFirstName} ${coachLastName}`);
+    localStorage.setItem("FullName", coachName);
+    localStorage.setItem("CategoryName", categoryName);
     localStorage.setItem("Title", title);
     localStorage.setItem("CategoryId", categoryId);
+    localStorage.setItem("CoachId", coachId);
     localStorage.setItem("Price", price);
     localStorage.setItem("Description", description);
   };
@@ -69,6 +71,7 @@ export default function AdminCourses() {
 
   useEffect(() => {
     getCourses().then((courses) => {
+      console.log(courses);
       setCourses(courses);
     });
   }, []);

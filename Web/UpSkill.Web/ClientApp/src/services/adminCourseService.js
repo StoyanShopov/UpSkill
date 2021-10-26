@@ -1,5 +1,7 @@
-const numberCoursesToShow = 6;
+import { getCoachesNames } from "./coachService";
+import { getCategoriesForCourses } from "./categoryService";
 
+const numberCoursesToShow = 6;
 
 const axios = require("axios");
 
@@ -59,7 +61,6 @@ const initialCourses = [
 ];
 
 export const getCourses = async (currentPage) => {
-  //      let res = await request(``, 'Get');
   let arr = [];
   arr.push(
     ...initialCourses.slice(
@@ -69,6 +70,55 @@ export const getCourses = async (currentPage) => {
   );
 
   return initialCourses;
+};
+
+//Get the real data from Db
+export const getCoursesDb = async () => {
+  let returnCourses = [];
+  try {
+    let returnCoaches = [];
+    let returnCourse = {};
+
+    let returnCategories = [];
+
+    getCategoriesForCourses().then((categories) => {
+      categories.forEach((ca) => returnCategories.push(ca));
+    });
+
+    getCoachesNames().then((coaches) =>
+      coaches.forEach((c) => returnCoaches.push(c))
+    );
+
+    console.log(returnCategories);
+    console.log(returnCoaches);
+
+    const resp = await axios.get(API_URL+"/getAll");
+    let respData = resp.data;
+    console.log(respData);
+
+    respData.map((c) => {
+      returnCourse = c;
+      console.log(returnCourse);
+      let currentCoach = returnCoaches.find(
+        (c) => c.value == returnCourse.coachId
+      );
+
+      if (currentCoach) {
+        returnCourse["coachName"] = currentCoach.label;
+      }
+
+      let currentCategory = returnCategories.find(
+        (ca) => ca.value == returnCourse.categoryId
+      );
+
+      if (currentCategory) {
+        returnCourse["categoryName"] = currentCategory.label;
+      }      
+      returnCourses.push(returnCourse);
+    });
+
+    return returnCourses;
+  } catch (error) {}
 };
 
 // export const getCourses = async () => {
@@ -83,48 +133,20 @@ export const getCourses = async (currentPage) => {
 // };
 
 export const addCourses = async (course) => {
-  
   try {
-    // const resp = await axios.post(API_URL + "create", course);
     const resp = await axios.post(API_URL, course);
-    console.log(resp.data);
     return resp;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 };
 
 export const updateCourses = async (course) => {
   try {
-    // const resp = await axios.post(API_URL + "create", course);
-    const resp = await axios.put(API_URL +"?id=" + course.id, course);
-    console.log(resp.data);
-  } catch (err) {
-    console.error(err);
-  }
-
-  //     initialCourses.push({
-  //         course.id,
-  //         title,
-  //         coachFirstName,
-  //         coachLastName,
-  //         description,
-  //         price,
-  //         categoryId,
-  //         imageUrl:'https://i.ibb.co/9Twgqz8/Rectangle-1221.png'
-
-  //     });
-
-  //    initialCourses.forEach(c => console.log(c.title));
+    const resp = await axios.put(API_URL + "?id=" + course.id, course);
+  } catch (err) {}
 };
 
-export const deleteCourses= async(id) => {
-    try {
-        // const resp = await axios.post(API_URL + "create", course);
-        const resp = await axios.delete(API_URL +"?id=" + id);
-        console.log(resp.data);
-      } catch (err) {
-        console.error(err);
-      }    
-    
-}
+export const deleteCourses = async (id) => {
+  try {
+    const resp = await axios.delete(API_URL + "?id=" + id);
+  } catch (err) {}
+};

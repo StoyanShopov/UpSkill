@@ -34,7 +34,7 @@ const customStyles = {
     border: "2px solid #296cfb",
     opacity: "1",
     marginLeft: "0.5rem",
-    marginBottom: "-10px",
+    marginBottom: "1rem",
     marginTop: "-1.5rem",
 
     borderRadius: "5px",
@@ -49,11 +49,10 @@ export default function UpdateCourse({ closeModal }) {
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [coachName, setCoachName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [category, setCategory] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [errors, setErrors] = useState({});
   const [coachId, setCoachId] = useState(0);
   const [categories, setCategories] = useState([]);
@@ -67,7 +66,7 @@ export default function UpdateCourse({ closeModal }) {
       coachName,
       description,
       price,
-      category,
+      categoryName,
     };
     let errorsValidation = {};
     let formIsValid = true;
@@ -90,9 +89,9 @@ export default function UpdateCourse({ closeModal }) {
         "Cannot be empty or less than 5 characters";
     }
 
-    if (!fields["category"]) {
+    if (!fields["categoryName"]) {
       formIsValid = false;
-      errorsValidation["category"] = "Cannot be empty";
+      errorsValidation["categoryName"] = "Cannot be empty";
     }
 
     if (fields["price"] < 0) {
@@ -106,12 +105,12 @@ export default function UpdateCourse({ closeModal }) {
 
   useEffect(() => {
     setId(localStorage.getItem("ID"));
-    setFirstName(localStorage.getItem("FirstName"));
-    setLastName(localStorage.getItem("LastName"));
+    setCoachId(localStorage.getItem("coachId"));
     setPrice(localStorage.getItem("Price"));
     setDescription(localStorage.getItem("Description"));
     setTitle(localStorage.getItem("Title"));
-    setCategory(localStorage.getItem("CategoryId"));
+    setCategoryId(localStorage.getItem("CategoryId"));
+    setCategoryName(localStorage.getItem("CategoryName"));
     setCoachName(localStorage.getItem("FullName"));
   }, []);
 
@@ -129,7 +128,8 @@ export default function UpdateCourse({ closeModal }) {
   };
 
   let onchangeCategory = (el) => {
-    setCategory(el.value);
+    setCategoryName(el.label);
+    setCategoryId(el.value);
   };
 
   let onChangeNameSelect = (el) => {
@@ -146,12 +146,10 @@ export default function UpdateCourse({ closeModal }) {
       let courseReturn = {
         id,
         title,
-        // coachFirstName: firstName,
-        // coachLastName: lastName,
         description,
         price,
         coachId,
-        categoryId: category,
+        categoryId,
         // imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
       };
       console.log(courseReturn);
@@ -208,22 +206,30 @@ export default function UpdateCourse({ closeModal }) {
                 {errors["title"]}
               </p>
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{ marginBottom: "2rem" }}>
               <label htmlFor="coachName"></label>
               <Select
                 styles={customStyles}
                 options={coaches}
                 defaultValue={{
-                  label: "Coach Name",
+                  label: "coachName",
                   value: "",
                 }}
-                // value={{label: String(coachName), value:String(coachName)}}
+                value={{ label: coachName, value: coachId }}
                 onChange={onChangeNameSelect}
               ></Select>
-              <span style={{ color: "red", marginLeft: "15px" }}>
+              <p
+                style={{
+                  color: "red",
+                  marginLeft: "15px",
+                  marginBottom: "-1rem",
+                  marginTop: "-1rem",
+                }}
+              >
                 {errors["coachName"]}
-              </span>
+              </p>
             </div>
+
             <div className="form-group">
               <label htmlFor="description"></label>
               <input
@@ -264,7 +270,7 @@ export default function UpdateCourse({ closeModal }) {
                   label: "Category",
                   value: "",
                 }}
-                // value={{label: String(coachName), value:String(coachName)}}
+                value={{ label: categoryName, value: categoryId }}
                 onChange={onchangeCategory}
               ></Select>
               <span style={{ color: "red", marginLeft: "15px" }}>

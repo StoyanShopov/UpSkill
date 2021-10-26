@@ -55,15 +55,17 @@
 }
 
 .courses-Field {
-  font: normal normal bold 18px/22px Arial;
+  font: normal normal bold 16px/20px Arial;
   display: block;
 }
 
 .coursesfullName {
-  display: block;
+  display: flex;
+  position: relative;
+  text-align: end;
   margin-left: 2rem;
-  font: normal normal 18px/22px Montserrat;
-  letter-spacing: 0.9px;
+  font: normal normal 16px/20px Montserrat;
+  letter-spacing: 0.7px;
 }
 .courses-coachType {
   margin-top: 10px;

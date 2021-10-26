@@ -4,14 +4,7 @@ import GoogleLogo from "../../../../assets/img/courses/Image 2.png";
 
 export default function AdminCoursesCard(props) {
   const {
-    courseDetails: {
-      id,
-      title,
-      coachFirstName,
-      coachLastName,
-      price,
-      description,
-    },
+    courseDetails: { id, title, coachName, price, description },
   } = props;
 
   return (
@@ -28,9 +21,7 @@ export default function AdminCoursesCard(props) {
           <span className="courses-coachPrice">{price}€ per person</span>
         </div>
         <div className="companyAndPriceInfo">
-          <span className="coursesfullName">
-            {coachFirstName} {coachLastName}
-          </span>
+          <span className="coursesfullName">{coachName}</span>
           <h6 className="course-logo">
             <img src={GoogleLogo} alt="logo"></img>
           </h6>

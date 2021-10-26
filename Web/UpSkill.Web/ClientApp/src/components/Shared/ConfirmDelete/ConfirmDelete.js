@@ -1,7 +1,7 @@
 import React from "react";
 import "./ConfirmDelete.css";
 
-function DetailsModal({ deleteItem,closeModal, itemName, id }) {
+function DetailsModal({ deleteItem, closeModal, itemName, id }) {
   return (
     <div className="deleteModal-background">
       <div className="deleteModal-container">
@@ -13,7 +13,10 @@ function DetailsModal({ deleteItem,closeModal, itemName, id }) {
           </div>
           <div className="deleteHeader-els-container">
             <div className="deleteModal-title">
-              <p>Are you sure you want to <br/>delete this {itemName}</p>
+              <p>
+                Are you sure you want to <br />
+                delete this {itemName}
+              </p>
             </div>
           </div>
         </div>
