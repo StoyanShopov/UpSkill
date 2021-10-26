@@ -53,7 +53,7 @@
 
         }
 
-        public async Task EnableCourse(GetOwnerAndCompanyByIdViewModel viewModel)
+        public async Task EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
             var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
 
@@ -67,22 +67,28 @@
             await this.companiesCourses.SaveChangesAsync();
         }
 
-        public async Task DisableCourse(GetOwnerAndCompanyByIdViewModel viewModel)
+        public async Task DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
             var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
 
             var courseToRemove = await this.companiesCourses
                                            .All()
-                                           .Where(c => c.CourseId == viewModel.CourseId)
+                                           .Where(c => c.CourseId == viewModel.CourseId &&
+                                                       c.CompanyId == user.CompanyId)
                                            .FirstOrDefaultAsync();
 
             this.companiesCourses.Delete(courseToRemove);
             await this.companiesCourses.SaveChangesAsync();
         }
 
-        public async Task GetAll(GetOwnerAndCompanyByIdViewModel viewModel)
+        public async Task<IEnumerable<TModel>> GetAll<TModel>()
         {
+            var courses = await this.companiesCourses
+                                    .All()
+                                    .To<TModel>()
+                                    .ToListAsync();
 
+            return courses;
         }
     }
 }

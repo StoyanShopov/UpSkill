@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Contracts.Owner
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using UpSkill.Web.ViewModels.Course;
@@ -9,6 +10,10 @@
     {
         Task RequestCourseAsync(RequestCourseViewModel model);
 
-        Task GetAll(GetOwnerAndCompanyByIdViewModel viewModel);
+        Task EnableCourse(GetOwnerAndCourseByIdViewModel viewModel);
+
+        Task DisableCourse(GetOwnerAndCourseByIdViewModel viewModel);
+
+        Task<IEnumerable<TModel>> GetAll<TModel>();
     }
 }
