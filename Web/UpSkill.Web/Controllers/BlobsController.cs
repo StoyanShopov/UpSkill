@@ -1,11 +1,12 @@
 ﻿namespace UpSkill.Web.Controllers
 {
     using System;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+
     using UpSkill.Services.Contracts.Blob;
 
     using static UpSkill.Common.GlobalConstants.BlobConstants;
@@ -18,33 +19,21 @@
 
         public BlobsController(IBlobService blobService)
         {
-            this.blobService = blobService ?? throw new ArgumentNullException(nameof(blobService));
+            this.blobService = blobService;
         }
 
         [HttpPost(Upload)]
         [DisableRequestSizeLimit]
-        public async Task<IActionResult> UploadAsync()
+        public async Task<IActionResult> UploadAsync(IFormFile file)
         {
-            try
-            {
-                var formCollection = await this.Request.ReadFormAsync();
-                var file = formCollection.Files[0];
+            var result = await this.blobService.UploadAsync(file);
 
-                if (file.Length > 0)
-                {
-                    var fileUrl = await this.blobService.UploadAsync(file.OpenReadStream(), file.ContentType);
-
-                    return this.Ok(new { fileUrl });
-                }
-                else
-                {
-                    return this.BadRequest();
-                }
-            }
-            catch (Exception exception)
+            if (!this.ModelState.IsValid)
             {
-                return this.StatusCode(500, exception);
+                return this.BadRequest();
             }
+
+            return this.StatusCode(201);
         }
 
         [HttpGet(GetAllBlobs)]

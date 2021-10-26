@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Coach
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Coach;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Coach;
 
@@ -17,9 +19,15 @@
     public class CoachesService : ICoachServices
     {
         private readonly IDeletableEntityRepository<Coach> coaches;
+        private readonly IFileService fileService;
 
-        public CoachesService(IDeletableEntityRepository<Coach> coaches)
-            => this.coaches = coaches;
+        public CoachesService(
+            IDeletableEntityRepository<Coach> coaches,
+            IFileService fileService)
+        {
+            this.coaches = coaches;
+            this.fileService = fileService;
+        }
 
         public async Task<Result> CreateAsync(CreateCoachRequestModel model)
         {
@@ -34,10 +42,13 @@
                 return AlreadyExist;
             }
 
+            var file = await this.fileService.CreateAsync(model.File);
+
             var coach = new Coach()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                FileId = file,
             };
 
             await this.coaches.AddAsync(coach);
@@ -71,6 +82,8 @@
                 .All()
                 .FirstOrDefaultAsync(c => c.Id == id);
 
+            var file = await this.fileService.EditAsync(coach.FileId, model.File);
+
             if (coach == null)
             {
                 return DoesNotExist;
@@ -78,11 +91,18 @@
 
             coach.FirstName = model.FirstName;
             coach.LastName = model.LastName;
+            coach.FileId = file;
 
             await this.coaches.SaveChangesAsync();
 
             return true;
         }
+
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+            => await this.coaches
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
             => await this.coaches

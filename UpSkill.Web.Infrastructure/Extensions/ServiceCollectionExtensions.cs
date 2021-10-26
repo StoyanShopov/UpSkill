@@ -29,7 +29,9 @@
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Data.Course;
+    using UpSkill.Services.Data.File;
     using UpSkill.Services.Email;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
@@ -154,6 +156,7 @@
                 .AddTransient<ICoursesService, CoursesService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
+                .AddTransient<IFileService, FileService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
