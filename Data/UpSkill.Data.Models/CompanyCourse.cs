@@ -2,7 +2,7 @@
 {
     using UpSkill.Data.Common.Models;
 
-    public class CompanyCourse : BaseDeletableModel<int>
+    public class CompanyCourse
     {
         public int CompanyId { get; set; }
 

@@ -22,13 +22,13 @@
     public class OwnerCoursesService : IOwnerCoursesService
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IDeletableEntityRepository<CompanyCourse> companiesCourses;
+        private readonly IRepository<CompanyCourse> companiesCourses;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IEmailSender emailSender;
 
         public OwnerCoursesService(
             UserManager<ApplicationUser> userManager,
-            IDeletableEntityRepository<CompanyCourse> companiesCourses,
+            IRepository<CompanyCourse> companiesCourses,
             IDeletableEntityRepository<Company> companies,
             IEmailSender emailSender)
         {
@@ -60,13 +60,14 @@
         public async Task<Result> EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
             var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
-            var coursesInCompany = await this.companiesCourses
+
+            var courseInCompany = await this.companiesCourses
                                              .All()
                                              .Where(c => c.CompanyId == user.CompanyId &&
                                                          c.CourseId == viewModel.CourseId)
-                                             .ToListAsync();
+                                             .FirstOrDefaultAsync();
 
-            if (coursesInCompany == null)
+            if (courseInCompany == null)
             {
                 var companyCourse = new CompanyCourse
                 {
@@ -86,6 +87,7 @@
         public async Task<Result> DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
             var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
+
             var courseToRemove = await this.companiesCourses
                                            .All()
                                            .Where(c => c.CompanyId == user.CompanyId &&

@@ -6,10 +6,11 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using UpSkill.Common;
+
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.ViewModels.Course;
     using UpSkill.Web.ViewModels.Owner;
+
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
