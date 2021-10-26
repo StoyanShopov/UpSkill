@@ -25,7 +25,7 @@ function MyProfile() {
     else if(isAdmin)
         return <div className="container p-5 text-center"><h2>Admin Dashboard here?</h2></div>;
     //     return <Admin />;
-    else return <div className="container p-5 text-center"><h2>Please <Link to="/Login">Login</Link> or <Link to="/Register">Sign Up</Link> first</h2></div>;
+    else return <div className="container p-5 text-center vh-70"><h2 className="py-5">Please <Link to="/Login">Login</Link> or <Link to="/Register">Sign Up</Link> first</h2></div>;
 
 }
 

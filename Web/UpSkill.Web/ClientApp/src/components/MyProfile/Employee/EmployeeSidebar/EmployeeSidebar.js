@@ -6,7 +6,6 @@ import { Image } from 'react-bootstrap';
 
 import './EmployeeSidebar.css';
 
-import companyOwnerBadgePic from '../../../../assets/companyOwnerBadge-Pic.png'; 
 import UserProfilePic from '../../../../assets/userProfilePic.png';;
 
 export default function EmployeeSidebar({ menuItems }) {
