@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.4",
     "bootstrap": "^5.1.1",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-rc.0",
     "react-dom": "^17.0.2",
@@ -24,12 +25,12 @@
     "validator": "^13.6.0",
     "web-vitals": "^1.1.2"
   },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "set CI=false&&react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "set CI=false&&react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

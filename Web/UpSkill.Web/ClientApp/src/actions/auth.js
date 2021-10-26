@@ -1,3 +1,5 @@
+import jwt from 'jwt-decode'
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -50,7 +52,7 @@ export const login = (email, password) => (dispatch) => {
     (data) => {
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { user: data },
+        payload: { user: jwt(data.token) },
       });
 
       return Promise.resolve();
@@ -79,6 +81,7 @@ export const login = (email, password) => (dispatch) => {
 
 export const logout = () => (dispatch) => {
   AuthService.logout();
+
   dispatch({
     type: LOGOUT,
   });
