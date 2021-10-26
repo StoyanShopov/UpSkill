@@ -8,6 +8,7 @@
 
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.ViewModels.Course;
+    using UpSkill.Web.ViewModels.Owner;
 
     using static Common.GlobalConstants;
 
@@ -35,6 +36,15 @@
             }
 
             return this.Ok("👍");
+        }
+
+        [HttpGet]
+        
+        public async Task<IActionResult> ListCourses()
+        {
+            var result = this.coursesService.GetAll()
+
+            return this.Ok();
         }
     }
 }

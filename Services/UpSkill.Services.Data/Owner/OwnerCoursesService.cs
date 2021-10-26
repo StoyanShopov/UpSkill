@@ -21,19 +21,16 @@
     public class OwnerCoursesService : IOwnerCoursesService
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IDeletableEntityRepository<Course> courses;
-        private readonly IDeletableEntityRepository<Company> companies;
+        private readonly IDeletableEntityRepository<CompanyCourse> companiesCourses;
         private readonly IEmailSender emailSender;
 
         public OwnerCoursesService(
             UserManager<ApplicationUser> userManager,
-            IDeletableEntityRepository<Course> courses,
-            IDeletableEntityRepository<Company> companies,
+            IDeletableEntityRepository<CompanyCourse> companiesCourses,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
-            this.courses = courses;
-            this.companies = companies;
+            this.companiesCourses = companiesCourses;
             this.emailSender = emailSender;
         }
 
@@ -56,13 +53,36 @@
 
         }
 
-        public async Task EnableCourse(ChangeCourseAvailabilityViewModel viewModel)
-        { }
-
-        public async Task<IEnumerable<TModel>> GetAll<TModel>(GetAllCoursesViewModel viewModel)
+        public async Task EnableCourse(GetOwnerAndCompanyByIdViewModel viewModel)
         {
-            var owner = await this.userManager.FindByIdAsync(viewModel.OwnerId);
-            var company = this.companies.All().Where(c => c.Id == owner.CompanyId);
+            var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
+
+            var companyCourse = new CompanyCourse
+            {
+                CompanyId = user.CompanyId,
+                CourseId = viewModel.CourseId,
+            };
+
+            await this.companiesCourses.AddAsync(companyCourse);
+            await this.companiesCourses.SaveChangesAsync();
+        }
+
+        public async Task DisableCourse(GetOwnerAndCompanyByIdViewModel viewModel)
+        {
+            var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
+
+            var courseToRemove = await this.companiesCourses
+                                           .All()
+                                           .Where(c => c.CourseId == viewModel.CourseId)
+                                           .FirstOrDefaultAsync();
+
+            this.companiesCourses.Delete(courseToRemove);
+            await this.companiesCourses.SaveChangesAsync();
+        }
+
+        public async Task GetAll(GetOwnerAndCompanyByIdViewModel viewModel)
+        {
+
         }
     }
 }
