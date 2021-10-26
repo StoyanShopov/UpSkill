@@ -19,16 +19,13 @@
     public class CoachesService : ICoachServices
     {
         private readonly IDeletableEntityRepository<Coach> coaches;
-        private readonly IDeletableEntityRepository<File> files;
         private readonly IFileService fileService;
 
         public CoachesService(
             IDeletableEntityRepository<Coach> coaches,
-            IDeletableEntityRepository<File> files,
             IFileService fileService)
         {
             this.coaches = coaches;
-            this.files = files;
             this.fileService = fileService;
         }
 
@@ -47,11 +44,6 @@
 
             var file = await this.fileService.CreateAsync(model.File);
 
-            var fileObj = await this.files
-                .All()
-                .Where(f => f.Id == file)
-                .FirstOrDefaultAsync();
-
             var coach = new Coach()
             {
                 FirstName = model.FirstName,
@@ -60,8 +52,6 @@
             };
 
             await this.coaches.AddAsync(coach);
-
-            fileObj.Coaches.Add(coach);
 
             await this.coaches.SaveChangesAsync();
 
