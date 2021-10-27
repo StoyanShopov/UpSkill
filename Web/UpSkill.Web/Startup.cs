@@ -10,6 +10,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
     using UpSkill.Services.Mapping;
@@ -26,7 +27,6 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services
-
                  .AddDatabase(this.configuration)
                  .AddBlobStorage(this.configuration)
                  .AddIdentity()
