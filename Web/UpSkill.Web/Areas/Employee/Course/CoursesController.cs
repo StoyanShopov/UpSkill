@@ -21,5 +21,10 @@
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoursesListingModel>> GetAll(int companyId)
             => await this.employeeService.GetAllCoursesAsync<CoursesListingModel>(companyId);
+
+        [HttpGet]
+        [Route(DetailsRoute)]
+        public async Task<DetailsViewModel> GetByIdCourse(int companyId, int courseId)
+            => await this.employeeService.GetByIdCourseAsync<DetailsViewModel>(companyId, courseId);
     }
 }

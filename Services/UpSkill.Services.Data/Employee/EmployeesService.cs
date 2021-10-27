@@ -24,5 +24,13 @@
             .Where(c => c.CompanyId == companyId)
             .To<TModel>()
             .ToListAsync();
+
+        public async Task<TModel> GetByIdCourseAsync<TModel>(int companyId, int courseId)
+            => await this.companyCourses
+            .AllAsNoTracking()
+            .Where(c => c.CompanyId == companyId
+            && c.CourseId == courseId)
+            .To<TModel>()
+            .FirstOrDefaultAsync();
     }
 }

@@ -6,5 +6,7 @@
     public interface IEmployeeService
     {
         Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(int companyId);
+
+        Task<TModel> GetByIdCourseAsync<TModel>(int companyId, int courseId);
     }
 }

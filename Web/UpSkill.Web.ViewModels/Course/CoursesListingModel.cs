@@ -17,6 +17,8 @@
 
         public int CourseCoachId { get; set; }
 
+        public string CourseFileFilePath { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<CompanyCourse, CoursesListingModel>()
