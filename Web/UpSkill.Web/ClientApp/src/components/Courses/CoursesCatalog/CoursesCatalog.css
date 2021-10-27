@@ -1,5 +1,5 @@
 .coaches-list{
-  column-count: 3;
+  column-count: 2; 
   display: flex;
   justify-content: space-between;
   margin-top: 4rem;

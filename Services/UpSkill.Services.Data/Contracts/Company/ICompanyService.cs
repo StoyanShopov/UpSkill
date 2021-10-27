@@ -17,6 +17,8 @@
 
         Task<TModel> GetByIdAsync<TModel>(int id);
 
+        Task<TModel> DetailsAsync<TModel>(int id);
+
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 
         Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id);

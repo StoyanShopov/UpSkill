@@ -1,0 +1,142 @@
+.noti-container{
+    pointer-events: none; 
+    display:flex;
+    z-index:1;
+    flex-direction:column;
+    padding:0;
+    margin:0;
+    overflow:hidden;
+    position: absolute;
+    width: 80rem;
+  }
+
+  .close-btn{
+      background-color:red;
+      border:2px solid green;
+      color:white;
+  }
+
+    .noti-wrapper{
+      pointer-events: auto; 
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+  .notification{
+    border-radius:1em;
+    margin:3px;
+    text-align:center;
+    font-family: "Helvetica";
+    position:relative;
+    height:40px;
+    overflow:hidden;
+    padding: 18px;
+  }
+
+  .notification p{
+    font-size: 21px;
+    position: absolute;
+    top: 9px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .success{
+    background: rgba(23,154,23, 0.705);
+    color: white;
+    
+  }
+
+  .error{
+    background: rgba(255, 0, 0, 0.705);
+    color: white;
+    
+  }
+
+  .close-btn{
+    position:absolute;
+    top:2px;
+    right: 2px;
+    font-size:12pt;
+    padding: 5px;
+    text-align:center;
+  }
+
+  .close-btn:hover{
+    cursor: pointer;
+    font-size: 14px;
+  }
+ 
+  .opened{
+    animation-name:open-noti;
+    animation-duration:0.4s;
+    animation-fill-mode:forwards;
+    height:5rem;
+  }
+
+  .none{
+    display: none;
+  }
+
+  .closed{
+    animation-name:close-noti;
+    animation-duration:1.4s;
+    animation-fill-mode:backwards;
+    height: 0!important;
+    padding: 0!important;
+  }
+
+
+  .page-content{
+    display:flex;
+    justify-content:center;
+    color:ghostwhite;
+    font-family:"Segoe UI";
+    width:100%;
+    height:100%;
+    padding:15px;
+    word-wrap: break-word;
+  }
+
+  /*Animations*/
+@keyframes open-noti{
+    
+    0%{
+      opacity:0;
+      display:none;
+      width:0;
+      height:0;
+    }
+
+    100%{
+      opacity:1;
+      display:block;
+      height:40px;
+    }
+}  
+   
+@keyframes close-noti{
+    0%{
+      opacity:1;
+      height:40px;
+    }
+
+    100%{
+      opacity:0;
+      display:none;
+      width:0;
+      height:0;
+    }
+}
+
+@media (max-width: 1400px) {
+    .noti-container{
+      width: 85%;
+    }
+  }
+
+@media (max-width: 550px) {
+    .noti-container{
+      width: 92%;
+    }
+  }
