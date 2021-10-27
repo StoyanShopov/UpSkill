@@ -79,20 +79,20 @@ export default function AdminCourses() {
   return (
     <div>
       <div className="container">
+        <div className="create-button-wrapper">
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={() => {
+              setOpenCreateCourse(true);
+            }}
+          >
+            Add
+          </button>
+        </div>
         <div className="row list-unstyled courses-list">
-          <div className="create-button-wrapper">
-            <button
-              className="btn btn-primary"
-              type="button"
-              onClick={() => {
-                setOpenCreateCourse(true);
-              }}
-            >
-              Add
-            </button>
-          </div>
           {courses.map((course) => (
-            <div className="col text-align-center">
+            <div className="col-6 text-align-center ">
               <AdminCoursesCard
                 key={course.id}
                 id={course.id}

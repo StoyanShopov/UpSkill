@@ -5,8 +5,8 @@
   box-shadow: 0px 3px 10px #00000029;
   opacity: 1;
   background-color: #ffffff 0% 0% no-repeat padding-box;
-  width: 22rem;
-  height: 21rem;
+  width: 23rem;
+  height: 22rem;
   /* text-align: center; */
   align-items: center;
   display: flex;
@@ -15,8 +15,9 @@
 
 .courses-image-wrapper {
   width: 100%;
-  background: transparent url("../../../../assets/img/courses/Marketing.png")
-    100% 100% no-repeat padding-box;
+  background: transparent
+    url("../../../../assets/img/courses/Rectangle 1221.png") 100% 100% no-repeat
+    padding-box;
   background-size: cover;
   display: flex;
   font: normal normal medium 22px/30px Montserrat;
@@ -55,7 +56,7 @@
 }
 
 .courses-Field {
-  font: normal normal bold 16px/20px Arial;
+  font: normal normal bold 18px/22px Arial;
   display: block;
 }
 
@@ -64,7 +65,7 @@
   position: relative;
   text-align: end;
   margin-left: 2rem;
-  font: normal normal 16px/20px Montserrat;
+  font: normal normal 18px/22px Montserrat;
   letter-spacing: 0.7px;
 }
 .courses-coachType {
@@ -85,4 +86,16 @@
   display: block;
   justify-content: left;
   align-items: flex-start;
+}
+
+.courses-image-title {
+  /* text-transform: uppercase;
+  font-size: xx-large;
+  color: white; 
+  text-shadow: 0 0 2px black; */
+  text-align: right;
+  font: normal normal 800 3rem/10rem Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
 }

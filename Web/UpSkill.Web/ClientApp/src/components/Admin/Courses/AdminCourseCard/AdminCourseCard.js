@@ -4,7 +4,7 @@ import GoogleLogo from "../../../../assets/img/courses/Image 2.png";
 
 export default function AdminCoursesCard(props) {
   const {
-    courseDetails: { id, title, coachName, price, description },
+    courseDetails: { id, title, coachName, price, categoryName },
   } = props;
 
   return (
@@ -14,8 +14,12 @@ export default function AdminCoursesCard(props) {
         onClick={() => {
           props.getClickedValue(props.courseDetails);
         }}
-      ></div>
-      <div className="courses-content d-flex justify-content-between w-85 pt-3">
+      >
+        <span className="courses-image-title">
+          <b>{categoryName}</b>
+        </span>
+      </div>
+      <div className="courses-content d-flex justify-content-between w-75 pt-3">
         <div className="courseInfo">
           <span className="courses-Field">{title}</span>
           <span className="courses-coachPrice">{price}€ per person</span>

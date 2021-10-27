@@ -50,7 +50,7 @@ const initialCourses = [
     categoryId: 1,
     coachId: 2,
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
-    categoryName: "Marketing",
+    categoryName: "Design",
   },
   {
     id: "324324",
@@ -60,9 +60,10 @@ const initialCourses = [
     description: "You will aquire basic management knowledge...",
     price: 80,
     categoryId: 1,
-    categoryName: "Marketing",
+    categoryName: "Art",
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
   },
+ 
 ];
 
 export const getCourses = async (currentPage) => {
