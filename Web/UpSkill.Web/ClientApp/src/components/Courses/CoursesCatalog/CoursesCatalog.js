@@ -1,12 +1,41 @@
-import { useState, useEffect } from 'react';
-import CoursesCard from './CoursesCard/CoursesCard';
+import { useState, useEffect } from "react";
+import CoursesCard from "./CoursesCard/CoursesCard";
+import { getCourseDetails } from "../../../services/courseService";
+import DetailsModal from "./CourseDetails/DetailsModal";
 
-import './CoursesCatalog.css';
+import "./CoursesCatalog.css";
 
-import { getCourses } from '../../../services/courseService';
+import { getCourses } from "../../../services/courseService";
 
 export default function CoursesCatalog() {
   const [courses, setCourses] = useState([]);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [courseId, setCourseId] = useState("");
+  const [courseDetails, setCourseDetails] = useState({});
+
+  const setData = (data) => {
+    let {
+      id,      
+      coachName,
+      courseName
+    } = data;
+    localStorage.setItem("ID", id);
+    localStorage.setItem("FullName", coachName);
+    // localStorage.setItem("CategoryName", categoryName);
+    localStorage.setItem("Title", courseName);
+    // localStorage.setItem("CategoryId", categoryId);
+    // localStorage.setItem("CoachId", coachId);
+    // localStorage.setItem("Price", price);
+    localStorage.setItem("Description", "Some desc");
+  };
+
+  const getValue = (course) => {
+    setData(course);
+  };
+
+  const setDetails = () => {
+    getCourseDetails(11).then((course) => setCourseDetails(course));
+  };
 
   useEffect(() => {
     getCourses(0).then((courses) => {
@@ -22,14 +51,24 @@ export default function CoursesCatalog() {
             <div className="col-sm-4 text-align-center" key={course.id}>
               <CoursesCard
                 key={course.id}
+                id={course.id}
                 courseName={course.courseName}
                 coachName={course.coachName}
                 imageName={course.imageName}
+                isDetailsOpen={setIsDetailsOpen}
+                getDetails={getValue}
               ></CoursesCard>
             </div>
           ))}
         </div>
       </div>
+      {isDetailsOpen && setDetails()}
+      {isDetailsOpen && (
+        <DetailsModal
+          courseDetails={courseDetails}
+          closeModal={setIsDetailsOpen}
+        ></DetailsModal>
+      )}
     </>
   );
 }

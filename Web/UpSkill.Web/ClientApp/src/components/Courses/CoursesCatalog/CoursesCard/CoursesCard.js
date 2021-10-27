@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import './CoursesCard.css';
 
 function CoursesCard(props) {
-  const { courseName, coachName, imageName } = props;
+  const { id,courseName, coachName, imageName, isDetailsOpen, getDetails } = props;
 
   const [Image, setImage] = useState();
 
@@ -20,7 +20,10 @@ function CoursesCard(props) {
 
   return (
     <div className="cardContainer">
-      <div className="background">
+      <div className="background" onClick = {() => {
+        isDetailsOpen(true);
+        getDetails({id, courseName, coachName});
+      }}>
         <img src={Image} alt="courses" />
       </div>
       <div className="cardText">
