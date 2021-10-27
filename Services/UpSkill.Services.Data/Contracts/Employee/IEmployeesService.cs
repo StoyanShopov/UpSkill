@@ -11,5 +11,7 @@
         Task<Result> CreateAsync(CreateEmployeeViewModel model);
 
         Task<List<TModel>> GetAllAsync<TModel>();
+        
+        Task<Result> DeleteAsync(string id);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace UpSkill.Services.Data.Employee
+﻿using SendGrid.Helpers.Errors.Model;
+
+namespace UpSkill.Services.Data.Employee
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +19,7 @@
     using UpSkill.Web.ViewModels.Employee;
 
     using static Common.GlobalConstants.EmployeeConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class EmployeesService : IEmployeesService
     {
@@ -46,10 +49,15 @@
                 return EmailExists;
             }
 
-            var employeeFullName = model.FullName.Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
+            var employeeFullName = model.FullName.Split(" ", 2, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             var employeeFirstName = employeeFullName[0];
             var employeeLastName = employeeFullName[1];
+
+            if (string.IsNullOrEmpty(employeeFirstName) || string.IsNullOrEmpty(employeeLastName))
+            {
+                return WrongEmployeeNamePattern;
+            }
 
             var manager = this.GetCompanyOwner(this.claims).Result;
 
@@ -68,14 +76,34 @@
             return true;
         }
 
+        public async Task<Result> DeleteAsync(string id)
+        {
+            var employee = await this.users
+                .All()
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (employee == null)
+            {
+                return DoesNotExist;
+            }
+
+            this.users.Delete(employee);
+            await this.users.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<List<TModel>> GetAllAsync<TModel>()
         {
             var owner = this.GetCompanyOwner(this.claims).Result;
 
             var result = await this.users
                   .AllAsNoTracking()
-                  .Where(e => e.ManagerId == owner.Id &&
-                              e.CompanyId == owner.CompanyId) // if the company owner has more than one compnay will they have more than one account
+                  .Where(e =>
+                      e.PositionId != 4 &&
+                      e.PositionId != 5 &&
+                      e.CompanyId == owner.CompanyId)
                   .To<TModel>()
                   .ToListAsync();
 
