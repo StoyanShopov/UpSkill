@@ -22,7 +22,6 @@
             => await this.companyCourses
             .AllAsNoTracking()
             .Where(c => c.CompanyId == companyId)
-            .Include(c => c.Company.Courses)
             .To<TModel>()
             .ToListAsync();
     }

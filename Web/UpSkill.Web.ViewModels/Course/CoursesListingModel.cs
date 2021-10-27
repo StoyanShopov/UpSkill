@@ -1,18 +1,28 @@
 ﻿namespace UpSkill.Web.ViewModels.Course
 {
+    using AutoMapper;
+
     using UpSkill.Data.Models;
     using UpSkill.Services.Mapping;
 
-    public class CoursesListingModel : IMapFrom<Course>
+    public class CoursesListingModel : IMapFrom<Course>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
-        public string Title { get; set; }
+        public string CourseTitle { get; set; }
 
-        public int CategoryId { get; set; }
+        public int CourseCategoryId { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal CoursePrice { get; set; }
 
-        public int CoachId { get; set; }
+        public int CourseCoachId { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<CompanyCourse, CoursesListingModel>()
+                .ForMember(
+                c => c.Id,
+                c => c.MapFrom(c => c.CourseId));
+        }
     }
 }
