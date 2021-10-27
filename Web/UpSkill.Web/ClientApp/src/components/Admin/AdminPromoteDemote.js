@@ -1,18 +1,21 @@
 import axios from "axios";
+
 import React, { useState, setState, useEffect } from "react";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './adminPromoteDemote.css';
+import serviceActions from '../../services/adminPromoteDemoteService'
 
 export default function PromoteDemote() {
 
     const [user, setUser] = useState({});
+    const [data, setData] = useState({});
     const [email, setEmail] = useState("");
     const [roles, setRoles] = useState([]);
     const [flag, setFlag] = useState(false);
 
     const getUser = async (e) => {
-        const { data } = await axios.get(`https://localhost:44319/Admin/Admin?email=${email}`);
+        const { data } = await serviceActions.getUserAsync(email);
         const user = data;
 
         setUser(user);
@@ -21,22 +24,24 @@ export default function PromoteDemote() {
     }
 
     const promoteUser = async (e) => {
-        await axios.put(`https://localhost:44319/Admin/Admin/promote?email=${user.email}`)
-            .then(() => {
-                getUser()
-            });
+        await serviceActions.promoteAsync(email);
     }
 
     const demoteUser = async (e) => {
-        await axios.put(`https://localhost:44319/Admin/Admin/demote?email=${user.email}`)
-            .then(() => {
-                getUser()
-            });
+        await serviceActions.demoteAsync(email);
     }
+
     const handleInput = (event) => {
+        event.preventDefault();
         const email = event.target.value;
         setEmail(email);
     }
+
+    useEffect((user) => {
+        serviceActions.getUserAsync().then((data) => {
+            setUser(data);
+        });
+    }, [user]);
 
     return (
         <>
@@ -48,11 +53,11 @@ export default function PromoteDemote() {
                     onChange={handleInput}
                     value={email}
                 />
-                <button class='btn btn-primary btn-space' onClick={getUser}>Search</button>
+                <button className='btn btn-primary btn-space' onClick={getUser}>Search</button>
             </div>
             <br />
             {flag ?
-                <table class="table table-bordered table-default table-hover">
+                <table className="table table-bordered table-default table-hover">
                     <thead >
                         <tr>
                             <th scope="col">Email</th>
@@ -63,9 +68,9 @@ export default function PromoteDemote() {
                     </thead>
                     <tbody  >
                         <tr>
-                            <td class='rows'>{user.email}</td>
-                            <td class='rows'>{user.fullName}</td>
-                            <td class='rows'>{roles.map((r) => <p key={user.email}>{r}</p>)}</td>
+                            <td className='rows'>{user.email}</td>
+                            <td className='rows'>{user.fullName}</td>
+                            <td className='rows'>{user.role.map((r) => <p key={user.email}>{r}</p>)}</td>
                             <td>
                                 <div >
                                     <button className='btn btn-primary' onClick={promoteUser}>Promote</button>
