@@ -27,6 +27,7 @@ export const updateCompanyHandler = async (company) => {
 //Delete
 export const removeCompanyHandler = async (id) => {
   return await axios.delete(`https://localhost:44319/Admin/Companies/delete?id=${id}`);
+};
 
 const initialCompanies = [
   {
