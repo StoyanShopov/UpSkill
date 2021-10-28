@@ -7,10 +7,12 @@ import "./CoursesCatalog.css";
 
 import { getCourses } from "../../../services/courseService";
 
+const descriptionMock="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. "
+
 export default function CoursesCatalog() {
   const [courses, setCourses] = useState([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-  const [courseId, setCourseId] = useState("");
+  // const [courseId, setCourseId] = useState("");
   const [courseDetails, setCourseDetails] = useState({});
 
   const setData = (data) => {
@@ -26,7 +28,7 @@ export default function CoursesCatalog() {
     // localStorage.setItem("CategoryId", categoryId);
     // localStorage.setItem("CoachId", coachId);
     // localStorage.setItem("Price", price);
-    localStorage.setItem("Description", "Some desc");
+    localStorage.setItem("Description", descriptionMock);
   };
 
   const getValue = (course) => {
@@ -38,7 +40,7 @@ export default function CoursesCatalog() {
   };
 
   useEffect(() => {
-    getCourses(0).then((courses) => {
+    getCourses(1).then((courses) => {
       setCourses(courses);
     });
   }, []);
@@ -67,7 +69,7 @@ export default function CoursesCatalog() {
         <DetailsModal
           courseDetails={courseDetails}
           closeModal={setIsDetailsOpen}
-        ></DetailsModal>
+        ><button className="btn btn-primary">Enroll</button></DetailsModal>
       )}
     </>
   );

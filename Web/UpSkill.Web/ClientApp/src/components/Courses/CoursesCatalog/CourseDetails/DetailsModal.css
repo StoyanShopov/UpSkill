@@ -11,10 +11,10 @@
   padding-top: 5rem;
 }
 
-.detailsModal-container {
-  width: 50rem;
-  height: 70rem;
-  border-radius: 12px;
+.detailsModal-courses-container {
+  width: 60rem;
+  height: 40rem;  
+  font-size: 1.1rem;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
@@ -22,13 +22,13 @@
   /* padding: 25px; */
 }
 
-.detailsModal-img-coach {
+.detailsModal-courses-img-coach {
   width: 5rem;
   height: 5rem;
-  margin-left: 1.5rem;
+  margin-left: 1rem;   
 }
 
-.detailsModal-header {
+.detailsModal-courses-header {
   width: 100%;
   height: 15rem;
   background: #296cfb 0% 0% no-repeat padding-box;
@@ -40,9 +40,15 @@
   padding: 1rem;
 }
 
-.detailsModal-coach-name-wrapper {
+.header-courses-els-container{
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.detailsModal-courses-coach-name-wrapper {
   width: auto;
   height: 5rem;
+  margin-left: -2rem;
 }
 
 .the-x-btn {
@@ -53,27 +59,27 @@
   cursor: pointer;
 }
 
-.detailsModal-title {
+.detailsModal-courses-title {
   display: flex;
   text-align: start;
   /* align-items: center;
   justify-content: center; */
   width: 15rem;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
-.detailsModal-image-course-wrapper {
-  margin-top: 4%;
-  position: fixed;
-  margin-left: 30%;
-  width: 23%;
-  height: 60%;
+.detailsModal-courses-image-course-wrapper {
+  margin-top: -30rem;  
+  position: relative;
+  margin-left: 55%;
+  width: 40%;
+  height: 130%;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 10px #00000029;
   opacity: 1;
 }
 
-.detailsModal-description {
+.detailsModal-courses-description {
   height: 60%;
   width: 50%;   
 }
@@ -84,7 +90,7 @@
 }
 .ratings i {
   color: #cecece;
-  font-size: 18px;
+  font-size: 1.1rem;
 }
 
 .rating-color {
@@ -96,23 +102,25 @@
   display: flex;
   justify-content: center;
 }
-.detailsModal-body {
+.detailsModal-courses-body {
   padding: 2rem;
+  margin-left: 1rem;
   width: 100%;
   height: 30rem;
 }
 
-.detailsModel-image-course {
+.detailsModel-courses-image-course {
   width: 100%;
-  height: 50%;
-  background: url("../../../../assets/img/courses/Rectangle\ 1221.png") 0% 0%
-    no-repeat padding-box;
+  height: 40%;
+  background: url("../../../../assets/img/courses/Rectangle\ 1221.png") 100% 100%
+    no-repeat padding-box;  
+    background-size: cover;  
   opacity: 1;
 }
 
-.detailsModel-img-course-body {
-  padding: 25px;
-  height: 35%;
+.detailsModel-courses-img-course-body {
+  padding: 1.5rem;
+  height: 40%;
 }
 
 .titleCloseBtn {
