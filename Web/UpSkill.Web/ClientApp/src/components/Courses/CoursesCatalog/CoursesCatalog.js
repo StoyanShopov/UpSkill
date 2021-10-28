@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import CoursesCard from './CoursesCard/CoursesCard';
+import CourseCard from './CourseCard/CourseCard';
 
 import './CoursesCatalog.css';
 
@@ -16,16 +16,32 @@ export default function CoursesCatalog() {
 
   return (
     <>
+      {/* <div className="container"> 
+            <div className="row list-unstyled courses-list"> 
+                    {courses.map((course) => ( 
+                        <div className="col-sm-5 text-align-center" key={course.id}>      
+                        <CourseCard
+                            key={course.id} 
+                            coursesDetails={course}
+                        >
+                            <Button className="courses-cardButton">Compete</Button>
+                        </CourseCard>
+                        </div>
+                    ))}
+            </div> 
+        </div> */}
+
       <div className="container">
-        <div className="row list-unstyled coaches-list">
+        <div className="row list coaches-list" >
           {courses.map((course) => (
-            <div className="col-sm-4 text-align-center" key={course.id}>
-              <CoursesCard
+            <div className="col-sm-4 text-align-center" style={{ marginLeft: 1 }}
+               key={course.id}>
+              <CourseCard 
                 key={course.id}
                 courseName={course.courseName}
                 coachName={course.coachName}
                 imageName={course.imageName}
-              ></CoursesCard>
+              ></CourseCard>
             </div>
           ))}
         </div>
