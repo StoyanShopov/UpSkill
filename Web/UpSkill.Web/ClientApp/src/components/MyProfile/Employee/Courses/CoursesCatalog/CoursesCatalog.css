@@ -2,7 +2,7 @@
     column-count: 2;
     display: flex;
     justify-content: space-between; 
-    margin-top: 8rem;
+    margin-top: -8rem;
     --bs-gutter-x: -3rem;
     padding-left: 110px;
 }

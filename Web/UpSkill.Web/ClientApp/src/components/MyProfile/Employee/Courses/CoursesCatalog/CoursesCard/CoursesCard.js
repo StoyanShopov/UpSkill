@@ -12,9 +12,9 @@ export default function CoursesCard(props) {
 
     return (  
         <div className="coursesCard"> 
-            <div className="courses-image-wrapper"> 
-                <img src={courseFileFilePath} className="courses-image" alt=""></img>    
-                <h2 className="title-position-on-image">{courseTitle}</h2>
+            <div className="courses-file-wrapper">
+                <img src={courseFileFilePath} className="courses-file" alt=""></img>    
+                <h2 className="title-position-on-file">{courseTitle}</h2>
             </div>
             <div className="courses-content w-75">
                 <div className="coursesInfo d-flex justify-content-between mt-3"> 
