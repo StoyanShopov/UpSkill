@@ -7,6 +7,7 @@
 
     [Authorize(Roles = CompanyOwnerRoleName)]
     [ApiController]
+    [AllowAnonymous]
     [Area(CompanyOwnerRoleName)]
     [Route("Owner/[controller]")]
     public class OwnerBaseController : ControllerBase

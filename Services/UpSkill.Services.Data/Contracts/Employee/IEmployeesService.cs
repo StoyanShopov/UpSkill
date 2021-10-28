@@ -4,14 +4,15 @@
     using System.Threading.Tasks;
 
     using UpSkill.Common;
+    using UpSkill.Data.Models;
     using UpSkill.Web.ViewModels.Employee;
 
     public interface IEmployeesService
     {
-        Task<Result> CreateAsync(CreateEmployeeViewModel model);
+        //Task<Result> CreateAsync(CreateEmployeeViewModel model);
 
-        Task<List<TModel>> GetAllAsync<TModel>();
-        
-        Task<Result> DeleteAsync(string id);
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string email);
+
+        //Task<Result> DeleteAsync(string id);
     }
 }

@@ -19,95 +19,103 @@ namespace UpSkill.Services.Data.Employee
     using UpSkill.Web.ViewModels.Employee;
 
     using static Common.GlobalConstants.EmployeeConstants;
+
     using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class EmployeesService : IEmployeesService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> users;
+        private readonly IDeletableEntityRepository<Company> companies;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly ClaimsPrincipal claims;
+        //private readonly ClaimsPrincipal claims;
 
         public EmployeesService(
             IDeletableEntityRepository<ApplicationUser> users,
-            UserManager<ApplicationUser> userManager,
-            ClaimsPrincipal claims)
+            IDeletableEntityRepository<Company> companies,
+            UserManager<ApplicationUser> userManager
+            //ClaimsPrincipal claims)
+            )
         {
             this.users = users;
+            this.companies = companies;
             this.userManager = userManager;
-            this.claims = claims;
+            //this.claims = claims;
         }
 
-        public async Task<Result> CreateAsync(CreateEmployeeViewModel model)
-        {
-            var employee = await this.users
-                         .All()
-                         .Where(e => e.Email == model.Email)
-                         .FirstOrDefaultAsync();
+        //public async Task<Result> CreateAsync(CreateEmployeeViewModel model)
+        //{
+        //    var employee = await this.users
+        //                 .All()
+        //                 .Where(e => e.Email == model.Email)
+        //                 .FirstOrDefaultAsync();
 
-            if (employee != null)
+        //    if (employee != null)
+        //    {
+        //        return EmailExists;
+        //    }
+
+        //    var employeeFullName = model.FullName.Split(" ", 2, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        //    var employeeFirstName = employeeFullName[0];
+        //    var employeeLastName = employeeFullName[1];
+
+        //    if (string.IsNullOrEmpty(employeeFirstName) || string.IsNullOrEmpty(employeeLastName))
+        //    {
+        //        return WrongEmployeeNamePattern;
+        //    }
+
+        //    var manager = this.GetCompanyOwner(this.claims).Result;
+
+        //    var newEmployee = new ApplicationUser()
+        //    {
+        //        FirstName = employeeFirstName,
+        //        LastName = employeeLastName,
+        //        Email = model.Email,
+        //        CompanyId = manager.CompanyId,
+        //        ManagerId = manager.Id,
+        //    };
+
+        //    await this.users.AddAsync(newEmployee);
+        //    await this.users.SaveChangesAsync();
+
+        //    return true;
+        //}
+
+        //public async Task<Result> DeleteAsync(string id)
+        //{
+        //    var employee = await this.users
+        //        .All()
+        //        .Where(c => c.Id == id)
+        //        .FirstOrDefaultAsync();
+
+        //    if (employee == null)
+        //    {
+        //        return DoesNotExist;
+        //    }
+
+        //    this.users.Delete(employee);
+        //    await this.users.SaveChangesAsync();
+
+        //    return true;
+        //}
+
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string email)
+        {
+            var user = await this.userManager.FindByEmailAsync(email);
+            var roles = await this.userManager.GetRolesAsync(user);
+
+            if (user == null || !roles.Contains("Owner"))
             {
-                return EmailExists;
+                return null;
             }
 
-            var employeeFullName = model.FullName.Split(" ", 2, StringSplitOptions.RemoveEmptyEntries).ToList();
-
-            var employeeFirstName = employeeFullName[0];
-            var employeeLastName = employeeFullName[1];
-
-            if (string.IsNullOrEmpty(employeeFirstName) || string.IsNullOrEmpty(employeeLastName))
-            {
-                return WrongEmployeeNamePattern;
-            }
-
-            var manager = this.GetCompanyOwner(this.claims).Result;
-
-            var newEmployee = new ApplicationUser()
-            {
-                FirstName = employeeFirstName,
-                LastName = employeeLastName,
-                Email = model.Email,
-                CompanyId = manager.CompanyId,
-                ManagerId = manager.Id,
-            };
-
-            await this.users.AddAsync(newEmployee);
-            await this.users.SaveChangesAsync();
-
-            return true;
-        }
-
-        public async Task<Result> DeleteAsync(string id)
-        {
-            var employee = await this.users
-                .All()
-                .Where(c => c.Id == id)
-                .FirstOrDefaultAsync();
-
-            if (employee == null)
-            {
-                return DoesNotExist;
-            }
-
-            this.users.Delete(employee);
-            await this.users.SaveChangesAsync();
-
-            return true;
-        }
-
-        public async Task<List<TModel>> GetAllAsync<TModel>()
-        {
-            var owner = this.GetCompanyOwner(this.claims).Result;
-
-            var result = await this.users
-                  .AllAsNoTracking()
-                  .Where(e =>
-                      e.PositionId != 4 &&
-                      e.PositionId != 5 &&
-                      e.CompanyId == owner.CompanyId)
-                  .To<TModel>()
-                  .ToListAsync();
-
-            return result;
+            return await this.companies
+                             .All()
+                             .Where(x => x.Id == user.CompanyId)
+                             .SelectMany(x => x.Users)
+                             .Where(u => u.Email != email)
+                             .To<TModel>()
+                             .ToListAsync();
         }
 
         private async Task<ApplicationUser> GetCompanyOwner(ClaimsPrincipal claims)

@@ -25,34 +25,34 @@ namespace UpSkill.Web.Areas.Owner.Employee
 
         [HttpGet]
         [Route(GetAllRoute)]
-        public async Task<IEnumerable<EmployeesDetailsViewModel>> GetAll()
-            => await this.employeesService.GetAllAsync<EmployeesDetailsViewModel>();
+        public async Task<IEnumerable<ListEmployeesViewModel>> GetAll(string email)
+            => await this.employeesService.GetAllAsync<ListEmployeesViewModel>(email);
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromForm]CreateEmployeeViewModel model)
-        {
-            var result = await this.employeesService.CreateAsync(model);
+        //[HttpPost]
+        //public async Task<IActionResult> Create([FromForm] CreateEmployeeViewModel model)
+        //{
+        //    var result = await this.employeesService.CreateAsync(model);
 
-            if (result.Failure)
-            {
-                return this.BadRequest(result.Error);
-            }
+        //    if (result.Failure)
+        //    {
+        //        return this.BadRequest(result.Error);
+        //    }
 
-            return this.Ok(SuccessMessage);
-        }
+        //    return this.Ok(SuccessMessage);
+        //}
 
-        [HttpDelete]
-        [Route(DeleteRoute)]
-        public async Task<IActionResult> DeleteAsync(string id)
-        {
-            var result = await this.employeesService.DeleteAsync(id);
+        //[HttpDelete]
+        //[Route(DeleteRoute)]
+        //public async Task<IActionResult> DeleteAsync(string id)
+        //{
+        //    var result = await this.employeesService.DeleteAsync(id);
 
-            if (result.Failure)
-            {
-                return this.BadRequest(result.Error);
-            }
+        //    if (result.Failure)
+        //    {
+        //        return this.BadRequest(result.Error);
+        //    }
 
-            return this.Ok(EmployeeSuccesfullyDeleted);
-        }
+        //    return this.Ok(EmployeeSuccesfullyDeleted);
+        //}
     }
 }
