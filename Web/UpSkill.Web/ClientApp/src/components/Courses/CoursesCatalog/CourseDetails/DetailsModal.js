@@ -11,7 +11,6 @@ function DetailsModal({ closeModal, courseDetails }) {
   const [category, setCategory] = useState("");
   const [course, setCourse] = useState("");
 
-
   useEffect(() => {
     // setPrice(localStorage.getItem("Price"));
     setDescription(localStorage.getItem("Description"));
@@ -20,7 +19,6 @@ function DetailsModal({ closeModal, courseDetails }) {
     setCoachName(localStorage.getItem("FullName"));
 
     setCourse(courseDetails);
-
   }, []);
 
   return (
@@ -55,8 +53,28 @@ function DetailsModal({ closeModal, courseDetails }) {
           </div>
         </div>
         <div className="detailsModal-body">
-          <h2>Course Description</h2>
-          <p>{description}</p>
+          <h3>Course Description</h3>
+          <div className="row detailsModal-description">
+            <p>{description}</p>
+          </div>
+          <div className="row detailsModal-rating">
+            <p>
+              <b>Course rating</b>
+            </p>
+            <div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span> 4.5</span>
+                <div class="ratings">
+                  <i class="fa fa-star rating-color"></i>
+                  <i class="fa fa-star rating-color"></i>
+                  <i class="fa fa-star rating-color"></i>
+                  <i class="fa fa-star rating-color"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+                <span class="review-count">12 Reviews</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="detailsModal-image-course-wrapper">
           <div className="detailsModel-image-course"></div>
@@ -65,8 +83,11 @@ function DetailsModal({ closeModal, courseDetails }) {
             <p>
               - Learn more information about Digital Marketing - Improve your
               time management - Solve problems
-            </p>
-          </div>
+            </p>                   
+          </div> 
+          <div className="modal-enroll-btn">
+            <button className="btn btn-primary">Enroll</button>
+            </div>            
         </div>
       </div>
     </div>

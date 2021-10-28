@@ -12,8 +12,8 @@
 }
 
 .detailsModal-container {
-  width: 60%;
-  height: 90%;
+  width: 50rem;
+  height: 70rem;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -73,6 +73,29 @@
   opacity: 1;
 }
 
+.detailsModal-description {
+  height: 60%;
+  width: 50%;   
+}
+
+.detailsModal-rating{
+  width: 15rem; 
+  
+}
+.ratings i {
+  color: #cecece;
+  font-size: 18px;
+}
+
+.rating-color {
+  color: #fbc634 !important
+}
+
+.modal-enroll-btn{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .detailsModal-body {
   padding: 2rem;
   width: 100%;
@@ -89,6 +112,7 @@
 
 .detailsModel-img-course-body {
   padding: 25px;
+  height: 35%;
 }
 
 .titleCloseBtn {
