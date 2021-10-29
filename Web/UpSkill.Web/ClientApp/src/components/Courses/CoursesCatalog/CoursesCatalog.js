@@ -14,36 +14,33 @@ export default function CoursesCatalog() {
     });
   }, []);
 
+  const defineCoursesCount = () => {
+      let coursesCount = courses.length % 3;
+
+      if (coursesCount !== 0) {
+        return true;
+      }
+      
+      return false;
+  }
+
   return (
     <>
-      {/* <div className="container"> 
-            <div className="row list-unstyled courses-list"> 
-                    {courses.map((course) => ( 
-                        <div className="col-sm-5 text-align-center" key={course.id}>      
-                        <CourseCard
-                            key={course.id} 
-                            coursesDetails={course}
-                        >
-                            <Button className="courses-cardButton">Compete</Button>
-                        </CourseCard>
-                        </div>
-                    ))}
-            </div> 
-        </div> */}
-
-      <div className="container">
-        <div className="row list coaches-list" >
+      <div className="container courseCatalogContainer">
+        <div className="row courses-list">
           {courses.map((course) => (
-            <div className="col-sm-4 text-align-center" style={{ marginLeft: 1 }}
+            <div className="col-md-3 text-align-center" style={{ marginLeft: 1}}
                key={course.id}>
               <CourseCard 
                 key={course.id}
                 courseName={course.courseName}
                 coachName={course.coachName}
                 imageName={course.imageName}
+                price={course.price}
               ></CourseCard>
             </div>
           ))}
+          { defineCoursesCount() && (<div className="alignContentBox"></div>) }
         </div>
       </div>
     </>

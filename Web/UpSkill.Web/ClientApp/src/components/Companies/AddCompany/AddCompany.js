@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { addCompanyHandler, getCompanies } from "../../../services/companyService";
 
-
-
 function AddCompany(props) {
 
     const [name, setName] = useState("");

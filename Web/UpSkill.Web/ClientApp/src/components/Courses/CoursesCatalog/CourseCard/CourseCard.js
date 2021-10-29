@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 
-import './CourseCard.css';
+import "./CourseCard.css";
+import GoogleLogo from "../../../../assets/img/courses/Image 2.png";
 
 function CourseCard(props) {
   const { courseName, coachName, imageName, price, companyLogo } = props;
 
-  const [Image, setImage] = useState();
-  const [Logo, setLogo ] = useState();
-  const [Price, setPrice ] = useState();
+  const [image, setImage] = useState("");
 
   function loadImage(imgName) {
     import(`../../../../assets/img/courses/${imageName}`).then((img) =>
@@ -16,53 +15,37 @@ function CourseCard(props) {
     );
   }
 
-  function loadLogo(compLogo) {
-    import (`../../../../assets/img/courses/Image 2.png`).then((logo) =>
-    setLogo(logo.default)
-    );
-  }
-
-  function loadPrice(coursePrice) {
-    setPrice()
-  }
-
   useEffect(() => {
     loadImage(imageName);
   }, []);
 
-  useEffect(() => {
-    loadLogo(companyLogo);
-  }, [])
-
   return (
     <div className="cardContainer">
       <div className="image">
-        <img src={Image} alt="courses" style={{ width: 450, height: 248 }}/>
+        <img src={image} alt="courses" style={{ width: 450, height: 248 }} />
       </div>
       <div className="cardBody row">
-            <div className="cardText col-md-5">
-              <p id="course">{courseName}</p>
-            </div>
-
-            <div className="col-md-5">
-            <p id="name">{coachName}</p>
-            </div>
-
+        <div className="cardText col-md-5">
+          <p id="course">{courseName}</p>
+        </div>
         
-        <div className="row">
-              <div className="cardText col-md-6">
-                <p id="price">***€ per person</p>
-              </div>
+        <div className="col-md-5">
+          <p id="name">{coachName}</p>
+        </div>
 
-                <div className="logo col-md-6">
-                  <img src={Logo} alt="logo"/> 
-                </div>
+        <div className="row">
+          <div className="cardText col-md-6">
+            <p id="price">{price}€ per person</p>
+          </div>
+
+          <div className="logo col-md-6">
+            <img src={GoogleLogo} alt="logo" />
+          </div>
         </div>
       </div>
-        <Button className="button row col-md-4">
-          <p className="cardButtonText">Enroll</p>
-        </Button>
-      
+      <Button className="button row col-md-4">
+        <p className="cardButtonText">Enroll</p>
+      </Button>
     </div>
   );
 }
