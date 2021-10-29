@@ -11,6 +11,6 @@ namespace UpSkill.Services.Data.Contracts.Admin.Dashboard
     public interface IDashboardService
     {
         Task<AggregatedInformationViewModel> GetAggregatedInformationAsync<TAggregatedInformationViewModel>();
-
+        Task<IEnumerable<ClientsCountInMonthsViewModel>> GetClientsInMonthsAsync<TClientsCountInMontsViewModel>();
     }
 }

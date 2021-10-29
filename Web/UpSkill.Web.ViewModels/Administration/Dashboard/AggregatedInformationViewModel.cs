@@ -15,5 +15,7 @@ namespace UpSkill.Web.ViewModels.Administration.Dashboard
         public int CoursesCount { get; set; }
 
         public int CoachesCount { get; set; }
+
+        public IEnumerable<ClientsCountInMonthsViewModel> ClientsCountInMonths { get; set; }
     }
 }
