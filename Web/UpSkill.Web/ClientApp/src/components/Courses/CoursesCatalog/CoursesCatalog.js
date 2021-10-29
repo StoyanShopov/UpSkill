@@ -1,26 +1,21 @@
 import { useState, useEffect } from "react";
 import CoursesCard from "./CoursesCard/CoursesCard";
 import { getCourseDetails } from "../../../services/courseService";
-import DetailsModal from "./CourseDetails/DetailsModal";
-
+import DetailsModal from "../../Shared/CourseDetails/DetailsModal";
 import "./CoursesCatalog.css";
-
 import { getCourses } from "../../../services/courseService";
+import { enableBodyScroll, disableBodyScroll } from "../../../utils/utils";
 
-const descriptionMock="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. "
+const descriptionMock =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
 
 export default function CoursesCatalog() {
   const [courses, setCourses] = useState([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   // const [courseId, setCourseId] = useState("");
-  const [courseDetails, setCourseDetails] = useState({});
 
   const setData = (data) => {
-    let {
-      id,      
-      coachName,
-      courseName
-    } = data;
+    let { id, coachName, courseName } = data;
     localStorage.setItem("ID", id);
     localStorage.setItem("FullName", coachName);
     // localStorage.setItem("CategoryName", categoryName);
@@ -31,12 +26,16 @@ export default function CoursesCatalog() {
     localStorage.setItem("Description", descriptionMock);
   };
 
-  const getValue = (course) => {
-    setData(course);
+  const checkPopUp = () => {
+    if (isDetailsOpen) {
+      disableBodyScroll();
+    } else {
+      enableBodyScroll();
+    }
   };
 
-  const setDetails = () => {
-    getCourseDetails(11).then((course) => setCourseDetails(course));
+  const getValue = (course) => {
+    setData(course);
   };
 
   useEffect(() => {
@@ -64,12 +63,11 @@ export default function CoursesCatalog() {
           ))}
         </div>
       </div>
-      {isDetailsOpen && setDetails()}
+      {checkPopUp()}
       {isDetailsOpen && (
-        <DetailsModal
-          courseDetails={courseDetails}
-          closeModal={setIsDetailsOpen}
-        ><button className="btn btn-primary">Enroll</button></DetailsModal>
+        <DetailsModal closeModal={setIsDetailsOpen}>
+          <button className="btn btn-primary">Enroll</button>
+        </DetailsModal>
       )}
     </>
   );

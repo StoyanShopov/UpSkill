@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import UserProfilePic from "../../../../assets/userProfilePic.png";
-import GoogleLogo from "../../../../assets/img/courses/Image 39.png";
+import UserProfilePic from "../../../assets/userProfilePic.png";
+import GoogleLogo from "../../../assets/img/courses/Image 39.png";
 import "./DetailsModal.css";
 
 function DetailsModal(props) {
