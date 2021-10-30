@@ -1,4 +1,6 @@
-﻿namespace UpSkill.Services.Data.Employee
+﻿using UpSkill.Web.ViewModels.Employee;
+
+namespace UpSkill.Services.Data.Employee
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -15,13 +17,16 @@
     public class EmployeesService : IEmployeeService
     {
         private readonly IRepository<CompanyCourse> companyCourses;
+        private readonly IRepository<ApplicationUser> users;
         private readonly UserManager<ApplicationUser> userManager;
 
         public EmployeesService(
             IRepository<CompanyCourse> companyCourses,
+            IRepository<ApplicationUser> users,
             UserManager<ApplicationUser> userManager)
         {
             this.companyCourses = companyCourses;
+            this.users = users;
             this.userManager = userManager;
         }
 
@@ -50,6 +55,25 @@
             .FirstOrDefaultAsync();
 
             return course;
+        }
+
+        public async Task<IEnumerable<TModel>> GetCompanyEmployeesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var employees = await this.users
+                .AllAsNoTracking()
+                .Where(c => c.ManagerId == user.Id)
+                .To<TModel>()
+                .ToListAsync();
+
+            return employees;
+        }
+
+        public async Task<string> CountCompanyEmployees(string userId)
+        {
+            var employees = await this.GetCompanyEmployeesAsync<EmployeesListingModel>(userId);
+            return employees.Count().ToString();
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)
