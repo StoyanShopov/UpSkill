@@ -8,6 +8,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Data.Course;
     using UpSkill.Services.Data.Tests.Common;
     using UpSkill.Web.ViewModels.Course;
@@ -96,7 +97,6 @@
         [Fact]
         public async Task AddCompanyAsyncShouldReturnSuccesfullyAddedCompanyToCourse()
         {
-            // arange
             const int CourseId = 1;
             const int CompanyId = 1;
             const string CompanyOwnerId = "1";
@@ -144,11 +144,14 @@
             var coursesMock = new Mock<IDeletableEntityRepository<Course>>();
             coursesMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.Courses);
 
+            var filesMock = new Mock<IFileService>();
+
             var service = new CoursesService(
                 userManagerMock,
                 companyServiceMock.Object,
                 companyCoursesMock.Object,
-                coursesMock.Object);
+                coursesMock.Object,
+                filesMock.Object);
 
             // act
             var result = await service.AddCompanyAsync(new AddCompanyToCourseViewModel
@@ -161,6 +164,65 @@
 
             // assert
             Assert.True(result.Succeeded);
+        }
+
+        [Fact]
+        public async Task CreateAsynShouldCreateANewCoach()
+        {
+            const string TestFirstName = "TestCoachFirstName";
+            const string TestLastName = "TestCoachLastName";
+            var repository = new Mock<IDeletableEntityRepository<Coach>>();
+            var coach = new Coach()
+            {
+                Id = 1,
+                FirstName = TestFirstName,
+                LastName = TestLastName,
+            };
+
+            var result = await Task.FromResult(repository.Setup(r => r.AddAsync(coach)));
+
+            Assert.NotNull(coach);
+            Assert.Equal(TestFirstName, coach.FirstName);
+            Assert.Equal(TestLastName, coach.LastName);
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldEditCoach()
+        {
+            const int Id = 1;
+            const string UpdatedCoachFirstName = "UpdatedFirstName";
+            const string UpdatedCoachLasttName = "UpdatedLastName";
+            const string DatabaseName = "EditCoach";
+            await this.InitializeDatabase(DatabaseName);
+            var repository = new Mock<IDeletableEntityRepository<Coach>>();
+            var coach = await this.Database
+                .Coaches
+                .FindAsync(Id);
+            coach.FirstName = UpdatedCoachFirstName;
+            coach.LastName = UpdatedCoachLasttName;
+
+            var result = repository.Setup(r => r.Update(coach));
+
+            Assert.NotNull(coach);
+            Assert.Equal(UpdatedCoachFirstName, coach.FirstName);
+            Assert.Equal(UpdatedCoachLasttName, coach.LastName);
+        }
+
+        [Fact]
+        public async Task DeleteAsyncShouldDeleteACoach()
+        {
+            const int Id = 1;
+            const string DatabaseName = "DeleteCoach";
+            await this.InitializeDatabase(DatabaseName);
+            var repository = new Mock<IDeletableEntityRepository<Coach>>();
+            var coach = await this.Database
+                .Coaches
+                .FindAsync(Id);
+
+            var result = repository.Setup(r => r.Delete(coach));
+
+            Assert.NotNull(coach);
+            Assert.True(coach.IsDeleted = true);
         }
 
         private static Mock<UserManager<TUser>> MockUserManager<TUser>(List<TUser> ls)

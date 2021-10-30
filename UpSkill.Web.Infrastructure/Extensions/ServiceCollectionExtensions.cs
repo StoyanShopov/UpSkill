@@ -9,6 +9,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+
     using UpSkill.Data;
     using UpSkill.Data.Common;
     using UpSkill.Data.Common.Repositories;
@@ -22,11 +23,17 @@
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Coach;
     using UpSkill.Services.Data.Company;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Data.Course;
+    using UpSkill.Services.Data.Employee;
+    using UpSkill.Services.Data.File;
     using UpSkill.Services.Email;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
@@ -150,6 +157,9 @@
                 .AddTransient<IAdminService, AdminService>()
                 .AddTransient<ICoursesService, CoursesService>()
                 .AddTransient<ICompanyService, CompaniesService>()
+                .AddTransient<ICoachServices, CoachesService>()
+                .AddTransient<IEmployeeService, EmployeesService>()
+                .AddTransient<IFileService, FileService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
@@ -170,6 +180,35 @@
                        Version = V1,
                    });
            });
+
+        public static IServiceCollection AddSwagenAuthorization(this IServiceCollection services)
+            => services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(Bearer, new OpenApiSecurityScheme()
+                {
+                    Name = Authorization,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = Bearer,
+                    BearerFormat = JWT,
+                    In = ParameterLocation.Header,
+                    Description = AuthorizationDescription,
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = Bearer,
+                            },
+                        },
+                        System.Array.Empty<string>()
+                    },
+                });
+            });
 
         public static void AddApiControllers(this IServiceCollection services)
             => services

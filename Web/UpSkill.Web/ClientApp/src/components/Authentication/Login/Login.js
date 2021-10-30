@@ -91,7 +91,6 @@ const Login = (props) => {
                   onChange={onChangeEmail}
                   validations={[required]} />
               </div>
-
               <div className="form-group ">
                 <label htmlFor="password"></label>
                 <Input
@@ -103,7 +102,6 @@ const Login = (props) => {
                   onChange={onChangePassword}
                   validations={[required]} />
               </div>
-
               <div className="form-check text-primary">
                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                 <label className="form-check-label">Remember me</label>

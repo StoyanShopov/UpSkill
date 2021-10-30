@@ -23,6 +23,7 @@ const login = (email, password) => {
     })
     .then((response) => {
       if (response.data.token) {
+        localStorage.setItem("token", response.data.token)
         localStorage.setItem("user", JSON.stringify(jwt(response.data.token)));
       }
 
