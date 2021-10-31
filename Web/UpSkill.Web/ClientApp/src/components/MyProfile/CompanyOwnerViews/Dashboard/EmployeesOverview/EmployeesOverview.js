@@ -33,11 +33,11 @@ function EmployeesOverview() {
                     </div>
                     <div className="Overview-activeCourses Overview-cell">
                         <h4>Active Courses</h4>
-                        <h1 className="Overview-heading">{activeCoaches}</h1>
+                        <h1 className="Overview-heading">{activeCourses}</h1>
                     </div>
                     <div className="Overview-activeCoaches Overview-cell">
                         <h4>Active Coaches</h4>
-                        <h1 className="Overview-heading">{activeCourses}</h1>
+                        <h1 className="Overview-heading">{activeCoaches}</h1>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,4 @@
-﻿using UpSkill.Web.ViewModels.Employee;
-
-namespace UpSkill.Services.Data.Employee
+﻿namespace UpSkill.Services.Data.Employee
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -13,6 +11,7 @@ namespace UpSkill.Services.Data.Employee
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Services.Mapping;
+    using UpSkill.Web.ViewModels.Employee;
 
     public class EmployeesService : IEmployeeService
     {

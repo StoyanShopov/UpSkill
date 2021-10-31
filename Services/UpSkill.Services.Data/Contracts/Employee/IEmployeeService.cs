@@ -1,9 +1,9 @@
-﻿using UpSkill.Web.ViewModels.Employee;
-
-namespace UpSkill.Services.Data.Contracts.Employee
+﻿namespace UpSkill.Services.Data.Contracts.Employee
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using UpSkill.Web.ViewModels.Employee;
 
     public interface IEmployeeService
     {

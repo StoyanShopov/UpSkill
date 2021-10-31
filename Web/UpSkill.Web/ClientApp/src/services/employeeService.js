@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const EMP_API_URL = 'https://localhost:44319/Employee/Courses/';
-const COMP_API_URL = 'https://localhost:44319/Owner/Employees/';
+const OWN_API_URL = 'https://localhost:44319/Owner/Employees/';
 
 const token = localStorage.getItem('token');
 
@@ -91,8 +91,6 @@ const employeesEmailMock = [
   },
 ];
 
-let totalCountEmployees = 64;
-
 export const getEmployeeWithEmail = async (currentPage) => {
   let arr = [];
   arr.push(
@@ -107,12 +105,11 @@ export const getEmployeeWithEmail = async (currentPage) => {
 
 export const getEmployeesTotalCountCompanyOwner = async (uId) => {
   return axios
-    .get(COMP_API_URL + 'count', {
+    .get(OWN_API_URL + 'count', {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
-      totalCountEmployees = response.data.count;
-      return totalCountEmployees;
+      return response.data.count;
     });
 };
 

@@ -3,7 +3,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Mapping;
 
-    public class EmployeesListingModel: IMapFrom<ApplicationUser>
+    public class EmployeesListingModel : IMapFrom<ApplicationUser>
     {
     public string FirstName { get; set; }
 
