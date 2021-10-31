@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Web.Infrastructure.Services;
@@ -12,7 +11,6 @@
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
-    [AllowAnonymous]
     public class EmployeesController : OwnerBaseController
     {
         private readonly IEmployeeService employeeService;

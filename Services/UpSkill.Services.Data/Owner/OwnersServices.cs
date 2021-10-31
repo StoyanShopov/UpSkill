@@ -35,20 +35,13 @@
 
         public async Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId)
         {
-            var courses = new List<TModel>();
-
             var user = await this.GetUserById(userId);
 
-            if (user != null && await this.userManager.IsInRoleAsync(user, CompanyOwnerRoleName))
-            {
-                courses = await this.companyCourses
+            var courses = await this.companyCourses
                     .AllAsNoTracking()
                     .Where(c => c.CompanyId == user.CompanyId)
                     .To<TModel>()
                     .ToListAsync();
-
-                return courses;
-            }
 
             return courses;
         }
