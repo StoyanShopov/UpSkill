@@ -103,6 +103,17 @@ export const getEmployeeWithEmail = async (currentPage) => {
   return arr;
 };
 
+// export const getEmployeeWithEmail = async (currentPage) => {
+//   return axios
+//     .get(OWN_API_URL + 'getAll', {
+//       headers: { Authorization: `Bearer ${token}` },
+//     })
+//     .then((response) => {
+//       console.log(response.data);
+//       return response.data;
+//     });
+// };
+
 export const getEmployeesTotalCountCompanyOwner = async (uId) => {
   return axios
     .get(OWN_API_URL + 'count', {
