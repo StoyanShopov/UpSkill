@@ -7,9 +7,9 @@
 
     [Authorize(Roles = CompanyOwnerRoleName)]
     [ApiController]
-    [Area("Company")]
-    [Route("Company/[controller]")]
-    public abstract class CompaniesBaseController : ControllerBase
+    [Area("Owner")]
+    [Route("Owner/[controller]")]
+    public abstract class OwnerBaseController : ControllerBase
     {
     }
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const EMP_API_URL = 'https://localhost:44319/Employee/Courses/';
-const COMP_API_URL = 'https://localhost:44319/Company/Employees/';
+const COMP_API_URL = 'https://localhost:44319/Owner/Employees/';
 
 const token = localStorage.getItem('token');
 

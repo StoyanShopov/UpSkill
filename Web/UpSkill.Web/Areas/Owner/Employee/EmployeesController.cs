@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace UpSkill.Web.Areas.Company.Employee
+﻿namespace UpSkill.Web.Areas.Company.Employee
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Web.Infrastructure.Services;
@@ -14,7 +13,7 @@ namespace UpSkill.Web.Areas.Company.Employee
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
     [AllowAnonymous]
-    public class EmployeesController : CompaniesBaseController
+    public class EmployeesController : OwnerBaseController
     {
         private readonly IEmployeeService employeeService;
         private readonly ICurrentUserService currentUser;
