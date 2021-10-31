@@ -2,6 +2,6 @@
 {
     public class EmployeesCountModel
     {
-        public string Count { get; set; }
+        public int Count { get; set; }
     }
 }

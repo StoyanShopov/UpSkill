@@ -33,7 +33,7 @@
 
         [HttpGet]
         [Route(GetCountRoute)]
-        public async Task<string> GetCount()
-            => await this.employeeService.CountCompanyEmployees(this.currentUser.GetId());
+        public async Task<EmployeesCountModel> GetCount()
+            => await this.employeeService.CountCompanyEmployees<EmployeesCountModel>(this.currentUser.GetId());
     }
 }

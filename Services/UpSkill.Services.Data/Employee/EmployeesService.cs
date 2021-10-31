@@ -70,10 +70,10 @@ namespace UpSkill.Services.Data.Employee
             return employees;
         }
 
-        public async Task<string> CountCompanyEmployees(string userId)
+        public async Task<EmployeesCountModel> CountCompanyEmployees<TModel>(string userId)
         {
             var employees = await this.GetCompanyEmployeesAsync<EmployeesListingModel>(userId);
-            return employees.Count().ToString();
+            return new EmployeesCountModel { Count = employees.Count() };
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)

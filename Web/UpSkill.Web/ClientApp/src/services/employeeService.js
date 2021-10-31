@@ -106,7 +106,14 @@ export const getEmployeeWithEmail = async (currentPage) => {
 };
 
 export const getEmployeesTotalCountCompanyOwner = async (uId) => {
-  return totalCountEmployees;
+  return axios
+    .get(COMP_API_URL + 'count', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      totalCountEmployees = response.data.count;
+      return totalCountEmployees;
+    });
 };
 
 export const getAllEmployees = async () => {

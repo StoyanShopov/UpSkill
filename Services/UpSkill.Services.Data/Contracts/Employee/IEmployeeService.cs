@@ -1,4 +1,6 @@
-﻿namespace UpSkill.Services.Data.Contracts.Employee
+﻿using UpSkill.Web.ViewModels.Employee;
+
+namespace UpSkill.Services.Data.Contracts.Employee
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -11,6 +13,6 @@
 
         Task<IEnumerable<TModel>> GetCompanyEmployeesAsync<TModel>(string userId);
 
-        Task<string> CountCompanyEmployees(string userId);
+        Task<EmployeesCountModel> CountCompanyEmployees<TModel>(string userId);
     }
 }
