@@ -6,30 +6,35 @@ const initialCourses = [
     courseName: 'Marketing',
     coachName: 'Jim Wilber',
     imageName: 'Marketing.png',
+    price: 50,
   },
   {
     id: 2,
     courseName: 'Design',
     coachName: 'Tom Smith',
     imageName: 'Design.png',
+    price: 40,
   },
   {
     id: 3,
     courseName: 'Management',
     coachName: 'Sarah Coleman',
     imageName: 'Management.png',
+    price: 60,
   },
   {
     id: 4,
     courseName: 'HTML&CSS',
     coachName: 'David Can',
     imageName: 'HTML&CSS.png',
+    price: 100,
   },
   {
     id: 5,
     courseName: 'Java',
     coachName: 'Emily Hill',
     imageName: 'Java.png',
+    price: 70,
   },
 ];
 

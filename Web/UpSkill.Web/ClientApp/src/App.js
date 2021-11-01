@@ -43,7 +43,6 @@ const AppWrapper = (props) => {
   )
 }
 
-
 function App() {    
   return (
     <AppWrapper>
@@ -61,7 +60,6 @@ function App() {
           <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
           <Route exact path="/Admin/Companies/edit" component={EditCompany}/>  
       </AppWrapper> 
-
   );
 }
 

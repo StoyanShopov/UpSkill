@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import CoursesCard from './CoursesCard/CoursesCard';
+import CourseCard from './CourseCard/CourseCard';
 
 import './CoursesCatalog.css';
 
@@ -14,20 +14,33 @@ export default function CoursesCatalog() {
     });
   }, []);
 
+  const defineCoursesCount = () => {
+      let coursesCount = courses.length % 3;
+
+      if (coursesCount !== 0) {
+        return true;
+      }
+      
+      return false;
+  }
+
   return (
     <>
-      <div className="container">
-        <div className="row list-unstyled coaches-list">
+      <div className="container courseCatalogContainer">
+        <div className="row courses-list">
           {courses.map((course) => (
-            <div className="col-sm-4 text-align-center" key={course.id}>
-              <CoursesCard
+            <div className="col-md-3 text-align-center" style={{ marginLeft: 1}}
+               key={course.id}>
+              <CourseCard 
                 key={course.id}
                 courseName={course.courseName}
                 coachName={course.coachName}
                 imageName={course.imageName}
-              ></CoursesCard>
+                price={course.price}
+              ></CourseCard>
             </div>
           ))}
+          { defineCoursesCount() && (<div className="alignContentBox"></div>) }
         </div>
       </div>
     </>
