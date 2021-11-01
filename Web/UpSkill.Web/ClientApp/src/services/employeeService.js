@@ -1,15 +1,19 @@
-import axios from "axios";
+import axios from "axios"; 
+import { Base_URL } from '../utils/baseUrlConstant';
 
-const API_URL = "https://localhost:44319/Employee/Courses/";   
+const API_URL = Base_URL + "Employee/Courses/";
+
+const token = localStorage.getItem("token");
 
 let data = []; 
-export const getCourses = (id, title, coachFirstName, coachLastName, image) => {
-  return axios.get(API_URL + "getAll", {
-    id,
-    title, 
-    coachFirstName, 
-    coachLastName,
-    image,
+
+export const getCourses = (courseId, courseTitle, courseCoachFirstName, courseCoachLastName, courseFileFilePath) => {
+  return axios.get(API_URL + "getAll", {headers: {"Authorization" : `Bearer ${token}`}}, {
+    courseId,
+    courseTitle, 
+    courseCoachFirstName, 
+    courseCoachLastName,
+    courseFileFilePath,
   })
   .then((response) => {
     data = response.data  

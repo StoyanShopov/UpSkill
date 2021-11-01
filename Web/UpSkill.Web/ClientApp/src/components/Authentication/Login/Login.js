@@ -49,7 +49,7 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(email, password))
         .then(() => {
-          props.history.push("/");
+          props.history.push("/MyProfile");
           setNotification({type:'LOGIN_SUCCESS', payload: `Welcome ${email}!`});
         })
         .catch(() => {
@@ -61,7 +61,7 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/" />;
+    return <Redirect to="/MyProfile" />;
   }
 
   return (
@@ -91,7 +91,6 @@ const Login = (props) => {
                   onChange={onChangeEmail}
                   validations={[required]} />
               </div>
-
               <div className="form-group ">
                 <label htmlFor="password"></label>
                 <Input
@@ -103,7 +102,6 @@ const Login = (props) => {
                   onChange={onChangePassword}
                   validations={[required]} />
               </div>
-
               <div className="form-check text-primary">
                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                 <label className="form-check-label">Remember me</label>

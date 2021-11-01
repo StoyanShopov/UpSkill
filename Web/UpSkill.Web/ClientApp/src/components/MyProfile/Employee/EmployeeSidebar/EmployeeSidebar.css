@@ -1,0 +1,60 @@
+.selectedMenuStyle{    
+    font-Weight: 550;
+    display: block;
+    color: grey;
+}
+
+.nonSelectedMenuStyle{
+    font-Weight: 450;
+    padding: 1.5rem 0;
+    display: block;
+    color: black;
+    border-Top: 1px solid grey;
+}
+
+.nonSelectedMenuStyle:hover,
+.logOut:hover{
+    font-weight: 600!important;
+}
+
+.employee-photo{
+    margin-Bottom: 12%;
+    display: flex;
+    margin-top: -4rem;
+}
+
+.active span {
+    cursor: pointer;
+    transform-style: preserve-3d;
+    perspective: 100px;
+}
+.active span {
+    color: #296CFB;
+    font-weight: 500;
+}
+.active span::before {
+    content: atr(data-char);
+    visibility: visible;
+    color: #fff;
+    transition: transform 0.8s cubic-bezier(0.14, 0.71, 0.96, 0.59);
+    transition-delay: calc(0.2s * var(--distance-percent));
+    transform: none;
+    transform-origin: bottom;
+}
+.active:hover span::before {
+    transition-timing-function: cubic-bezier(1, 0.01, 0.56, 1);
+}
+
+.logOut{
+    font-Weight: 450;
+    padding: 1.5rem 0;
+    display: block;
+    color: red;
+    border-Top: 1px solid grey;
+}
+
+@media(max-width:1200px) {    
+    .sidebar-content{
+        width: 100%!important;
+    }
+}
