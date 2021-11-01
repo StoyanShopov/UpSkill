@@ -4,12 +4,12 @@
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
     using UpSkill.Services.Mapping;
@@ -26,7 +26,6 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services
-
                  .AddDatabase(this.configuration)
                  .AddBlobStorage(this.configuration)
                  .AddIdentity()
@@ -55,63 +54,52 @@
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            try
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
-                using (var serviceScope = app.ApplicationServices.CreateScope())
-                {
-                    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    dbContext.Database.Migrate();
-                    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-                }
-
-                if (env.IsProduction())
-                {
-                    app.UseDeveloperExceptionPage();
-                    app.UseMigrationsEndPoint();
-                }
-
-                app
-                    .UseStaticFiles()
-                    .UseSpaStaticFiles();
-
-                app
-                    .UseSwaggerUI()
-                    .UseRouting()
-                    .UseCors(options => options
-                        .AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod())
-                    .UseHttpsRedirection()
-                    .UseAuthentication()
-                    .UseAuthorization()
-                    .UseEndpoints(endpoints =>
-                    {
-                        endpoints.MapControllers();
-                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapRazorPages();
-                    })
-                    .ApplyMigrations();
-
-                app.UseSpa(spa =>
-                {
-                    spa.Options.SourcePath = "ClientApp";
-
-                    if (env.IsDevelopment())
-                    {
-                        spa.UseReactDevelopmentServer(npmScript: "start");
-                    }
-                });
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
-            catch (System.Exception ex)
+
+            if (env.IsDevelopment())
             {
-                app.Run(async context =>
-                {
-                    context.Response.ContentType = "text/plain";
-                    await context.Response.WriteAsync(ex.Message);
-                });
+                app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
+
+            app
+                .UseStaticFiles()
+                .UseSpaStaticFiles();
+
+            app
+                .UseSwaggerUI()
+                .UseRouting()
+                .UseCors(options => options
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod())
+                .UseHttpsRedirection()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapRazorPages();
+                })
+                .ApplyMigrations();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
         }
     }
 }
