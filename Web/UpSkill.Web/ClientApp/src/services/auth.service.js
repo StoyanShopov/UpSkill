@@ -1,4 +1,6 @@
 import axios from "axios";
+import jwt from 'jwt-decode'
+
 
 const API_URL = "https://localhost:44319/Identity/";
 
@@ -21,7 +23,7 @@ const login = (email, password) => {
     })
     .then((response) => {
       if (response.data.token) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(jwt(response.data.token)));
       }
 
       return response.data;
@@ -29,7 +31,11 @@ const login = (email, password) => {
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
+  return axios
+    .post(API_URL + "logout")
+    .then((res) => {
+        localStorage.removeItem("user");      
+    });
 };
 
 const identity = {

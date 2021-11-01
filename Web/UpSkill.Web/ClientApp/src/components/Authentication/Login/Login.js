@@ -49,7 +49,7 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(email, password))
         .then(() => {
-          props.history.push("/");
+          props.history.push("/MyProfile");
           setNotification({type:'LOGIN_SUCCESS', payload: `Welcome ${email}!`});
         })
         .catch(() => {
@@ -61,7 +61,7 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/" />;
+    return <Redirect to="/MyProfile" />;
   }
 
   return (

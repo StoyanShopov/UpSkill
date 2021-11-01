@@ -93,10 +93,13 @@
         {
             var user = await this.userManager.FindByEmailAsync(this.User.FindFirstValue(ClaimTypes.Email));
 
+            var roles = await this.userManager.GetRolesAsync(user);
+
             return new LoginResponseModel
             {
                 Id = user.Id,
                 Email = user.Email,
+                Role = roles[0] ?? string.Empty,
             };
         }
 
