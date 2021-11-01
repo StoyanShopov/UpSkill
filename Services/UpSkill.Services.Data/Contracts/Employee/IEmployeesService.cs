@@ -9,10 +9,10 @@
 
     public interface IEmployeesService
     {
-        //Task<Result> CreateAsync(CreateEmployeeViewModel model);
+        Task<Result> CreateAsync(CreateEmployeeViewModel model,string userId);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>(string email);
 
-        //Task<Result> DeleteAsync(string id);
+        Task<Result> DeleteAsync(string email);
     }
 }
