@@ -29,7 +29,7 @@ namespace UpSkill.Web.Areas.Owner.Employee
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<ListEmployeesViewModel>> GetAll()
-            => await this.employeesService.GetAllAsync<ListEmployeesViewModel>(this.currentUser.GetUserName());
+            => await this.employeesService.GetAllAsync<ListEmployeesViewModel>(this.currentUser.GetId());
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateEmployeeViewModel model)

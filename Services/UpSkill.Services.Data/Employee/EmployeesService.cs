@@ -16,6 +16,7 @@
 
     using static Common.GlobalConstants.ControllersResponseMessages;
     using static Common.GlobalConstants.EmployeeConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
 
     public class EmployeesService : IEmployeesService
     {
@@ -23,13 +24,12 @@
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
         private readonly UserManager<ApplicationUser> userManager;
-      
 
         public EmployeesService(
             IDeletableEntityRepository<ApplicationUser> users,
             IDeletableEntityRepository<Company> companies,
-            UserManager<ApplicationUser> userManager, IDeletableEntityRepository<Position> positions)
-
+            UserManager<ApplicationUser> userManager,
+            IDeletableEntityRepository<Position> positions)
         {
             this.users = users;
             this.companies = companies;
@@ -58,8 +58,9 @@
             {
                 return WrongEmployeeNamePattern;
             }
+
             var manager = await this.userManager.FindByIdAsync(userId);
-            // var manager = this.GetCompanyOwner(this.claims).Result;
+
             var position = await this.positions.AllAsNoTracking().Where(p => p.Name == model.Position)
                 .FirstOrDefaultAsync();
 
@@ -69,12 +70,12 @@
                 LastName = employeeLastName,
                 Email = model.Email,
                 CompanyId = manager.CompanyId,
-                PositionId = position.Id
-                
+                PositionId = position.Id,
             };
 
+            // TODO we have to use "userManager" instead of "users" here and set default password
             await this.users.AddAsync(newEmployee);
-            await this.userManager.AddToRoleAsync(newEmployee, "Employee");
+            await this.userManager.AddToRoleAsync(newEmployee, CompanyEmployeeRoleName);
             await this.users.SaveChangesAsync();
 
             return true;
@@ -82,7 +83,7 @@
 
         public async Task<Result> DeleteAsync(string email)
         {
-            var employee = await users.AllAsNoTracking().Where(e=>e.Email==email).FirstOrDefaultAsync();
+            var employee = await this.users.AllAsNoTracking().Where(e => e.Email == email).FirstOrDefaultAsync();
             if (employee == null)
             {
                 return DoesNotExist;
@@ -94,11 +95,9 @@
             return true;
         }
 
-       
-
-        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string mail)
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>(string userId)
         {
-            var user = await this.userManager.FindByEmailAsync(mail);
+            var user = await this.userManager.FindByIdAsync(userId);
             var roles = await this.userManager.GetRolesAsync(user);
 
             if (user == null || !roles.Contains("Owner"))
@@ -110,17 +109,9 @@
                              .All()
                              .Where(x => x.Id == user.CompanyId)
                              .SelectMany(x => x.Users)
-                             .Where(u => u.Email != mail)
+                             .Where(u => u.Id != userId)
                              .To<TModel>()
                              .ToListAsync();
         }
-
-        //private async Task<ApplicationUser> GetCompanyOwner(ClaimsPrincipal claims)
-        //{
-        //    var manager = await this.userManager.GetUserAsync(claims);
-
-        //    return manager;
-        //}
     }
-
 }

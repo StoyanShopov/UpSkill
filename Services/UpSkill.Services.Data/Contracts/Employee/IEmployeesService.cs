@@ -11,7 +11,7 @@
     {
         Task<Result> CreateAsync(CreateEmployeeViewModel model,string userId);
 
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string email);
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>(string userId);
 
         Task<Result> DeleteAsync(string email);
     }
