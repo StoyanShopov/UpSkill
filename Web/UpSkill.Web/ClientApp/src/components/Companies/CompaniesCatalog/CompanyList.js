@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CompanyCard from "../CompaniesCard/CompanyCard";
-import { retriveCompanies } from "../../../services/companyService";
+import { getCompanies } from "../../../services/companyService";
 
 const CompanyList = (props) => {
 
@@ -9,7 +9,7 @@ const CompanyList = (props) => {
 
     useEffect((companies) => {
 
-        retriveCompanies().then(data => {
+        getCompanies().then(data => {
 
             setCompanies(data);
         });

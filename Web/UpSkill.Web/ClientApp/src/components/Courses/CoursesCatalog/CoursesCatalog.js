@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import CoursesCard from "./CoursesCard/CoursesCard";
-import { getCourseDetails } from "../../../services/courseService";
 import DetailsModal from "../../Shared/CourseDetails/DetailsModal";
 import "./CoursesCatalog.css";
 import { getCourses } from "../../../services/courseService";
 import { enableBodyScroll, disableBodyScroll } from "../../../utils/utils";
+import CourseCard from './CourseCard/CourseCard';
+
 
 const descriptionMock =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
@@ -44,13 +44,20 @@ export default function CoursesCatalog() {
     });
   }, []);
 
+  const defineCoursesCount = () => {
+      let coursesCount = courses.length % 3;
+
+      return false;
+  }
+
   return (
     <>
-      <div className="container">
-        <div className="row list-unstyled coaches-list">
+      <div className="container courseCatalogContainer">
+        <div className="row courses-list">
           {courses.map((course) => (
-            <div className="col-sm-4 text-align-center" key={course.id}>
-              <CoursesCard
+            <div className="col-md-3 text-align-center" style={{ marginLeft: 1}}
+               key={course.id}>
+              <CourseCard 
                 key={course.id}
                 id={course.id}
                 courseName={course.courseName}
@@ -58,9 +65,12 @@ export default function CoursesCatalog() {
                 imageName={course.imageName}
                 isDetailsOpen={setIsDetailsOpen}
                 getDetails={getValue}
-              ></CoursesCard>
+                price={course.price}
+              ></CourseCard>
+
             </div>
           ))}
+          { defineCoursesCount() && (<div className="alignContentBox"></div>) }
         </div>
       </div>
       {checkPopUp()}
