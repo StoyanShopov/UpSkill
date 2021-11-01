@@ -7,13 +7,32 @@ import {
   CLEAR_MESSAGE,
 } from "../actions/types";
 
-const user = JSON.parse(localStorage.getItem("user"));
+import {
+  AdministratorRoleName,
+  CompanyOwnerRoleName,
+  EmployeeRoleName,
+} from '../utils/webConstants';
+
+const user = () => JSON.parse(localStorage.getItem("user")) || null;
 
 const initialState = user
-  ? { isLoggedIn: true, user }
-  : { isLoggedIn: false, user: null };
+  ? { 
+       state: 'opened', 
+       type: 'success' , 
+       message: '', 
+       isLoggedIn: true,
+       user: user,
+       isAdmin: user()?.role === AdministratorRoleName,
+       isCompanyOwner: user()?.role === CompanyOwnerRoleName,
+       isEmployee: user()?.role===EmployeeRoleName,
+    }
+  : { isLoggedIn: false,
+      user: null,
+      isAdmin: false,
+      isCompanyOwner: false,
+      isEmployee: false};
 
-export default function Auth(state = initialState, action) {
+export default function Auth(init = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case REGISTER_SUCCESS:
@@ -21,8 +40,11 @@ export default function Auth(state = initialState, action) {
         state: 'opened', 
         type: 'success' , 
         message: payload, 
-        isLoggedIn: true,
-        user
+        isLoggedIn: true,        
+        user: user(),
+        isAdmin: user()?.role === AdministratorRoleName,
+        isCompanyOwner: user()?.role === CompanyOwnerRoleName,
+        isEmployee: user()?.role===EmployeeRoleName,
       };
     case REGISTER_FAIL:
       return {
@@ -30,15 +52,18 @@ export default function Auth(state = initialState, action) {
         type: 'error' ,
         message: payload,
         isLoggedIn: false,
-        user: null
+        user: null,
       };      
     case LOGIN_SUCCESS:
       return {
         state: 'opened', 
         type: 'success' ,
         message: payload,
-        isLoggedIn: true,
-        user
+        isLoggedIn: true,        
+        user: user(),
+        isAdmin: user()?.role === AdministratorRoleName,
+        isCompanyOwner: user()?.role === CompanyOwnerRoleName,
+        isEmployee: user()?.role===EmployeeRoleName,
       }; 
     case LOGIN_FAIL:
       return {
@@ -46,7 +71,7 @@ export default function Auth(state = initialState, action) {
         type: 'error' ,
         message: payload,
         isLoggedIn: false,
-        user: null,
+        user: null,        
       };
     case LOGOUT:
       return {
@@ -54,7 +79,7 @@ export default function Auth(state = initialState, action) {
         type: 'success' ,
         message: payload,
         isLoggedIn: false,
-        user: null
+        user: null,
       };
     case CLEAR_MESSAGE:
         return {
@@ -63,6 +88,6 @@ export default function Auth(state = initialState, action) {
           message: ''
         }; 
     default:
-      return state;
+      return init;
   }
 } 

@@ -1,14 +1,10 @@
 ﻿namespace UpSkill.Services.Data.Tests.Common
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Identity;
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
-
-    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 
     public abstract class TestWithData
     {
@@ -16,64 +12,44 @@
         {
             var fakeDatabase = new FakeUpSkillDbContext(databaseName);
 
-            await AddFakeCompany(fakeDatabase);
-
-            await AddFakeCourse(fakeDatabase);
+            await AddFakeData(fakeDatabase);
 
             this.Database = fakeDatabase.Data;
         }
 
         protected ApplicationDbContext Database { get; private set; }
 
-        private static async Task AddFakeCompany(FakeUpSkillDbContext dbContext)
-            => await dbContext.AddFakeDataAsync(
-                new Company()
+        private static async Task AddFakeData(FakeUpSkillDbContext dbContext)
+            => await dbContext.AddFakeDataAsync(new Company()
             {
                 Id = 1,
-                Name = "TestCompany",
+                Name = "TestCompany"
             },
-                new ApplicationUser()
+            new ApplicationUser()
             {
                 Id = "1",
                 Email = "user@example.com",
-                CompanyId = 0,
-            });
-
-        private static async Task AddFakeCourse(FakeUpSkillDbContext dbContext)
-            => await dbContext.AddFakeDataAsync(
-            new Category()
-            {
-                Id = 1,
-                Name = "Fake Category",
-                IsDeleted = false,
+                CompanyId = 0
             },
             new Course()
             {
                 Id = 1,
-                Title = "Fake Course",
-                Description = "Fake Description",
+                Title = "Title",
+                Description = "Description",
+                Price = 12,
+                CoachId = 1,
                 CategoryId = 1,
-                IsDeleted = false,
+
             },
-            new Coach()
+            new Course()
             {
-                Id = 1,
-                FirstName = "FakeFirstName",
-                LastName = "FakeLastName",
-            },
-            new ApplicationRole()
-            {
-                Id = "1",
-                Name = AdministratorRoleName,
-                IsDeleted = false,
-            },
-            new ApplicationUser()
-            {
-                Id = "2",
-                Email = "admin@example.com",
-                CompanyId = 0,
-                Roles = new List<IdentityUserRole<string>>
-                    { new IdentityUserRole<string> { UserId = "2", RoleId = "1" } },
+                Id = 2,
+                Title = "Titl2e",
+                Description = "Descri2ption",
+                Price = 122,
+                CoachId = 2,
+                CategoryId = 2,
+
             });
     }
 }

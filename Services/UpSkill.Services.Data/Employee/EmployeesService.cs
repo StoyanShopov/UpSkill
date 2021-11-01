@@ -23,16 +23,20 @@
         private readonly IDeletableEntityRepository<ApplicationUser> users;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
+        private readonly IRepository<CompanyCourse> companyCourses;
         private readonly UserManager<ApplicationUser> userManager;
 
         public EmployeesService(
             IDeletableEntityRepository<ApplicationUser> users,
             IDeletableEntityRepository<Company> companies,
             UserManager<ApplicationUser> userManager,
-            IDeletableEntityRepository<Position> positions)
+            IDeletableEntityRepository<Position> positions,
+            IRepository<CompanyCourse> companyCourses,
+            UserManager<ApplicationUser> userManager)
         {
             this.users = users;
             this.companies = companies;
+            this.companyCourses = companyCourses;
             this.userManager = userManager;
             this.positions = positions;
         }
@@ -85,7 +89,7 @@
         {
             var employee = await this.users.AllAsNoTracking().Where(e => e.Email == email).FirstOrDefaultAsync();
             if (employee == null)
-            {
+        {
                 return DoesNotExist;
             }
 
@@ -103,7 +107,7 @@
             if (user == null || !roles.Contains("Owner"))
             {
                 return null;
-            }
+        }
 
             return await this.companies
                              .All()
@@ -113,5 +117,36 @@
                              .To<TModel>()
                              .ToListAsync();
         }
+
+        public async Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var courses = await this.companyCourses
+                .AllAsNoTracking()
+                .Where(c => c.CompanyId == user.CompanyId)
+                .To<TModel>()
+                .ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<TModel> GetByIdCourseAsync<TModel>(string userId, int courseId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var course = await this.companyCourses
+                .AllAsNoTracking()
+                .Where(c => c.CompanyId == user.CompanyId
+                            && c.CourseId == courseId)
+                .To<TModel>()
+                .FirstOrDefaultAsync();
+
+            return course;
+        }
+
+
+        private async Task<ApplicationUser> GetUserById(string userId)
+            => await this.userManager.FindByIdAsync(userId);
     }
 }
