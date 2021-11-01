@@ -20,6 +20,6 @@ namespace UpSkill.Web.Areas.Admin.Dashboard
         [HttpGet]
         public async Task<AggregatedInformationViewModel> AggregatedInformation()
         => await this.dashboardService
-                     .GetAggregatedInformationAsync<AggregatedInformationViewModel>();
+                     .GetAggregatedInformationAsync();
     }
 }

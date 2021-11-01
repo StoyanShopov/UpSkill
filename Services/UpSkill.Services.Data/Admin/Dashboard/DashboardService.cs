@@ -2,7 +2,7 @@
 namespace UpSkill.Services.Data.Admin.Dashboard
 {
     using System;
-    using UpSkill.Common; 
+    using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
@@ -16,8 +16,7 @@ namespace UpSkill.Services.Data.Admin.Dashboard
 
     public class DashboardService : IDashboardService
     {
-        //private readonly ICompanyService companiesService;
-        private readonly IDeletableEntityRepository<Company> companies;        
+        private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Course> courses;
         private readonly IDeletableEntityRepository<Coach> coaches;
 
@@ -28,49 +27,49 @@ namespace UpSkill.Services.Data.Admin.Dashboard
             this.coaches = coaches;
         }
 
-        public async Task<AggregatedInformationViewModel> GetAggregatedInformationAsync<TAggregatedInformationViewModel>()
+        public async Task<AggregatedInformationViewModel> GetAggregatedInformationAsync()
         {
-            var coursesResult =await this.courses.AllAsNoTracking().ToListAsync();
-            var coursesCount = coursesResult.Count();
-            var coachesResult =await this.coaches.AllAsNoTracking().ToListAsync();
-            var coachesCount = coachesResult.Count();
-            var companiesResult = await this.companies.AllAsNoTracking().ToListAsync();
-            var companiesCount = companiesResult.Count();
+            var coursesCount = await this.courses.AllAsNoTracking().CountAsync();
+            //var coursesCount = coursesResult.Count();
+            var coachesCount = await this.coaches.AllAsNoTracking().CountAsync();
+            //var coachesCount = coachesResult.Count();
+            var companiesCount = await this.companies.AllAsNoTracking().CountAsync();
+            //var companiesCount = companiesResult.Count();
             var revenue = 0;
-            var clientsForLastSixMonths = await GetClientsInMonthsAsync<ClientsCountInMonthsViewModel>();
+            var clientsForLastSixMonths = await GetClientsInMonthsAsync();
 
             var aggregatedInformation = new AggregatedInformationViewModel()
             {
                 ClientsCount = companiesCount,
                 Revenue = revenue,
                 CoursesCount = coursesCount,
-                CoachesCount = coachesCount,                
-                ClientsCountInMonths=clientsForLastSixMonths
+                CoachesCount = coachesCount,
+                ClientsCountInMonths = clientsForLastSixMonths
             };
-
 
             return aggregatedInformation;
         }
 
-        public async Task<IEnumerable<ClientsCountInMonthsViewModel>> GetClientsInMonthsAsync<TClientsCountInMontsViewModel>()
+        private async Task<IEnumerable<ClientsCountInMonthsViewModel>> GetClientsInMonthsAsync()
         {
-            var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("yyyy/MM/dd"));
+            var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("yyyy/MM/dd")).ToList();
             var clientsForEachMonth = new List<ClientsCountInMonthsViewModel>();
-            
-            foreach (var month in lastSixMonths)
-            {                
-                var days = DateTime.Now.ToString("dd");
-                var thisMonth = DateTime.Parse(month).AddDays(-((int.Parse(days)) - 1));
-                var nextMonth =thisMonth.AddDays(30);
-                var companies = await this.companies.AllAsNoTrackingWithDeleted().Where(c => (c.CreatedOn <= thisMonth
-                || c.CreatedOn <= nextMonth)
-                && (c.IsDeleted == false 
-                || c.DeletedOn > thisMonth)).ToListAsync();
+            var days = DateTime.Now.ToString("dd");
+            var startDate = DateTime.Now.AddDays(-((int.Parse(days)) - 1)).AddMonths(-6);
+            var activeCompanies = await this.companies.AllAsNoTrackingWithDeleted().Where(c => c.IsDeleted == false || c.DeletedOn >= startDate).ToListAsync();
 
+            foreach (var month in lastSixMonths)
+            {
+                var thisMonth = DateTime.Parse(month).AddDays(-((int.Parse(days)) - 1));
+                var nextMonth = thisMonth.AddDays(30);
+                var companiesForThisMonth = activeCompanies.Where(c => (c.CreatedOn <= thisMonth
+                 || c.CreatedOn <= nextMonth)
+                 && (c.IsDeleted == false
+                 || c.DeletedOn > thisMonth));
                 var clientsForThisMonth = new ClientsCountInMonthsViewModel
                 {
-                    ClientsCount = companies.Count(),
-                    Month = thisMonth.ToString("MMM")
+                    ClientsCount = companiesForThisMonth.Count(),
+                    Month = thisMonth.ToString("MMM"),
                 };
 
                 clientsForEachMonth.Add(clientsForThisMonth);
