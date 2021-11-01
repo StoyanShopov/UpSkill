@@ -5,11 +5,11 @@ const getUserAsync = async (email) => {
 }
 
 const promoteAsync = async (email) => {
-    return await axios.put(`https://localhost:44319/Admin/Admin/promote?email=${email}`)
+     await axios.put(`https://localhost:44319/Admin/Admin/promote?email=${email}`)
 }
 
 const demoteAsync = async (email) => {
-    return await axios.put(`https://localhost:44319/Admin/Admin/demote?email=${email}`)
+      await axios.put(`https://localhost:44319/Admin/Admin/demote?email=${email}`) 
 }
 
 const serviceActions = {

@@ -29,6 +29,7 @@ export default function PromoteDemote() {
 
     const demoteUser = async (e) => {
         await serviceActions.demoteAsync(email);
+
     }
 
     const handleInput = (event) => {
@@ -37,11 +38,11 @@ export default function PromoteDemote() {
         setEmail(email);
     }
 
-    useEffect((user) => {
-        serviceActions.getUserAsync().then((data) => {
-            setUser(data);
-        });
-    }, [user]);
+    // useEffect((user) => {
+    //     serviceActions.getUserAsync().then((data) => {
+    //         setUser(data);
+    //     });
+    // }, [user]);
 
     return (
         <>
