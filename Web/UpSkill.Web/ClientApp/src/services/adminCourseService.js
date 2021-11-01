@@ -1,11 +1,13 @@
 import { getCoachesNames } from "./coachService";
 import { getCategoriesForCourses } from "./categoryService";
 
+import { Base_URL } from '../utils/baseUrlConstant';
+
 const numberCoursesToShow = 6;
 
 const axios = require("axios");
 
-const API_URL = "https://localhost:44319/Admin/Courses";
+const API_URL = Base_URL + "Admin/Courses";
 
 const initialCourses = [
   {

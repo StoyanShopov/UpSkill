@@ -1,6 +1,7 @@
 import axios from "axios"; 
+import { Base_URL } from '../utils/baseUrlConstant';
 
-const API_URL = "https://localhost:44319/Employee/Courses/";
+const API_URL = Base_URL + "Employee/Courses/";
 
 const token = localStorage.getItem("token");
 
