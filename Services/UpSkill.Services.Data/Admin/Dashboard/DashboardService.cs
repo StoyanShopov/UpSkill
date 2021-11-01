@@ -30,13 +30,10 @@ namespace UpSkill.Services.Data.Admin.Dashboard
         public async Task<AggregatedInformationViewModel> GetAggregatedInformationAsync()
         {
             var coursesCount = await this.courses.AllAsNoTracking().CountAsync();
-            //var coursesCount = coursesResult.Count();
             var coachesCount = await this.coaches.AllAsNoTracking().CountAsync();
-            //var coachesCount = coachesResult.Count();
             var companiesCount = await this.companies.AllAsNoTracking().CountAsync();
-            //var companiesCount = companiesResult.Count();
             var revenue = 0;
-            var clientsForLastSixMonths = await GetClientsInMonthsAsync();
+            var clientsForLastSixMonths = await this.GetClientsInMonthsAsync();
 
             var aggregatedInformation = new AggregatedInformationViewModel()
             {
@@ -44,24 +41,25 @@ namespace UpSkill.Services.Data.Admin.Dashboard
                 Revenue = revenue,
                 CoursesCount = coursesCount,
                 CoachesCount = coachesCount,
-                ClientsCountInMonths = clientsForLastSixMonths
+                ClientsCountInMonths = clientsForLastSixMonths,
             };
 
             return aggregatedInformation;
         }
 
+        // TODO: Refactor this code
         private async Task<IEnumerable<ClientsCountInMonthsViewModel>> GetClientsInMonthsAsync()
         {
-            var lastSixMonths = Enumerable.Range(0, 6).Select(i => DateTime.Now.AddMonths(i - 6).ToString("yyyy/MM/dd")).ToList();
+            var firstDayOfThisMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var lastSixMonths = Enumerable.Range(0, 6).Select(i => firstDayOfThisMonth.AddMonths(i - 6).ToString("yyyy/MM/dd")).ToList();
             var clientsForEachMonth = new List<ClientsCountInMonthsViewModel>();
-            var days = DateTime.Now.ToString("dd");
-            var startDate = DateTime.Now.AddDays(-((int.Parse(days)) - 1)).AddMonths(-6);
-            var activeCompanies = await this.companies.AllAsNoTrackingWithDeleted().Where(c => c.IsDeleted == false || c.DeletedOn >= startDate).ToListAsync();
+            var startDateOfPreviousSixMonths = DateTime.Parse(lastSixMonths.ToList().First());
+            var activeCompanies = await this.companies.AllAsNoTrackingWithDeleted().Where(c => c.IsDeleted == false || c.DeletedOn >= startDateOfPreviousSixMonths).ToListAsync();
 
             foreach (var month in lastSixMonths)
             {
-                var thisMonth = DateTime.Parse(month).AddDays(-((int.Parse(days)) - 1));
-                var nextMonth = thisMonth.AddDays(30);
+                var thisMonth = DateTime.Parse(month);
+                var nextMonth = thisMonth.AddMonths(1);
                 var companiesForThisMonth = activeCompanies.Where(c => (c.CreatedOn <= thisMonth
                  || c.CreatedOn <= nextMonth)
                  && (c.IsDeleted == false
