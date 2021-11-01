@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UpSkill.Common;
-using UpSkill.Web.ViewModels.Administration.Dashboard;
-
-namespace UpSkill.Services.Data.Contracts.Admin.Dashboard
+﻿namespace UpSkill.Services.Data.Contracts.Admin.Dashboard
 {
+    using System.Threading.Tasks;
+
+    using UpSkill.Web.ViewModels.Administration.Dashboard;
+
     public interface IDashboardService
     {
         Task<AggregatedInformationViewModel> GetAggregatedInformationAsync();
-        //Task<IEnumerable<ClientsCountInMonthsViewModel>> GetClientsInMonthsAsync();
     }
 }

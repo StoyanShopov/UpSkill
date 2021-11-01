@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UpSkill.Web.ViewModels.Administration.Dashboard
+﻿namespace UpSkill.Web.ViewModels.Administration.Dashboard
 {
+    using System.Collections.Generic;
+
     public class AggregatedInformationViewModel
     {
         public int ClientsCount { get; set; }
