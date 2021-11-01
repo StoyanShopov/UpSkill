@@ -8,6 +8,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Data.Course;
     using UpSkill.Services.Data.Tests.Common;
     using UpSkill.Web.ViewModels.Course;
@@ -96,7 +97,6 @@
         [Fact]
         public async Task AddCompanyAsyncShouldReturnSuccesfullyAddedCompanyToCourse()
         {
-            // arange
             const int CourseId = 1;
             const int CompanyId = 1;
             const string CompanyOwnerId = "1";
@@ -144,11 +144,14 @@
             var coursesMock = new Mock<IDeletableEntityRepository<Course>>();
             coursesMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.Courses);
 
+            var filesMock = new Mock<IFileService>();
+
             var service = new CoursesService(
                 userManagerMock,
                 companyServiceMock.Object,
                 companyCoursesMock.Object,
-                coursesMock.Object);
+                coursesMock.Object,
+                filesMock.Object);
 
             // act
             var result = await service.AddCompanyAsync(new AddCompanyToCourseViewModel

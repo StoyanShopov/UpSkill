@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Coach
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Web.ViewModels.Coach;
 
+    using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CoachesController : AdministrationBaseController
@@ -17,7 +19,7 @@
             => this.coachServices = coachServices;
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCoachRequestModel model)
+        public async Task<IActionResult> Create([FromForm] CreateCoachRequestModel model)
         {
             var result = await this.coachServices.CreateAsync(model);
 
@@ -30,7 +32,7 @@
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit(UpdateCoachRequestMode model, int id)
+        public async Task<IActionResult> Edit([FromForm] UpdateCoachRequestMode model, int id)
         {
             var result = await this.coachServices.EditAsync(model, id);
 
@@ -54,5 +56,15 @@
 
             return this.Ok(SuccesfullyDeleted);
         }
+
+        [HttpGet]
+        [Route(GetAllRoute)]
+        public async Task<IEnumerable<CoachListingModel>> GetAll()
+            => await this.coachServices.GetAllAsync<CoachListingModel>();
+
+        [HttpGet]
+        [Route(DetailsRoute)]
+        public async Task<CoachDetailsModel> GetDetails(int id)
+            => await this.coachServices.GetByIdAsync<CoachDetailsModel>(id);
     }
 }

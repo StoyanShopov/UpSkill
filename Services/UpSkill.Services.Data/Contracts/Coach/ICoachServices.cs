@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Contracts.Coach
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using UpSkill.Common;
@@ -14,5 +15,7 @@
         Task<Result> DeleteAsync(int id);
 
         Task<TModel> GetByIdAsync<TModel>(int id);
+
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
     }
 }
