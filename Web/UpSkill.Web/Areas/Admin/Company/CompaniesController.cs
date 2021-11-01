@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
+    using NLog;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Web.ViewModels.Company;
 
@@ -13,6 +13,7 @@
 
     public class CompaniesController : AdministrationBaseController
     {
+        private static Logger logger = LogManager.GetLogger("UpSkillLoggerRules");
         private readonly ICompanyService companyService;
 
         public CompaniesController(ICompanyService companyService)
@@ -21,13 +22,17 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyRequestModel model)
         {
+            logger.Info("Entering companies controller. Create company method! (admin)");
+
             var reuslt = await this.companyService.CreateAsync(model);
 
             if (reuslt.Failure)
             {
+                logger.Warn("Create company method failed! (admin)");
                 return this.BadRequest(reuslt.Error);
             }
 
+            logger.Info("Company created! (admin)");
             return this.StatusCode(201, SuccesfullyCreated);
         }
 
