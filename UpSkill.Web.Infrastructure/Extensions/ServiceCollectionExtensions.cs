@@ -158,7 +158,6 @@
                 .AddTransient<ICoursesService, CoursesService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
-                .AddTransient<IEmployeeService, EmployeesService>()
                 .AddTransient<IFileService, FileService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))

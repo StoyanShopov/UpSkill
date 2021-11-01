@@ -29,7 +29,6 @@
         public EmployeesService(
             IDeletableEntityRepository<ApplicationUser> users,
             IDeletableEntityRepository<Company> companies,
-            UserManager<ApplicationUser> userManager,
             IDeletableEntityRepository<Position> positions,
             IRepository<CompanyCourse> companyCourses,
             UserManager<ApplicationUser> userManager)

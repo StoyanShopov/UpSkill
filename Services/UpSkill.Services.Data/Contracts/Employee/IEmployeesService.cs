@@ -14,5 +14,9 @@
         Task<IEnumerable<TModel>> GetAllAsync<TModel>(string userId);
 
         Task<Result> DeleteAsync(string email);
+
+        Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId);
+
+        Task<TModel> GetByIdCourseAsync<TModel>(string userId, int courseId);
     }
 }

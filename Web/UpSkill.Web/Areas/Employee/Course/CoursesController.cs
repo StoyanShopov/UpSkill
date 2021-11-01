@@ -13,11 +13,11 @@
 
     public class CoursesController : EmployeesBaseController
     {
-        private readonly IEmployeeService employeeService;
+        private readonly IEmployeesService employeeService;
         private readonly ICurrentUserService currentUser;
 
         public CoursesController(
-            IEmployeeService employeeService,
+            IEmployeesService employeeService,
             ICurrentUserService currentUser)
         {
             this.employeeService = employeeService;
