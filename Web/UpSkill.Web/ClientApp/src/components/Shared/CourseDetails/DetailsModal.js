@@ -48,13 +48,13 @@ function DetailsModal(props) {
           </div>
         </div>
         <div className="detailsModal-courses-body">
-          <h3>Course Description</h3>
+          <h3 className="course-description-header">Course Description</h3>
           <div className="row detailsModal-courses-description">
             <p>{description}</p>
           </div>
           <div className="row detailsModal-rating">
-            <p>
-              <b>Course rating</b>
+            <p className="courses-rating-header" >
+              <b >Course rating</b>
             </p>
             <div>
               <div class="d-flex justify-content-between align-items-center">
@@ -73,8 +73,8 @@ function DetailsModal(props) {
           <div className="detailsModal-courses-image-course-wrapper">
           <div className="detailsModel-courses-image-course"></div>
           <div className="detailsModel-courses-img-course-body">
-            <h4>What you'll learn</h4>
-            <p>
+            <h4 className="courses-more-information-header">What you'll learn</h4>
+            <p className="courses-more-information">
               - Learn more information about Digital Marketing - Improve your
               time management - Solve problems
             </p>

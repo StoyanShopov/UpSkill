@@ -5,7 +5,7 @@ import "./CourseCard.css";
 import GoogleLogo from "../../../../assets/img/courses/Image 2.png";
 
 function CourseCard(props) {
-  const { courseName, coachName, imageName, price, companyLogo } = props;
+  const { id,courseName, coachName, imageName, price, companyLogo, isDetailsOpen, getDetails  } = props;
 
   const [image, setImage] = useState("");
 
@@ -21,7 +21,10 @@ function CourseCard(props) {
 
   return (
     <div className="cardContainer">
-      <div className="image">
+      <div className="image" onClick = {() => {
+        isDetailsOpen(true);
+        getDetails({id, courseName, coachName});
+      }}>
         <img src={image} alt="courses" style={{ width: 450, height: 248 }} />
       </div>
       <div className="cardBody row">

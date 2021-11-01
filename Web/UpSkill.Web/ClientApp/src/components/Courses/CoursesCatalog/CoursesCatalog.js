@@ -11,18 +11,13 @@ const descriptionMock =
 
 export default function CoursesCatalog() {
   const [courses, setCourses] = useState([]);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-  // const [courseId, setCourseId] = useState("");
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false); 
 
   const setData = (data) => {
     let { id, coachName, courseName } = data;
     localStorage.setItem("ID", id);
     localStorage.setItem("FullName", coachName);
-    // localStorage.setItem("CategoryName", categoryName);
-    localStorage.setItem("Title", courseName);
-    // localStorage.setItem("CategoryId", categoryId);
-    // localStorage.setItem("CoachId", coachId);
-    // localStorage.setItem("Price", price);
+    localStorage.setItem("Title", courseName);   
     localStorage.setItem("Description", descriptionMock);
   };
 
@@ -45,9 +40,13 @@ export default function CoursesCatalog() {
   }, []);
 
   const defineCoursesCount = () => {
-      let coursesCount = courses.length % 3;
+    let coursesCount = courses.length % 3;
 
-      return false;
+    if (coursesCount !== 0) {
+      return true;
+    }
+    
+    return false;
   }
 
   return (
