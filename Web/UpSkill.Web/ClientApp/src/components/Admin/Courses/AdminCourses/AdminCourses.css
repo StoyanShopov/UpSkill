@@ -1,0 +1,28 @@
+.courses-list {
+  width: 80%;
+  margin-left: 15%;
+  column-count: 2;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  --bs-gutter-x: 3.5rem;
+  padding-left: 0 !important;
+}
+
+.create-button-wrapper {
+  width: 92%;
+  padding-top: 2rem;
+  padding-right: 5rem;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  padding-left: 0 !important;
+}
+
+@media screen and (max-width: 1000px) {
+  .courses-list {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+  }
+}
