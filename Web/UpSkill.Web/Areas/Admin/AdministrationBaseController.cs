@@ -7,7 +7,6 @@
 
     [Authorize(Roles = AdministratorRoleName)]
     [ApiController]
-    [AllowAnonymous]
     [Area("Admin")]
     [Route("Admin/[controller]")]
     public abstract class AdministrationBaseController : ControllerBase

@@ -30,7 +30,6 @@
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.6" />
-    <PackageReference Include="NLog" Version="4.7.12" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
 
@@ -75,6 +74,7 @@
 	<ItemGroup>
 		<Folder Include="ClientApp\src\components\" />
 		<Folder Include="ClientApp\src\services\" />
+		<Folder Include="NLog\" />
 	</ItemGroup>
 
 	<ItemGroup>
