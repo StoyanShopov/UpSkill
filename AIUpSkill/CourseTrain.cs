@@ -3,6 +3,7 @@
     using System;
     using System.Text;
     using System.IO;
+    using System.Linq;
 
     using Microsoft.ML;
     using Microsoft.ML.Trainers;
@@ -20,7 +21,7 @@
 
             Console.OutputEncoding = Encoding.UTF8;
             var data = Path.Combine("Data", "users-in-courses.csv");
-            var modelFile = "UsersCourses.zip";
+            var modelFile = "UpSkillCourses.zip";
 
             TrainModel(data, modelFile);
         }
@@ -37,6 +38,7 @@
             IEstimator<ITransformer> estimator = context.Transforms.Conversion
                 .MapValueToKey(outputColumnName: "userIdEncoded", inputColumnName: nameof(UsersInCourses.UserId)).Append(
                     context.Transforms.Conversion.MapValueToKey(outputColumnName: "courseIdEncoded", inputColumnName: nameof(UsersInCourses.CourseId)));
+
             var options = new MatrixFactorizationTrainer.Options
             {
                 LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass,

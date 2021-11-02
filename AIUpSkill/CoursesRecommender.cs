@@ -32,9 +32,11 @@ namespace AIUpSkill
 
             var coursesData = JsonConvert.DeserializeObject<UsersInCourses>(requestBody);
 
-            var prediction = this.predictionEnginePool.Predict(coursesData);
+            var prediction = this.predictionEnginePool.Predict("UpSkillUsersInCourses", coursesData);
 
-            return new OkObjectResult(prediction);
+            var result = prediction.Score;
+
+            return new OkObjectResult(result);
         }
     }
 }

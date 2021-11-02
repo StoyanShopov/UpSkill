@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.ML;
+﻿using System;
+
+using Microsoft.Extensions.ML;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 
 using AIUpSkill;
@@ -12,8 +14,10 @@ namespace AIUpSkill
         public override void Configure(IFunctionsHostBuilder builder)
         {
             builder.Services.AddPredictionEnginePool<UsersInCourses, UserCourseScorePrediction>()
-               .FromUri(
-               uri: "https://titanscob.blob.core.windows.net/azure-webjobs-secrets/users-in-courses.csv");
+              .FromUri(
+               modelName: "UpSkillUsersInCourses",
+              uri: "https://titanscob.blob.core.windows.net/azure-webjobs-secrets/UpSkillCourses.zip",
+              period: TimeSpan.FromMinutes(1));
         }
     }
 }
