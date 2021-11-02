@@ -1,7 +1,6 @@
 namespace AIUpSkill
 {
     using System.IO;
-    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Azure.WebJobs;
@@ -22,21 +21,21 @@ namespace AIUpSkill
             => this.predictionEnginePool = predictionEnginePool;
 
         [FunctionName("CoursesRecommender")]
-        public async Task<IActionResult> Run(
+        public IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            string requestBody = new StreamReader(req.Body).ReadToEnd();
+
+            log.LogInformation(requestBody);
 
             var coursesData = JsonConvert.DeserializeObject<UsersInCourses>(requestBody);
 
             var prediction = this.predictionEnginePool.Predict("UpSkillUsersInCourses", coursesData);
 
-            var result = prediction.Score;
-
-            return new OkObjectResult(result);
+            return new OkObjectResult(prediction);
         }
     }
 }

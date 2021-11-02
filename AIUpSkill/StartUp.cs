@@ -15,8 +15,8 @@ namespace AIUpSkill
         {
             builder.Services.AddPredictionEnginePool<UsersInCourses, UserCourseScorePrediction>()
               .FromUri(
-               modelName: "UpSkillUsersInCourses",
-              uri: "https://titanscob.blob.core.windows.net/azure-webjobs-secrets/UpSkillCourses.zip",
+              modelName: "UpSkillUsersInCourses",
+              uri: "https://titanscob.blob.core.windows.net/azure-webjobs-secrets/UpSkillCoursesModel.zip",
               period: TimeSpan.FromMinutes(1));
         }
     }
