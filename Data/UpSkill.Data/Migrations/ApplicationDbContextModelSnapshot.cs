@@ -271,6 +271,7 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+
             modelBuilder.Entity("UpSkill.Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -307,11 +308,11 @@ namespace UpSkill.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("CreatedOn")
+                    .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("DeletedOn")
+                    .HasColumnType("datetime2");
 
                     b.Property<int?>("FileId")
                         .HasColumnType("int");
@@ -373,6 +374,7 @@ namespace UpSkill.Data.Migrations
 
                     b.ToTable("Companies");
                 });
+
 
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
                 {
@@ -450,18 +452,19 @@ namespace UpSkill.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
+
+                b.Property<DateTime?>("DeletedOn")
+                    .HasColumnType("datetime2");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsDeleted")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("ModifiedOn")
+                    .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -598,24 +601,25 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("File");
                 });
 
+
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
-                {
-                    b.HasOne("UpSkill.Data.Models.Company", "Company")
-                        .WithMany("Courses")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("UpSkill.Data.Models.Company", "Company")
+                    .WithMany("Courses")
+                    .HasForeignKey("CompanyId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("UpSkill.Data.Models.Course", "Course")
-                        .WithMany("Companies")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                b.HasOne("UpSkill.Data.Models.Course", "Course")
+                    .WithMany("Companies")
+                    .HasForeignKey("CourseId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.Navigation("Company");
+                b.Navigation("Company");
 
-                    b.Navigation("Course");
-                });
+                b.Navigation("Course");
+            });
 
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
                 {
@@ -664,6 +668,7 @@ namespace UpSkill.Data.Migrations
 
                     b.Navigation("Users");
                 });
+
 
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
                 {

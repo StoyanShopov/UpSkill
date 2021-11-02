@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 import { Base_URL } from '../utils/baseUrlConstant';
@@ -34,33 +33,32 @@ export const removeCompanyHandler = async (id) => {
 const initialCompanies = [
   {
     id: 1,
-    companyName: "Motion Software",
+    companyName: 'Motion Software',
   },
   {
     id: 2,
-    companyName: "Scale Focus",
+    companyName: 'Scale Focus',
   },
   {
     id: 3,
-    companyName: "SoftUni",
+    companyName: 'SoftUni',
   },
   {
     id: 4,
-    companyName: "Test",
+    companyName: 'Test',
   },
   {
     id: 5,
-    companyName: "Metro",
+    companyName: 'Metro',
   },
   {
     id: 6,
-    companyName: "Fantastiko",
+    companyName: 'Fantastiko',
   },
 ];
 
 export const getCompanies = async () => {
   //      let res = await request(``, 'Get');
-
   return initialCompanies;
 
 };
