@@ -2,6 +2,7 @@ import React from 'react';
 import DashboardOverview from './DashboardOverview/DashboardOverview';
 import ClientsChart from './ClientsChart/ClientsChart';
 import RevenueChart from './RevenueChart/Revenue';
+import Test from '../../../services/test';
 
 function Dashboard() {
     return (
@@ -11,6 +12,7 @@ function Dashboard() {
             <DashboardOverview />
             <ClientsChart />
             <RevenueChart />
+            <Test/>
           </div>
         </div>
       </>

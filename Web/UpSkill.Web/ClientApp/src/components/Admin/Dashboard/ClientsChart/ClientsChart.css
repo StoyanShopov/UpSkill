@@ -1,6 +1,5 @@
 .container-clients {
     height: 4rem;
-    background-color: #296CFB;
     color: white;
     padding: 15px 20px 10px 60px;
     margin-top: 2rem;
@@ -15,4 +14,10 @@
 
 .wrapper {
     margin-top: 50px;
+}
+
+@media(max-width:1200px) {
+    .chart-container {
+        width: 95%;
+    }
 }

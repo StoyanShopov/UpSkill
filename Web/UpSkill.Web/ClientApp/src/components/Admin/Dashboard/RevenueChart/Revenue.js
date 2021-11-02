@@ -32,7 +32,7 @@ export default function RevenueChart() {
     };
 
     return (
-      <div>
+      <div className="revenue-chart">
         <div className="container-lg container-clients revenue-color container-margin">Total Revenue</div>
         <div class="chart-container">
           <Line data={data} options={options} />
