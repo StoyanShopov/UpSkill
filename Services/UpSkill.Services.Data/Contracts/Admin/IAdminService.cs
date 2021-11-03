@@ -10,8 +10,8 @@
     {
         Task<Result> AddCompanyOwnerToCompanyAsync(AddCompanyOwnerRequestModel model, int id);
 
-        Task<string> Promote(ApplicationUser user);
+        Task<Result> Promote(string email);
 
-        Task<string> Demote(ApplicationUser user);
+        Task<Result> Demote(string email);
     }
 }

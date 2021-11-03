@@ -47,42 +47,28 @@
         [Route(Promote)]
         public async Task<IActionResult> PromoteUser(string email)
         {
-            var user = await this.userManager.FindByEmailAsync(email);
+            var result = await this.adminService.Promote(email);
 
-            if (user == null)
+            if (result.Failure)
             {
-                return this.BadRequest(UserNotFound);
+                return this.BadRequest(result.Error);
             }
 
-            var result = await this.adminService.Promote(user);
-
-            if (result != AssignedSuccessfully)
-            {
-                return this.BadRequest(result);
-            }
-
-            return this.Ok(result);
+            return this.Ok(AssignedSuccessfully);
         }
 
         [HttpPut]
         [Route(Demote)]
         public async Task<IActionResult> DemoteUser(string email)
         {
-            var user = await this.userManager.FindByEmailAsync(email);
+            var result = await this.adminService.Demote(email);
 
-            if (user == null)
+            if (result.Failure)
             {
-                return this.BadRequest(UserNotFound);
+                return this.BadRequest(result.Error);
             }
 
-            var result = await this.adminService.Demote(user);
-
-            if (result != UnassignedSuccessfully)
-            {
-                return this.BadRequest(result);
-            }
-
-            return this.Ok(result);
+            return this.Ok(UnassignedSuccessfully);
         }
 
         [HttpGet]
