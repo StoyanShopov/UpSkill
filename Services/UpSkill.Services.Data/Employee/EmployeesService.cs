@@ -40,7 +40,7 @@
             this.positions = positions;
         }
 
-        public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId,string newEmployeePassword)
+        public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId, string newEmployeePassword)
         {
             var employee = await this.users
                          .All()
@@ -62,7 +62,7 @@
                 return WrongEmployeeNamePattern;
             }
 
-            var manager = await this.userManager.FindByIdAsync(userId);
+            var user = await this.userManager.FindByIdAsync(userId);
 
             var position = await this.positions.AllAsNoTracking().Where(p => p.Name == model.Position)
                 .FirstOrDefaultAsync();
@@ -72,14 +72,13 @@
                 FirstName = employeeFirstName,
                 LastName = employeeLastName,
                 Email = model.Email,
-                CompanyId = manager.CompanyId,
+                UserName = model.Email,
+                CompanyId = user.CompanyId,
                 PositionId = position.Id,
             };
 
-            // TODO we have to use "userManager" instead of "users" here and set default password
-            await this.userManager.CreateAsync(newEmployee,newEmployeePassword);
+            await this.userManager.CreateAsync(newEmployee, "employeePassword");
             await this.userManager.AddToRoleAsync(newEmployee, "Employee");
-            await this.users.SaveChangesAsync();
 
             return true;
         }

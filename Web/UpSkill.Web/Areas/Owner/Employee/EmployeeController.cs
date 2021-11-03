@@ -32,9 +32,9 @@
             => await this.employeesService.GetAllAsync<ListEmployeesViewModel>(this.currentUser.GetId());
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateEmployeeViewModel model)
+        public async Task<IActionResult> Create(CreateEmployeeViewModel model)
         {
-            var result = await this.employeesService.CreateAsync(model, this.currentUser.GetId(), this.passwordGenerator.CreateRandomPassword(80));
+            var result = await this.employeesService.CreateAsync(model, this.currentUser.GetId(), this.passwordGenerator.CreateRandomPassword(6));
 
             if (result.Failure)
             {
