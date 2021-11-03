@@ -154,6 +154,8 @@
             public const string CompanyOwnerRoleName = "Owner";
 
             public const string CompanyEmployeeRoleName = "Employee";
+            
+            public const string CoachRoleName = "Coach";
 
             public const string WritePolicy = "writepolicy";
 
