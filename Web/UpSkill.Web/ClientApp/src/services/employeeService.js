@@ -38,11 +38,14 @@ const employeesEmailMock =
 
 const totalCountEmployees = 64;
 
+let employees= [];
+
 export const getEmployeeWithEmail = async (currentPage) => {
-  let all = getAllEmployees();
-  console.log(all);
+  getAllEmployees()
+  
+  console.log(employees);
         let arr = [];
-        arr.push(...employeesEmailMock
+        arr.push(...employees
             .slice(0, currentPage * numberEmployeesToShow + numberEmployeesToShow));    
         
        return arr;
@@ -52,7 +55,10 @@ export const getEmployeesTotalCountCompanyOwner = async (uId) => {
    return totalCountEmployees;
 }
 
-export const getAllEmployees = async () => {
-  return axios.get(Base_URL+"Owner/Employee/"+"getAll", {headers: {"Authorization" : `Bearer ${token}`}})
-  .then(res=>res.data);
+export const getAllEmployees = async (employee) => {
+  return axios.get(Base_URL+"Owner/Employee/"+"getAll", {headers: {"Authorization" : `Bearer ${token}`}},{employee})
+  .then((response) => {
+    response.data.map(x=>employees.push(x)); 
+    return employees;
+  }); 
 }

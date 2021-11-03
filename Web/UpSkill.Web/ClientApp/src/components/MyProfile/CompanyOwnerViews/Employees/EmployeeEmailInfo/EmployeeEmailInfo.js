@@ -14,9 +14,10 @@ export default function EmployeeEmailInfo({onAddEmployee}) {
     useEffect(() => {
         getEmployeeWithEmail(currentPage)
             .then(employees => {
+                console.log(employees)
                 setallEmployees(employees);
             });        
-    }, [currentPage]);
+    }, []);
 
     function showMoreEmployees() {
         let next = currentPage+1;
