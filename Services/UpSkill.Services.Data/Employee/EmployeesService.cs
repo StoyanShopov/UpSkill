@@ -40,7 +40,7 @@
             this.positions = positions;
         }
 
-        public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId)
+        public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId,string newEmployeePassword)
         {
             var employee = await this.users
                          .All()
@@ -77,8 +77,8 @@
             };
 
             // TODO we have to use "userManager" instead of "users" here and set default password
-            await this.users.AddAsync(newEmployee);
-            await this.userManager.AddToRoleAsync(newEmployee, CompanyEmployeeRoleName);
+            await this.userManager.CreateAsync(newEmployee,newEmployeePassword);
+            await this.userManager.AddToRoleAsync(newEmployee, "Employee");
             await this.users.SaveChangesAsync();
 
             return true;
@@ -88,7 +88,7 @@
         {
             var employee = await this.users.AllAsNoTracking().Where(e => e.Email == email).FirstOrDefaultAsync();
             if (employee == null)
-        {
+            {
                 return DoesNotExist;
             }
 
@@ -106,15 +106,15 @@
             if (user == null || !roles.Contains("Owner"))
             {
                 return null;
-        }
+            }
 
             return await this.companies
-                             .All()
-                             .Where(x => x.Id == user.CompanyId)
-                             .SelectMany(x => x.Users)
-                             .Where(u => u.Id != userId)
-                             .To<TModel>()
-                             .ToListAsync();
+                .All()
+                .Where(x => x.Id == user.CompanyId)
+                .SelectMany(x => x.Users)
+                .Where(u => u.Id != userId)
+                .To<TModel>()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId)
@@ -143,7 +143,6 @@
 
             return course;
         }
-
 
         private async Task<ApplicationUser> GetUserById(string userId)
             => await this.userManager.FindByIdAsync(userId);

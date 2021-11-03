@@ -9,7 +9,7 @@
 
     public interface IEmployeesService
     {
-        Task<Result> CreateAsync(CreateEmployeeViewModel model,string userId);
+        Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId, string newEmployeePassword);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>(string userId);
 

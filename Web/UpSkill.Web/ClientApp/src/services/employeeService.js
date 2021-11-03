@@ -39,6 +39,8 @@ const employeesEmailMock =
 const totalCountEmployees = 64;
 
 export const getEmployeeWithEmail = async (currentPage) => {
+  let all = getAllEmployees();
+  console.log(all);
         let arr = [];
         arr.push(...employeesEmailMock
             .slice(0, currentPage * numberEmployeesToShow + numberEmployeesToShow));    
@@ -51,6 +53,6 @@ export const getEmployeesTotalCountCompanyOwner = async (uId) => {
 }
 
 export const getAllEmployees = async () => {
-    const allEmployees = employeesEmailMock;
-    return allEmployees;
+  return axios.get(Base_URL+"Owner/Employee/"+"getAll", {headers: {"Authorization" : `Bearer ${token}`}})
+  .then(res=>res.data);
 }

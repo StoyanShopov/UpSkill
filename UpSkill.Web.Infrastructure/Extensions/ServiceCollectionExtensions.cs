@@ -163,7 +163,8 @@
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
                 .AddTransient<IBlobService, BlobService>()
-                .AddTransient<IEmployeesService, EmployeesService>();
+                .AddTransient<IEmployeesService, EmployeesService>()
+                .AddTransient<IPasswordGeneratorService, PasswordGeneratorService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services

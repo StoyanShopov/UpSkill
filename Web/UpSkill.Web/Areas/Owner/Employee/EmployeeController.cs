@@ -1,6 +1,4 @@
-﻿using UpSkill.Web.Infrastructure.Services;
-
-namespace UpSkill.Web.Areas.Owner.Employee
+﻿namespace UpSkill.Web.Areas.Owner.Employee
 {
     using System.Collections.Generic;
     using System.Security.Claims;
@@ -8,8 +6,8 @@ namespace UpSkill.Web.Areas.Owner.Employee
 
     using Microsoft.AspNetCore.Mvc;
     using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Employee;
-    
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
@@ -19,11 +17,13 @@ namespace UpSkill.Web.Areas.Owner.Employee
     {
         private readonly IEmployeesService employeesService;
         private readonly ICurrentUserService currentUser;
+        private readonly IPasswordGeneratorService passwordGenerator;
 
-        public EmployeeController(IEmployeesService employeesService, ICurrentUserService currentUser)
+        public EmployeeController(IEmployeesService employeesService, ICurrentUserService currentUser, IPasswordGeneratorService passwordGenerator)
         {
             this.employeesService = employeesService;
             this.currentUser = currentUser;
+            this.passwordGenerator = passwordGenerator;
         }
 
         [HttpGet]
@@ -34,7 +34,7 @@ namespace UpSkill.Web.Areas.Owner.Employee
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateEmployeeViewModel model)
         {
-            var result = await this.employeesService.CreateAsync(model, this.currentUser.GetId());
+            var result = await this.employeesService.CreateAsync(model, this.currentUser.GetId(), this.passwordGenerator.CreateRandomPassword(80));
 
             if (result.Failure)
             {
@@ -57,7 +57,5 @@ namespace UpSkill.Web.Areas.Owner.Employee
 
             return this.Ok(EmployeeSuccesfullyDeleted);
         }
-       
     }
-
 }
