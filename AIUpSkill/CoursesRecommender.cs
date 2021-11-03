@@ -4,14 +4,16 @@ namespace AIUpSkill
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Azure.WebJobs;
-    using Microsoft.Azure.WebJobs.Extensions.Http;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Logging;
+    using Microsoft.Azure.WebJobs.Extensions.Http;
     using Microsoft.Extensions.ML;
+    using Microsoft.Extensions.Logging;
 
     using Newtonsoft.Json;
 
     using AIUpSkill.Models;
+
+    using static AIConstants.Constants;
 
     public class CoursesRecommender
     {
@@ -20,12 +22,12 @@ namespace AIUpSkill
         public CoursesRecommender(PredictionEnginePool<UsersInCourses, UserCourseScorePrediction> predictionEnginePool)
             => this.predictionEnginePool = predictionEnginePool;
 
-        [FunctionName("CoursesRecommender")]
+        [FunctionName(CoursesRecommenderFunction)]
         public IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, Post, Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            log.LogInformation(CoursesRecommenderFunctionProcessed);
 
             string requestBody = new StreamReader(req.Body).ReadToEnd();
 
@@ -33,7 +35,7 @@ namespace AIUpSkill
 
             var coursesData = JsonConvert.DeserializeObject<UsersInCourses>(requestBody);
 
-            var prediction = this.predictionEnginePool.Predict("UpSkillUsersInCourses", coursesData);
+            var prediction = this.predictionEnginePool.Predict(coursesData);
 
             return new OkObjectResult(prediction);
         }

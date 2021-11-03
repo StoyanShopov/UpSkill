@@ -1,11 +1,12 @@
-﻿using Microsoft.ML;
-using Microsoft.ML.Trainers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AICourseTrainer
+﻿namespace AICourseTrainer
 {
+    using System;
+    using System.Text;
+    using System.Collections.Generic;
+
+    using Microsoft.ML;
+    using Microsoft.ML.Trainers;
+
     public class Program
     {
         public static void Main(string[] args)
