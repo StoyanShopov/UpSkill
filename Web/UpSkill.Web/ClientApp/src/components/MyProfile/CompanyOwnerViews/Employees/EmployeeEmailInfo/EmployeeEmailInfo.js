@@ -14,10 +14,10 @@ export default function EmployeeEmailInfo({onAddEmployee}) {
     useEffect(() => {
         getEmployeeWithEmail(currentPage)
             .then(employees => {
-                console.log(employees)
+                
                 setallEmployees(employees);
             });        
-    }, []);
+    }, [currentPage]);
 
     function showMoreEmployees() {
         let next = currentPage+1;
@@ -54,9 +54,9 @@ export default function EmployeeEmailInfo({onAddEmployee}) {
                         <div className="table-content-names w-50">
                         {allEmployees.map(employee=>{
                             return (
-                                <div className="table-row px-3" key={employee.name+employee.email}>
+                                <div className="table-row px-3" key={employee.firstName+employee.email}>
                                     <div className="cell cell-data-Employees-Courses name-cell-data" data-title="Employee" href={employee.email}>
-                                        {employee.name}
+                                        {employee.firstName +' '+ employee.lastName}
                                     </div>                                                               
                                 </div>);
                         })}

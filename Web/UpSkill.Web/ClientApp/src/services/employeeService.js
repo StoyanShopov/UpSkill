@@ -57,7 +57,7 @@ export const getEmployeesTotalCountCompanyOwner = async (uId) => {
 
 export const getAllEmployees = async (employee) => {
   return axios.get(Base_URL+"Owner/Employee/"+"getAll", {headers: {"Authorization" : `Bearer ${token}`}},{employee})
-  .then((response) => {
+  .then((response) => {    
     response.data.map(x=>employees.push(x)); 
     return employees;
   }); 

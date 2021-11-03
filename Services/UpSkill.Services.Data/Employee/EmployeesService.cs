@@ -77,8 +77,8 @@
                 PositionId = position.Id,
             };
 
-            await this.userManager.CreateAsync(newEmployee, "employeePassword");
-            await this.userManager.AddToRoleAsync(newEmployee, "Employee");
+            await this.userManager.CreateAsync(newEmployee, newEmployeePassword);
+            await this.userManager.AddToRoleAsync(newEmployee, CompanyEmployeeRoleName);
 
             return true;
         }
