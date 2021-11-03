@@ -43,7 +43,7 @@ let employees= [];
 export const getEmployeeWithEmail = async (currentPage) => {
   getAllEmployees()
   
-  console.log(employees);
+  
         let arr = [];
         arr.push(...employees
             .slice(0, currentPage * numberEmployeesToShow + numberEmployeesToShow));    
@@ -57,7 +57,8 @@ export const getEmployeesTotalCountCompanyOwner = async (uId) => {
 
 export const getAllEmployees = async (employee) => {
   return axios.get(Base_URL+"Owner/Employee/"+"getAll", {headers: {"Authorization" : `Bearer ${token}`}},{employee})
-  .then((response) => {    
+  .then((response) => {  
+    employees=[];  
     response.data.map(x=>employees.push(x)); 
     return employees;
   }); 
