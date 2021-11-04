@@ -1,10 +1,12 @@
 
 import axios from 'axios';
 
+import { Base_URL } from '../utils/baseUrlConstant';
+
 //RetriveCompany
 export const retriveCompanies = async () => {
   const response = await axios
-  .get("https://localhost:44319/Admin/Companies/getAll");
+  .get( Base_URL + "Admin/Companies/getAll");
   return response.data;
 }
 //Create
@@ -15,18 +17,18 @@ export const addCompanyHandler = async (company) => {
   };
 
   return await axios
-  .post("https://localhost:44319/Admin/Companies/create", request)
+  .post( Base_URL + "Admin/Companies/create", request)
   .then(response => response.data);
 };
 //Update
 export const updateCompanyHandler = async (company) => {
   return await axios
-  .put(`https://localhost:44319/Admin/Companies/edit?id=${company.id}`, company)
+  .put( Base_URL + `Admin/Companies/edit?id=${company.id}`, company)
   .then(response => response.data);
 };
 //Delete
 export const removeCompanyHandler = async (id) => {
-  return await axios.delete(`https://localhost:44319/Admin/Companies/delete?id=${id}`);
+  return await axios.delete( Base_URL + `Admin/Companies/delete?id=${id}`);
 };
 
 const initialCompanies = [
