@@ -5,7 +5,7 @@ import FooterMenu from './Footer/Footer';
 import './Layout.css';
 
 export default function Layout(props) {
-    return (
+  return (
       <>
         <NavMenu />
                 <div className="container paddingTopContent">
