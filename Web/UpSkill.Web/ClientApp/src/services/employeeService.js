@@ -52,7 +52,7 @@ export const getEmployeeWithEmail = async (currentPage) => {
 }
 
 export const getEmployeesTotalCountCompanyOwner = async (uId) => {    
-   return totalCountEmployees;
+   return employees.length;
 }
 
 export const getAllEmployees = async (employee) => {
