@@ -17,6 +17,7 @@
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.ChildUsers = new HashSet<ApplicationUser>();
+            this.Courses = new HashSet<Course>();
         }
 
         [Required]
@@ -54,5 +55,7 @@
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }
