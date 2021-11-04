@@ -203,6 +203,8 @@
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
 
             public const string SuccesfullyAddedCompanyOwnerToGivenCourse = "You have successfully added a company to this course.";
+
+            public const string SuccesfullyAddedCoachToGivenCompany = "You have successfully added a coach to this company.";
         }
 
         public class CategoriesNamesConstants

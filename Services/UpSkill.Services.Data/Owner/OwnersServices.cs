@@ -7,25 +7,42 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
+    using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Services.Mapping;
+    using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Course;
+    using UpSkill.Web.ViewModels.Owner;
 
+    using static Common.GlobalConstants.AccountConstants;
     using static Common.GlobalConstants.RolesNamesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
+    using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Web.ViewModels.Company;
 
     public class OwnersServices : IOwnerServices
     {
         private readonly IRepository<CompanyCourse> companyCourses;
+        private readonly IRepository<CompanyCoaches> companyCoaches;
+        private readonly ICoachServices coachService;
+        private readonly ICompanyService companyService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public OwnersServices(
             IRepository<CompanyCourse> companyCourses,
-            UserManager<ApplicationUser> userManager)
+            IRepository<CompanyCoaches> companyCoaches,
+            UserManager<ApplicationUser> userManager,
+            ICoachServices coachService,
+            ICompanyService companyService)
         {
             this.companyCourses = companyCourses;
             this.userManager = userManager;
+            this.companyCoaches = companyCoaches;
+            this.coachService = coachService;
+            this.companyService = companyService;
         }
 
         public Task<IEnumerable<TModel>> GetAllAsync<TModel>()
@@ -52,7 +69,67 @@
             return new CoursesCountModel { Count = courses.Count() };
         }
 
-        private async Task<ApplicationUser> GetUserById(string userId)
+        public async Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var courses = await this.companyCoaches
+                    .AllAsNoTracking()
+                    .Where(c => c.CompanyId == user.CompanyId)
+                    .To<TModel>()
+                    .ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<Result> AddCoachAsync(AddCoachToCompanyModel model)
+        {
+            var companyOwner = await this.userManager.FindByEmailAsync(model.OwnerEmail);
+            var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
+
+            if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
+            {
+                return UserNotInCompanyOwnerRole;
+            }
+
+            var coach = await this.coachService.GetByIdAsync<CoachDetailsModel>(model.CoachId);
+            if (coach == null)
+            {
+                return DoesNotExist;
+            }
+
+            var company = await this.companyService.GetByIdAsync<CompanyDetailsModel>(model.CompanyId);
+            if (company == null)
+            {
+                return DoesNotExist;
+            }
+
+            var companyCoach = new CompanyCoaches
+            {
+                CompanyId = model.CompanyId,
+                CoachId = model.CoachId,
+            };
+
+
+            var companyCoachExist = await this.companyCoaches
+                .AllAsNoTracking()
+                .Where(cc => cc.CoachId == model.CoachId
+                && cc.CompanyId == model.CompanyId)
+                .FirstOrDefaultAsync() != null;
+
+            if (companyCoachExist)
+            {
+                return AlreadyExist;
+            }
+
+            await this.companyCoaches.AddAsync(companyCoach);
+
+            await this.companyCoaches.SaveChangesAsync();
+
+            return true;
+        }
+
+            private async Task<ApplicationUser> GetUserById(string userId)
             => await this.userManager.FindByIdAsync(userId);
     }
 }
