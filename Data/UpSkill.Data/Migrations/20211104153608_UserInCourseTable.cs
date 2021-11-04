@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace UpSkill.Data.Migrations
+﻿namespace UpSkill.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class UserInCourseTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -10,19 +10,18 @@ namespace UpSkill.Data.Migrations
                 name: "UserInCourses",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInCourses", x => new { x.UserId, x.CourseId });
+                    table.PrimaryKey("PK_UserInCourses", x => new { x.ApplicationUserId, x.CourseId });
                     table.ForeignKey(
                         name: "FK_UserInCourses_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserInCourses_Courses_CourseId",
                         column: x => x.CourseId,
@@ -30,11 +29,6 @@ namespace UpSkill.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserInCourses_ApplicationUserId",
-                table: "UserInCourses",
-                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserInCourses_CourseId",

@@ -90,7 +90,7 @@
 
             builder
                 .Entity<UserInCourse>()
-                .HasKey(uc => new { uc.UserId, uc.CourseId });
+                .HasKey(uc => new { uc.ApplicationUserId, uc.CourseId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

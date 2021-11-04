@@ -502,18 +502,13 @@ namespace UpSkill.Data.Migrations
 
             modelBuilder.Entity("UpSkill.Data.Models.UserInCourse", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "CourseId");
-
-                    b.HasIndex("ApplicationUserId");
+                    b.HasKey("ApplicationUserId", "CourseId");
 
                     b.HasIndex("CourseId");
 
@@ -666,7 +661,9 @@ namespace UpSkill.Data.Migrations
                 {
                     b.HasOne("UpSkill.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Courses")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("UpSkill.Data.Models.Course", "Course")
                         .WithMany("CourseUsers")
