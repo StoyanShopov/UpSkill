@@ -15,7 +15,9 @@
 
         Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId);
 
-        Task<Result> AddCoachAsync(AddCoachToCompanyModel userId);
+        Task<Result> AddCoachAsync(AddCoachToCompanyModel model);
+
+        Task<Result> RemoveCoachAsync(AddCoachToCompanyModel model);
 
         Task<CoursesCountModel> CountCompanyCourses<TModel>(string userId);
     }

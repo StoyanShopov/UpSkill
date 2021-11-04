@@ -44,5 +44,18 @@
 
             return this.Ok(SuccesfullyAddedCoachToGivenCompany);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCoachFromOwner(AddCoachToCompanyModel modal)
+        {
+            var result = await this.ownerService.RemoveCoachAsync(modal);
+
+            if (result.Failure)
+            {
+                return this.BadRequest(result.Error);
+            }
+
+            return this.Ok(SuccesfullyDeleted);
+        }
     }
 }

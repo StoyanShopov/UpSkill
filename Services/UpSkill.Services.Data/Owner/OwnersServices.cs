@@ -11,17 +11,17 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Coach;
+    using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Coach;
+    using UpSkill.Web.ViewModels.Company;
     using UpSkill.Web.ViewModels.Course;
     using UpSkill.Web.ViewModels.Owner;
 
-    using static Common.GlobalConstants.AccountConstants;
-    using static Common.GlobalConstants.RolesNamesConstants;
-    using static Common.GlobalConstants.ControllersResponseMessages;
-    using UpSkill.Services.Data.Contracts.Company;
-    using UpSkill.Web.ViewModels.Company;
+    using static UpSkill.Common.GlobalConstants.AccountConstants;
+    using static UpSkill.Common.GlobalConstants.ControllersResponseMessages;
+    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 
     public class OwnersServices : IOwnerServices
     {
@@ -110,7 +110,6 @@
                 CoachId = model.CoachId,
             };
 
-
             var companyCoachExist = await this.companyCoaches
                 .AllAsNoTracking()
                 .Where(cc => cc.CoachId == model.CoachId
@@ -129,7 +128,53 @@
             return true;
         }
 
-            private async Task<ApplicationUser> GetUserById(string userId)
+        public async Task<Result> RemoveCoachAsync(AddCoachToCompanyModel model)
+        {
+            var companyOwner = await this.userManager.FindByEmailAsync(model.OwnerEmail);
+            var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
+
+            if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
+            {
+                return UserNotInCompanyOwnerRole;
+            }
+
+            var coach = await this.coachService.GetByIdAsync<CoachDetailsModel>(model.CoachId);
+            if (coach == null)
+            {
+                return DoesNotExist;
+            }
+
+            var company = await this.companyService.GetByIdAsync<CompanyDetailsModel>(model.CompanyId);
+            if (company == null)
+            {
+                return DoesNotExist;
+            }
+
+            // var companyCoach = new CompanyCoaches
+            // {
+            //    CompanyId = model.CompanyId,
+            //    CoachId = model.CoachId,
+            //  };
+
+            var companyCoach = await this.companyCoaches
+                .AllAsNoTracking()
+                .Where(cc => cc.CoachId == model.CoachId
+                && cc.CompanyId == model.CompanyId)
+                .FirstOrDefaultAsync();
+
+            if (companyCoach == null)
+            {
+                return DoesNotExist;
+            }
+
+            this.companyCoaches.Delete(companyCoach);
+
+            await this.companyCoaches.SaveChangesAsync();
+
+            return true;
+        }
+
+        private async Task<ApplicationUser> GetUserById(string userId)
             => await this.userManager.FindByIdAsync(userId);
     }
 }
