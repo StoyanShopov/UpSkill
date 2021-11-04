@@ -45,7 +45,6 @@
         }
 
         [HttpDelete]
-        [Route(DeleteRoute)]
         public async Task<IActionResult> DeleteAsync(string email)
         {
             var result = await this.employeesService.DeleteAsync(email);
