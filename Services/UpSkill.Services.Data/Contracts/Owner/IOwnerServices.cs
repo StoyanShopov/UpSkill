@@ -17,7 +17,7 @@
 
         Task<Result> AddCoachAsync(AddCoachToCompanyModel model);
 
-        Task<Result> RemoveCoachAsync(AddCoachToCompanyModel model);
+        Task<Result> RemoveCoachAsync(int coachId, string userId);
 
         Task<CoursesCountModel> CountCompanyCourses<TModel>(string userId);
     }

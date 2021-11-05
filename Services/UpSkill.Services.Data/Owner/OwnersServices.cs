@@ -128,38 +128,26 @@
             return true;
         }
 
-        public async Task<Result> RemoveCoachAsync(AddCoachToCompanyModel model)
+        public async Task<Result> RemoveCoachAsync(int coachId, string userId)
         {
-            var companyOwner = await this.userManager.FindByEmailAsync(model.OwnerEmail);
-            var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
+            var user = await this.GetUserById(userId);
 
-            if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
-            {
-                return UserNotInCompanyOwnerRole;
-            }
-
-            var coach = await this.coachService.GetByIdAsync<CoachDetailsModel>(model.CoachId);
+            var coach = await this.coachService.GetByIdAsync<CoachDetailsModel>(coachId);
             if (coach == null)
             {
                 return DoesNotExist;
             }
 
-            var company = await this.companyService.GetByIdAsync<CompanyDetailsModel>(model.CompanyId);
+            var company = await this.companyService.GetByIdAsync<CompanyDetailsModel>(user.CompanyId);
             if (company == null)
             {
                 return DoesNotExist;
             }
 
-            // var companyCoach = new CompanyCoaches
-            // {
-            //    CompanyId = model.CompanyId,
-            //    CoachId = model.CoachId,
-            //  };
-
             var companyCoach = await this.companyCoaches
                 .AllAsNoTracking()
-                .Where(cc => cc.CoachId == model.CoachId
-                && cc.CompanyId == model.CompanyId)
+                .Where(cc => cc.CoachId == coachId
+                && cc.CompanyId == user.CompanyId)
                 .FirstOrDefaultAsync();
 
             if (companyCoach == null)

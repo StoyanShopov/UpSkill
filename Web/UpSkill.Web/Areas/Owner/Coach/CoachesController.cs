@@ -46,9 +46,9 @@
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteCoachFromOwner(AddCoachToCompanyModel modal)
+        public async Task<IActionResult> DeleteCoachFromOwner(int id)
         {
-            var result = await this.ownerService.RemoveCoachAsync(modal);
+            var result = await this.ownerService.RemoveCoachAsync(id, this.currentUser.GetId());
 
             if (result.Failure)
             {
