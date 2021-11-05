@@ -16,7 +16,7 @@ const ga4react = new GA4React('G-P8BE6XL524');
     ReactDOM.render(
       <Router >
         <App />
-      </Router>,
+      </ Router>,
       document.getElementById('root')
       );    
   })
