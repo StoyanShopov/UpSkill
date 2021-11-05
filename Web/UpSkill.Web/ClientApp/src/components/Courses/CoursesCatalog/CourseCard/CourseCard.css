@@ -28,6 +28,7 @@
 .image {
   background: transparent 0% 0% no-repeat padding-box;
   opacity: 1;
+  cursor: pointer;
 }
 
 .logo {
