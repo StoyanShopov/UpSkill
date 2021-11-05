@@ -4,11 +4,11 @@ import { getCompanies } from "../../../services/companyService";
 export default function Companies() {
   const [companies, setCompanies] = useState([]);
   
-  useEffect(() => {
-    getCompanies().then((companies) => {
-      setCompanies(companies);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getCompanies().then((companies) => {
+  //     setCompanies(companies);
+  //   });
+  // }, []);
 
   return (
     <div>
