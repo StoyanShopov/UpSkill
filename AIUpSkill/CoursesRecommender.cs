@@ -24,7 +24,7 @@ namespace AIUpSkill
 
         [FunctionName(CoursesRecommenderFunction)]
         public IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, Post, Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, Post, Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation(CoursesRecommenderFunctionProcessed);
