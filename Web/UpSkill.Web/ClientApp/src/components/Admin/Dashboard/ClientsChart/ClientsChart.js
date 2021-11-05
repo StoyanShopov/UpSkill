@@ -1,15 +1,38 @@
 import {Line} from 'react-chartjs-2'
 import "./ClientsChart.css";
 import "../RevenueChart/Revenue.css";
+import {useState, useEffect} from 'react';
 
-export default function ClientsChart() {
+export default function ClientsChart(props) {
+  console.log(props.clientsMonths);
+
+  const [months, setMonths ] = useState(0);
+  const [clients, setClients] = useState(0);
+
+  function getMonths() {
+    const months = props.clientsMonths.map(clientsMonth => clientsMonth.month);
+    setMonths(months);
+  } 
+
+  function getClientsByMonth() {
+    const clients = props.clientsMonths.map(
+      (clientsMonth) => clientsMonth.clientsCount
+    );
+    setClients(clients);
+  } 
+  
+ 
+  useEffect(() => {
+    getMonths()
+    getClientsByMonth()
+  });
 
     const data = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        labels: months,
         datasets: [
           {
             label: "",
-            data: [45, 15, 27, 60, 25, 44],
+            data: clients,
             fill: false,
             backgroundColor: "#6293FC",
             borderColor: "#3F7BFB",
@@ -32,9 +55,10 @@ export default function ClientsChart() {
     };
 
     return (
-      <div>
+      <div className="media-query">
+
         <div className="container-lg container-clients clients-color">Number of clients</div>
-        <div class="chart-container">
+        <div className="chart-container">
           <Line data={data} options={options} />
         </div>
       </div>

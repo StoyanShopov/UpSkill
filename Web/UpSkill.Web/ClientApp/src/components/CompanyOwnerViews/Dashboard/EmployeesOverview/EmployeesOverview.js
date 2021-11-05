@@ -22,7 +22,8 @@ function EmployeesOverview() {
           getActiveCoursesCompanyOwner('').then((courses) => {
             setActiveCourses(courses);
           });
-      }, []);        
+          console.log('render')
+      }, [activeCourses]);        
          
     return (
             <div className="table">

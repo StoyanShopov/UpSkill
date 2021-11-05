@@ -3,46 +3,26 @@ import React, { useEffect, useState } from 'react';
 import '../../../CompanyOwnerViews/Dashboard/EmployeesOverview/EmployeesOverview';
 import './DashboardOverview.css';
 
-import { getEmployeesTotalCountCompanyOwner } from "../../../../services/employeeService";
-import { getActiveCoachesCompanyOwner } from "../../../../services/coachService";
-import { getActiveCoursesCompanyOwner } from "../../../../services/courseSevice";
-
-function DashboardOverview() {
-    const [count, setCount ] = useState();
-    const [activeCoaches, setActiveCoaches] = useState();    
-    const [activeCourses, setActiveCourses] = useState();  
-
-    useEffect(() => {
-        getEmployeesTotalCountCompanyOwner('').then((emplCount) => {
-          setCount(emplCount);
-        });
-        getActiveCoachesCompanyOwner('').then((coaches) => {
-            setActiveCoaches(coaches);
-          });
-        
-          getActiveCoursesCompanyOwner('').then((courses) => {
-            setActiveCourses(courses);
-          });
-      }, []);        
-         
+function DashboardOverview(props) {
+      
     return (
             <div className="table">
                 <div className="Overview d-flex mt-5 mb-4 shadow px-5 py-4">
                     <div className="Overview-count Overview-cell">
                         <h4>Clients</h4>
-                        <h1 className="Overview-heading">{count}</h1>
+                        <h1 className="Overview-heading">{props.clientsCount}</h1>
                     </div>
                     <div className="Overview-revenue Overview-cell">
                         <h4>Revenue</h4>
-                        <h1 className="Overview-heading">{activeCoaches}</h1>
+                        <h1 className="Overview-heading">{props.revenue}</h1>
                     </div>
                     <div className="Overview-activeCourses Overview-cell">
                         <h4>Courses</h4>
-                        <h1 className="Overview-heading">{activeCourses}</h1>
+                        <h1 className="Overview-heading">{props.coursesCount}</h1>
                     </div>
                     <div className="Overview-activeCoaches Overview-cell">
                         <h4>Coaches</h4>
-                        <h1 className="Overview-heading">{activeCourses}</h1>
+                        <h1 className="Overview-heading">{props.coachesCount}</h1>
                     </div>
                 </div>
             </div>
