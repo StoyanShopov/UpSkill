@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIUpSkill", "AIUpSkill\AIUpSkill.csproj", "{6B1577FB-F77A-431D-B734-A25B84ADB0E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AICourseTrainer", "AICourseTrainer\AICourseTrainer.csproj", "{E54CF944-A8BF-4FC5-9322-F0439AF8E39C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AICourseTrainer", "AICourseTrainer\AICourseTrainer.csproj", "{E54CF944-A8BF-4FC5-9322-F0439AF8E39C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIUpSKillCourseTrainer", "AIUpSKillCourseTrainer\AIUpSKillCourseTrainer.csproj", "{2296BE5E-ECC0-4E7F-8CFD-0BB760089C77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E54CF944-A8BF-4FC5-9322-F0439AF8E39C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E54CF944-A8BF-4FC5-9322-F0439AF8E39C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E54CF944-A8BF-4FC5-9322-F0439AF8E39C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2296BE5E-ECC0-4E7F-8CFD-0BB760089C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2296BE5E-ECC0-4E7F-8CFD-0BB760089C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2296BE5E-ECC0-4E7F-8CFD-0BB760089C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2296BE5E-ECC0-4E7F-8CFD-0BB760089C77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
