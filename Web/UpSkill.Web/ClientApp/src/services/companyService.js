@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 //RetriveCompany
-export const retriveCompanies = async () => {
+export const getCompanies = async () => {
   const response = await axios
   .get("https://localhost:44319/Admin/Companies/getAll");
   return response.data;
@@ -26,7 +26,7 @@ export const updateCompanyHandler = async (company) => {
 };
 //Delete
 export const removeCompanyHandler = async (id) => {
-  return await axios.delete(`https://localhost:44319/Admin/Companies/delete?id=${id}`);
+  return await axios.delete(`https://localhost:44319/Admin/Companies/delete?id=${id}`)
 };
 
 const initialCompanies = [
@@ -53,12 +53,5 @@ const initialCompanies = [
   {
     id: 6,
     companyName: "Fantastiko",
-  },
+  }
 ];
-
-export const getCompanies = async () => {
-  //      let res = await request(``, 'Get');
-
-  return initialCompanies;
-
-};
