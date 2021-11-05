@@ -1,0 +1,900 @@
+{
+  "format": 1,
+  "restore": {
+    "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web\\UpSkill.Web.csproj": {}
+  },
+  "projects": {
+    "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj",
+        "projectName": "UpSkill.Data.Common",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj",
+        "projectName": "UpSkill.Data.Models",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj",
+        "projectName": "UpSkill.Data",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+              "target": "Package",
+              "version": "[1.1.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
+            "Microsoft.Extensions.Configuration.UserSecrets": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Data\\UpSkill.Services.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Data\\UpSkill.Services.Data.csproj",
+        "projectName": "UpSkill.Services.Data",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Data\\UpSkill.Services.Data.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\UpSkill.Services.Mapping.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\UpSkill.Services.Mapping.csproj",
+        "projectName": "UpSkill.Services.Mapping",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\UpSkill.Services.Mapping.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj",
+        "projectName": "UpSkill.Services.Messaging",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Sendgrid": {
+              "target": "Package",
+              "version": "[9.23.1, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services\\UpSkill.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services\\UpSkill.Services.csproj",
+        "projectName": "UpSkill.Services",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services\\UpSkill.Services.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.10.0, )"
+            },
+            "Microsoft.AspNetCore.WebUtilities": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj",
+        "projectName": "UpSkill.Common",
+        "projectPath": "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\UpSkill.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\UpSkill.Web.Infrastructure\\UpSkill.Web.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\UpSkill.Web.Infrastructure\\UpSkill.Web.Infrastructure.csproj",
+        "projectName": "UpSkill.Web.Infrastructure",
+        "projectPath": "H:\\Programming Repositories\\Titans\\UpSkill.Web.Infrastructure\\UpSkill.Web.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\UpSkill.Web.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Data\\UpSkill.Services.Data.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Data\\UpSkill.Services.Data.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services\\UpSkill.Services.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services\\UpSkill.Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj",
+        "projectName": "UpSkill.Web.ViewModels",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\UpSkill.Services.Mapping.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\UpSkill.Services.Mapping.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web\\UpSkill.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web\\UpSkill.Web.csproj",
+        "projectName": "UpSkill.Web",
+        "projectPath": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web\\UpSkill.Web.csproj",
+        "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
+        "outputPath": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Models\\UpSkill.Data.Models.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data\\UpSkill.Data.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Data\\UpSkill.Services.Data.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Data\\UpSkill.Services.Data.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\UpSkill.Services.Mapping.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\UpSkill.Services.Mapping.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Messaging\\UpSkill.Services.Messaging.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services\\UpSkill.Services.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services\\UpSkill.Services.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\UpSkill.Web.Infrastructure\\UpSkill.Web.Infrastructure.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\UpSkill.Web.Infrastructure\\UpSkill.Web.Infrastructure.csproj"
+              },
+              "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj": {
+                "projectPath": "H:\\Programming Repositories\\Titans\\Web\\UpSkill.Web.ViewModels\\UpSkill.Web.ViewModels.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.10.0, )"
+            },
+            "BuildBundlerMinifier": {
+              "target": "Package",
+              "version": "[3.2.449, )"
+            },
+            "Microsoft.ApplicationInsights.AspNetCore": {
+              "target": "Package",
+              "version": "[2.15.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
+            "Microsoft.AspNetCore.SpaServices.Extensions": {
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+              "target": "Package",
+              "version": "[1.1.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.Web.LibraryManager.Build": {
+              "target": "Package",
+              "version": "[2.1.113, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

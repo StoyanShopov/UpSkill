@@ -1,0 +1,21 @@
+import * as React from 'react';
+import { SelectCallback } from '@restart/ui/types';
+import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+export interface NavbarProps extends BsPrefixProps, Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
+    variant?: 'light' | 'dark';
+    expand?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+    bg?: string;
+    fixed?: 'top' | 'bottom';
+    sticky?: 'top';
+    onToggle?: (expanded: boolean) => void;
+    onSelect?: SelectCallback;
+    collapseOnSelect?: boolean;
+    expanded?: boolean;
+}
+declare const _default: BsPrefixRefForwardingComponent<"nav", NavbarProps> & {
+    Brand: BsPrefixRefForwardingComponent<"a", import("./NavbarBrand").NavbarBrandProps>;
+    Toggle: BsPrefixRefForwardingComponent<"button", import("./NavbarToggle").NavbarToggleProps>;
+    Collapse: React.ForwardRefExoticComponent<import("./NavbarCollapse").NavbarCollapseProps & React.RefAttributes<HTMLDivElement>>;
+    Text: BsPrefixRefForwardingComponent<"span", unknown>;
+};
+export default _default;
