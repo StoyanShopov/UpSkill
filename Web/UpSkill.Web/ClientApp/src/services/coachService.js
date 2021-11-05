@@ -1,5 +1,13 @@
+import axios from "axios";
+
 const numberCoachesToShow = 6;
+
+const OWN_API_URL = "https://localhost:44319/Owner/Coaches";
+//const API_URL = Base_URL + "Owner/Coaches/";
+
 const numberCoachesSessionsToShow = 3;
+
+const token = localStorage.getItem("token");
 
 const activeCoachesCompanyOwnerCount = 3;
 
@@ -105,6 +113,44 @@ export const getCoaches = async (currentPage) => {
   arr.push(...initialCoachesMock);
   // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
   return arr;
+};
+
+// export const getCoaches = async (currentPage) => {
+//   let arr = [];
+//   const resp = await axios.get(API_URL + "/getAll", {
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+//   arr.push(...resp.data);
+//   //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
+//   return arr;
+// };
+
+export const removeCoach = async (userEmail, coachId, companyId) => {
+  try{    
+    const resp = await axios.delete(OWN_API_URL, {
+      headers: { Authorization: `Bearer ${token}` },      
+    }, {
+      userEmail,
+      coachId,
+      companyId
+    });    
+    return resp;
+  }
+  catch(err){}
+};
+
+export const addCoach = async (userEmail, coachId, companyId) => {
+  try{    
+    const resp = await axios.put(OWN_API_URL, {
+      headers: { Authorization: `Bearer ${token}` },      
+    }, {
+      userEmail,
+      coachId,      
+      companyId
+    });    
+    return resp;
+  }
+  catch(err){}
 };
 
 export const getCoachesNames = async (currentPage) => {
