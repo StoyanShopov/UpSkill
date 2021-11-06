@@ -4,9 +4,9 @@ import axios from 'axios';
 import { Base_URL } from '../utils/baseUrlConstant';
 
 //RetriveCompany
-export const retriveCompanies = async () => {
+export const getCompanies = async () => {
   const response = await axios
-  .get( Base_URL + "Admin/Companies/getAll");
+  .get("https://localhost:44319/Admin/Companies/getAll");
   return response.data;
 }
 //Create
@@ -55,12 +55,5 @@ const initialCompanies = [
   {
     id: 6,
     companyName: "Fantastiko",
-  },
+  }
 ];
-
-export const getCompanies = async () => {
-  //      let res = await request(``, 'Get');
-
-  return initialCompanies;
-
-};

@@ -1,5 +1,6 @@
-.coaches-list{
-  column-count: 2; 
+.courses-list {
+  width: 100%;
+  margin-left: -60px;
   display: flex;
   justify-content: space-between;
   margin-top: 4rem;
@@ -7,14 +8,17 @@
   padding-left: 0!important;
 }
 
-.coaches-cardButton{
-  margin:1rem 2rem;
-  padding: .5rem 2rem;
-  font-weight: bolder;
+.alignContentBox {
+  width: 324px;
+  height: 578px;
+}
+
+.courseCatalogContainer {
+  width: 1920px;
 }
 
 @media screen and (max-width: 1200px) {
-  .coaches-list{
+  .courses-list{
       flex-direction: column; 
           display: flex;
           justify-content: center;

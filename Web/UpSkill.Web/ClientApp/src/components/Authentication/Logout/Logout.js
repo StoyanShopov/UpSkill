@@ -17,7 +17,7 @@ const Logout = (props) => {
     }
 
     dispatch(logout())
-        .then(() => { 
+        .then(() => {          
           props.history.push("/");
           localStorage.removeItem("user");                
           setNotification({type:'LOGOUT', payload: `Goodbye !`});
