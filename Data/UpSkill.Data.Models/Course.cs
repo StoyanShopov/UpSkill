@@ -1,6 +1,7 @@
 ﻿namespace UpSkill.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using UpSkill.Data.Common.Models;
 
@@ -10,8 +11,10 @@
         {
             this.Companies = new HashSet<CompanyCourse>();
             this.Users = new HashSet<ApplicationUser>();
+            this.CourseUsers = new HashSet<UserInCourse>();
         }
 
+        [Required]
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -26,8 +29,14 @@
 
         public Coach Coach { get; set; }
 
+        public int? FileId { get; set; }
+
+        public File File { get; set; }
+
         public virtual ICollection<CompanyCourse> Companies { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
+
+        public ICollection<UserInCourse> CourseUsers { get; set; }
     }
 }

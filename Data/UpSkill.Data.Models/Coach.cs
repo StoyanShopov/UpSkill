@@ -1,6 +1,7 @@
 ﻿namespace UpSkill.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using UpSkill.Data.Common.Models;
 
@@ -11,9 +12,15 @@
             this.Courses = new HashSet<Course>();
         }
 
+        [Required]
         public string FirstName { get; set; }
 
+        [Required]
         public string LastName { get; set; }
+
+        public int? FileId { get; set; }
+
+        public File File { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
     }
