@@ -10,9 +10,7 @@ export default function Courses() {
     <div className="content">
       <CategoriesAndLanguageMenu atPage="Courses" />
       <div className="wrapper row">
-
         <CoursesCatalog />
-      
       </div>
     </div>
   );

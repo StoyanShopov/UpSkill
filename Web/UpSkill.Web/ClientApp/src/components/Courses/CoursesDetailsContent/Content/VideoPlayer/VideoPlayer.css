@@ -1,0 +1,107 @@
+body {
+    background: #EEEEEE;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  h1 {
+    color: white;
+  }
+  
+  video {
+    width: 100%;
+  }
+  
+  .video-wrapper {
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .video-wrapper:hover .controls {
+    transform: translateY(0%);
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 30px;
+    padding: 14px;
+    width: 100%;
+    max-width: 500px;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transform: translateY(150%);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .actions button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .actions button i {
+    background-color: none;
+    color: white;
+    font-size: 30px;
+  }
+  
+  input[type="range"] {
+    -webkit-appearance: none !important;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    height: 4px;
+    width: 350px;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    cursor: pointer;
+    height: 6px;
+  }
+  
+  input[type="range"]::-moz-range-progress {
+    background: white;
+  }
+  
+  .displaySpeed {
+    appearance: none;
+    background: none;
+    color: white;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .mute-btn {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .mute-btn i {
+    background-color: none;
+    color: white;
+    font-size: 20px;
+  }
+  
