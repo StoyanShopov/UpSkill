@@ -1,4 +1,4 @@
-import React, {useReducer} from "react"; 
+import React, { useReducer } from "react"; 
 import { Route } from "react-router-dom";
 import { Provider } from 'react-redux'
 
