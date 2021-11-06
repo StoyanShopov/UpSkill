@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
     using UpSkill.Web.ViewModels.Administration;
@@ -12,8 +13,8 @@
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.AdminConstants;
-    using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     [AllowAnonymous]
     public class AdminController : AdministrationBaseController

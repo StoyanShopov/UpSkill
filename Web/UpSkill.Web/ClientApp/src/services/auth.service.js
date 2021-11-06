@@ -1,8 +1,9 @@
 import axios from "axios";
 import jwt from 'jwt-decode'
 
+import { Base_URL } from '../utils/baseUrlConstant';
 
-const API_URL = "https://localhost:44319/Identity/";
+const API_URL = Base_URL + "Identity/";
 
 const register = (firstName, lastName, companyName, email, password, confirmPassword) => { 
   return axios.post(API_URL + "register", { 
@@ -23,6 +24,7 @@ const login = (email, password) => {
     })
     .then((response) => {
       if (response.data.token) {
+        localStorage.setItem("token", response.data.token)
         localStorage.setItem("user", JSON.stringify(jwt(response.data.token)));
       }
 

@@ -9,7 +9,8 @@ export default function Courses() {
   const[courses, setCourses] = useState([]); 
 
   useEffect(() => { 
-    getCourses().then((courses) => {
+    getCourses()
+    .then((courses) => {
       setCourses(courses);  
     });
   }, []); 
