@@ -12,17 +12,24 @@ function Dashboard() {
     useEffect(() => {
       testGet().then((response) => 
       {
-        setAggregateInformation(response.data);
-        console.log('render');
+        setAggregateInformation(response);
+        console.log(response); 
+        
       })
     }, [])
-    
+    console.log(aggregateInformation);
+    // function getMonths() {
+    //   const months = aggregateInformation.clientsCountInMonths.map(clientsCountInMonth => clientsCountInMonth.month); 
+    // } 
+
+    //  console.log(getMonths());
+
     return (
       <>
         <div className="content-wrapper">
           <div className="main-content">
             <DashboardOverview clientsCount={aggregateInformation.clientsCount} revenue={aggregateInformation.revenue} coursesCount={aggregateInformation.coursesCount} coachesCount={aggregateInformation.coachesCount}/>
-            <ClientsChart clientsMonths={aggregateInformation.clientsCountInMonths}/>
+            <ClientsChart clientsCountInMonths={aggregateInformation.clientsCountInMonths}/>
             <RevenueChart />
           </div>
         </div>

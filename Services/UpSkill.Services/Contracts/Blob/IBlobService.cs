@@ -1,16 +1,17 @@
 ﻿namespace UpSkill.Services.Contracts.Blob
 {
     using System.Collections.Generic;
-    using System.IO;
     using System.Threading.Tasks;
 
     using Azure.Storage.Blobs;
+
+    using Microsoft.AspNetCore.Http;
 
     using UpSkill.Web.ViewModels.Blob;
 
     public interface IBlobService
     {
-        Task<string> UploadAsync(Stream fileStream,  string contentType);
+        Task<string> UploadAsync(IFormFile file);
 
         Task<ICollection<BlobResponseModel>> GetAllBlobs();
 

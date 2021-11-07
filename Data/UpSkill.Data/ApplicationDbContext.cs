@@ -36,6 +36,10 @@
 
         public DbSet<Coach> Coaches { get; set; }
 
+        public DbSet<File> Files { get; set; }
+
+        public DbSet<UserInCourse> UserInCourses { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -83,6 +87,10 @@
             builder
                 .Entity<CompanyCourse>()
                 .HasKey(c => new { c.CompanyId, c.CourseId });
+
+            builder
+                .Entity<UserInCourse>()
+                .HasKey(uc => new { uc.ApplicationUserId, uc.CourseId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

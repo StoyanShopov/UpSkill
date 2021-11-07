@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard";
 import Clients from "./Clients/Clients";
 import Revenue from "./Revenue/Revenue";
-import CompanyCoaches from "../CompanyOwnerViews/CompanyCoaches/CompanyCoaches"; 
+import CompanyCoaches from "../MyProfile/CompanyOwnerViews/CompanyCoaches/CompanyCoaches"; 
 import CompanyOwnerSidebar from "../Shared/AdminCompanyOwnerSidebar/AdminCompanyOwnerSidebar";
 
 const menuItems = [

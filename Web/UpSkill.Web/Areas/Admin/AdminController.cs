@@ -4,14 +4,15 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
     using UpSkill.Web.ViewModels.Administration.Company;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.AdminConstants;
-    using static Common.GlobalConstants.CompaniesConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class AdminController : AdministrationBaseController
     {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import '../../../CompanyOwnerViews/Dashboard/EmployeesOverview/EmployeesOverview';
 import './DashboardOverview.css';
 
 function DashboardOverview(props) {

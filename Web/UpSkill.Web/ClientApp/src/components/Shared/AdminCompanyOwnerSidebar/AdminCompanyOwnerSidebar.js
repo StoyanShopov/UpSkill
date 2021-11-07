@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router';
 import { useLocation } from "react-router-dom";
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import React from 'react';
 import { Image } from 'react-bootstrap';
 
@@ -45,11 +45,12 @@ export default function CompanyOwnerSidebar({ menuItems }) {
               className={splitLocation[2] === `${menuItem.name}` ? `active` : ''}
               exact={menuItem.exact}
             >
-              <span className={menuItem.name==='Log Out'? 'logOut' : 'nonSelectedMenuStyle'}>
+              <span className='nonSelectedMenuStyle'>
                 {menuItem.name}
               </span>
             </NavLink>
           ))}
+          <NavLink to="/Logout" className="nav-link logOut">Log Out</NavLink>
         </div>
       </div>
   );
