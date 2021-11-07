@@ -2,7 +2,7 @@ import React from 'react';
 import DashboardOverview from './DashboardOverview/DashboardOverview';
 import ClientsChart from './ClientsChart/ClientsChart';
 import RevenueChart from './RevenueChart/Revenue';
-import {testGet} from '../../../services/test';
+import {adminDashboardGet} from '../../../services/adminDashboardService';
 import { useEffect, useState } from "react";
 
 function Dashboard() {
@@ -10,19 +10,11 @@ function Dashboard() {
   const [aggregateInformation, setAggregateInformation ] = useState({});
 
     useEffect(() => {
-      testGet().then((response) => 
+      adminDashboardGet().then((response) => 
       {
-        setAggregateInformation(response);
-        console.log(response); 
-        
+        setAggregateInformation(response);      
       })
     }, [])
-    console.log(aggregateInformation);
-    // function getMonths() {
-    //   const months = aggregateInformation.clientsCountInMonths.map(clientsCountInMonth => clientsCountInMonth.month); 
-    // } 
-
-    //  console.log(getMonths());
 
     return (
       <>

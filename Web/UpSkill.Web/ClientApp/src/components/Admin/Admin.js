@@ -9,7 +9,6 @@ const menuItems = [
   { name: 'Dashboard', path: '/Admin', exact: true, component: Dashboard },
   { name: 'Clients', path: '/Admin/Clients', exact: true, component: Clients },
   { name: 'Revenue', path: '/Admin/Revenue', exact: true, component: Revenue },
-  { name: 'Log Out', path: '/LogOut', exact: true, component: CompanyCoaches },
 ];
 
 export default function Admin() {
