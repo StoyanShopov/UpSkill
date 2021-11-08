@@ -20,18 +20,19 @@
         protected ApplicationDbContext Database { get; private set; }
 
         private static async Task AddFakeData(FakeUpSkillDbContext dbContext)
-            => await dbContext.AddFakeDataAsync(new Company()
+            => await dbContext.AddFakeDataAsync(
+                new Company()
             {
                 Id = 1,
-                Name = "TestCompany"
+                Name = "TestCompany",
             },
-            new ApplicationUser()
+                new ApplicationUser()
             {
                 Id = "1",
                 Email = "user@example.com",
-                CompanyId = 0
+                CompanyId = 0,
             },
-            new Course()
+                new Course()
             {
                 Id = 1,
                 Title = "Title",
@@ -39,9 +40,8 @@
                 Price = 12,
                 CoachId = 1,
                 CategoryId = 1,
-
             },
-            new Course()
+                new Course()
             {
                 Id = 2,
                 Title = "Titl2e",
@@ -49,7 +49,6 @@
                 Price = 122,
                 CoachId = 2,
                 CategoryId = 2,
-
             });
     }
 }
