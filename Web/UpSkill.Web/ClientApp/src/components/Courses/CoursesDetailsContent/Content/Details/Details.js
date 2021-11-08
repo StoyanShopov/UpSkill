@@ -1,10 +1,14 @@
 import React from "react";
 
-const Detais = ( { courseTitle, courseVideo, courseLecture, courseDescription, courseResources } ) => {
+const Details = (props) => {
+    const { 
+        courseDetails: { courseTitle, courseVideo, courseLecture, courseDescription, courseResources },
+    } = props;
+
     return(
         <div>
         </div>
     )
 }
 
-export default Detais;
+export default Details;
