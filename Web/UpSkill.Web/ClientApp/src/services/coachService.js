@@ -131,9 +131,10 @@ export const getCoaches = async (currentPage) => {
 export const removeCoach = async (coachId) => {
   console.log(coachId);
   try {
-    const resp = await axios.delete(OWN_API_URL + "?id="+coachId, {
+    const resp = await axios.delete(OWN_API_URL + "?id=" + coachId, {
       headers: { Authorization: `Bearer ${token}` },
     });
+
     return resp;
   } catch (err) {}
 };
