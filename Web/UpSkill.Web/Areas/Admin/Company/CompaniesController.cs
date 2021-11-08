@@ -28,7 +28,7 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyRequestModel model)
         {
-            this.logger.LogInformation("(admin) / administrator@test.test / CompaniesController / CreateCompany / Entering Create company controller");
+            this.logger.LogInformation("(admin) Entering Create company controller");
 
             var reuslt = await this.companyService.CreateAsync(model);
 
