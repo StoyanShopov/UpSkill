@@ -38,6 +38,8 @@
 
         public DbSet<File> Files { get; set; }
 
+        public DbSet<Log> Logs { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
