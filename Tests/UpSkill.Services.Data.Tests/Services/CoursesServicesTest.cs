@@ -3,9 +3,12 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+
     using Moq;
+
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
+
     using UpSkill.Services.Data.Tests.Common;
     using Xunit;
 
