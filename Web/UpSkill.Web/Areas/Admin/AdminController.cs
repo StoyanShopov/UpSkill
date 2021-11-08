@@ -81,6 +81,7 @@
 
                 return this.BadRequest(result);
             }
+
             this.logger.LogError("User promoted successfully (admin)");
 
             return this.Ok(result);
@@ -117,6 +118,7 @@
 
                 return this.BadRequest(result);
             }
+
             this.logger.LogError("User demoted successfully (admin)");
 
             return this.Ok(result);

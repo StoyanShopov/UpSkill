@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.Extensions.Logging;
     using UpSkill.Services.Contracts.Email;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -13,20 +13,33 @@
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
+        private readonly ILogger<EmailController> logger;
 
-        public EmailController(IEmailService emailService) => this.emailService = emailService;
+        public EmailController(
+            IEmailService emailService,
+            ILogger<EmailController> logger)
+        {
+            this.emailService = emailService;
+            this.logger = logger;
+        }
 
         [HttpGet]
         [AllowAnonymous]
         [Route(VerifyEmailRoute)]
         public async Task<IActionResult> VerifyEmail(string email, string token)
         {
+            this.logger.LogInformation("Entering VerifyEmail action (user)");
+
             var result = await this.emailService.VerifyEmailAsync(email, token);
 
             if (result.Failure)
             {
+                this.logger.LogError(result.Failure.ToString());
+
                 return this.BadRequest(result.Error);
             }
+
+            this.logger.LogInformation("Email verified (user)");
 
             return this.Ok(EmailConfirmed);
         }
@@ -36,6 +49,8 @@
         [Route(ResendEmailConfirmationLinkRoute)]
         public async Task<IActionResult> ResendEmailConfirmationLink(string email)
         {
+            this.logger.LogInformation("Entering ResendEmailConfirmationLink action (user)");
+
             var origin = this.Request.Headers[HeaderOrigin];
             var host = this.Request.Host.Value;
 
@@ -43,8 +58,12 @@
 
             if (result.Failure)
             {
+                this.logger.LogError(result.Failure.ToString());
+
                 return this.BadRequest(result.Error);
             }
+
+            this.logger.LogInformation("Email confirmation link resend successfully (user)");
 
             return this.Ok();
         }

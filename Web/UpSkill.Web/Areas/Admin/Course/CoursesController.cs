@@ -32,7 +32,7 @@
 
             if (result.Failure)
             {
-                this.logger.LogInformation(result.Error);
+                this.logger.LogError(result.Error);
 
                 return this.BadRequest(result.Error);
             }
@@ -52,7 +52,7 @@
 
             if (result.Failure)
             {
-                this.logger.LogInformation(result.Error + "(admin)");
+                this.logger.LogError(result.Error + "(admin)");
 
                 return this.BadRequest(result.Error);
             }
@@ -71,7 +71,7 @@
 
             if (result.Failure)
             {
-                this.logger.LogInformation(result.Error);
+                this.logger.LogError(result.Error);
 
                 return this.BadRequest(result.Error + "(admin)");
             }
@@ -99,7 +99,7 @@
 
             if (result.Failure)
             {
-                this.logger.LogInformation(result.Error);
+                this.logger.LogError(result.Error);
 
                 return this.BadRequest(result.Error + "(admin)");
             }

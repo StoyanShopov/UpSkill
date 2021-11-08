@@ -8,7 +8,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-
+    using Microsoft.Extensions.Logging;
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
@@ -23,15 +23,18 @@
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailService emailService;
+        private readonly ILogger<IdentityController> logger;
 
         public IdentityController(
             IIdentityService identity,
             UserManager<ApplicationUser> userManager,
-            IEmailService emailService)
+            IEmailService emailService,
+            ILogger<IdentityController> logger)
         {
             this.identity = identity;
             this.userManager = userManager;
             this.emailService = emailService;
+            this.logger = logger;
         }
 
         [HttpPost]
@@ -39,10 +42,14 @@
         [Route(RegisterRoute)]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
+            this.logger.LogInformation("Entering Register action");
+
             await this.ValidateRegisterModel(model);
 
             if (!this.ModelState.IsValid)
             {
+                this.logger.LogError("Model validation error");
+
                 return this.BadRequest(this.ModelState);
             }
 
@@ -50,6 +57,8 @@
 
             if (isUserRegistered.Failure)
             {
+                this.logger.LogError(isUserRegistered.Error);
+
                 return this.BadRequest(isUserRegistered.Error);
             }
 
@@ -63,8 +72,12 @@
         [Route(LoginRoute)]
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
+            this.logger.LogInformation("Entering Login action");
+
             if (!this.ModelState.IsValid)
             {
+                this.logger.LogError("Model validation error");
+
                 return this.BadRequest(this.ModelState);
             }
 
@@ -75,6 +88,8 @@
                 HttpOnly = true,
             });
 
+            this.logger.LogInformation("Logged in successfully");
+
             return this.Ok(embededToken);
         }
 
@@ -83,6 +98,8 @@
         public IActionResult Logout()
         {
             this.Response.Cookies.Delete(JWT);
+
+            this.logger.LogInformation("Logged out successfully");
 
             return this.Ok(new { message = SuccessMessage });
         }
@@ -102,12 +119,17 @@
 
         private async Task EmailConfirmation(string email)
         {
+            this.logger.LogInformation("Entering EmailConfirmation action");
+
             var user = await this.userManager.FindByEmailAsync(email);
 
             var origin = this.Request.Headers[HeaderOrigin];
             var host = this.Request.Host.Value;
 
             await this.emailService.SendEmailConfirmationAsync(origin, host, user);
+
+            this.logger.LogInformation("EmailConfirmation action succeeded");
+
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
