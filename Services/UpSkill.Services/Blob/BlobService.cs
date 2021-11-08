@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Threading.Tasks;
 
     using Azure.Storage.Blobs;
     using Azure.Storage.Blobs.Models;
+
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
+
     using UpSkill.Services.Contracts.Blob;
     using UpSkill.Web.ViewModels.Blob;
 
@@ -20,7 +22,7 @@
             this.blobStorage = configuration.Value;
         }
 
-        public async Task<string> UploadAsync(Stream fileStream,  string contentType)
+        public async Task<string> UploadAsync(IFormFile file)
         {
             var container = new BlobContainerClient(this.blobStorage.BlobKey, this.blobStorage.BlobContainer);
 
@@ -35,7 +37,7 @@
 
             await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
 
-            await blob.UploadAsync(fileStream, new BlobHttpHeaders { ContentType = contentType });
+            await blob.UploadAsync(file.OpenReadStream(), new BlobHttpHeaders { ContentType = file.ToString() });
 
             return blob.Uri.ToString();
         }
