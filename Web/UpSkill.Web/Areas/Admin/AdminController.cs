@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.Extensions.Logging;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
     using UpSkill.Web.ViewModels.Administration.Company;
@@ -18,25 +18,34 @@
     {
         private readonly IAdminService adminService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ILogger<AdminController> logger;
 
         public AdminController(
             IAdminService adminService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ILogger<AdminController> logger)
         {
             this.adminService = adminService;
             this.userManager = userManager;
+            this.logger = logger;
         }
 
         [HttpPost]
         [Route(AddOwnerCompany)]
         public async Task<IActionResult> AddOwnerToCompany(AddCompanyOwnerRequestModel model, int id)
         {
+            this.logger.LogInformation("Entering AddOwnerToCompany (admin)");
+
             var result = await this.adminService.AddCompanyOwnerToCompanyAsync(model, id);
 
             if (result.Failure)
             {
+                this.logger.LogError(result.Failure.ToString());
+
                 return this.BadRequest(result.Error);
             }
+
+            this.logger.LogInformation("Owner added successfully to company (admin)");
 
             return this.Ok(SuccesfullyAddedOwnerToGivenCompany);
         }
@@ -45,8 +54,12 @@
         [Route(Promote)]
         public async Task<IActionResult> PromoteUser(string email)
         {
+            this.logger.LogInformation("Entering PromoteUser (admin)");
+
             if (!this.ModelState.IsValid)
             {
+                this.logger.LogError(this.ModelState.ToString());
+
                 return this.BadRequest(this.ModelState);
             }
 
@@ -54,6 +67,8 @@
 
             if (user == null)
             {
+                this.logger.LogError("User is null (admin)");
+
                 return this.BadRequest(UserNotFound);
             }
 
@@ -62,8 +77,11 @@
 
             if (result != AssignedSuccessfully)
             {
+                this.logger.LogError("User is already promoted (admin)");
+
                 return this.BadRequest(result);
             }
+            this.logger.LogError("User promoted successfully (admin)");
 
             return this.Ok(result);
         }
@@ -72,8 +90,12 @@
         [Route(Demote)]
         public async Task<IActionResult> DemoteUser(string email)
         {
+            this.logger.LogInformation("Entering DemoteUser (admin)");
+
             if (!this.ModelState.IsValid)
             {
+                this.logger.LogError(this.ModelState.ToString());
+
                 return this.BadRequest(this.ModelState);
             }
 
@@ -81,6 +103,8 @@
 
             if (user == null)
             {
+                this.logger.LogError("User is null (admin)");
+
                 return this.BadRequest(UserNotFound);
             }
 
@@ -89,8 +113,11 @@
 
             if (result != UnassignedSuccessfully)
             {
+                this.logger.LogError("User is already demoted (admin)");
+
                 return this.BadRequest(result);
             }
+            this.logger.LogError("User demoted successfully (admin)");
 
             return this.Ok(result);
         }

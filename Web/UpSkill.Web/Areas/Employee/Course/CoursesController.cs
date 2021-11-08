@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.Extensions.Logging;
     using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Course;
@@ -15,23 +15,34 @@
     {
         private readonly IEmployeeService employeeService;
         private readonly ICurrentUserService currentUser;
+        private readonly ILogger<CoursesController> logger;
 
         public CoursesController(
             IEmployeeService employeeService,
-            ICurrentUserService currentUser)
+            ICurrentUserService currentUser,
+            ILogger<CoursesController> logger)
         {
             this.employeeService = employeeService;
             this.currentUser = currentUser;
+            this.logger = logger;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoursesListingModel>> GetAll()
-            => await this.employeeService.GetAllCoursesAsync<CoursesListingModel>(this.currentUser.GetId());
+        {
+            this.logger.LogInformation("Entering GetAll action (owner)");
+
+            return await this.employeeService.GetAllCoursesAsync<CoursesListingModel>(this.currentUser.GetId());
+        }
 
         [HttpGet]
         [Route(DetailsRoute)]
         public async Task<DetailsViewModel> GetByIdCourse(int courseId)
-            => await this.employeeService.GetByIdCourseAsync<DetailsViewModel>(this.currentUser.GetId(), courseId);
+        {
+            this.logger.LogInformation("Entering GetByIdCourse (owner)");
+
+            return await this.employeeService.GetByIdCourseAsync<DetailsViewModel>(this.currentUser.GetId(), courseId);
+        }
     }
 }

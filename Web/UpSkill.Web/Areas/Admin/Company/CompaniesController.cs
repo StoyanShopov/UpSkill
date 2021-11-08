@@ -28,29 +28,36 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyRequestModel model)
         {
-            this.logger.LogInformation("(admin) Entering Create company controller");
+            this.logger.LogInformation("Entering Create company action (admin)");
 
-            var reuslt = await this.companyService.CreateAsync(model);
+            var result = await this.companyService.CreateAsync(model);
 
-            if (reuslt.Failure)
+            if (result.Failure)
             {
-                this.logger.LogError("(admin) / administrator@test.test / CompaniesController / CreateCompany / Create company method failed! / ({error.message}) ");
-                return this.BadRequest(reuslt.Error);
+                this.logger.LogError(result.Error.ToString() + " (admin)");
+                return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("(admin) / administrator@test.test / CompaniesController / CreateCompany / Company created");
+            this.logger.LogInformation("Company created  (admin)");
+
             return this.StatusCode(201, SuccesfullyCreated);
         }
 
         [HttpPut]
         public async Task<IActionResult> Edit(UpdateCompanyRequestModel model, int id)
         {
+            this.logger.LogInformation("Entering Create company action (admin)");
+
             var result = await this.companyService.EditAsync(model, id);
 
             if (result.Failure)
             {
+                this.logger.LogError(result.Error.ToString() + " (admin)");
+
                 return this.BadRequest(result.Error);
             }
+
+            this.logger.LogInformation("Company edited (admin)");
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -58,12 +65,18 @@
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
+            this.logger.LogInformation("Entering Create company action (admin)");
+
             var result = await this.companyService.DeleteAsync(id);
 
             if (result.Failure)
             {
+                this.logger.LogError(result.Error.ToString() + " (admin)");
+
                 return this.BadRequest(result.Error);
             }
+
+            this.logger.LogInformation("Company deleted (admin)");
 
             return this.Ok(SuccesfullyDeleted);
         }
@@ -71,11 +84,19 @@
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
-            => await this.companyService.GetAllAsync<CompanyListingModel>();
+        {
+            this.logger.LogInformation("Entering getAll action (admin)");
+
+            return await this.companyService.GetAllAsync<CompanyListingModel>();
+        }
 
         [HttpGet]
         [Route(DetailsRoute)]
         public async Task<CompanyDetailsModel> GetDetails(int id)
-            => await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
+        {
+            this.logger.LogInformation("Entering GetDetails action (admin)");
+
+            return await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
+        }
     }
 }
