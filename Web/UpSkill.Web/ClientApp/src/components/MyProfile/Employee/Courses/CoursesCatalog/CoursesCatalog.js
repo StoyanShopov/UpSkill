@@ -3,9 +3,9 @@ import { Button } from 'react-bootstrap';
 
 import CoursesCard from './CoursesCard/CoursesCard';
 
-import './CoursesCatalog.css';   
+import './CoursesCatalog.css';    
 
-export default function CoursesCatalog({courses}) {
+export default function CoursesCatalog({ courses }) {
     return (
         <div className="container"> 
             <div className="row list-unstyled courses-list"> 

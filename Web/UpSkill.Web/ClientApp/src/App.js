@@ -34,13 +34,11 @@ const AppWrapper = (props) => {
       <Layout> 
         <Notifications state={notification.state} message={notification.message} />
           {props.children}   
-
       </Layout>
       </NotificationContext.Provider >
     </Provider>
   )
 }
-
 
 function App() {    
   return (
@@ -57,9 +55,8 @@ function App() {
           <Route exact path='/AddCompany' component={AddCompany}/>   
           <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
           <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
-          <Route exact path="/Admin/Companies/edit" component={EditCompany}/>  
+          <Route exact path="/Admin/Companies/edit" component={EditCompany}/>
       </AppWrapper> 
-
   );
 }
 

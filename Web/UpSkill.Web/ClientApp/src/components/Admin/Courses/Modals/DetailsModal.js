@@ -8,7 +8,7 @@ function DetailsModal({ closeModal }) {
   const [coachName, setCoachName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(""); 
 
   useEffect(() => {
     setPrice(localStorage.getItem("Price"));

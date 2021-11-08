@@ -1,3 +1,10 @@
+import axios from "axios"; 
+import { Base_URL } from '../utils/baseUrlConstant';
+
+const API_URL = Base_URL + "Courses/";
+
+const token = localStorage.getItem("token");
+
 const numberCoursesToShow = 5;
 
 const initialCourses = [
@@ -44,4 +51,11 @@ export const getCourses = async (currentPage) => {
   );
 
   return arr;
+};
+
+export const courseDetailsContent = async (course) => {
+  const response = await axios.get(`${API_URL}contentDetails?id=${course.id}`, { headers: { "Authorization": `Bearer ${token}` } }, {
+    course
+  });
+  return response;
 };

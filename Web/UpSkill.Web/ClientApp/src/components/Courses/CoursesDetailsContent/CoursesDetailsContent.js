@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import Resources from './Resources/Resources';
+import { courseDetailsContent } from '../../../services/courseService';
 import Content from './Content/Content';
 
 import './CoursesDetailsContent.css';
 
 const CoursesDetailsContent = () => {
+  const [course, setCourse] = useState("");
+
+  useEffect(() => {
+    courseDetailsContent()
+    .then((course) => {
+      setCourse(course);
+    });
+  }, []);
+
     return (
-      <>
-          <Content/>
-          <Resources/>
-      </>
+      <div className="content">
+        <div className="wrapper row">
+          <Content course={course}/>                
+        </div>
+      </div>
     );
 }
 
