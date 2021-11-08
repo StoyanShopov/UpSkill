@@ -1,10 +1,6 @@
 import React from "react";
 
-const Detais = (props) => {
-    const{
-        courseDetails: {courseTitle, courseVideo, courseLecture, courseDescription, courseResources },
-    } = props;
-
+const Detais = ( { courseTitle, courseVideo, courseLecture, courseDescription, courseResources } ) => {
     return(
         <div>
         </div>
