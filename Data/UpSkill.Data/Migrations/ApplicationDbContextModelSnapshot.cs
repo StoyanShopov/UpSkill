@@ -664,16 +664,23 @@ namespace UpSkill.Data.Migrations
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.UserInCourse", b =>
-                {
-                    b.HasOne("UpSkill.Data.Models.ApplicationUser", "ApplicationUser")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("UpSkill.Data.Models.ApplicationUser", "ApplicationUser")
+                    .WithMany("Courses")
+                    .HasForeignKey("ApplicationUserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("ApplicationUser");
+                b.HasOne("UpSkill.Data.Models.Course", "Course")
+                    .WithMany("CourseUsers")
+                    .HasForeignKey("CourseId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.Navigation("Course");
-                });
+                b.Navigation("ApplicationUser");
+
+                b.Navigation("Course");
+            });
 
             modelBuilder.Entity("UpSkill.Data.Models.ApplicationUser", b =>
                 {
@@ -705,7 +712,7 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("Companies");
                 });
                  
-                });
+                
 
             modelBuilder.Entity("UpSkill.Data.Models.File", b =>
                 {
