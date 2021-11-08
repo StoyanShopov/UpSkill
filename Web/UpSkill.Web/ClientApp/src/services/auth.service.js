@@ -32,6 +32,7 @@ const login = (email, password) => {
     });
 };
 
+
 const logout = () => {
   return axios
     .post(API_URL + "logout")
