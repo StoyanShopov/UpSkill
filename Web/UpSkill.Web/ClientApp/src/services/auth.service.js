@@ -15,6 +15,22 @@ const register = (firstName, lastName, companyName, email, password, confirmPass
   });
 };
 
+// const login = (email, password) => {
+//   return axios
+//     .post(API_URL + "login", {
+//       email,
+//       password,
+//     })
+//     .then((response) => {
+//       if (response.data.token) {
+//         localStorage.setItem("user", JSON.stringify(jwt(response.data.token)));
+//       }
+
+//       return response.data;
+//     });
+// };
+
+
 const login = (email, password) => {
   return axios
     .post(API_URL + "login", {
@@ -23,6 +39,7 @@ const login = (email, password) => {
     })
     .then((response) => {
       if (response.data.token) {
+        localStorage.setItem("token", response.data.token)
         localStorage.setItem("user", JSON.stringify(jwt(response.data.token)));
       }
 
@@ -43,5 +60,6 @@ const identity = {
   login,
   logout,
 }
+
 
 export default identity;

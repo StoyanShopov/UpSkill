@@ -108,49 +108,51 @@ const coachesCompanyOwnerMock = [
   },
 ];
 
-export const getCoaches = async (currentPage) => {
-  let arr = [];
-  arr.push(...initialCoachesMock);
-  // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
-  return arr;
-};
-
 // export const getCoaches = async (currentPage) => {
 //   let arr = [];
-//   const resp = await axios.get(API_URL + "/getAll", {
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-//   arr.push(...resp.data);
-//   //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
+//   arr.push(...initialCoachesMock);
+//   // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
 //   return arr;
 // };
 
-export const removeCoach = async (userEmail, coachId, companyId) => {
-  try{    
-    const resp = await axios.delete(OWN_API_URL, {
-      headers: { Authorization: `Bearer ${token}` },      
-    }, {
-      userEmail,
-      coachId,
-      companyId
-    });    
+export const getCoaches = async (currentPage) => {
+  try {
+    let arr = [];
+    const resp = await axios.get(OWN_API_URL + "/getAll", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(resp.data);
+    arr.push(...resp.data);
+    //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
+    return arr;
+  } catch (err) {}
+};
+
+export const removeCoach = async (coachId) => {
+  console.log(coachId);
+  try {
+    const resp = await axios.delete(OWN_API_URL + "?id="+coachId, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return resp;
-  }
-  catch(err){}
+  } catch (err) {}
 };
 
 export const addCoach = async (userEmail, coachId, companyId) => {
-  try{    
-    const resp = await axios.put(OWN_API_URL, {
-      headers: { Authorization: `Bearer ${token}` },      
-    }, {
-      userEmail,
-      coachId,      
-      companyId
-    });    
+  try {
+    const resp = await axios.put(
+      OWN_API_URL,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+      {
+        userEmail,
+        coachId,
+        companyId,
+      }
+    );
     return resp;
-  }
-  catch(err){}
+  } catch (err) {}
 };
 
 export const getCoachesNames = async (currentPage) => {

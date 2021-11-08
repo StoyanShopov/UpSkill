@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 import CoachesCard from "../../../Coaches/CoachesCatalog/Coaches-Card/Coaches-Card";
 import RemovePopup from "../../../Shared/RemovePopup/RemovePopup";
+import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 
 import "./CompanyCoaches.css";
 
@@ -15,6 +17,13 @@ export default function CoachList() {
   const [coachId, SetCoachId] = useState(0);
   const initialPageCoaches = 0;
 
+  // const history = useHistory();
+
+  // const routeChange = () =>{
+  //   let path = `/coaches`;
+  //   history.push(path);
+  // }
+
   useEffect(() => {
     getCoaches(initialPageCoaches).then((coaches) => {
       setCoaches(coaches);
@@ -22,33 +31,31 @@ export default function CoachList() {
   }, []);
 
   const onDelete = (id) => {
-     removeCoach(id).then(() => getCoaches(initialPageCoaches).then((coaches) => setCoaches(coaches)));
-     console.log("Deleted " +id);
-     setOnRemove(false);
-  };
-    
-
-  function setOnRemoveInternal(id) {
-    SetCoachId(id);
-    setOnRemove(true);
-    let buttonElements = document.getElementsByClassName(
-      "companyOwner-cardBtn"
+    removeCoach(id).then(() =>
+      getCoaches(initialPageCoaches).then((coaches) => setCoaches(coaches))
     );
+    console.log("Deleted " + id);
+    setOnRemove(false);
+  };
 
-    let imageElements = document.getElementsByClassName("coaches-image");
-    imageElements[0].style.position = "inherit";
-    imageElements[1].style.position = "inherit";
-    imageElements[2].style.position = "inherit";
-    buttonElements[0].style.position = "inherit";
+  function setOnRemoveInternal() {
+    setOnRemove(true);
     disableBodyScroll();
   }
 
   return (
     <div className="content main-content">
-      <RemovePopup trigger={onRemove} onRemove={onDelete} closeModal={setOnRemove} atPage="coaches" coachId={coachId}/>
+      {/* <RemovePopup
+        trigger={onRemove}
+        onRemove={onDelete}
+        closeModal={setOnRemove}
+        atPage="coaches"
+        coachId={coachId}
+      /> */}
       <div className={"buttonContainer"}>
         <input
           type="button"
+          onClick={(event) => (window.location.href = "/Coaches")}
           className="btn btn-outline-primary px-4 m-4"
           value="Add"
         />
@@ -63,10 +70,18 @@ export default function CoachList() {
           >
             <Button
               className="cardButton companyOwner-cardBtn"
-              onClick={(e) => setOnRemoveInternal(coach.id)}
+              onClick={(e) => setOnRemoveInternal()}
             >
               Remove
             </Button>
+            {onRemove && (
+              <ConfirmDelete
+                deleteItem={onDelete}
+                closeModal={setOnRemove}
+                itemName="coach"
+                id={coach.id}
+              />
+            )}
           </CoachesCard>
         ))}
       </div>

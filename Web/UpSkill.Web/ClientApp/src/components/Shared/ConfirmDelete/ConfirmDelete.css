@@ -13,9 +13,10 @@
 }
 
 .deleteModal-container {
-  margin-top: -15rem;
-  width: 30rem;
-  height: 15rem;
+  position: fixed;
+  top: 5em;  
+  width: 750px;
+  height: 400px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
@@ -24,12 +25,13 @@
 }
 
 .deleteModal-header {
-  width: 100%;
-  height: 50%;
+  width: 750px;
+  height: 250px;
   background: #296cfb 0% 0% no-repeat padding-box;
   opacity: 1;
-  font: normal normal Montserrat;
-  letter-spacing: 0px;
+  text-align: center;
+  font: normal normal bold 28px/36px Montserrat;
+  letter-spacing: 1.4px;
   color: #ffffff;
   opacity: 1;
   padding: 1rem;
@@ -45,8 +47,7 @@
 
 .deleteHeader-els-container {
   width: 100%;
-  height: 70%;
-  font-size: 1.3rem;
+  /* height: 70px;  */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,21 +56,29 @@
 
 .deleteModal-title {
   width: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15rem;
   margin-bottom: 15px;
 }
 
 .deleteCloseBtn {
   display: flex;
   justify-content: flex-end;
+  cursor: pointer;
 }
 
 .deleteModal-body {
   padding: 2rem;
   width: 100%;
   height: 30rem;
+}
+
+.cdelete-button {
+  font: normal normal bold 22px/27px Montserrat;
+  letter-spacing: 1.1px;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 150px;
+  height: 50px;
 }
