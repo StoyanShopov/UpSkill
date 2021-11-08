@@ -8,13 +8,13 @@
     {
         public int Id { get; set; }
 
-        public string FirstName { get; set; }
+        public string CoachFirstName { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal CoachPrice { get; set; }
 
-        public string LastName { get; set; }
+        public string CoachLastName { get; set; }
 
-        public string FileFilePath { get; set; }
+        public string CoachFileFilePath { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
