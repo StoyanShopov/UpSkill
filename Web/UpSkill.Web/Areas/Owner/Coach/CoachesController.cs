@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Areas.Owner.Coach
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Owner;
-
+    
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
@@ -64,6 +65,22 @@
             }
 
             return this.Ok(SuccesfullyDeleted);
+        }
+
+        [HttpPost]
+        [Route(NewCoach)]
+        public async Task<IActionResult> RequestCourse(RequestCoachModel model)
+        {
+            try
+            {
+                await this.ownerService.RequestCoachAsync(model);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+
+            return this.Ok("👍");
         }
     }
 }

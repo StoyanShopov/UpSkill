@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;    
     using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
@@ -14,14 +14,18 @@
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Services.Mapping;
+    using UpSkill.Services.Messaging;
     using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Company;
     using UpSkill.Web.ViewModels.Course;
     using UpSkill.Web.ViewModels.Owner;
 
+    using static UpSkill.Common.GlobalConstants;
     using static UpSkill.Common.GlobalConstants.AccountConstants;
     using static UpSkill.Common.GlobalConstants.ControllersResponseMessages;
+    using static UpSkill.Common.GlobalConstants.RequestCoachConstants;
     using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
+    using static UpSkill.Common.GlobalConstants.UsersEmailsNames;
 
     public class OwnersServices : IOwnerServices
     {
@@ -29,6 +33,7 @@
         private readonly IRepository<CompanyCoaches> companyCoaches;
         private readonly ICoachServices coachService;
         private readonly ICompanyService companyService;
+        private readonly IEmailSender emailSender;
         private readonly UserManager<ApplicationUser> userManager;
 
         public OwnersServices(
@@ -36,13 +41,15 @@
             IRepository<CompanyCoaches> companyCoaches,
             UserManager<ApplicationUser> userManager,
             ICoachServices coachService,
-            ICompanyService companyService)
+            ICompanyService companyService,
+            IEmailSender emailSender)
         {
             this.companyCourses = companyCourses;
             this.userManager = userManager;
             this.companyCoaches = companyCoaches;
             this.coachService = coachService;
             this.companyService = companyService;
+            this.emailSender = emailSender;
         }
 
         public Task<IEnumerable<TModel>> GetAllAsync<TModel>()
@@ -160,6 +167,24 @@
             await this.companyCoaches.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task RequestCoachAsync(RequestCoachModel model)
+        {
+            var content = string.Format(
+                                        HtmlContent,
+                                        model.RequesterEmail,
+                                        model.RequesterName,
+                                        model.Description,
+                                        model.Field);
+
+            // You can use your own email.
+            await this.emailSender.SendEmailAsync(
+                                       model.RequesterEmail,
+                                       model.RequesterName,
+                                       AdministratorEmailName,
+                                       NewCoachRequest,
+                                       content);
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)

@@ -26,6 +26,8 @@
 
         public const string PriceFormat = "decimal(6, 2)";
 
+        public const string NewCoachRequest = "New Coach Request";
+
         public class AdminConstants
         {
             public const string AlreadyAssignedToRole = "This user is already updated wtih the corresponding role!";
@@ -129,6 +131,8 @@
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
 
             public const string GetCountRoute = "count";
+
+            public const string NewCoach = "newCoach";
         }
 
         public class MessagesConstants
@@ -241,6 +245,14 @@
             public const string OwnerOnly = "OwnerOnly";
 
             public const string EmployeeOnly = "EmployeeOnly";
+        }
+
+        public class RequestCoachConstants
+        {
+            public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
+                                              "<p>Requester Email: {1}</p>" +
+                                              "<p>Description: {2}</p>" +
+                                              "<p>Field: {3}</p>";
         }
     }
 }
