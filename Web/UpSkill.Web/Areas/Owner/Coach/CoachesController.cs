@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
+    using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.Areas.Company;
     using UpSkill.Web.Infrastructure.Services;
@@ -17,14 +17,17 @@
     public class CoachesController : OwnerBaseController
     {
         private readonly IOwnerServices ownerService;
+        private readonly ICoachServices coachServices;
         private readonly ICurrentUserService currentUser;
 
         public CoachesController(
             IOwnerServices ownerService,
-            ICurrentUserService currentUser)
+            ICurrentUserService currentUser,
+            ICoachServices coachService)
         {
             this.ownerService = ownerService;
             this.currentUser = currentUser;
+            this.coachServices = coachService;
         }
 
         [HttpGet]
@@ -32,7 +35,12 @@
         public async Task<IEnumerable<OwnerCoachesListingModel>> GetAll()
             => await this.ownerService.GetAllCoachesAsync<OwnerCoachesListingModel>(this.currentUser.GetId());
 
-        [HttpPut]
+        [HttpGet]
+        [Route(GetAllGlobalRoute)]
+        public async Task<IEnumerable<CoachListingModel>> GetAllCoaches()
+            => await this.coachServices.GetAllAsync<CoachListingModel>();
+
+        [HttpPost]
         public async Task<IActionResult> AddCoachToOwner(AddCoachToCompanyModel modal)
         {
             var result = await this.ownerService.AddCoachAsync(modal);
@@ -59,3 +67,4 @@
         }
     }
 }
+

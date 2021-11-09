@@ -4,8 +4,6 @@
     {
         public string OwnerEmail { get; set; }
 
-        public int CompanyId { get; set; }
-
         public int CoachId { get; set; }
     }
 }

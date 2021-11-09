@@ -108,6 +108,8 @@
 
             public const string GetAllRoute = "getAll";
 
+            public const string GetAllGlobalRoute = "getAllGlobal";
+
             public const string AddOwnerCompany = "addOwnerToCompany";
 
             public const string Promote = "promote";

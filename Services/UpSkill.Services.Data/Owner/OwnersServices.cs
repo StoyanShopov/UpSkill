@@ -98,7 +98,7 @@
                 return DoesNotExist;
             }
 
-            var company = await this.companyService.GetByIdAsync<CompanyDetailsModel>(model.CompanyId);
+            var company = await this.companyService.GetByIdAsync<CompanyDetailsModel>(companyOwner.CompanyId);
             if (company == null)
             {
                 return DoesNotExist;
@@ -106,14 +106,14 @@
 
             var companyCoach = new CompanyCoaches
             {
-                CompanyId = model.CompanyId,
+                CompanyId = companyOwner.CompanyId,
                 CoachId = model.CoachId,
             };
 
             var companyCoachExist = await this.companyCoaches
                 .AllAsNoTracking()
                 .Where(cc => cc.CoachId == model.CoachId
-                && cc.CompanyId == model.CompanyId)
+                && cc.CompanyId == companyOwner.CompanyId)
                 .FirstOrDefaultAsync() != null;
 
             if (companyCoachExist)
