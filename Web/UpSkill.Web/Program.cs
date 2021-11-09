@@ -6,13 +6,18 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+
     using NLog.Web;
 
     public static class Program
     {
         public static void Main(string[] args)
         {
+            var logPath = Path.Combine(Directory.GetCurrentDirectory(), "NLog");
+            NLog.GlobalDiagnosticsContext.Set("LogDirectory", logPath);
+
             var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
+
             try
             {
                 logger.Debug("Initialize app");
@@ -26,6 +31,7 @@
                 logger.Error(exception, "Stopped program because of exception");
                 throw;
             }
+
             finally
             {
                 NLog.LogManager.Shutdown();

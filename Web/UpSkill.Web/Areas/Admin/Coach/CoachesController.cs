@@ -56,6 +56,7 @@
 
                 return this.BadRequest(result.Error);
             }
+
             this.logger.LogInformation("Coach edited (admin)");
 
             return this.Ok(SuccesfullyEdited);
@@ -74,6 +75,7 @@
 
                 return this.BadRequest(result.Error);
             }
+
             this.logger.LogInformation("Coach deleted (admin)");
 
             return this.Ok(SuccesfullyDeleted);
