@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { createContext ,useState, useEffect } from 'react';
 
 import { courseDetailsContent } from '../../../services/courseService';
 import Content from './Content/Content';
 
 import './CoursesDetailsContent.css';
 
+export const CourseContextDetailsContent = createContext();
+
 const CoursesDetailsContent = () => {
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState({});
 
   useEffect(() => {
     courseDetailsContent()
@@ -16,11 +18,15 @@ const CoursesDetailsContent = () => {
   }, []);
 
     return (
-      <div className="content">
-        <div className="wrapper row">
-          <Content course={course}/>                
-        </div>
-      </div>
+      <CourseContextDetailsContent.Provider value={
+        {course, setCourse}
+      }>
+        <div className="content">
+          <div className="wrapper row">
+            <Content />                
+          </div>
+      </div>  
+      </CourseContextDetailsContent.Provider>
     );
 }
 

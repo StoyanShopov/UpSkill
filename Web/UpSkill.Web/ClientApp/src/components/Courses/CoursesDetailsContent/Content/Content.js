@@ -1,27 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ReactVideo } from 'reactjs-media';
+
+import { CourseContextDetailsContent } from '../CoursesDetailsContent';
 
 import Details from './Details/Details';
 import SidebarResources from '../SidebarResources/SidebarResources';
 
 import './Content.css'
 
-const Content = ( {course} ) => {
+const Content = ( ) => {
+    const { course } = useContext(CourseContextDetailsContent);
+
     return(
         <div className="container">
-            {course.map((details) => (
-                <div className="col-sm-5 text-align-center" key={details.id}>
+            {course.map((courseDetails) => (
+                <div className="col-sm-5 text-align-center" key={courseDetails.id}>
                     <ReactVideo
-                    src={details.video}
+                    src={courseDetails.video}
                     primaryColor="read"
                     />
                     <Details
-                       key={details.id}
-                       courseDetails={details}                     
+                       key={courseDetails.id}
+                       courseDetails={courseDetails}                     
                     />
                     <SidebarResources
-                    key={details.id}
-                    courseResources={details}
+                    key={courseDetails.id}
+                    courseResources={courseDetails}
                     />
                 </div>
             ))}
