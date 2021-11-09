@@ -7,7 +7,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Web.ViewModels.Employee;
 
-    public interface IEmployeesService
+    public interface IEmployeeService
     {
         Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId, string newEmployeePassword);
 

@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace UpSkill.Web.Areas.Owner.Employee
+﻿namespace UpSkill.Web.Areas.Owner.Employee
 {
     using System.Collections.Generic;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -12,16 +9,15 @@ namespace UpSkill.Web.Areas.Owner.Employee
     using UpSkill.Web.ViewModels.Employee;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
-    using static Common.GlobalConstants.ControllersResponseMessages;
     using static Common.GlobalConstants.EmployeeConstants;
 
     public class EmployeeController : OwnerBaseController
     {
-        private readonly IEmployeesService employeesService;
+        private readonly IEmployeeService employeesService;
         private readonly ICurrentUserService currentUser;
         private readonly IPasswordGeneratorService passwordGenerator;
 
-        public EmployeeController(IEmployeesService employeesService, ICurrentUserService currentUser, IPasswordGeneratorService passwordGenerator)
+        public EmployeeController(IEmployeeService employeesService, ICurrentUserService currentUser, IPasswordGeneratorService passwordGenerator)
         {
             this.employeesService = employeesService;
             this.currentUser = currentUser;

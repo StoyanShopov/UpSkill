@@ -18,7 +18,7 @@
     using static Common.GlobalConstants.EmployeeConstants;
     using static Common.GlobalConstants.RolesNamesConstants;
 
-    public class EmployeesService : IEmployeesService
+    public class EmployeesService : IEmployeeService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> users;
         private readonly IDeletableEntityRepository<Company> companies;
@@ -64,8 +64,9 @@
 
             var user = await this.userManager.FindByIdAsync(userId);
 
-            var position = await this.positions.AllAsNoTracking().Where(p => p.Name == model.Position)
-                .FirstOrDefaultAsync();
+            var position = await this.positions.AllAsNoTracking()
+             .Where(p => p.Name == model.Position)
+             .FirstOrDefaultAsync();
 
             var newEmployee = new ApplicationUser()
             {
@@ -85,7 +86,9 @@
 
         public async Task<Result> DeleteAsync(string id)
         {
-            var employee = await this.users.AllAsNoTracking().Where(e => e.Id == id).FirstOrDefaultAsync();
+            var employee = await this.users.AllAsNoTracking()
+             .Where(e => e.Id == id)
+              .FirstOrDefaultAsync();
             if (employee == null)
             {
                 return DoesNotExist;
