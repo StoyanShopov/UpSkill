@@ -22,7 +22,7 @@ const EmployeeEmailInfo = ({onAddEmployee})=> {
                 
                 setallEmployees(employees);
             });        
-    },[currentPage,allEmployees]);
+    },[currentPage]);
 
     function showMoreEmployees() {
         let next = currentPage+1;
