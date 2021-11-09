@@ -1,6 +1,5 @@
 ﻿namespace UpSkill.Services.Data.Owner
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -11,22 +10,20 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Services.Mapping;
-    using UpSkill.Web.ViewModels.Course;
-
-    using static Common.GlobalConstants.RolesNamesConstants;
 
     public class OwnersServices : IOwnerServices
     {
         private readonly IRepository<CompanyCourse> companyCourses;
-        //private readonly IRepository<CompanyCoach> companyCoaches;
+        private readonly IRepository<CompanyCoach> companyCoaches;
         private readonly UserManager<ApplicationUser> userManager;
 
         public OwnersServices(
             IRepository<CompanyCourse> companyCourses,
-            //IRepository<CompanyCoach> companyCoaches,
+            IRepository<CompanyCoach> companyCoaches,
             UserManager<ApplicationUser> userManager)
         {
             this.companyCourses = companyCourses;
+            this.companyCoaches = companyCoaches;
             this.userManager = userManager;
         }
 
@@ -47,13 +44,13 @@
         {
             var user = await this.GetUserById(userId);
 
-            var courses = await this.companyCourses
+            var coaches = await this.companyCoaches
                 .AllAsNoTracking()
                 .Where(c => c.CompanyId == user.CompanyId)
                 .To<TModel>()
                 .ToListAsync();
 
-            return courses;
+            return coaches;
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)

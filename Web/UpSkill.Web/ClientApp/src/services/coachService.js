@@ -6,11 +6,8 @@ const OWN_API_URL = Base_URL + 'Owner/Coaches/';
 
 const token = localStorage.getItem('token');
 
-
 const numberCoachesToShow = 6;
 const numberCoachesSessionsToShow = 3;
-
-let activeCoachesCompanyOwnerCount = 333;
 
 const initialCoachesMock = [
   {
@@ -111,12 +108,12 @@ const coachesCompanyOwnerMock = [
 
 let coaches = [];
 
-export const getAllCoaches = async (course) => {
+export const getAllCoaches = async (coach) => {
   return axios
     .get(
       OWN_API_URL + 'getAll',
       { headers: { Authorization: `Bearer ${token}` } },
-      { course }
+      { coach }
     )
     .then((response) => {
       coaches = [];
@@ -143,9 +140,8 @@ export const getCoachesNames = async (currentPage) => {
 };
 
 export const getActiveCoachesCompanyOwner = async (uId) => {
-  //getAllCoaches();
-  //return coaches.length;
-  return activeCoachesCompanyOwnerCount;
+  getAllCoaches();
+  return coaches.length;
 };
 
 export const getCoachesSessionsForCompanyOwner = async (
