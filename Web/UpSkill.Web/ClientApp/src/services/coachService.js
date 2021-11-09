@@ -115,6 +115,28 @@ const coachesCompanyOwnerMock = [
 //   return arr;
 // };
 
+export const getAllCoaches = async (currentPage) => {
+  try {
+    let arr = [];
+    const resp = await axios.get(OWN_API_URL + "/getAllGlobal", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    let transformedResp=resp.data.map( c => {
+      return {
+        id: c.id,
+        coachFirstName: c.firstName,
+        coachLastName: c.lastName,
+        coachFileFilePath: c.fileFilePath,
+        coachPrice: 0
+      }
+    })
+    console.log(transformedResp);
+    arr.push(...transformedResp);
+    //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
+    return arr;
+  } catch (err) {}
+};
+
 export const getCoaches = async (currentPage) => {
   try {
     let arr = [];
