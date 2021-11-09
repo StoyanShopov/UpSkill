@@ -3,8 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using UpSkill.Data;
 
 namespace UpSkill.Data.Migrations
 {
@@ -271,34 +269,35 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+
             modelBuilder.Entity("UpSkill.Data.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("CreatedOn")
+                    .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("DeletedOn")
+                    .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                b.Property<bool>("IsDeleted")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("ModifiedOn")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
+                b.HasIndex("IsDeleted");
 
-                    b.ToTable("Categories");
-                });
+                b.ToTable("Categories");
+            });
 
             modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
                 {
@@ -374,30 +373,32 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("Companies");
                 });
 
+
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
-                {
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
+            {
+                b.Property<int>("CompanyId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
+                b.Property<int>("CourseId")
+                    .HasColumnType("int");
 
-                    b.HasKey("CompanyId", "CourseId");
+                b.HasKey("CompanyId", "CourseId");
 
-                    b.HasIndex("CourseId");
+                b.HasIndex("CourseId");
 
-                    b.ToTable("CompanyCourses");
-                });
+                b.ToTable("CompanyCourses");
+            });
 
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                b.Property<int>("CategoryId")
+                    .HasColumnType("int");
+
 
                     b.Property<int>("CoachId")
                         .HasColumnType("int");
@@ -405,20 +406,24 @@ namespace UpSkill.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<DateTime?>("DeletedOn")
+                    .HasColumnType("datetime2");
 
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<bool>("IsDeleted")
+                    .HasColumnType("bit");
+
+                b.Property<DateTime?>("ModifiedOn")
+                    .HasColumnType("datetime2");
                     b.Property<int?>("FileId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -427,18 +432,20 @@ namespace UpSkill.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                b.HasKey("Id");
 
+                b.HasIndex("CategoryId");
+
+                b.HasIndex("IsDeleted");
                     b.HasIndex("CoachId");
 
                     b.HasIndex("FileId");
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Courses");
-                });
+                b.ToTable("Courses");
+            });
 
             modelBuilder.Entity("UpSkill.Data.Models.File", b =>
                 {
@@ -613,32 +620,33 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("File");
                 });
 
+
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
-                {
-                    b.HasOne("UpSkill.Data.Models.Company", "Company")
-                        .WithMany("Courses")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("UpSkill.Data.Models.Company", "Company")
+                    .WithMany("Courses")
+                    .HasForeignKey("CompanyId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.HasOne("UpSkill.Data.Models.Course", "Course")
-                        .WithMany("Companies")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                b.HasOne("UpSkill.Data.Models.Course", "Course")
+                    .WithMany("Companies")
+                    .HasForeignKey("CourseId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
-                    b.Navigation("Company");
+                b.Navigation("Company");
 
-                    b.Navigation("Course");
-                });
+                b.Navigation("Course");
+            });
 
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
-                {
-                    b.HasOne("UpSkill.Data.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+            {
+                b.HasOne("UpSkill.Data.Models.Category", "Category")
+                    .WithMany()
+                    .HasForeignKey("CategoryId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
 
                     b.HasOne("UpSkill.Data.Models.Coach", "Coach")
                         .WithMany("Courses")
@@ -700,6 +708,7 @@ namespace UpSkill.Data.Migrations
 
                     b.Navigation("Users");
                 });
+
 
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
                 {
