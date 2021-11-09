@@ -5,16 +5,19 @@ import { useHistory } from "react-router-dom";
 import CoachesCard from "../../../Coaches/CoachesCatalog/Coaches-Card/Coaches-Card";
 import RemovePopup from "../../../Shared/RemovePopup/RemovePopup";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
+import AddCoachModal from "./AddCoach/AddCoach";
 
 import "./CompanyCoaches.css";
 
 import { getCoaches, removeCoach } from "../../../../services/coachService";
-import { disableBodyScroll,enableBodyScroll } from "../../../../utils/utils";
+import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
 
 export default function CoachList() {
   const [coaches, setCoaches] = useState([]);
   const [onRemove, setOnRemove] = useState(false);
   const [coachId, setCoachId] = useState(0);
+  const [openRequestModal, setOpenRequestModal] = useState(false);
+
   const initialPageCoaches = 0;
 
   // const history = useHistory();
@@ -40,12 +43,12 @@ export default function CoachList() {
   };
 
   function setOnRemoveInternal(id) {
-    setCoachId(id)
+    setCoachId(id);
     setOnRemove(true);
     disableBodyScroll();
   }
 
-  function onCloseModal(close) {    
+  function onCloseModal(close) {
     setOnRemove(close);
     enableBodyScroll();
   }
@@ -62,7 +65,7 @@ export default function CoachList() {
       <div className={"buttonContainer"}>
         <input
           type="button"
-          onClick={(event) => (window.location.href = "/Coaches")}
+          onClick={(e) => setOpenRequestModal(true)}
           className="btn btn-outline-primary px-4 m-4"
           value="Add"
         />
@@ -89,8 +92,12 @@ export default function CoachList() {
                 id={coachId}
               />
             )}
+            {openRequestModal && (
+          <AddCoachModal closeModal={setOpenRequestModal}></AddCoachModal>
+        )}
           </CoachesCard>
         ))}
+        
       </div>
     </div>
   );
