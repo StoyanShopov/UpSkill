@@ -1,23 +1,23 @@
 ﻿namespace UpSkill.Web
 {
-    using System.Reflection;
+	using System.Reflection;
 
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
+	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
+	using Microsoft.Extensions.Hosting;
+	using UpSkill.Data;
+	using UpSkill.Data.Seeding;
+	using UpSkill.Services.Mapping;
+	using UpSkill.Web.Hubs;
+	using UpSkill.Web.Infrastructure.Web.Extensions;
+	using UpSkill.Web.ViewModels;
+	using UpSkill.Web.Web.Extensions;
 
-    using UpSkill.Data;
-    using UpSkill.Data.Seeding;
-    using UpSkill.Services.Mapping;
-    using UpSkill.Web.Infrastructure.Web.Extensions;
-    using UpSkill.Web.ViewModels;
-    using UpSkill.Web.Web.Extensions;
-
-    public class Startup
+	public class Startup
     {
         private readonly IConfiguration configuration;
 
@@ -42,10 +42,16 @@
                 configuration.RootPath = "ClientApp/build";
             });
 
+            services
+                 .AddHttpContextAccessor();
+
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
+
+            services.AddSignalR()
+                   .AddAzureSignalR();
 
             services.AddEmailSender(this.configuration);
 
@@ -76,6 +82,7 @@
             app
                 .UseSwaggerUI()
                 .UseRouting()
+                .UseFileServer()
                 .UseCors(options => options
                     .AllowAnyOrigin()
                     .AllowAnyHeader()
@@ -90,6 +97,10 @@
                     endpoints.MapRazorPages();
                 })
                 .ApplyMigrations();
+
+            app.UseAzureSignalR(route=> {
+                route.MapHub<ChatHub>("/chat");
+            });
 
             app.UseSpa(spa =>
             {

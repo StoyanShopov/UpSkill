@@ -11,6 +11,7 @@ import logo from "../../../assets/logo-NoBg.png";
 import manKey from "../../../assets/manKey.png"; 
 
 import notificationContext from "../../../Context/NotificationContext";
+import chatContext from "../../../Context/ChatContext";
 
 import { login } from "../../../actions/auth";  
 
@@ -21,6 +22,8 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+	const [joinRoom, sendMessage, closeConnection, messages, setMessages, connection] = useContext(chatContext);	
 
   const { isLoggedIn } = useSelector(state => state.auth);
   const { message } = useSelector(state => state.message); 
@@ -49,6 +52,7 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(email, password))
         .then(() => {
+          closeConnection();
           props.history.push("/MyProfile");
           setNotification({type:'LOGIN_SUCCESS', payload: `Welcome ${email}!`});
         })

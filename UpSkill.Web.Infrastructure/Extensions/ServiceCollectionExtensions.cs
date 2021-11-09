@@ -1,10 +1,13 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
-    using System.Text;
+	using System.Collections.Generic;
+	using System.Text;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
+	using Microsoft.AspNetCore.Http;
+	using Microsoft.AspNetCore.Identity;
+	using Microsoft.AspNetCore.SignalR;
+	using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
@@ -42,8 +45,8 @@
     using UpSkill.Web.Filters;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.Infrastructure.Web.Extensions;
-
-    using static Common.GlobalConstants;
+	using UpSkill.Web.ViewModels.Chat;
+	using static Common.GlobalConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
     using static Common.GlobalConstants.PoliciesNamesConstants;
     using static Common.GlobalConstants.RolesNamesConstants;
@@ -166,6 +169,7 @@
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
+                .AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>())
                 .AddTransient<IBlobService, BlobService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)

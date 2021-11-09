@@ -38,6 +38,8 @@
 
         public DbSet<File> Files { get; set; }
 
+        public DbSet<Message> Messages { get; init; }
+
         public DbSet<UserInCourse> UserInCourses { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

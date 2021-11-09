@@ -17,6 +17,11 @@
 
         public RoomController(IConfiguration configuration) => this.configuration = configuration;
 
+        private string ApiKey => this.configuration.GetSection("Zoom").GetSection("ApiKey").Value;
+
+        private string ApiUrl => this.configuration.GetSection("Zoom").GetSection("ZoompiUrl").Value;
+
+        private string Issuer => this.configuration.GetSection("Zoom").GetSection("Issuer").Value;
 
         [HttpPost]
         public async Task<string> CreateRoom(int courseId)
@@ -27,19 +32,19 @@
 
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
             var now = DateTime.UtcNow;
-            var apiSecret = apiKey;
+            var apiSecret = this.ApiKey;
             byte[] symmetricKey = Encoding.ASCII.GetBytes(apiSecret);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Issuer = issuer,
+                Issuer = this.Issuer,
                 Expires = now.AddSeconds(300),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256),
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            var client = new RestClient(apiUrl);
+            var client = new RestClient(this.ApiUrl);
             var request = new RestRequest(Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddJsonBody(new { topic = "Meeting with {Coach Name}", duration = "30", start_time = "2021-10-29T05:00:00", type = "2" });
@@ -60,7 +65,7 @@
 
 		private void SummonAllStudents(int courseId, string joinUrl)
 		{
-			throw new NotImplementedException();
-		}
-	}
+            //var usersInCourse = getAll(courseId);
+        }
+    }
 }

@@ -1,13 +1,12 @@
 .courses-list {
-  width: 100%;
-  margin-left: -60px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 4rem;
-  --bs-gutter-x: 3.5rem;
-  padding-left: 0!important;
+    width: 100%;
+    margin-left: -60px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4rem;
+    --bs-gutter-x: 3.5rem;
+    padding-left: 0 !important;
 }
-
 .alignContentBox {
   width: 324px;
   height: 578px;
