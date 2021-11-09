@@ -7,10 +7,6 @@
 
     public interface IOwnerServices
     {
-        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
-
         Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId);
-
-        Task<CoursesCountModel> CountCompanyCourses<TModel>(string userId);
     }
 }

@@ -29,10 +29,5 @@
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoursesListingModel>> GetAll()
             => await this.ownerService.GetAllCoursesAsync<CoursesListingModel>(this.currentUser.GetId());
-
-        [HttpGet]
-        [Route(GetCountRoute)]
-        public async Task<CoursesCountModel> GetCount()
-            => await this.ownerService.CountCompanyCourses<CoursesCountModel>(this.currentUser.GetId());
     }
 }

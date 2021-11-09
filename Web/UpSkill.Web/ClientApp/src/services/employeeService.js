@@ -36,6 +36,20 @@ export const getCourses = (
 const numberEmployeesToShow = 3;
 let employees = [];
 
+export const getAllEmployees = async (employee) => {
+  return axios
+    .get(
+      OWN_API_URL + 'getAll',
+      { headers: { Authorization: `Bearer ${token}` } },
+      { employee }
+    )
+    .then((response) => {
+      employees = [];
+      response.data.map((x) => employees.push(x));
+      return employees;
+    });
+};
+
 export const getEmployeeWithEmail = async (currentPage) => {
   getAllEmployees();
   let arr = [];
@@ -50,19 +64,6 @@ export const getEmployeeWithEmail = async (currentPage) => {
 };
 
 export const getEmployeesTotalCountCompanyOwner = async (uId) => {
+  getAllEmployees();
   return employees.length;
-};
-
-export const getAllEmployees = async (employee) => {
-  return axios
-    .get(
-      OWN_API_URL + 'getAll',
-      { headers: { Authorization: `Bearer ${token}` } },
-      { employee }
-    )
-    .then((response) => {
-      employees = [];
-      response.data.map((x) => employees.push(x));
-      return employees;
-    });
 };

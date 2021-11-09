@@ -28,11 +28,6 @@
             this.userManager = userManager;
         }
 
-        public Task<IEnumerable<TModel>> GetAllAsync<TModel>()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId)
         {
             var user = await this.GetUserById(userId);
@@ -44,12 +39,6 @@
                     .ToListAsync();
 
             return courses;
-        }
-
-        public async Task<CoursesCountModel> CountCompanyCourses<TModel>(string userId)
-        {
-            var courses = await this.GetAllCoursesAsync<CoursesListingModel>(userId);
-            return new CoursesCountModel { Count = courses.Count() };
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)
