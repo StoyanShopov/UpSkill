@@ -2,6 +2,7 @@ import React, { createContext ,useState, useEffect } from 'react';
 
 import { courseDetailsContent } from '../../../services/courseService';
 import Content from './Content/Content';
+import SidebarResources from './SidebarResources/SidebarResources';
 
 import './CoursesDetailsContent.css';
 
@@ -23,6 +24,7 @@ const CoursesDetailsContent = () => {
       }>
         <div className="content">
           <div className="wrapper row">
+            <SidebarResources />
             <Content />                
           </div>
       </div>  

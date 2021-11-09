@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
-const SidebarResources = (props) => {
+import { CourseContextDetailsContent } from '../CoursesDetailsContent';
+
+const SidebarResources = () => {
+    const { course } = useContext(CourseContextDetailsContent);
+    
     return(
         <div>
         </div>
