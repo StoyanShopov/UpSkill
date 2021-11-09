@@ -28,10 +28,5 @@
         [Route(GetAllRoute)]
         public async Task<IEnumerable<EmployeesListingModel>> GetAll()
             => await this.employeeService.GetCompanyEmployeesAsync<EmployeesListingModel>(this.currentUser.GetId());
-
-        [HttpGet]
-        [Route(GetCountRoute)]
-        public async Task<EmployeesCountModel> GetCount()
-            => await this.employeeService.CountCompanyEmployees<EmployeesCountModel>(this.currentUser.GetId());
     }
 }

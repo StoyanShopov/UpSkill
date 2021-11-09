@@ -16,16 +16,16 @@
     public class EmployeesService : IEmployeeService
     {
         private readonly IRepository<CompanyCourse> companyCourses;
-        private readonly IRepository<ApplicationUser> users;
+        private readonly IDeletableEntityRepository<Company> companies;
         private readonly UserManager<ApplicationUser> userManager;
 
         public EmployeesService(
             IRepository<CompanyCourse> companyCourses,
-            IRepository<ApplicationUser> users,
+            IDeletableEntityRepository<Company> companies,
             UserManager<ApplicationUser> userManager)
         {
             this.companyCourses = companyCourses;
-            this.users = users;
+            this.companies = companies;
             this.userManager = userManager;
         }
 
@@ -60,19 +60,13 @@
         {
             var user = await this.GetUserById(userId);
 
-            var employees = await this.users
+            return await this.companies
                 .AllAsNoTracking()
-                .Where(c => c.ManagerId == user.Id)
+                .Where(x => x.Id == user.CompanyId)
+                .SelectMany(x => x.Users)
+                .Where(u => u.Id != userId)
                 .To<TModel>()
                 .ToListAsync();
-
-            return employees;
-        }
-
-        public async Task<EmployeesCountModel> CountCompanyEmployees<TModel>(string userId)
-        {
-            var employees = await this.GetCompanyEmployeesAsync<EmployeesListingModel>(userId);
-            return new EmployeesCountModel { Count = employees.Count() };
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)
