@@ -1,6 +1,8 @@
+
 import React, {useReducer} from "react"; 
 import { Route } from "react-router-dom";
 import { Provider } from 'react-redux'
+
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,8 +27,8 @@ import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
 import store from './store';   
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses" 
-import EmployeeEmailInfo from "./components/MyProfile/CompanyOwnerViews/Employees/EmployeeEmailInfo/EmployeeEmailInfo";
-import AddEmployee from "./components/MyProfile/CompanyOwnerViews/Employees/AddEmployee/AddEmployee";
+import PromoteDemote from "./components/Admin/AdminPromoteDemote";
+
 
 const AppWrapper = (props) => {   
   const [notification, setNotification ] = useReducer(Auth, {type: '', state: 'none', message: ''});
@@ -60,9 +62,10 @@ function App() {
           <Route exact path='/AddCompany' component={AddCompany}/>   
           <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
           <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
-          <Route exact path="/Admin/Companies/edit" component={EditCompany}/>
-          <Route exact path='/Owner/Employees'  render={(props)=> (<EmployeeEmailInfo {...props} getEmployeeId = {removeEmployeeHandler}/>)}/>
-          <Route exact path='/AddEmployee' component={AddEmployee}/>    
+
+          <Route exact path="/Admin/Companies/edit" component={EditCompany}/>  
+          <Route exact path="/Admin/PromoteDemote" component={PromoteDemote}/>  
+
       </AppWrapper> 
 
   );
