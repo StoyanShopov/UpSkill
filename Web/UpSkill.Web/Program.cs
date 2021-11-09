@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web
 {
+    using System;
     using System.IO;
 
     using Microsoft.AspNetCore.Hosting;
@@ -11,12 +12,24 @@
     {
         public static void Main(string[] args)
         {
-            var logPath = Path.Combine(Directory.GetCurrentDirectory(), "NLog");
-            NLog.GlobalDiagnosticsContext.Set("LogDirectory", logPath);
+            var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
+            try
+            {
+                logger.Debug("Initialize app");
 
-            CreateHostBuilder(args)
-            .Build()
-            .Run();
+                CreateHostBuilder(args)
+                    .Build()
+                    .Run();
+            }
+            catch (Exception exception)
+            {
+                logger.Error(exception, "Stopped program because of exception");
+                throw;
+            }
+            finally
+            {
+                NLog.LogManager.Shutdown();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
