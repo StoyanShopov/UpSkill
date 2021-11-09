@@ -90,7 +90,7 @@ export default function AdminCourses() {
             Add
           </button>
         </div>
-        <div className="row list-unstyled courses-list">
+        <div className="row list-unstyled admin-courses-list">
           {courses.map((course) => (
             <div className="col-6 text-align-center ">
               <AdminCoursesCard

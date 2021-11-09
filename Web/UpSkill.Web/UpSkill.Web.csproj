@@ -39,6 +39,7 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.11" />
@@ -75,11 +76,13 @@
 		<ProjectReference Include="..\UpSkill.Web.ViewModels\UpSkill.Web.ViewModels.csproj" />
 	</ItemGroup>
 
+
 	<ItemGroup>
 		<Folder Include="ClientApp\src\components\" />
 		<Folder Include="ClientApp\src\services\" />
 		<Folder Include="NLog\Internal\" />
 	</ItemGroup>
+
 
 	<ItemGroup>
 		<!-- Don't publish the SPA source files, but do show them in the project files list -->
@@ -113,4 +116,5 @@
 			</ResolvedFileToPublish>
 		</ItemGroup>
 	</Target>
+
 </Project>

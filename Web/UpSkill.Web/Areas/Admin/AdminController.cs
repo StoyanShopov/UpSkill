@@ -1,12 +1,14 @@
 ﻿namespace UpSkill.Web.Areas.Admin
 {
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
+
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Web.ViewModels.Administration;
     using UpSkill.Web.ViewModels.Administration.Company;
 
     using static Common.GlobalConstants;
@@ -18,34 +20,25 @@
     {
         private readonly IAdminService adminService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly ILogger<AdminController> logger;
 
         public AdminController(
             IAdminService adminService,
-            UserManager<ApplicationUser> userManager,
-            ILogger<AdminController> logger)
+            UserManager<ApplicationUser> userManager)
         {
             this.adminService = adminService;
             this.userManager = userManager;
-            this.logger = logger;
         }
 
         [HttpPost]
         [Route(AddOwnerCompany)]
         public async Task<IActionResult> AddOwnerToCompany(AddCompanyOwnerRequestModel model, int id)
         {
-            this.logger.LogInformation("Entering AddOwnerToCompany (admin)");
-
             var result = await this.adminService.AddCompanyOwnerToCompanyAsync(model, id);
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Failure.ToString());
-
                 return this.BadRequest(result.Error);
             }
-
-            this.logger.LogInformation("Owner added successfully to company (admin)");
 
             return this.Ok(SuccesfullyAddedOwnerToGivenCompany);
         }
@@ -54,81 +47,49 @@
         [Route(Promote)]
         public async Task<IActionResult> PromoteUser(string email)
         {
-            this.logger.LogInformation("Entering PromoteUser (admin)");
+            var result = await this.adminService.Promote(email);
 
-            if (!this.ModelState.IsValid)
+            if (result.Failure)
             {
-                this.logger.LogError(this.ModelState.ToString());
-
-                return this.BadRequest(this.ModelState);
+                return this.BadRequest(result.Error);
             }
 
-            var user = await this.GetUser(email);
-
-            if (user == null)
-            {
-                this.logger.LogError("User is null (admin)");
-
-                return this.BadRequest(UserNotFound);
-            }
-
-            var result = await this.adminService
-                            .Promote(user);
-
-            if (result != AssignedSuccessfully)
-            {
-                this.logger.LogError("User is already promoted (admin)");
-
-                return this.BadRequest(result);
-            }
-
-            this.logger.LogError("User promoted successfully (admin)");
-
-            return this.Ok(result);
+            return this.Ok(AssignedSuccessfully);
         }
 
         [HttpPut]
         [Route(Demote)]
         public async Task<IActionResult> DemoteUser(string email)
         {
-            this.logger.LogInformation("Entering DemoteUser (admin)");
+            var result = await this.adminService.Demote(email);
 
-            if (!this.ModelState.IsValid)
+            if (result.Failure)
             {
-                this.logger.LogError(this.ModelState.ToString());
-
-                return this.BadRequest(this.ModelState);
+                return this.BadRequest(result.Error);
             }
 
-            var user = await this.GetUser(email);
+            return this.Ok(UnassignedSuccessfully);
+        }
+
+        [HttpGet]
+        public async Task<PromoteDemoteUserResponseModel> GetUser(string email)
+        {
+            var user = await this.userManager.FindByEmailAsync(email);
+            var roles = await this.userManager.GetRolesAsync(user);
 
             if (user == null)
             {
-                this.logger.LogError("User is null (admin)");
-
-                return this.BadRequest(UserNotFound);
+                return null;
             }
 
-            var result = await this.adminService
-                           .Demote(user);
-
-            if (result != UnassignedSuccessfully)
+            var result = new PromoteDemoteUserResponseModel
             {
-                this.logger.LogError("User is already demoted (admin)");
+                Email = user.Email,
+                FullName = $"{user.FirstName} {user.LastName}",
+                Role = roles,
+            };
 
-                return this.BadRequest(result);
-            }
-
-            this.logger.LogError("User demoted successfully (admin)");
-
-            return this.Ok(result);
-        }
-
-        private async Task<ApplicationUser> GetUser(string email)
-        {
-            var user = await this.userManager.FindByEmailAsync(email);
-
-            return user;
+            return result;
         }
     }
 }
