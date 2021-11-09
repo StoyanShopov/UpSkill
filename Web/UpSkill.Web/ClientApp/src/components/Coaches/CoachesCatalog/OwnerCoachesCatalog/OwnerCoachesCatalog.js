@@ -48,6 +48,11 @@ export default function OwnerCoachesCatalog({
     enableBodyScroll();
   };
 
+  const onCloseConfirmRemove= (close) =>{
+      setOnRemove(close);
+      enableBodyScroll();
+  }
+
   function setOnRemoveInternal(id) {
     setCoachId(id);
     setOnRemove(true);
@@ -87,7 +92,7 @@ export default function OwnerCoachesCatalog({
 
   return (
     <>
-      <div className="container">
+      <div className="container">  
         <div className="row list-unstyled coaches-list">
           {coaches.map((coach) => (
             <div className="col-sm-4 text-align-center" key={coach.id}>
@@ -96,20 +101,19 @@ export default function OwnerCoachesCatalog({
                 coachDetails={coach}
                 displaySession={false}
                 displayPrice={true}
-              >
-                {buttonToShow(checkCompanyHasCoach(coach), coach.id)}
-              </CoachesCard>
-
-              {onRemove && (
+              > 
+                  {onRemove && (
                 <ConfirmDelete
                   deleteItem={onDelete}
-                  closeModal={setOnRemove}
+                  closeModal={onCloseConfirmRemove}
                   itemName="coach"
                   id={coachId}
                 />
-              )}
+              )}           
+                {buttonToShow(checkCompanyHasCoach(coach), coach.id)}                
+              </CoachesCard>              
             </div>
-          ))}
+          ))}       
         </div>
       </div>
     </>

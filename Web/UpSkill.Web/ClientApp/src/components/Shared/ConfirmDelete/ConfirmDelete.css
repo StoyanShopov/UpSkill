@@ -14,7 +14,7 @@
 
 .deleteModal-container {
   position: fixed;
-  top: 5em;  
+  top: 10rem;  
   width: 750px;
   height: 400px;
   background-color: white;

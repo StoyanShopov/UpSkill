@@ -45,6 +45,11 @@ export default function CoachList() {
     disableBodyScroll();
   }
 
+  function onCloseModal(close) {    
+    setOnRemove(close);
+    enableBodyScroll();
+  }
+
   return (
     <div className="content main-content">
       {/* <RemovePopup
@@ -79,7 +84,7 @@ export default function CoachList() {
             {onRemove && (
               <ConfirmDelete
                 deleteItem={onDelete}
-                closeModal={setOnRemove}
+                closeModal={onCloseModal}
                 itemName="coach"
                 id={coachId}
               />
