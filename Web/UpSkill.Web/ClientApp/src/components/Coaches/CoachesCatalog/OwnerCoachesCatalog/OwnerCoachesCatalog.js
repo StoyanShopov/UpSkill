@@ -1,15 +1,37 @@
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import CoachesCard from "../Coaches-Card/Coaches-Card";
+import { addCoach } from "../../../../services/coachService";
 
-export default function OwnerCoachesCatalog({ coaches, companyCoaches = null }) {
+import { getCoaches, removeCoach } from "../../../../services/coachService";
+
+import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
+import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
+
+export default function OwnerCoachesCatalog({
+  coaches,
+  setCoaches,
+  companyCoaches = null,
+}) {
+  const [onRemove, setOnRemove] = useState(false);
+  const [coachId, setCoachId] = useState(0);
+  const initialPageCoaches = 0;
+
+  const history = useHistory();
+
+  const routeChange = (path) => {
+    history.push(path);
+  };
+
   const checkCompanyHasCoach = (coach) => {
     if (companyCoaches) {
-      let contains=false;
-      companyCoaches.map(c => {
+      let contains = false;
+      companyCoaches.map((c) => {
         if (c.id == coach.id) {
-          contains= true;
+          contains = true;
         }
-      })
+      });
       console.log(contains);
       return contains;
     } else {
@@ -17,13 +39,49 @@ export default function OwnerCoachesCatalog({ coaches, companyCoaches = null }) 
     }
   };
 
-  function addCoachToCompany(){};
+  const onDelete = (id) => {
+    removeCoach(id).then(() =>
+      getCoaches(initialPageCoaches).then((coaches) => setCoaches(coaches))
+    );
+    console.log("Deleted " + id);
+    setOnRemove(false);
+    enableBodyScroll();
+  };
 
-  const buttonToShow = (checkCompanyHasCoach, coach) => {
+  function setOnRemoveInternal(id) {
+    setCoachId(id);
+    setOnRemove(true);
+    disableBodyScroll();
+  }
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  function addCoachToCompany(coachId) {
+    console.log("clicked", user.email, coachId);
+    addCoach(user.email, coachId).then(() => routeChange("/MyProfile/Coaches"));
+  }
+
+  const buttonToShow = (checkCompanyHasCoach, coachId) => {
     if (checkCompanyHasCoach) {
-      return <Button className="coaches-cardButton"> Remove </Button>;
+      return (
+        <Button
+          className="coaches-cardButton"
+          onClick={(e) => setOnRemoveInternal(coachId)}
+        >
+          {" "}
+          Remove{" "}
+        </Button>
+      );
     } else {
-      return <Button className="coaches-cardButton" onClick={addCoachToCompany(coach)}> Add </Button>;
+      return (
+        <Button
+          className="coaches-cardButton"
+          onClick={(e) => addCoachToCompany(coachId)}
+        >
+          {" "}
+          Add{" "}
+        </Button>
+      );
     }
   };
 
@@ -39,8 +97,17 @@ export default function OwnerCoachesCatalog({ coaches, companyCoaches = null }) 
                 displaySession={false}
                 displayPrice={true}
               >
-                {buttonToShow(checkCompanyHasCoach(coach), coach)}
+                {buttonToShow(checkCompanyHasCoach(coach), coach.id)}
               </CoachesCard>
+
+              {onRemove && (
+                <ConfirmDelete
+                  deleteItem={onDelete}
+                  closeModal={setOnRemove}
+                  itemName="coach"
+                  id={coachId}
+                />
+              )}
             </div>
           ))}
         </div>

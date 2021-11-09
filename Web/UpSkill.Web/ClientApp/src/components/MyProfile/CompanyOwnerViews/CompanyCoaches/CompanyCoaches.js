@@ -9,12 +9,12 @@ import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 import "./CompanyCoaches.css";
 
 import { getCoaches, removeCoach } from "../../../../services/coachService";
-import { disableBodyScroll } from "../../../../utils/utils";
+import { disableBodyScroll,enableBodyScroll } from "../../../../utils/utils";
 
 export default function CoachList() {
   const [coaches, setCoaches] = useState([]);
   const [onRemove, setOnRemove] = useState(false);
-  const [coachId, SetCoachId] = useState(0);
+  const [coachId, setCoachId] = useState(0);
   const initialPageCoaches = 0;
 
   // const history = useHistory();
@@ -36,9 +36,11 @@ export default function CoachList() {
     );
     console.log("Deleted " + id);
     setOnRemove(false);
+    enableBodyScroll();
   };
 
-  function setOnRemoveInternal() {
+  function setOnRemoveInternal(id) {
+    setCoachId(id)
     setOnRemove(true);
     disableBodyScroll();
   }
@@ -70,7 +72,7 @@ export default function CoachList() {
           >
             <Button
               className="cardButton companyOwner-cardBtn"
-              onClick={(e) => setOnRemoveInternal()}
+              onClick={(e) => setOnRemoveInternal(coach.id)}
             >
               Remove
             </Button>
@@ -79,7 +81,7 @@ export default function CoachList() {
                 deleteItem={onDelete}
                 closeModal={setOnRemove}
                 itemName="coach"
-                id={coach.id}
+                id={coachId}
               />
             )}
           </CoachesCard>

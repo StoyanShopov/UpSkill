@@ -161,21 +161,26 @@ export const removeCoach = async (coachId) => {
   } catch (err) {}
 };
 
-export const addCoach = async (userEmail, coachId, companyId) => {
+export const addCoach = async (userEmail, coachId) => {  
+  const addCoachModel={
+    ownerEmail: userEmail,
+    coachId
+  };
+
+  console.log(addCoachModel);
+
   try {
-    const resp = await axios.put(
-      OWN_API_URL,
+    const resp = await axios.post(
+      OWN_API_URL,   
+      addCoachModel,    
       {
         headers: { Authorization: `Bearer ${token}` },
-      },
-      {
-        userEmail,
-        coachId,
-        companyId,
-      }
+      }        
     );
     return resp;
-  } catch (err) {}
+  } catch (err) {
+    console.log(err)
+  }
 };
 
 export const getCoachesNames = async (currentPage) => {

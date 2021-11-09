@@ -22,7 +22,7 @@ export default function Coaches() {
 
   const returnCatalog= () => {
     if (isCompanyOwner) {
-      return <OwnerCoachesCatalog coaches={coaches} companyCoaches={companyCoaches} />
+      return <OwnerCoachesCatalog coaches={coaches} companyCoaches={companyCoaches} setCoaches={setCompanyCoaches}/>
     }
     return <CoachesCatalog coaches={coaches} />
   }
@@ -31,7 +31,7 @@ export default function Coaches() {
     getAllCoaches(0).then((coaches) => {
       setCoaches(coaches);
     });
-  }, []);
+  }, [companyCoaches]);
 
   useEffect(() => {
     getCoaches(0).then((companyCoaches) => {
