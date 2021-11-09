@@ -1,4 +1,6 @@
-﻿namespace UpSkill.Web.Areas.Owner.Employee
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace UpSkill.Web.Areas.Owner.Employee
 {
     using System.Collections.Generic;
     using System.Security.Claims;
@@ -45,9 +47,9 @@
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(string email)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
-            var result = await this.employeesService.DeleteAsync(email);
+            var result = await this.employeesService.DeleteAsync(id);
 
             if (result.Failure)
             {

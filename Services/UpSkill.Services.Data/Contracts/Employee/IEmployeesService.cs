@@ -13,7 +13,7 @@
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>(string userId);
 
-        Task<Result> DeleteAsync(string email);
+        Task<Result> DeleteAsync(string id);
 
         Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId);
 

@@ -83,9 +83,9 @@
             return true;
         }
 
-        public async Task<Result> DeleteAsync(string email)
+        public async Task<Result> DeleteAsync(string id)
         {
-            var employee = await this.users.AllAsNoTracking().Where(e => e.Email == email).FirstOrDefaultAsync();
+            var employee = await this.users.AllAsNoTracking().Where(e => e.Id == id).FirstOrDefaultAsync();
             if (employee == null)
             {
                 return DoesNotExist;

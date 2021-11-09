@@ -12,19 +12,11 @@ export default function AddEmployee(props) {
     const [position,setPosition]= useState("");
 
     const saveEmployee =(e) =>{
-        e.preventDefault();
-      
+        e.preventDefault();      
 
         addEmployee(fullName, email,position);
     }
-    // function saveEmployee(e) {
-    //     e.preventDefault();
-    //     // let fullName = e.target.children[0].children[0].children[0].value;
-    //     // let email = e.target.children[0].children[1].children[0].value;
-    //     // let position = e.target.children[0].children[2].children[0].value;
-
-    //     addEmployee(fullName, email,position);
-    // }
+   
     const onChangeEmail = (e) => {
         const email = e.target.value;
         setEmail(email);

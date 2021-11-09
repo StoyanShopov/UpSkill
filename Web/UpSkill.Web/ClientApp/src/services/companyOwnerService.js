@@ -42,17 +42,16 @@ export const getSubscriptionsForCompanyOwner = async (uId, currentMonth) => {
    return [month.name, month.courses, month.totalForMonth];
 }
 
-export const addEmployee =  ( fullName, email,position) => {
+export const addEmployee = async ( fullName, email,position) => {
     
-    axios.post( Base_URL + "Owner/Employee",{headers: {"Authorization" : `Bearer ${token}`}}, {
-        
-       fullName:fullName,
-        email:email,
-         position:position
-       })
-      .then(res=> res.data
-      )
-      .catch(function (error) {
-        console.log(error);
-      });
+    const employee= {
+        fullName,
+        email,
+        position
+    }
+   axios.post( Base_URL + "Owner/Employee",employee,{headers: {"Authorization" : `Bearer ${token}`}})
+   .then(res=> res.data.id)
+   .catch(function (error) {
+     console.log(error);
+   });
 }
