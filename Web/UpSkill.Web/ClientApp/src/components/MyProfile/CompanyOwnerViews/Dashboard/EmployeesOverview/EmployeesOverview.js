@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import './EmployeesOverview.css';
 
 import { getEmployeesTotalCountCompanyOwner } from '../../../../../services/employeeService';
-//import { getAllEmployees } from '../../../../../services/employeeService';
 import { getActiveCoachesCompanyOwner } from '../../../../../services/coachService';
 import { getActiveCoursesCompanyOwner } from '../../../../../services/courseSevice';
 
@@ -11,12 +10,8 @@ function EmployeesOverview() {
   const [count, setCount] = useState();
   const [activeCoaches, setActiveCoaches] = useState();
   const [activeCourses, setActiveCourses] = useState();
-  //const [activeEmployees, setActiveEmployees] = useState();
 
   useEffect(() => {
-    // getAllEmployees('').then((activeEmpl) => {
-    //   setActiveEmployees(activeEmpl);
-    // });
     getEmployeesTotalCountCompanyOwner('').then((emplCount) => {
       setCount(emplCount);
     });

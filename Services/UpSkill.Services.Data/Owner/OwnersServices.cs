@@ -18,10 +18,12 @@
     public class OwnersServices : IOwnerServices
     {
         private readonly IRepository<CompanyCourse> companyCourses;
+        //private readonly IRepository<CompanyCoach> companyCoaches;
         private readonly UserManager<ApplicationUser> userManager;
 
         public OwnersServices(
             IRepository<CompanyCourse> companyCourses,
+            //IRepository<CompanyCoach> companyCoaches,
             UserManager<ApplicationUser> userManager)
         {
             this.companyCourses = companyCourses;
@@ -37,6 +39,19 @@
                     .Where(c => c.CompanyId == user.CompanyId)
                     .To<TModel>()
                     .ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var courses = await this.companyCourses
+                .AllAsNoTracking()
+                .Where(c => c.CompanyId == user.CompanyId)
+                .To<TModel>()
+                .ToListAsync();
 
             return courses;
         }

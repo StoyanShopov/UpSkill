@@ -12,5 +12,7 @@
         public string LastName { get; set; }
 
         public string FileFilePath { get; set; }
+
+        public decimal Price { get; set; }
     }
 }
