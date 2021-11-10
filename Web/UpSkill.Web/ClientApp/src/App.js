@@ -57,7 +57,7 @@ function App() {
           <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
           <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
           <Route exact path='/Admin/Companies/edit' component={EditCompany}/>
-          <Route exact path='/DetailsContent/:id' component={CoursesDetailsContent}/>
+          <Route exact path='/DetailsContent' component={CoursesDetailsContent}/>
       </AppWrapper> 
   );
 }

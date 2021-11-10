@@ -1,4 +1,4 @@
-import React, { createContext ,useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { courseDetailsContent } from '../../../services/courseService';
 import Content from './Content/Content';
@@ -6,10 +6,8 @@ import SidebarResources from './SidebarResources/SidebarResources';
 
 import './CoursesDetailsContent.css';
 
-export const CourseContextDetailsContent = createContext();
-
 const CoursesDetailsContent = () => {
-  const [course, setCourse] = useState({});
+  const [course, setCourse] = useState([]);
 
   useEffect(() => {
     courseDetailsContent()
@@ -19,16 +17,11 @@ const CoursesDetailsContent = () => {
   }, []);
 
     return (
-      <CourseContextDetailsContent.Provider value={
-        {course, setCourse}
-      }>
-        <div className="content">
-          <div className="wrapper row">
-            <SidebarResources />
-            <Content />                
+        <div>
+          <div>
+            <Content course={course} />                
           </div>
       </div>  
-      </CourseContextDetailsContent.Provider>
     );
 }
 

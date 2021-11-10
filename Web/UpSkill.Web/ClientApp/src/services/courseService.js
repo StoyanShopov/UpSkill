@@ -40,6 +40,26 @@ const initialCourses = [
   },
 ];
 
+const DetailsContent =
+{
+    id: 14,
+    courseTitle: 'Marketing',
+    courseDescription: 'Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or client’s financial goals while increasing profitability and minimizing risks.',
+    courseLecturer: 'Ben Levis',
+    courseVideo: 'https://www.youtube.com/embed/Y2a16HAsHBE',
+    courseItems: [
+      {
+        courseSubject: 'Introduction',
+      },
+      {
+        courseSubject: 'Marketing',
+      },
+      {
+        courseSubject: 'Digital Marketing',
+      }
+    ]
+};
+
 export const getCourses = async (currentPage) => {
   //      let res = await request(``, 'Get');
   let arr = [];
@@ -53,9 +73,15 @@ export const getCourses = async (currentPage) => {
   return arr;
 };
 
-export const courseDetailsContent = async (course) => {
-  const response = await axios.get(`${API_URL}contentDetails?id=${course.id}`, { headers: { "Authorization": `Bearer ${token}` } }, {
-    course
-  });
-  return response;
-};
+export const courseDetailsContent = async () => {
+  let  arr = [];
+  arr.push(DetailsContent);
+  return arr;
+}
+
+// export const courseDetailsContent = async (course) => {
+//   const response = await axios.get(`${API_URL}contentDetails?id=${course.id}`, { headers: { "Authorization": `Bearer ${token}` } }, {
+//     course
+//   });
+//   return response;
+// };
