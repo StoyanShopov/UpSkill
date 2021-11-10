@@ -9,7 +9,7 @@ export default function CoachesCatalog({ coaches }) {
       <div className="container">
         <div className="row list-unstyled coaches-list">
           {coaches.map((coach) => (
-            <div className="col-sm-3 text-align-center" key={coach.id}>
+            <div className="col-sm-4 text-align-center" key={coach.id}>
               <CoachesCard
                 key={coach.id}
                 coachDetails={coach}
