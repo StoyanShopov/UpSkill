@@ -56,9 +56,3 @@ const initialCompanies = [
     companyName: 'Fantastiko',
   },
 ];
-
-export const getCompanies = async () => {
-  //      let res = await request(``, 'Get');
-  return initialCompanies;
-
-};
