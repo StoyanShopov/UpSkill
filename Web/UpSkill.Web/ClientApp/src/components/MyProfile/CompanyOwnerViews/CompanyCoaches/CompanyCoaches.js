@@ -6,6 +6,8 @@ import CoachesCard from "../../../Coaches/CoachesCatalog/Coaches-Card/Coaches-Ca
 import RemovePopup from "../../../Shared/RemovePopup/RemovePopup";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 import AddCoachModal from "./AddCoach/AddCoach";
+import RequestCoach from "./AddCoach/RequestCoach/RequestCoach";
+
 
 import "./CompanyCoaches.css";
 
@@ -17,6 +19,8 @@ export default function CoachList() {
   const [onRemove, setOnRemove] = useState(false);
   const [coachId, setCoachId] = useState(0);
   const [openRequestModal, setOpenRequestModal] = useState(false);
+  const [openRequest, setOpenRequest] = useState(false);
+
 
   const initialPageCoaches = 0;
 
@@ -69,7 +73,7 @@ export default function CoachList() {
           className="btn btn-outline-primary px-4 m-4"
           value="Add"
         />
-      </div>
+      </div>      
       <div className="coachesContainer">
         {coaches.map((coach) => (
           <CoachesCard
@@ -93,8 +97,9 @@ export default function CoachList() {
               />
             )}
             {openRequestModal && (
-          <AddCoachModal closeModal={setOpenRequestModal}></AddCoachModal>
+          <AddCoachModal closeModal={setOpenRequestModal} setOpenRequest={setOpenRequest}></AddCoachModal>
         )}
+        <RequestCoach trigger={openRequest} closeModal={setOpenRequest}/>
           </CoachesCard>
         ))}
         

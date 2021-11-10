@@ -193,6 +193,30 @@ export const getCoachesNames = async (currentPage) => {
   return arr;
 };
 
+export const requestCoach = async (requesterEmail, requesterName, description, field) => {
+  const requester={
+    requesterEmail,
+    requesterName,
+    description,
+    field,
+  };
+
+  console.log(requester);
+
+  try {
+    const resp = await axios.post(
+      OWN_API_URL + "/newCoach",   
+      requester,    
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }        
+    );
+    return resp;
+  } catch (err) {
+    console.log(err)
+  }
+};
+
 export const getActiveCoachesCompanyOwner = async (uId) => {
   return activeCoachesCompanyOwnerCount;
 };
