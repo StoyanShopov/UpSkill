@@ -1,0 +1,30 @@
+.courseResourcesSidebar{
+    position: fixed;
+    top: 0px;
+    left: 1320px;
+    width: 400px;
+    height: 710px;
+    background: #296CFB 0% 0% no-repeat padding-box; 
+    opacity: 0.2;
+}
+
+.sidebarResources-viewMoreButton{
+    bottom: 980px;
+    left: 1445px;
+    width: 100px;
+    height: 30px;
+    border: 2px solid #296CFB;
+    opacity: 1;
+}
+
+.sidebarResources-viewMoreButton-span{
+    bottom: 980px;
+    left: 1505px;
+    width: 131px;
+    height: 27px;
+    text-align: left;
+    font: normal normal bold 22px/27px Montserrat;
+    letter-spacing: 1.1px;
+    color: #296CFB;
+    opacity: 3;
+}

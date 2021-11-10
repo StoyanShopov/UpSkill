@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { courseDetailsContent } from '../../../services/courseService';
 import Content from './Content/Content';
-import SidebarResources from './SidebarResources/SidebarResources';
 
 import './CoursesDetailsContent.css';
 
@@ -17,11 +16,9 @@ const CoursesDetailsContent = () => {
   }, []);
 
     return (
-        <div>
-          <div>
-            <Content course={course} />                
-          </div>
-      </div>  
+      <>
+        <Content course={course} />             
+      </>      
     );
 }
 

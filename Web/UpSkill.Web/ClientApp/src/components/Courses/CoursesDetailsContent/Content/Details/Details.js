@@ -6,7 +6,7 @@ import './Details.css';
 import marketingImg from '../../../../../assets/img/courses/Marketing.png';
 
 const Details = (props) => {
-    const { 
+    const {  
         courseDetails: { courseTitle, courseVideo, courseLecturer, courseDescription },
     } = props;
 
