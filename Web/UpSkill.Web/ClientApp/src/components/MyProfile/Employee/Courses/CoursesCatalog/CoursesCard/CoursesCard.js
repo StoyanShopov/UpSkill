@@ -5,20 +5,20 @@ import googleImg from '../../../../../../assets/img/courses/google.png';
 
 export default function CoursesCard(props) {
     const {
-        coursesDetails: { title, coachFirstName, coachLastName , imageUrl },   
+        coursesDetails: { courseTitle, courseCoachFirstName, courseCoachLastName, courseFileFilePath },   
     } = props;     
 
-    const fullName = coachFirstName + ' ' + coachLastName;
+    const fullName = courseCoachFirstName + ' ' + courseCoachLastName;
 
-    return ( 
+    return (  
         <div className="coursesCard"> 
-            <div className="courses-image-wrapper"> 
-                <img src={imageUrl} className="courses-image" alt=""></img>    
-                <h2 className="title-position-on-image">{title}</h2>
+            <div className="courses-file-wrapper">
+                <img src={courseFileFilePath} className="courses-file" alt=""></img>    
+                <h2 className="title-position-on-file">{courseTitle}</h2>
             </div>
             <div className="courses-content w-75">
                 <div className="coursesInfo d-flex justify-content-between mt-3"> 
-                    <span className="courses-courseField">{title}</span>  
+                    <span className="courses-courseField">{courseTitle}</span>  
                     <span className="courses-fullName">{fullName}</span> 
                     <h6> 
                         <img src={googleImg} alt="Google" className="bage-position"/>  

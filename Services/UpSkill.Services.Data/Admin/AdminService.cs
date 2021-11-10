@@ -12,7 +12,7 @@
     using UpSkill.Web.ViewModels.Administration.Company;
 
     using static Common.GlobalConstants.AdminConstants;
-    using static Common.GlobalConstants.CompaniesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
     using static Common.GlobalConstants.RolesNamesConstants;
 
     public class AdminService : IAdminService
@@ -57,8 +57,15 @@
             return true;
         }
 
-        public async Task<string> Promote(ApplicationUser user)
+        public async Task<Result> Promote(string email)
         {
+            var user = await this.userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return UserDoNotExist;
+            }
+
             var roles = await this.userManager.GetRolesAsync(user);
 
             if (roles.Contains(CompanyOwnerRoleName))
@@ -68,11 +75,18 @@
 
             await this.userManager.AddToRoleAsync(user, CompanyOwnerRoleName);
 
-            return AssignedSuccessfully;
+            return true;
         }
 
-        public async Task<string> Demote(ApplicationUser user)
+        public async Task<Result> Demote(string email)
         {
+            var user = await this.userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return false;
+            }
+
             var demotion = await this.userManager.RemoveFromRoleAsync(user, CompanyOwnerRoleName);
 
             if (!demotion.Succeeded)
@@ -80,7 +94,7 @@
                 return AlreadyAssignedToRole;
             }
 
-            return UnassignedSuccessfully;
+            return true;
         }
     }
 }
