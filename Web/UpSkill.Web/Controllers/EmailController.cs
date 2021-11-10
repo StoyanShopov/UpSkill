@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+     
     using UpSkill.Services.Contracts.Email;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
