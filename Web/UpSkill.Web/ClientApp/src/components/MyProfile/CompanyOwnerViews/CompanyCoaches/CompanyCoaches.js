@@ -8,7 +8,6 @@ import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 import AddCoachModal from "./AddCoach/AddCoach";
 import RequestCoach from "./AddCoach/RequestCoach/RequestCoach";
 
-
 import "./CompanyCoaches.css";
 
 import { getCoaches, removeCoach } from "../../../../services/coachService";
@@ -20,7 +19,6 @@ export default function CoachList() {
   const [coachId, setCoachId] = useState(0);
   const [openRequestModal, setOpenRequestModal] = useState(false);
   const [openRequest, setOpenRequest] = useState(false);
-
 
   const initialPageCoaches = 0;
 
@@ -59,13 +57,6 @@ export default function CoachList() {
 
   return (
     <div className="content main-content">
-      {/* <RemovePopup
-        trigger={onRemove}
-        onRemove={onDelete}
-        closeModal={setOnRemove}
-        atPage="coaches"
-        coachId={coachId}
-      /> */}
       <div className={"buttonContainer"}>
         <input
           type="button"
@@ -73,7 +64,7 @@ export default function CoachList() {
           className="btn btn-outline-primary px-4 m-4"
           value="Add"
         />
-      </div>      
+      </div>
       <div className="coachesContainer">
         {coaches.map((coach) => (
           <CoachesCard
@@ -97,12 +88,14 @@ export default function CoachList() {
               />
             )}
             {openRequestModal && (
-          <AddCoachModal closeModal={setOpenRequestModal} setOpenRequest={setOpenRequest}></AddCoachModal>
-        )}
-        <RequestCoach trigger={openRequest} closeModal={setOpenRequest}/>
+              <AddCoachModal
+                closeModal={setOpenRequestModal}
+                setOpenRequest={setOpenRequest}
+              ></AddCoachModal>
+            )}
+            <RequestCoach trigger={openRequest} closeModal={setOpenRequest} />
           </CoachesCard>
         ))}
-        
       </div>
     </div>
   );

@@ -121,15 +121,15 @@ export const getAllCoaches = async (currentPage) => {
     const resp = await axios.get(OWN_API_URL + "/getAllGlobal", {
       headers: { Authorization: `Bearer ${token}` },
     });
-    let transformedResp=resp.data.map( c => {
+    let transformedResp = resp.data.map((c) => {
       return {
         id: c.id,
         coachFirstName: c.firstName,
         coachLastName: c.lastName,
         coachFileFilePath: c.fileFilePath,
-        coachPrice: 0
-      }
-    })
+        coachPrice: 0,
+      };
+    });
     console.log(transformedResp);
     arr.push(...transformedResp);
     //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
@@ -143,7 +143,6 @@ export const getCoaches = async (currentPage) => {
     const resp = await axios.get(OWN_API_URL + "/getAll", {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(resp.data);
     arr.push(...resp.data);
     //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
     return arr;
@@ -151,7 +150,6 @@ export const getCoaches = async (currentPage) => {
 };
 
 export const removeCoach = async (coachId) => {
-  console.log(coachId);
   try {
     const resp = await axios.delete(OWN_API_URL + "?id=" + coachId, {
       headers: { Authorization: `Bearer ${token}` },
@@ -161,25 +159,19 @@ export const removeCoach = async (coachId) => {
   } catch (err) {}
 };
 
-export const addCoach = async (userEmail, coachId) => {  
-  const addCoachModel={
+export const addCoach = async (userEmail, coachId) => {
+  const addCoachModel = {
     ownerEmail: userEmail,
-    coachId
+    coachId,
   };
 
-  console.log(addCoachModel);
-
   try {
-    const resp = await axios.post(
-      OWN_API_URL,   
-      addCoachModel,    
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }        
-    );
+    const resp = await axios.post(OWN_API_URL, addCoachModel, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return resp;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -193,8 +185,13 @@ export const getCoachesNames = async (currentPage) => {
   return arr;
 };
 
-export const requestCoach = async (requesterEmail, requesterName, description, field) => {
-  const requester={
+export const requestCoach = async (
+  requesterEmail,
+  requesterName,
+  description,
+  field
+) => {
+  const requester = {
     requesterEmail,
     requesterName,
     description,
@@ -204,16 +201,12 @@ export const requestCoach = async (requesterEmail, requesterName, description, f
   console.log(requester);
 
   try {
-    const resp = await axios.post(
-      OWN_API_URL + "/newCoach",   
-      requester,    
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }        
-    );
-    return resp;
+    const resp = await axios.post(OWN_API_URL + "/newCoach", requester, {
+      headers: { Authorization: `Bearer ${token}` },
+    });    
+    return resp;   
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 

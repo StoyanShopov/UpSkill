@@ -32,7 +32,6 @@ export default function OwnerCoachesCatalog({
           contains = true;
         }
       });
-      console.log(contains);
       return contains;
     } else {
       return false;
@@ -43,15 +42,14 @@ export default function OwnerCoachesCatalog({
     removeCoach(id).then(() =>
       getCoaches(initialPageCoaches).then((coaches) => setCoaches(coaches))
     );
-    console.log("Deleted " + id);
     setOnRemove(false);
     enableBodyScroll();
   };
 
-  const onCloseConfirmRemove= (close) =>{
-      setOnRemove(close);
-      enableBodyScroll();
-  }
+  const onCloseConfirmRemove = (close) => {
+    setOnRemove(close);
+    enableBodyScroll();
+  };
 
   function setOnRemoveInternal(id) {
     setCoachId(id);
@@ -62,7 +60,6 @@ export default function OwnerCoachesCatalog({
   const user = JSON.parse(localStorage.getItem("user"));
 
   function addCoachToCompany(coachId) {
-    console.log("clicked", user.email, coachId);
     addCoach(user.email, coachId).then(() => routeChange("/MyProfile/Coaches"));
   }
 
@@ -73,8 +70,7 @@ export default function OwnerCoachesCatalog({
           className="coaches-cardButton"
           onClick={(e) => setOnRemoveInternal(coachId)}
         >
-          {" "}
-          Remove{" "}
+          Remove
         </Button>
       );
     } else {
@@ -83,8 +79,7 @@ export default function OwnerCoachesCatalog({
           className="coaches-cardButton"
           onClick={(e) => addCoachToCompany(coachId)}
         >
-          {" "}
-          Add{" "}
+          Add
         </Button>
       );
     }
@@ -92,7 +87,7 @@ export default function OwnerCoachesCatalog({
 
   return (
     <>
-      <div className="container">  
+      <div className="container">
         <div className="row list-unstyled coaches-list">
           {coaches.map((coach) => (
             <div className="col-sm-4 text-align-center" key={coach.id}>
@@ -101,19 +96,19 @@ export default function OwnerCoachesCatalog({
                 coachDetails={coach}
                 displaySession={false}
                 displayPrice={true}
-              > 
-                  {onRemove && (
-                <ConfirmDelete
-                  deleteItem={onDelete}
-                  closeModal={onCloseConfirmRemove}
-                  itemName="coach"
-                  id={coachId}
-                />
-              )}           
-                {buttonToShow(checkCompanyHasCoach(coach), coach.id)}                
-              </CoachesCard>              
+              >
+                {onRemove && (
+                  <ConfirmDelete
+                    deleteItem={onDelete}
+                    closeModal={onCloseConfirmRemove}
+                    itemName="coach"
+                    id={coachId}
+                  />
+                )}
+                {buttonToShow(checkCompanyHasCoach(coach), coach.id)}
+              </CoachesCard>
             </div>
-          ))}       
+          ))}
         </div>
       </div>
     </>

@@ -3,11 +3,10 @@ import React, { useState, useEffect } from "react";
 import { requestCoach } from "../../../../../../services/coachService";
 import { enableBodyScroll } from "../../../../../../utils/utils";
 
-
-
-export default function RequestCoach({closeModal, trigger}) {
+export default function RequestCoach({ closeModal, trigger }) {
   const [coachField, setCoachField] = useState("");
   const [coachDescription, setDescription] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -22,81 +21,93 @@ export default function RequestCoach({closeModal, trigger}) {
   function RequestCoach(e) {
     e.preventDefault();
     if (coachField && coachDescription) {
-      console.log(
-        `submitted: ${user.email}, ${user.unique_name} , ${coachDescription}, ${coachField}`
-      );
-      requestCoach(user.email, user.unique_name, coachDescription, coachField);
+      requestCoach(user.email, user.unique_name, coachDescription, coachField)
+        .then(() => setSuccess(true))
+        .catch(() => setSuccess(false));
+    } else {
+      setSuccess(false);
     }
+    setCoachField("");
+    setDescription("");
   }
 
   function closePopup() {
     enableBodyScroll();
     closeModal(false);
+    setSuccess(false);
   }
 
   return trigger ? (
-      <div className= "deleteModal-background">
-    <div className="popup">
-        {console.log("otvoreno sum")}
-      <div className="popup-inner">
-        <div className="popup-Header">
-          <div className="closebtn d-flex justify-content-end p-2">
-            <button onClick={(e) => closePopup()} className="closebtn btn">
-              <i className="fas fa-times"></i>
-            </button>
-          </div>
-          <div className="popup-Title p-2">
-            <h4>Request Coach</h4>
-          </div>
-        </div>
-        <form onSubmit={(e) => RequestCoach(e)}>
-          <div className="addEmployee-Content px-5 m-5">
-            <div className="addEmployee-Content-fullname px-5 m-3">
-              <input
-                type="text"
-                placeholder="Field*"
-                className="addEmployee-Content-input w-100 p-2"
-                onChange={onChangeField}
-              />
-            </div>
-
-            <div className="addEmployee-Content-email px-5 m-3">
-              <textarea
-                type="text"
-                placeholder="Description*"
-                className="addEmployee-Content-input w-100 p-2"
-                onChange={onChangeDescription}
-              />
-            </div>
-
-            <div className="addEmployee-Content-anotherEmployee px-5">
-              <div className="addEmployee-Content-anotherEmployee-btn btn">
-                + Request another coach
-              </div>
-            </div>
-          </div>
-
-          <div className="addEmployee-actions d-flex px-5 d-flex justify-content-center">
-            <div className="addEmployee-actions-cancel-wrapper px-3">
-              <button
-                onClick={(e) => closePopup()}
-                className=" btn addEmployee-actions-cancel btn-outline-primary px-3 fw-bold"
-              >
-                Cancel
+    <div className="deleteModal-background">
+      <div className="popup">
+        <div className="popup-inner">
+          <div className="popup-Header">
+            <div className="closebtn d-flex justify-content-end p-2">
+              <button onClick={(e) => closePopup()} className="closebtn btn">
+                <i className="fas fa-times"></i>
               </button>
             </div>
-
-            <div className="addEmployee-actions-save-wrapper px-3">
-              <input
-                type="submit"
-                className="btn addEmployee-actions-cancel btn-primary px-3 fw-bold"
-                value="Request"
-              />
+            <div className="popup-Title p-2">
+              <h4>Request Coach</h4>
             </div>
           </div>
-        </form>
+          <form onSubmit={(e) => RequestCoach(e)}>
+            <div className="addEmployee-Content px-5 m-5">
+              <div className="addEmployee-Content-fullname px-5 m-3">
+                {success && (
+                  <span style={{ color: "green", marginBottom: "0px" }}>
+                    Successfully requested
+                  </span>
+                )}
+                <input
+                  type="text"
+                  placeholder="Field*"
+                  className="addEmployee-Content-input w-100 p-2"
+                  value={coachField}
+                  onChange={onChangeField}
+                />
+              </div>
+
+              <div className="addEmployee-Content-email px-5 m-3">
+                <textarea
+                  type="text"
+                  placeholder="Description*"
+                  value={coachDescription}
+                  className="addEmployee-Content-input w-100 p-2"
+                  onChange={onChangeDescription}
+                />
+              </div>
+
+              <div className="addEmployee-Content-anotherEmployee px-5">
+                <div className="addEmployee-Content-anotherEmployee-btn btn">
+                  + Request another coach
+                </div>
+              </div>
+            </div>
+
+            <div className="addEmployee-actions d-flex px-5 d-flex justify-content-center">
+              <div className="addEmployee-actions-cancel-wrapper px-3">
+                <button
+                  onClick={(e) => closePopup()}
+                  className=" btn addEmployee-actions-cancel btn-outline-primary px-3 fw-bold"
+                >
+                  Cancel
+                </button>
+              </div>
+
+              <div className="addEmployee-actions-save-wrapper px-3">
+                <input
+                  type="submit"
+                  className="btn addEmployee-actions-cancel btn-primary px-3 fw-bold"
+                  value="Request"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-    </div>
-  ) : "";
+  ) : (
+    ""
+  );
 }

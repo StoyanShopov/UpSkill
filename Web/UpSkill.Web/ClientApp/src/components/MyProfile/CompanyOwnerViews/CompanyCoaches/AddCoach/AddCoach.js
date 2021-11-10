@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import {disableBodyScroll} from "../../../../../utils/utils";
+import { disableBodyScroll } from "../../../../../utils/utils";
 
 function AddCoachModal({ closeModal, setOpenRequest }) {
   const history = useHistory();
@@ -11,15 +11,15 @@ function AddCoachModal({ closeModal, setOpenRequest }) {
 
   const requestCoach = () => {
     setOpenRequest(true);
-    closeModal(false);  
-    disableBodyScroll();  
+    closeModal(false);
+    disableBodyScroll();
   };
 
   return (
     <div className="deleteModal-background">
       <div className="deleteModal-container">
         <div className="deleteModal-header">
-          <div className="titleCloseBtn">          
+          <div className="titleCloseBtn">
             <button className="delete-x-btn" onClick={() => closeModal(false)}>
               X
             </button>
@@ -34,7 +34,7 @@ function AddCoachModal({ closeModal, setOpenRequest }) {
             </div>
           </div>
         </div>
-        <div className="deleteModal-body">        
+        <div className="deleteModal-body">
           <div className="btn-update-course-container">
             <div>
               <button
@@ -53,8 +53,7 @@ function AddCoachModal({ closeModal, setOpenRequest }) {
           </div>
         </div>
       </div>
-      
     </div>
-     );
+  );
 }
 export default AddCoachModal;
