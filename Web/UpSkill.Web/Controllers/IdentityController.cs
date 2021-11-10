@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
+     
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
