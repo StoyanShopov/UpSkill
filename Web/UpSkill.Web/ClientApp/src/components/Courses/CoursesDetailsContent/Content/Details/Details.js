@@ -1,9 +1,11 @@
 import React from "react";
 import { ReactVideo, YoutubePlayer } from 'reactjs-media';
 
+import martketingImg from '../../../../../assets/img/courses/Marketing.png';
+
 const Details = (props) => {
     const { 
-        courseDetails: { courseTitle, courseVideo, courseLecture, courseDescription },
+        courseDetails: { courseTitle, courseVideo, courseLecturer, courseDescription },
     } = props;
 
     return(
@@ -11,9 +13,8 @@ const Details = (props) => {
             <h2>{courseTitle}</h2>
                 <div className="courseVideoPosition"> 
                     <div className="courseVideoContent">
-                         <ReactVideo
+                         <YoutubePlayer
                          src={courseVideo}
-                         primaryColor="read"
                          />
                     </div> 
                     <div>
@@ -22,7 +23,7 @@ const Details = (props) => {
                     </div>
                     <div>
                         <h4>Instructor</h4>
-                        <p>{courseLecture}</p>
+                        <p>{courseLecturer}</p>
                     </div>
                 </div>
         </div>    
