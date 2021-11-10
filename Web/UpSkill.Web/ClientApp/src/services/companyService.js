@@ -1,13 +1,13 @@
 import axios from 'axios';
-
 import { Base_URL } from '../utils/baseUrlConstant';
 
-//RetriveCompany
-export const retriveCompanies = async () => {
+//GetCompanies
+export const getCompanies = async () => {
   const response = await axios
   .get( Base_URL + "Admin/Companies/getAll");
   return response.data;
 }
+
 //Create
 export const addCompanyHandler = async (company) => {
 
