@@ -43,7 +43,7 @@ const initialCourses = [
 const DetailsContent =
 {
     id: 14,
-    courseTitle: '.NET',
+    courseTitle: 'Marketing',
     courseDescription: 'Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or client’s financial goals while increasing profitability and minimizing risks.',
     courseLecturer: 'Ben Levis',
     courseVideo: 'https://youtu.be/Y2a16HAsHBE',

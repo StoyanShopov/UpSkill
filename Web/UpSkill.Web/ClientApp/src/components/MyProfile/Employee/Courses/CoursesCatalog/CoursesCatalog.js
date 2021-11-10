@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom'; 
+import { Button } from 'react-bootstrap'; 
 
 import CoursesCard from './CoursesCard/CoursesCard';
 
@@ -16,7 +16,7 @@ export default function CoursesCatalog({ courses }) {
                             key={course.id} 
                             coursesDetails={course}
                         >
-                            <Link to={`/DetailsContent${course.id}`} className="courses-cardButton">Compete</Link>
+                            <Button to={`/DetailsContent${course.id}`} className="courses-cardButton">Compete</Button>
                         </CoursesCard>
                         </div>
                     ))}
