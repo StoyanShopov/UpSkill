@@ -24,7 +24,7 @@
 
         public const string UserNotFound = "User not found!";
 
-        public const string NewCourseRequest = "RequestCourse";
+        public const string PriceFormat = "decimal(6, 2)";
 
         public class AdminConstants
         {
@@ -51,7 +51,6 @@
 
         public class UsersEmailsNames
         {
-            
             public const string AdministratorEmailName = "administrator@test.test";
 
             public const string OwnerMotionSoftwareEmailName = "ownerOfMotionSoftware@test.test";
@@ -115,7 +114,7 @@
 
             public const string Companies = "companies";
 
-            public const string Details = "details"; 
+            public const string Details = "details";
 
             public const string Demote = "demote";
 
@@ -156,7 +155,7 @@
 
             public const string CompanyEmployeeRoleName = "Employee";
 
-            public const string WritePolicy = "writepolicy"; 
+            public const string WritePolicy = "writepolicy";
 
             public const string ReadPolicy = "readpolicy";
         }
@@ -236,14 +235,6 @@
             public const string OwnerOnly = "OwnerOnly";
 
             public const string EmployeeOnly = "EmployeeOnly";
-        }
-
-        public class RequestCourseConstants
-        {
-            public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
-                                              "<p>Requester Email: {1}</p>" +
-                                              "<p>Description: {2}</p>" +
-                                              "<p>Category: {3}</p>";
         }
     }
 }

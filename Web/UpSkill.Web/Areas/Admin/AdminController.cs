@@ -1,12 +1,14 @@
 ﻿namespace UpSkill.Web.Areas.Admin
 {
+    using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Web.ViewModels.Administration;
     using UpSkill.Web.ViewModels.Administration.Company;
 
     using static Common.GlobalConstants;
@@ -14,6 +16,7 @@
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
+    [AllowAnonymous]
     public class AdminController : AdministrationBaseController
     {
         private readonly IAdminService adminService;
@@ -45,62 +48,49 @@
         [Route(Promote)]
         public async Task<IActionResult> PromoteUser(string email)
         {
-            if (!this.ModelState.IsValid)
+            var result = await this.adminService.Promote(email);
+
+            if (result.Failure)
             {
-                return this.BadRequest(this.ModelState);
+                return this.BadRequest(result.Error);
             }
 
-            var user = await this.GetUser(email);
-
-            if (user == null)
-            {
-                return this.BadRequest(UserNotFound);
-            }
-
-            var result = await this.adminService
-                            .Promote(user);
-
-            if (result != AssignedSuccessfully)
-            {
-                return this.BadRequest(result);
-            }
-
-            return this.Ok(result);
+            return this.Ok(AssignedSuccessfully);
         }
 
         [HttpPut]
         [Route(Demote)]
         public async Task<IActionResult> DemoteUser(string email)
         {
-            if (!this.ModelState.IsValid)
+            var result = await this.adminService.Demote(email);
+
+            if (result.Failure)
             {
-                return this.BadRequest(this.ModelState);
+                return this.BadRequest(result.Error);
             }
 
-            var user = await this.GetUser(email);
-
-            if (user == null)
-            {
-                return this.BadRequest(UserNotFound);
-            }
-
-            var result = await this.adminService
-                           .Demote(user);
-
-            if (result != UnassignedSuccessfully)
-            {
-                return this.BadRequest(result);
-            }
-
-            return this.Ok(result);
+            return this.Ok(UnassignedSuccessfully);
         }
 
         [HttpGet]
-        private async Task<ApplicationUser> GetUser(string email)
+        public async Task<PromoteDemoteUserResponseModel> GetUser(string email)
         {
             var user = await this.userManager.FindByEmailAsync(email);
+            var roles = await this.userManager.GetRolesAsync(user);
 
-            return user;
+            if (user == null)
+            {
+                return null;
+            }
+
+            var result = new PromoteDemoteUserResponseModel
+            {
+                Email = user.Email,
+                FullName = $"{user.FirstName} {user.LastName}",
+                Role = roles,
+            };
+
+            return result;
         }
     }
 }

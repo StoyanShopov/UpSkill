@@ -6,12 +6,14 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+
     using UpSkill.Common;
     using UpSkill.Data.Common.Models;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Course;
 
@@ -20,12 +22,12 @@
     using static Common.GlobalConstants.ControllersResponseMessages;
     using static Common.GlobalConstants.RolesNamesConstants;
 
-    // Coaches table is missing right now so most of the logic is commented
     public class CoursesService : ICoursesService
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
         private readonly IDeletableEntityRepository<Course> courses;
+        private readonly IFileService fileService;
 
         private readonly UserManager<ApplicationUser> userManager;
 
@@ -33,12 +35,14 @@
             UserManager<ApplicationUser> userManager,
             ICompanyService companiesService,
             IRepository<CompanyCourse> companyCourses,
-            IDeletableEntityRepository<Course> courses)
+            IDeletableEntityRepository<Course> courses,
+            IFileService fileService)
         {
             this.courses = courses;
             this.companiesService = companiesService;
             this.companyCourses = companyCourses;
             this.userManager = userManager;
+            this.fileService = fileService;
         }
 
         public async Task<Result> CreateAsync(CreateCourseViewModel model)
@@ -47,6 +51,8 @@
                          .All()
                          .Where(c => c.Title == model.Title)
                          .FirstOrDefaultAsync();
+
+            var file = await this.fileService.CreateAsync(model.File);
 
             if (course != null)
             {
@@ -60,9 +66,11 @@
                 Description = model.Description,
                 Price = model.Price,
                 CategoryId = model.CategoryId,
+                FileId = file,
             };
 
             await this.courses.AddAsync(newCourse);
+
             await this.courses.SaveChangesAsync();
 
             return true;
@@ -81,6 +89,8 @@
                              .Where(c => c.Id == id)
                              .FirstOrDefaultAsync();
 
+            var file = await this.fileService.EditAsync(course.FileId, model.File);
+
             if (course == null)
             {
                 return DoesNotExist;
@@ -91,6 +101,7 @@
             course.Description = model.Description;
             course.Price = model.Price;
             course.CategoryId = model.CategoryId;
+            course.FileId = file;
 
             await this.courses.SaveChangesAsync();
 

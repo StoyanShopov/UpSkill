@@ -16,6 +16,10 @@
         [Required]
         public string Name { get; set; }
 
+        public int? FileId { get; set; }
+
+        public File File { get; set; }
+
         public virtual ICollection<ApplicationUser> Users { get; set; }
 
         public virtual ICollection<CompanyCourse> Courses { get; set; }

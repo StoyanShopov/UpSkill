@@ -1,3 +1,36 @@
+
+import axios from 'axios';
+import { Base_URL } from '../utils/baseUrlConstant';
+
+//GetCompanies
+export const getCompanies = async () => {
+  const response = await axios
+  .get( Base_URL + "Admin/Companies/getAll");
+  return response.data;
+}
+
+//Create
+export const addCompanyHandler = async (company) => {
+
+  const request = {
+    name: company.name,
+  };
+
+  return await axios
+  .post( Base_URL + "Admin/Companies/create", request)
+  .then(response => response.data);
+};
+//Update
+export const updateCompanyHandler = async (company) => {
+  return await axios
+  .put( Base_URL + `Admin/Companies/edit?id=${company.id}`, company)
+  .then(response => response.data);
+};
+//Delete
+export const removeCompanyHandler = async (id) => {
+  return await axios.delete( Base_URL + `Admin/Companies/delete?id=${id}`);
+};
+
 const initialCompanies = [
   {
     id: 1,
@@ -22,11 +55,5 @@ const initialCompanies = [
   {
     id: 6,
     companyName: "Fantastiko",
-  },
+  }
 ];
-
-export const getCompanies = async () => {
-  //      let res = await request(``, 'Get');
-
-  return initialCompanies;
-};

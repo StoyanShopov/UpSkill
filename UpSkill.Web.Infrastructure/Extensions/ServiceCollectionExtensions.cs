@@ -23,15 +23,19 @@
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Admin.Dashboard;
     using UpSkill.Services.Data.Coach;
     using UpSkill.Services.Data.Company;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Admin.Dashboard;
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Course;
-    using UpSkill.Services.Data.Contracts.Owner;
+    using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Data.Course;
-    using UpSkill.Services.Data.Owner;
+    using UpSkill.Services.Data.Employee;
+    using UpSkill.Services.Data.File;
     using UpSkill.Services.Email;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
@@ -154,9 +158,11 @@
                 .AddTransient<IAccountService, AccountService>()
                 .AddTransient<IAdminService, AdminService>()
                 .AddTransient<ICoursesService, CoursesService>()
+                .AddTransient<IDashboardService, DashboardService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
-                .AddTransient<IOwnerCoursesService, OwnerCoursesService>()
+                .AddTransient<IEmployeeService, EmployeesService>()
+                .AddTransient<IFileService, FileService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()

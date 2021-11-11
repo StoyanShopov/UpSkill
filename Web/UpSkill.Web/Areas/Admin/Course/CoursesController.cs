@@ -27,7 +27,7 @@
                      .GetByIdAsync<DetailsViewModel>(id);
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCourseViewModel model)
+        public async Task<IActionResult> Create([FromForm] CreateCourseViewModel model)
         {
             var result = await this.coursesService.CreateAsync(model);
 
@@ -54,7 +54,7 @@
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit(EditCourseViewModel model, int id)
+        public async Task<IActionResult> Edit([FromForm] EditCourseViewModel model, int id)
         {
             var result = await this.coursesService.EditAsync(model, id);
 

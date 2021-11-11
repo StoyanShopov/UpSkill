@@ -1,6 +1,5 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom'; 
 
 import notificationContext from "../../../Context/NotificationContext";
 
@@ -18,12 +17,13 @@ const Logout = (props) => {
     }
 
     dispatch(logout())
-        .then(() => {
+        .then(() => { 
           props.history.push("/");
+          localStorage.removeItem("user");                
           setNotification({type:'LOGOUT', payload: `Goodbye !`});
         })
         .catch(() => {
-          props.history.push("/");
+          props.history.push("/Login");
         });
   }, []);
    
