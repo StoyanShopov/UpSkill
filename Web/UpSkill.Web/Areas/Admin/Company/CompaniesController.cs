@@ -28,17 +28,16 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyRequestModel model)
         {
-            this.logger.LogInformation("Entering Create company action (admin)");
-
             var result = await this.companyService.CreateAsync(model);
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error.ToString() + " (admin)");
+                this.logger.LogError(result.Error);
+
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Company created  (admin)");
+            this.logger.LogInformation(SuccesfullyCreated);
 
             return this.StatusCode(201, SuccesfullyCreated);
         }
@@ -46,18 +45,16 @@
         [HttpPut]
         public async Task<IActionResult> Edit(UpdateCompanyRequestModel model, int id)
         {
-            this.logger.LogInformation("Entering Create company action (admin)");
-
             var result = await this.companyService.EditAsync(model, id);
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error.ToString() + " (admin)");
+                this.logger.LogError(result.Error);
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Company edited (admin)");
+            this.logger.LogInformation(SuccesfullyEdited);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -65,18 +62,16 @@
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            this.logger.LogInformation("Entering Create company action (admin)");
-
             var result = await this.companyService.DeleteAsync(id);
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error.ToString() + " (admin)");
+                this.logger.LogError(result.Error);
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Company deleted (admin)");
+            this.logger.LogInformation(SuccesfullyDeleted);
 
             return this.Ok(SuccesfullyDeleted);
         }
