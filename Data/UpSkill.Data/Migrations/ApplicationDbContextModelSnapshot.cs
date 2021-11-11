@@ -17,21 +17,6 @@ namespace UpSkill.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ApplicationUserCourse", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CoursesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("ApplicationUserCourse");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -192,6 +177,9 @@ namespace UpSkill.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -261,6 +249,8 @@ namespace UpSkill.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("IsDeleted");
 
@@ -591,6 +581,10 @@ namespace UpSkill.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("UpSkill.Data.Models.Course", null)
+                        .WithMany("Users")
+                        .HasForeignKey("CourseId");
+
                     b.HasOne("UpSkill.Data.Models.ApplicationUser", "Manager")
                         .WithMany("ChildUsers")
                         .HasForeignKey("ManagerId");
@@ -672,23 +666,23 @@ namespace UpSkill.Data.Migrations
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.UserInCourse", b =>
-            {
-                b.HasOne("UpSkill.Data.Models.ApplicationUser", "ApplicationUser")
-                    .WithMany("Courses")
-                    .HasForeignKey("ApplicationUserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("UpSkill.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Courses")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("UpSkill.Data.Models.Course", "Course")
-                    .WithMany("CourseUsers")
-                    .HasForeignKey("CourseId")
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    b.HasOne("UpSkill.Data.Models.Course", "Course")
+                        .WithMany("CourseUsers")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                b.Navigation("ApplicationUser");
+                    b.Navigation("ApplicationUser");
 
-                b.Navigation("Course");
-            });
+                    b.Navigation("Course");
+                });
 
             modelBuilder.Entity("UpSkill.Data.Models.ApplicationUser", b =>
                 {
@@ -719,9 +713,11 @@ namespace UpSkill.Data.Migrations
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
                 {
                     b.Navigation("Companies");
+
+                    b.Navigation("CourseUsers");
+
+                    b.Navigation("Users");
                 });
-                 
-                
 
             modelBuilder.Entity("UpSkill.Data.Models.File", b =>
                 {

@@ -157,12 +157,12 @@
                 .AddTransient<IEmailService, EmailService>()
                 .AddTransient<IAccountService, AccountService>()
                 .AddTransient<IAdminService, AdminService>()
-                .AddTransient<ICourseService, CoursesService>()
+                .AddTransient<ICoursesService, CoursesService>()
                 .AddTransient<IDashboardService, DashboardService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
-                .AddTransient<IFileService, FilesService>()
                 .AddTransient<IEmployeeService, EmployeesService>()
+                .AddTransient<IFileService, FileService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
@@ -170,7 +170,6 @@
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
-                .AddTransient<IPasswordGeneratorService, PasswordGeneratorService>()
                 .AddTransient<ICurrentUserService, CurrentUserService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)

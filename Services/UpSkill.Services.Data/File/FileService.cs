@@ -12,12 +12,12 @@
 
     using File = UpSkill.Data.Models.File;
 
-    public class FilesService : IFileService
+    public class FileService : IFileService
     {
         private readonly IDeletableEntityRepository<File> files;
         private readonly IBlobService blobService;
 
-        public FilesService(
+        public FileService(
             IDeletableEntityRepository<File> files,
             IBlobService blobService)
         {
