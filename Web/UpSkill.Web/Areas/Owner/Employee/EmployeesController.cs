@@ -5,8 +5,8 @@
 
     using Microsoft.AspNetCore.Mvc;
     using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Web.Areas.Owner;
     using UpSkill.Web.Infrastructure.Services;
-    using UpSkill.Web.ViewModels.Course;
     using UpSkill.Web.ViewModels.Employee;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -28,10 +28,5 @@
         [Route(GetAllRoute)]
         public async Task<IEnumerable<EmployeesListingModel>> GetAll()
             => await this.employeeService.GetCompanyEmployeesAsync<EmployeesListingModel>(this.currentUser.GetId());
-
-        [HttpGet]
-        [Route(GetCountRoute)]
-        public async Task<EmployeesCountModel> GetCount()
-            => await this.employeeService.CountCompanyEmployees<EmployeesCountModel>(this.currentUser.GetId());
     }
 }

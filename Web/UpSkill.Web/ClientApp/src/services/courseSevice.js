@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { Base_URL } from '../utils/baseUrlConstant';
 
-const OWN_API_URL = 'https://localhost:44319/Owner/Courses/';
+const OWN_API_URL = Base_URL + 'Owner/Courses/';
 
 const token = localStorage.getItem('token');
 
@@ -39,14 +40,25 @@ const coursesCompanyOwnerMock = [
   },
 ];
 
-export const getActiveCoursesCompanyOwner = async (uId) => {
+let courses = [];
+
+export const getAllCourses = async (course) => {
   return axios
-    .get(OWN_API_URL + 'count', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    .get(
+      OWN_API_URL + 'getAll',
+      { headers: { Authorization: `Bearer ${token}` } },
+      { course }
+    )
     .then((response) => {
-      return response.data.count;
+      courses = [];
+      response.data.map((x) => courses.push(x));
+      return courses;
     });
+};
+
+export const getActiveCoursesCompanyOwner = async (uId) => {
+  getAllCourses();
+  return courses.length;
 };
 
 export const getCoursesForCompanyOwner = async (

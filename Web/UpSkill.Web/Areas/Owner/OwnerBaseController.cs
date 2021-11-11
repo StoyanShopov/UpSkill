@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Web.Areas.Company
+﻿namespace UpSkill.Web.Areas.Owner
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
