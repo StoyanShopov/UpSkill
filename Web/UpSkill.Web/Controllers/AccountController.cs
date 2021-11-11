@@ -27,8 +27,6 @@
         [Route(ChangePasswordRoute)]
         public async Task<IActionResult> ChangePassword(ChangePasswordRequestModel model)
         {
-            this.logger.LogInformation("Entering ChangePassword action (user)");
-
             var result = await this.account.ChangePasswordAsync(model);
 
             if (result.Failure)
@@ -38,7 +36,7 @@
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Password changed successfully (user)");
+            this.logger.LogInformation("Password changed successfully");
 
             return this.Ok();
         }

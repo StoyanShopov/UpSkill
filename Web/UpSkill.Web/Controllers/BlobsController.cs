@@ -31,8 +31,6 @@
         [DisableRequestSizeLimit]
         public async Task<IActionResult> UploadAsync(IFormFile file)
         {
-            this.logger.LogInformation("Entering UploadAsync action ");
-
             var result = await this.blobService.UploadAsync(file);
 
             if (!this.ModelState.IsValid)
@@ -42,7 +40,7 @@
                 return this.BadRequest();
             }
 
-            this.logger.LogInformation("UploadAsync succeeded");
+            this.logger.LogInformation(this.StatusCode(201).StatusCode.ToString());
 
             return this.StatusCode(201);
         }
@@ -60,8 +58,6 @@
         [HttpGet(DownloadByName)]
         public async Task<IActionResult> DownloadAsync(string name)
         {
-            this.logger.LogInformation("Entering DownloadAsync action ");
-
             var blob = this.blobService.DownloadBlobByName(name);
 
             if (!await blob.ExistsAsync())
@@ -81,8 +77,6 @@
         [HttpGet(DeleteRoute)]
         public async Task<IActionResult> DeleteAsync(string name)
         {
-            this.logger.LogInformation("Entering DeleteAsync action ");
-
             var result = await this.blobService.DeleteBlobAsync(name);
 
             if (result)

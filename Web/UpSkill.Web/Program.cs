@@ -28,10 +28,9 @@
             }
             catch (Exception exception)
             {
-                logger.Error(exception, "Stopped program because of exception");
+                logger.Fatal(exception, "Stopped program because of exception");
                 throw;
             }
-
             finally
             {
                 NLog.LogManager.Shutdown();

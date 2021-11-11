@@ -43,8 +43,6 @@
         [Route(RegisterRoute)]
         public async Task<IActionResult> Register(RegisterRequestModel model)
         {
-            this.logger.LogInformation("Entering Register action");
-
             await this.ValidateRegisterModel(model);
 
             if (!this.ModelState.IsValid)
@@ -73,8 +71,6 @@
         [Route(LoginRoute)]
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel model)
         {
-            this.logger.LogInformation("Entering Login action");
-
             if (!this.ModelState.IsValid)
             {
                 this.logger.LogError("Model validation error");
@@ -123,8 +119,6 @@
 
         private async Task EmailConfirmation(string email)
         {
-            this.logger.LogInformation("Entering EmailConfirmation action");
-
             var user = await this.userManager.FindByEmailAsync(email);
 
             var origin = this.Request.Headers[HeaderOrigin];

@@ -80,7 +80,7 @@
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
         {
-            this.logger.LogInformation("Entering getAll action (admin)");
+            this.logger.LogInformation("Entering getAll action");
 
             return await this.companyService.GetAllAsync<CompanyListingModel>();
         }
@@ -89,7 +89,7 @@
         [Route(DetailsRoute)]
         public async Task<CompanyDetailsModel> GetDetails(int id)
         {
-            this.logger.LogInformation("Entering GetDetails action (admin)");
+            this.logger.LogInformation("Entering GetDetails action");
 
             return await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
         }

@@ -29,8 +29,6 @@
         [Route(VerifyEmailRoute)]
         public async Task<IActionResult> VerifyEmail(string email, string token)
         {
-            this.logger.LogInformation("Entering VerifyEmail action (user)");
-
             var result = await this.emailService.VerifyEmailAsync(email, token);
 
             if (result.Failure)
@@ -40,7 +38,7 @@
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Email verified (user)");
+            this.logger.LogInformation(EmailConfirmed);
 
             return this.Ok(EmailConfirmed);
         }
@@ -50,8 +48,6 @@
         [Route(ResendEmailConfirmationLinkRoute)]
         public async Task<IActionResult> ResendEmailConfirmationLink(string email)
         {
-            this.logger.LogInformation("Entering ResendEmailConfirmationLink action (user)");
-
             var origin = this.Request.Headers[HeaderOrigin];
             var host = this.Request.Host.Value;
 
@@ -64,7 +60,7 @@
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Email confirmation link resend successfully (user)");
+            this.logger.LogInformation(this.Ok().StatusCode.ToString());
 
             return this.Ok();
         }
