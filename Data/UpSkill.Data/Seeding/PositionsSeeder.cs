@@ -37,7 +37,8 @@
 
             foreach (Position position in positions)
             {
-                var dbPosition = await dbContext.Positions.FirstOrDefaultAsync(x => x.Name == position.Name);
+                var dbPosition = await dbContext.Positions
+                                                .FirstOrDefaultAsync(x => x.Name == position.Name);
 
                 if (dbPosition == null)
                 {

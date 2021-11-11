@@ -37,7 +37,10 @@
 
             await blob.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
 
-            await blob.UploadAsync(file.OpenReadStream(), new BlobHttpHeaders { ContentType = file.ToString() });
+            await blob.UploadAsync(file.OpenReadStream(), new BlobHttpHeaders
+            {
+                ContentType = file.ToString(),
+            });
 
             return blob.Uri.ToString();
         }
@@ -54,7 +57,10 @@
                 var name = blobItem.Name;
                 var fullUri = uri + "/" + name;
 
-                blobs.Add(new BlobResponseModel { Name = name, Uri = fullUri, ContentType = blobItem.Properties.ContentType });
+                blobs.Add(new BlobResponseModel
+                {
+                    Name = name, Uri = fullUri, ContentType = blobItem.Properties.ContentType,
+                });
             }
 
             return blobs;

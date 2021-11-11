@@ -32,7 +32,8 @@
 
             foreach (Category category in categoriesList)
             {
-                var dbCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Name == category.Name);
+                var dbCategory = await dbContext.Categories
+                                                .FirstOrDefaultAsync(x => x.Name == category.Name);
 
                 if (dbCategory == null)
                 {

@@ -31,6 +31,7 @@
             {
                 var adminCompany = await dbContext.Companies
                     .FirstOrDefaultAsync(x => x.Name == AdministratorCompanyName);
+
                 var positionAdministrator = await dbContext
                     .Positions.FirstOrDefaultAsync(x => x.Name == AdministratorPositionName);
 
@@ -41,6 +42,7 @@
 
                 var positionOwner = await dbContext.Positions
                     .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);
+
                 var motionCompany = await dbContext.Companies
                     .FirstOrDefaultAsync(x => x.Name == MotionCompanyName);
 

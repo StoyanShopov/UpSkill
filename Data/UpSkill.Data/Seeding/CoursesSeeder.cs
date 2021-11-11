@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+
     using UpSkill.Data.Models;
 
     using static UpSkill.Common.GlobalConstants.CoursesDescriptionConstants;
@@ -41,7 +42,8 @@
 
             foreach (Course course in coursesList)
             {
-                var dbCourse = await dbContext.Courses.FirstOrDefaultAsync(x => x.Title == course.Title);
+                var dbCourse = await dbContext.Courses
+                                              .FirstOrDefaultAsync(x => x.Title == course.Title);
 
                 if (dbCourse == null)
                 {

@@ -35,7 +35,8 @@
 
             foreach (Company company in companies)
             {
-                var dbCompany = await dbContext.Companies.FirstOrDefaultAsync(x => x.Name == company.Name);
+                var dbCompany = await dbContext.Companies
+                                               .FirstOrDefaultAsync(x => x.Name == company.Name);
 
                 if (dbCompany == null)
                 {
