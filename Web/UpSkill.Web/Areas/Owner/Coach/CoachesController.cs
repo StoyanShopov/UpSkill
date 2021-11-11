@@ -36,11 +36,6 @@
         public async Task<IEnumerable<OwnerCoachesListingModel>> GetAll()
             => await this.ownerService.GetAllCoachesAsync<OwnerCoachesListingModel>(this.currentUser.GetId());
 
-        [HttpGet]
-        [Route(GetAllGlobalRoute)]
-        public async Task<IEnumerable<CoachListingModel>> GetAllCoaches()
-            => await this.coachServices.GetAllAsync<CoachListingModel>();
-
         [HttpPost]
         public async Task<IActionResult> AddCoachToOwner(AddCoachToCompanyModel modal)
         {
@@ -69,7 +64,7 @@
 
         [HttpPost]
         [Route(NewCoach)]
-        public async Task<IActionResult> RequestCourse(RequestCoachModel model)
+        public async Task<IActionResult> RequestCoach(RequestCoachModel model)
         {
             try
             {
@@ -84,4 +79,3 @@
         }
     }
 }
-

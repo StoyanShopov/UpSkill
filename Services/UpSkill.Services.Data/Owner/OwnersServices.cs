@@ -78,19 +78,6 @@
             return coaches;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId)
-        {
-            var user = await this.GetUserById(userId);
-
-            var courses = await this.companyCoaches
-                    .AllAsNoTracking()
-                    .Where(c => c.CompanyId == user.CompanyId)
-                    .To<TModel>()
-                    .ToListAsync();
-
-            return courses;
-        }
-
         public async Task<Result> AddCoachAsync(AddCoachToCompanyModel model)
         {
             var companyOwner = await this.userManager.FindByEmailAsync(model.OwnerEmail);

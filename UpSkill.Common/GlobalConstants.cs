@@ -247,13 +247,13 @@
             public const string EmployeeOnly = "EmployeeOnly";
         }
 
-
         public class RequestCoachConstants
         {
             public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
                                               "<p>Requester Email: {1}</p>" +
                                               "<p>Description: {2}</p>" +
                                               "<p>Field: {3}</p>";
+        }
 
         public class EmployeeConstants
         {

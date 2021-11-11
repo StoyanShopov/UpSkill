@@ -18,7 +18,5 @@
         Task RequestCoachAsync(RequestCoachModel model);
 
         Task<Result> RemoveCoachAsync(int coachId, string userId);
-
-        Task<CoursesCountModel> CountCompanyCourses<TModel>(string userId);
     }
 }
