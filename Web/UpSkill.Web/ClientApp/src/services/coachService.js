@@ -1,9 +1,9 @@
 import axios from "axios";
+import {Base_URL} from "../utils/baseUrlConstant"
 
 const numberCoachesToShow = 6;
 
-const OWN_API_URL = "https://localhost:44319/Owner/Coaches";
-//const API_URL = Base_URL + "Owner/Coaches/";
+const OWN_API_URL = Base_URL + "Owner/Coaches";
 
 const numberCoachesSessionsToShow = 3;
 
@@ -118,7 +118,7 @@ const coachesCompanyOwnerMock = [
 export const getAllCoaches = async (currentPage) => {
   try {
     let arr = [];
-    const resp = await axios.get(OWN_API_URL + "/getAllGlobal", {
+    const resp = await axios.get(Base_URL + "Coaches/getAll", {
       headers: { Authorization: `Bearer ${token}` },
     });
     let transformedResp = resp.data.map((c) => {
@@ -137,6 +137,7 @@ export const getAllCoaches = async (currentPage) => {
   } catch (err) {}
 };
 
+// Gets coaches for owner
 export const getCoaches = async (currentPage) => {
   try {
     let arr = [];
@@ -149,6 +150,7 @@ export const getCoaches = async (currentPage) => {
   } catch (err) {}
 };
 
+// Deletes coaches from owner
 export const removeCoach = async (coachId) => {
   try {
     const resp = await axios.delete(OWN_API_URL + "?id=" + coachId, {
@@ -159,6 +161,7 @@ export const removeCoach = async (coachId) => {
   } catch (err) {}
 };
 
+// Adds coaches to owner
 export const addCoach = async (userEmail, coachId) => {
   const addCoachModel = {
     ownerEmail: userEmail,
@@ -185,6 +188,7 @@ export const getCoachesNames = async (currentPage) => {
   return arr;
 };
 
+// Requests new coach
 export const requestCoach = async (
   requesterEmail,
   requesterName,
