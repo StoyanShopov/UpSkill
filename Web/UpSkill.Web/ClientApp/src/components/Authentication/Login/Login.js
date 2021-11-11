@@ -67,7 +67,7 @@ const Login = (props) => {
   return (
     <div className="row">
       <div className="container col-md-6">
-        {<img src={manKey} alt="IMG" /> }
+        <img src={manKey} alt="IMG" />
       </div>
       <div className="base-container col-md-6">
         <div className="image">

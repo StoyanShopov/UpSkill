@@ -36,6 +36,7 @@
             this.users = users;
             this.companies = companies;
             this.companyCourses = companyCourses;
+            this.companies = companies;
             this.userManager = userManager;
             this.positions = positions;
         }
@@ -144,6 +145,19 @@
                 .FirstOrDefaultAsync();
 
             return course;
+        }
+
+        public async Task<IEnumerable<TModel>> GetCompanyEmployeesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            return await this.companies
+                .AllAsNoTracking()
+                .Where(x => x.Id == user.CompanyId)
+                .SelectMany(x => x.Users)
+                .Where(u => u.Id != userId)
+                .To<TModel>()
+                .ToListAsync();
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)

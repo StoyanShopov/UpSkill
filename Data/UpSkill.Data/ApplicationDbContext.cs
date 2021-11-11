@@ -34,6 +34,8 @@
 
         public DbSet<CompanyCourse> CompanyCourses { get; set; }
 
+        public DbSet<CompanyCoach> CompanyCoaches { get; set; }
+
         public DbSet<Coach> Coaches { get; set; }
 
         public DbSet<File> Files { get; set; }
@@ -87,6 +89,10 @@
             builder
                 .Entity<CompanyCourse>()
                 .HasKey(c => new { c.CompanyId, c.CourseId });
+
+            builder
+                .Entity<CompanyCoach>()
+                .HasKey(c => new { c.CompanyId, c.CoachId });
 
             builder
                 .Entity<UserInCourse>()
