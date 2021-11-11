@@ -1,5 +1,6 @@
 import React from "react";
 import { ReactVideo } from 'reactjs-media';
+import { Editor } from '@tinymce/tinymce-react';
 
 import './Details.css';
 

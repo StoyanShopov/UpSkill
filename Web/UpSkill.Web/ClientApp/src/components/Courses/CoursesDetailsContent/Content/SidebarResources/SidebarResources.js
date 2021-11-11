@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 import './SidebarResources.css';
 
 const SidebarResources = ( props) => {
     const {
         courseResources: { courseItems }
-
     } = props;
+
+    const [currentResorces, setCurrentResources] = useState("");
+
+    const handleResources = (e) => {
+        const currentResorces = e.target.value;
+        setCurrentResources(currentResorces);
+    }
 
     return(
         <div className="container">
@@ -17,6 +23,9 @@ const SidebarResources = ( props) => {
                 <ul>
                     <li className="lecturesContentSpan">
                         <span >{courseItems.courseSubject}Introduction</span>
+                        <select value={currentResorces} onChange={handleResources}>
+                            <option></option>
+                        </select>
                     </li>       
                 </ul>
             </section>
