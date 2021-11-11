@@ -9,21 +9,21 @@ const SidebarResources = ( props) => {
     } = props;
 
     return(
-        <div className="courseResourcesSidebar">
-           <div style={{ display: 'inline-block', marginLeft: '15px', marginTop: '.5rem' }}>
-              <span style={{ display: 'block' }}>Lecture</span>
-            </div>
-            <section>
+        <div className="container">
+         <div className="courseResourcesSidebar">
+         </div>
+         <span className="lecturesContent">Lectures</span>
+            <section className="container">
                 <ul>
                     <li>
-                        <span>{courseItems}</span>
+                        <span className="lecturesContentSpan">{courseItems}</span>
                     </li>       
                 </ul>
             </section>
-            <div className="sidebarResources-viewMoreButton">
-               <span className="btn btn-link sidebarResources-viewMoreButton-span">View More</span>
-            </div> 
-        </div>    
+            <div className="courseButtonViewMore">
+               <span className="courseButtonViewMoreSpan">View More</span>
+            </div>
+      </div>
    )
 }
 
