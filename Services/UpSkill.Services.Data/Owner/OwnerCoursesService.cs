@@ -58,7 +58,7 @@
 
         }
 
-        public async Task<Result> EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
+        public async Task<Result> EnableCourseAsync(GetOwnerAndCourseByIdViewModel viewModel)
         {
             var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
 
@@ -85,7 +85,7 @@
             return false;
         }
 
-        public async Task<Result> DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
+        public async Task<Result> DisableCourseAsync(GetOwnerAndCourseByIdViewModel viewModel)
         {
             var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
 
@@ -106,10 +106,15 @@
             return false;
         }
 
-        public async Task<IEnumerable<TModel>> GetAll<TModel>()
-        => await this.companiesCourses
-                     .All()
-                     .To<TModel>()
-                     .ToListAsync();
+        public async Task<IEnumerable<TModel>> GetActiveCoursesAsync<TModel>(string email)
+        {
+            var user = await this.userManager.FindByEmailAsync(email);
+
+            return await this.companiesCourses
+                             .All()
+                             .Where(c => c.CompanyId == user.CompanyId)
+                             .To<TModel>()
+                             .ToListAsync();
+        }
     }
 }

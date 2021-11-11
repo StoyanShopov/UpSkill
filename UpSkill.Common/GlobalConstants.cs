@@ -24,7 +24,7 @@
 
         public const string UserNotFound = "User not found!";
 
-        public const string PriceFormat = "decimal(6, 2)";
+        public const string NewCourseRequest = "RequestCourse";
 
         public class AdminConstants
         {
@@ -235,6 +235,13 @@
             public const string OwnerOnly = "OwnerOnly";
 
             public const string EmployeeOnly = "EmployeeOnly";
+        }
+        public class RequestCourseConstants
+        {
+            public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
+                                              "<p>Requester Email: {1}</p>" +
+                                              "<p>Description: {2}</p>" +
+                                              "<p>Category: {3}</p>";
         }
     }
 }

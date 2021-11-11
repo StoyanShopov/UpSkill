@@ -44,7 +44,7 @@
         [Route("enable")]
         public async Task<IActionResult> EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
-            var result = await this.coursesService.EnableCourse(viewModel);
+            var result = await this.coursesService.EnableCourseAsync(viewModel);
 
             if (result.Failure)
             {
@@ -58,7 +58,7 @@
         [Route("disable")]
         public async Task<IActionResult> DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
         {
-            var result = await this.coursesService.DisableCourse(viewModel);
+            var result = await this.coursesService.DisableCourseAsync(viewModel);
 
             if (result.Failure)
             {
@@ -69,8 +69,10 @@
         }
 
         [HttpGet]
-        [Route("getall")]
-        public async Task<IEnumerable<DetailsViewModel>> GetAll()
-           => await this.coursesService.GetAll<DetailsViewModel>();
+        [Route("getactivecourses")]
+        public async Task<IEnumerable<DetailsViewModel>> GetActiveCourses(string email)
+        {
+           return await this.coursesService.GetActiveCoursesAsync<DetailsViewModel>(email);
+        }
     }
 }
