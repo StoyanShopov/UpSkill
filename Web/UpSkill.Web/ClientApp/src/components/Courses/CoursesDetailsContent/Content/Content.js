@@ -16,7 +16,7 @@ function Content ({course}) {
                     />
                     <SidebarResources
                     key={courseDetails.id}
-                    courseResources={courseDetails.courseItems}
+                    courseResources={courseDetails}
                     />
                 </div>
             ))}

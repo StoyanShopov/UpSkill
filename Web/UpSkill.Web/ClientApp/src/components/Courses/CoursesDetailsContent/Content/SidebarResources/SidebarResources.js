@@ -13,10 +13,10 @@ const SidebarResources = ( props) => {
          <div className="courseResourcesSidebar">
          </div>
          <span className="lecturesContent">Lectures</span>
-            <section className="container">
+            <section>
                 <ul>
-                    <li>
-                        <span className="lecturesContentSpan">{courseItems}</span>
+                    <li className="lecturesContentSpan">
+                        <span >{courseItems.courseSubject}Introduction</span>
                     </li>       
                 </ul>
             </section>
