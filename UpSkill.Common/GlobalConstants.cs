@@ -125,8 +125,6 @@
             public const string DownloadByName = "download";
 
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
-
-            public const string GetCountRoute = "count";
         }
 
         public class MessagesConstants

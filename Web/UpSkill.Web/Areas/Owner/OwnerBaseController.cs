@@ -1,15 +1,18 @@
 ﻿namespace UpSkill.Web.Areas.Owner
 {
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using static Common.GlobalConstants.RolesNamesConstants;
+    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 
     [Authorize(Roles = CompanyOwnerRoleName)]
     [ApiController]
-    [Area("Owner")]
+    [AllowAnonymous]
+    [Area(CompanyOwnerRoleName)]
     [Route("Owner/[controller]")]
-    public abstract class OwnerBaseController : ControllerBase
+    public class OwnerBaseController : ControllerBase
     {
     }
 }

@@ -1,126 +1,104 @@
-import axios from 'axios';
-
-import { Base_URL } from '../utils/baseUrlConstant';
-
-const OWN_API_URL = Base_URL + 'Owner/Coaches/';
-
-const token = localStorage.getItem('token');
-
 const numberCoachesToShow = 6;
 const numberCoachesSessionsToShow = 3;
 
+const activeCoachesCompanyOwnerCount = 3;
+
 const initialCoachesMock = [
   {
-    id: '1',
-    fullName: 'Anne Foster',
-    coachField: 'Leadership ',
-    company: 'Google',
+    id: "1",
+    fullName: "Anne Foster",
+    coachField: "Leadership ",
+    company: "Google",
     price: 50,
     imageUrl:
-      'https://i.guim.co.uk/img/uploads/2017/10/09/Sonia_Sodha,_L.png?width=300&quality=85&auto=format&fit=max&s=045793b916f0ff6e7228468ca6aa61c5',
+      "https://i.guim.co.uk/img/uploads/2017/10/09/Sonia_Sodha,_L.png?width=300&quality=85&auto=format&fit=max&s=045793b916f0ff6e7228468ca6aa61c5",
   },
   {
-    id: '2',
-    fullName: 'Philipa Key',
-    coachField: 'Nutrition',
-    company: 'Amazon',
+    id: "2",
+    fullName: "Philipa Key",
+    coachField: "Nutrition",
+    company: "Amazon",
     price: 60,
-    imageUrl: 'https://static.independent.co.uk/s3fs-public/Rachel_Hosie.png',
+    imageUrl: "https://static.independent.co.uk/s3fs-public/Rachel_Hosie.png",
   },
   {
-    id: '3',
-    fullName: 'Jenna Jameson',
-    coachField: 'Management',
-    company: 'Google',
+    id: "3",
+    fullName: "Jenna Jameson",
+    coachField: "Management",
+    company: "Google",
     price: 80,
     imageUrl:
-      'https://i.guim.co.uk/img/uploads/2017/10/06/Laura-Bates,-L.png?width=300&quality=85&auto=format&fit=max&s=0349fb29cd3cef227473ea2c4dd11b2f',
+      "https://i.guim.co.uk/img/uploads/2017/10/06/Laura-Bates,-L.png?width=300&quality=85&auto=format&fit=max&s=0349fb29cd3cef227473ea2c4dd11b2f",
   },
   {
-    id: '4',
-    fullName: 'Brent Foster',
-    coachField: 'Leadership',
-    company: 'Google',
+    id: "4",
+    fullName: "Brent Foster",
+    coachField: "Leadership",
+    company: "Google",
     price: 50,
     imageUrl:
-      'https://secure.gravatar.com/avatar/03fd0c159222fdf134fe37e9a8b74f0e?s=400&d=mm&r=g',
+      "https://secure.gravatar.com/avatar/03fd0c159222fdf134fe37e9a8b74f0e?s=400&d=mm&r=g",
   },
   {
-    id: '5',
-    fullName: 'Jimmy Hanks',
-    coachField: 'Art',
-    company: 'Google',
+    id: "5",
+    fullName: "Jimmy Hanks",
+    coachField: "Art",
+    company: "Google",
     price: 100,
     imageUrl:
-      'http://www.lukasman.cz/wp-content/uploads/2020/09/foto-homepage-1-1024x549.png',
+      "http://www.lukasman.cz/wp-content/uploads/2020/09/foto-homepage-1-1024x549.png",
   },
   {
-    id: '6',
-    fullName: 'Ben Levis',
-    coachField: 'Management',
-    company: 'Google',
+    id: "6",
+    fullName: "Ben Levis",
+    coachField: "Management",
+    company: "Google",
     price: 60,
     imageUrl:
-      'https://www.freepnglogos.com/uploads/man-png/man-your-company-formations-formation-registrations-10.png',
+      "https://www.freepnglogos.com/uploads/man-png/man-your-company-formations-formation-registrations-10.png",
   },
   {
-    id: '7',
-    fullName: 'Emma Milton',
-    coachField: 'Nutrition',
-    company: 'Google',
+    id: "7",
+    fullName: "Emma Milton",
+    coachField: "Nutrition",
+    company: "Google",
     price: 40,
-    imageUrl: 'https://www.g20.org/wp-content/uploads/2021/01/people.jpg',
+    imageUrl: "https://www.g20.org/wp-content/uploads/2021/01/people.jpg",
   },
 ];
 
 const coachesCompanyOwnerMock = [
   {
-    id: '8',
-    name: 'August',
+    id: "8",
+    name: "August",
     coaches: [
-      { name: 'Brent Foster', enrolled: 3 },
-      { name: 'Phillip Pena', enrolled: 15 },
-      { name: 'Veronica Casey', enrolled: 2 },
-      { name: 'Sara Dean', enrolled: 5 },
-      { name: 'John Brown', enrolled: 1 },
+      { name: "Brent Foster", enrolled: 3 },
+      { name: "Phillip Pena", enrolled: 15 },
+      { name: "Veronica Casey", enrolled: 2 },
+      { name: "Sara Dean", enrolled: 5 },
+      { name: "John Brown", enrolled: 1 },
     ],
   },
   {
-    id: '9',
-    name: 'September',
+    id: "9",
+    name: "September",
     coaches: [
-      { name: 'Veronica Casey', enrolled: 8 },
-      { name: 'Phillip Pena', enrolled: 4 },
-      { name: 'John Brown', enrolled: 3 },
-      { name: 'Sara Dean', enrolled: 9 },
+      { name: "Veronica Casey", enrolled: 8 },
+      { name: "Phillip Pena", enrolled: 4 },
+      { name: "John Brown", enrolled: 3 },
+      { name: "Sara Dean", enrolled: 9 },
     ],
   },
   {
-    id: '10',
-    name: 'October',
+    id: "10",
+    name: "October",
     coaches: [
-      { name: 'Sara Dean', enrolled: 9 },
-      { name: 'Brent Foster', enrolled: 1 },
-      { name: 'John Brown', enrolled: 3 },
+      { name: "Sara Dean", enrolled: 9 },
+      { name: "Brent Foster", enrolled: 1 },
+      { name: "John Brown", enrolled: 3 },
     ],
   },
 ];
-
-let coaches = [];
-
-export const getAllCoaches = async (coach) => {
-  return axios
-    .get(
-      OWN_API_URL + 'getAll',
-      { headers: { Authorization: `Bearer ${token}` } },
-      { coach }
-    )
-    .then((response) => {
-      coaches = [];
-      response.data.map((x) => coaches.push(x));
-      return coaches;
-    });
-};
 
 export const getCoaches = async (currentPage) => {
   let arr = [];
@@ -140,8 +118,7 @@ export const getCoachesNames = async (currentPage) => {
 };
 
 export const getActiveCoachesCompanyOwner = async (uId) => {
-  getAllCoaches();
-  return coaches.length;
+  return activeCoachesCompanyOwnerCount;
 };
 
 export const getCoachesSessionsForCompanyOwner = async (

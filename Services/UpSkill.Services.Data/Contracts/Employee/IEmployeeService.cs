@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using UpSkill.Common;
-
+    using UpSkill.Data.Models;
     using UpSkill.Web.ViewModels.Employee;
 
     public interface IEmployeeService
@@ -18,7 +18,5 @@
         Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId);
 
         Task<TModel> GetByIdCourseAsync<TModel>(string userId, int courseId);
-
-        Task<IEnumerable<TModel>> GetCompanyEmployeesAsync<TModel>(string userId);
     }
 }
