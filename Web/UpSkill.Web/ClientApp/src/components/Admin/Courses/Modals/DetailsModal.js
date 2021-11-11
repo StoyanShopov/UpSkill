@@ -49,38 +49,18 @@ function DetailsModal({ closeModal }) {
             </div>
           </div>
         </div>
-        <div className="detailsModal-courses-body">
-          <h3>Course Description</h3>
-          <div className="row detailsModal-courses-description">
-            <p>{description}</p>
-          </div>
-          <div className="row detailsModal-rating">
+        <div className="detailsModal-body">
+          <h2>Course Description</h2>
+          <p>{description}</p>
+        </div>
+        <div className="detailsModal-image-course-wrapper">
+          <div className="detailsModel-image-course"></div>
+          <div className="detailsModel-img-course-body">
+            <h4>What you'll learn</h4>
             <p>
-              <b>Course rating</b>
+              - Learn more information about Digital Marketing - Improve your
+              time management - Solve problems
             </p>
-            <div>
-              <div class="d-flex justify-content-between align-items-center">
-                <span> 4.5</span>
-                <div class="ratings">
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <span class="review-count">12 Reviews</span>
-              </div>
-            </div>
-          </div>
-          <div className="detailsModal-image-course-wrapper">
-            <div className="detailsModel-image-course"></div>
-            <div className="detailsModel-img-course-body">
-              <h4>What you'll learn</h4>
-              <p>
-                - Learn more information about Digital Marketing - Improve your
-                time management - Solve problems
-              </p>
-            </div>
           </div>
         </div>
       </div>

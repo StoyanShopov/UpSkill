@@ -130,6 +130,17 @@ export const getCourses = async (currentPage) => {
 //   } catch (error) {}
 // };
 
+// export const getCourses = async () => {
+//   try {
+//     const resp = await axios.get("http://localhost:5001/courses");
+//     console.log(resp.data);
+//     return resp.data;
+//   } catch (err) {
+//     // Handle Error Here
+//     console.error(err);
+//   }
+// };
+
 export const addCourses = async (course) => {
   try {
     const resp = await axios.post(API_URL, course);

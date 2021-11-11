@@ -1,9 +1,7 @@
-import { Base_URL } from '../utils/baseUrlConstant';
-import axios from "axios"; 
-
-const token = localStorage.getItem("token");
 const invoiceStatus = "Pending";
 const dueDate = "30.09.21";
+
+const axios = require('axios');
 
 const coursesCompanyOwnerMock = [
     { id:'8', name: 'August', courses: [
@@ -42,16 +40,17 @@ export const getSubscriptionsForCompanyOwner = async (uId, currentMonth) => {
    return [month.name, month.courses, month.totalForMonth];
 }
 
-export const addEmployee = async ( fullName, email,position) => {
-    
-    const employee= {
-        fullName,
-        email,
-        position
-    }
-   axios.post( Base_URL + "Owner/Employee",employee,{headers: {"Authorization" : `Bearer ${token}`}})
-   .then(res=> res.data.id)
-   .catch(function (error) {
-     console.log(error);
-   });
+export const addEmployee = async (uId, name, email) => {
+    //TODO: POST to url AddEmployee 
+    axios.get('https://localhost:44319/WeatherForecast'//, {
+    //     fullName: name,
+    //     email: email
+    //   })
+    )
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 }

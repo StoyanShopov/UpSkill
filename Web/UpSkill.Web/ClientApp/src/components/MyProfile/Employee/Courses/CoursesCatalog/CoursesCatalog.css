@@ -1,4 +1,4 @@
-.myProfile-courses-list{
+.courses-list{
     column-count: 2;
     display: flex;
     justify-content: space-between; 

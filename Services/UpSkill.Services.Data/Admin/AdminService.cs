@@ -57,15 +57,8 @@
             return true;
         }
 
-        public async Task<Result> Promote(string email)
+        public async Task<string> Promote(ApplicationUser user)
         {
-            var user = await this.userManager.FindByEmailAsync(email);
-
-            if (user == null)
-            {
-                return UserDoNotExist;
-            }
-
             var roles = await this.userManager.GetRolesAsync(user);
 
             if (roles.Contains(CompanyOwnerRoleName))
@@ -75,18 +68,11 @@
 
             await this.userManager.AddToRoleAsync(user, CompanyOwnerRoleName);
 
-            return true;
+            return AssignedSuccessfully;
         }
 
-        public async Task<Result> Demote(string email)
+        public async Task<string> Demote(ApplicationUser user)
         {
-            var user = await this.userManager.FindByEmailAsync(email);
-
-            if (user == null)
-            {
-                return false;
-            }
-
             var demotion = await this.userManager.RemoveFromRoleAsync(user, CompanyOwnerRoleName);
 
             if (!demotion.Succeeded)
@@ -94,7 +80,7 @@
                 return AlreadyAssignedToRole;
             }
 
-            return true;
+            return UnassignedSuccessfully;
         }
     }
 }

@@ -9,6 +9,8 @@
 
     public interface IOwnerServices
     {
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
+
         Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId);
 
         Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId);

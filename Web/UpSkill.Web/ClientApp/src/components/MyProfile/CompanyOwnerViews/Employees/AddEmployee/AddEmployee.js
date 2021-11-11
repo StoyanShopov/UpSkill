@@ -7,30 +7,14 @@ import './AddEmployee.css';
 
 export default function AddEmployee(props) {
 
-    const [email,setEmail]= useState("");
-    const [fullName,setFullName]= useState("");
-    const [position,setPosition]= useState("");
+    function saveEmployee(e) {
+        e.preventDefault();
+        let fullName = e.target.children[0].children[0].children[0].value;
+        let email = e.target.children[0].children[1].children[0].value;
 
-    const saveEmployee =(e) =>{
-        e.preventDefault();      
-
-        addEmployee(fullName, email,position);
+        addEmployee('', fullName, email);
     }
-   
-    const onChangeEmail = (e) => {
-        const email = e.target.value;
-        setEmail(email);
-      }; 
 
-      const onChangefullName = (e) => {
-        const fullName = e.target.value;
-        setFullName(fullName);
-      };
-      
-      const onChangePosition = (e) => {
-        const position = e.target.value;
-        setPosition(position);
-      };
     function closePopup() {
         enableBodyScroll();
         props.onAddEmployee(false);
@@ -52,22 +36,19 @@ export default function AddEmployee(props) {
                         <h4>Add Employee</h4>
                     </div>
                 </div>
-                <form onSubmit={saveEmployee}>
+                <form onSubmit={e => saveEmployee(e)}>
                     <div className="addEmployee-Content px-5 m-5">
                         <div className="addEmployee-Content-fullname px-5 m-3">
-                            <input type="text" name="fullName" placeholder="Full Name*" value={fullName} onChange={onChangefullName} className="addEmployee-Content-input w-100 p-2" />
+                            <input type="text" placeholder="Full Name*" className="addEmployee-Content-input w-100 p-2" />
                         </div>
 
                         <div className="addEmployee-Content-email px-5 m-3">
-                            <input type="text" name="email" placeholder="Email Address*" value={email} onChange={onChangeEmail} className="addEmployee-Content-input w-100 p-2" />
-                        </div>
-                        <div className="addEmployee-Content-email px-5 m-3">
-                            <input type="text" name="position" placeholder="Position*" value={position} onChange={onChangePosition} className="addEmployee-Content-input w-100 p-2" />
+                            <input type="text" placeholder="Email Address*" className="addEmployee-Content-input w-100 p-2" />
                         </div>
 
-                        {/* <div className="addEmployee-Content-anotherEmployee px-5">
+                        <div className="addEmployee-Content-anotherEmployee px-5">
                             <div className="addEmployee-Content-anotherEmployee-btn btn">*Add another employee</div>
-                        </div> */}
+                        </div>
                     </div>
 
                     <div className="addEmployee-actions d-flex px-5 d-flex justify-content-center">

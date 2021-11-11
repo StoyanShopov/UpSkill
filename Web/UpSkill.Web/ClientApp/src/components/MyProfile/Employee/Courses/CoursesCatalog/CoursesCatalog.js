@@ -8,7 +8,7 @@ import './CoursesCatalog.css';
 export default function CoursesCatalog({courses}) {
     return (
         <div className="container"> 
-            <div className="row list-unstyled myProfile-courses-list">
+            <div className="row list-unstyled courses-list"> 
                     {courses.map((course) => ( 
                         <div className="col-sm-5 text-align-center" key={course.id}>      
                         <CoursesCard

@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { addCompanyHandler, getCompanies } from "../../../services/companyService";
+
+import { addCompanyHandler, retriveCompanies } from "../../../services/companyService";
 
 function AddCompany(props) {
 
@@ -10,7 +11,7 @@ function AddCompany(props) {
 
     useEffect((companies) => {
 
-        getCompanies().then(data => {
+        retriveCompanies().then(data => {
             setCompanies(data);
         });
 
