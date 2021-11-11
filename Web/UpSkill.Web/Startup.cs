@@ -11,8 +11,9 @@
 	using Microsoft.Extensions.Hosting;
 	using UpSkill.Data;
 	using UpSkill.Data.Seeding;
+	using UpSkill.Services.Hubs;
 	using UpSkill.Services.Mapping;
-	using UpSkill.Web.Hubs;
+
 	using UpSkill.Web.Infrastructure.Web.Extensions;
 	using UpSkill.Web.ViewModels;
 	using UpSkill.Web.Web.Extensions;
@@ -98,8 +99,8 @@
                 })
                 .ApplyMigrations();
 
-            app.UseAzureSignalR(route=> {
-                route.MapHub<ChatHub>("/chat");
+            app.UseAzureSignalR(route => {
+				route.MapHub<ChatHub>("/chat");
             });
 
             app.UseSpa(spa =>

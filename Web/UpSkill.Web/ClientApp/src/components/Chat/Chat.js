@@ -29,9 +29,9 @@ function Chat({ messages, sendMessage }) {
             <div className="container w-100 h-100">
                 <div id="messages" ref={messageRef} className="message-container">
                     {messages.map((m, index) =>
-                        <div key={index} className="user-message">
-                            <div className="bg-primary message">{m.message}</div>
-                            <div className="from-user">{m.user}</div>
+                        <div key={index} className={m.isMine ? "user-message" : "other-message"}>
+                            <div className={m.isMine ? "bg-primary message px-2" : "bg-secondary message px-2"}>{m.message}</div>
+                            <div className="from-user">{m.name} {m.currentTime}</div>
                         </div>
                     )}
                 </div>
@@ -49,7 +49,7 @@ function Chat({ messages, sendMessage }) {
                         ></input>
                     </div>
                     <div className="d-flex justify-content-end">
-                        <button className="btn-success pull-right px-3 m-1 fw-bold" id="sendmessage" type="submit">Send</button>
+                        <button className="btn-success pull-right px-3 m-1 fw-bold" id="sendmessage" type="submit" disabled={!message}>Send</button>
                     </div>
                 </form>
             </div>
