@@ -10,7 +10,7 @@ using UpSkill.Data;
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211109132246_AddLogs")]
+    [Migration("20211111123655_AddLogs")]
     partial class AddLogs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -486,6 +486,9 @@ namespace UpSkill.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Exception")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ISSName")
                         .HasColumnType("nvarchar(max)");
 
@@ -498,10 +501,10 @@ namespace UpSkill.Data.Migrations
                     b.Property<string>("MachineName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Message")
+                    b.Property<string>("RequestMethod")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RequestMethod")
+                    b.Property<string>("RequestPostData")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestQueryString")
@@ -514,6 +517,9 @@ namespace UpSkill.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserClaim")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

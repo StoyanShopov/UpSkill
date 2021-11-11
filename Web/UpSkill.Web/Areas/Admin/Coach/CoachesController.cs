@@ -5,7 +5,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-     
+
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Web.ViewModels.Coach;
 
@@ -28,18 +28,16 @@
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateCoachRequestModel model)
         {
-            this.logger.LogInformation("Entering Create action (admin)");
-
             var result = await this.coachServices.CreateAsync(model);
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error.ToString());
+                this.logger.LogError(result.Error);
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Coach created (admin)");
+            this.logger.LogInformation(SuccesfullyCreated);
 
             return this.StatusCode(201, SuccesfullyCreated);
         }
@@ -47,8 +45,6 @@
         [HttpPut]
         public async Task<IActionResult> Edit([FromForm] UpdateCoachRequestMode model, int id)
         {
-            this.logger.LogInformation("Entering Edit action (admin)");
-
             var result = await this.coachServices.EditAsync(model, id);
 
             if (result.Failure)
@@ -58,7 +54,7 @@
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Coach edited (admin)");
+            this.logger.LogInformation(SuccesfullyEdited);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -66,8 +62,6 @@
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            this.logger.LogInformation("Entering Delete action (admin)");
-
             var result = await this.coachServices.DeleteAsync(id);
 
             if (result.Failure)
@@ -77,7 +71,7 @@
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation("Coach deleted (admin)");
+            this.logger.LogInformation(SuccesfullyDeleted);
 
             return this.Ok(SuccesfullyDeleted);
         }

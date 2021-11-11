@@ -12,7 +12,7 @@
 
         public string MachineName { get; set; }
 
-        public string Message { get; set; }
+        public string Username { get; set; }
 
         public string Controller { get; set; }
 
@@ -20,9 +20,13 @@
 
         public string RequestMethod { get; set; }
 
+        public string RequestPostData { get; set; }
+
         public string RequestQueryString { get; set; }
 
         public string RequestURL { get; set; }
+
+        public string Exception { get; set; }
 
         public string UserAuthType { get; set; }
 

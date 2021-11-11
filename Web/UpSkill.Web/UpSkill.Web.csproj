@@ -78,6 +78,7 @@
 
 
 	<ItemGroup>
+		<Folder Include="%24{LogDirectory}\" />
 		<Folder Include="ClientApp\src\components\" />
 		<Folder Include="ClientApp\src\services\" />
 	</ItemGroup>

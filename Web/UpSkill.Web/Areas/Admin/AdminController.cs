@@ -1,17 +1,15 @@
 ﻿namespace UpSkill.Web.Areas.Admin
 {
-    using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.Extensions.Logging;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
     using UpSkill.Web.ViewModels.Administration;
     using UpSkill.Web.ViewModels.Administration.Company;
 
-    using static Common.GlobalConstants;
     using static Common.GlobalConstants.AdminConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
@@ -20,13 +18,16 @@
     {
         private readonly IAdminService adminService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ILogger<AdminController> logger;
 
         public AdminController(
             IAdminService adminService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ILogger<AdminController> logger)
         {
             this.adminService = adminService;
             this.userManager = userManager;
+            this.logger = logger;
         }
 
         [HttpPost]
@@ -37,8 +38,12 @@
 
             if (result.Failure)
             {
+                this.logger.LogError(result.Error);
+
                 return this.BadRequest(result.Error);
             }
+
+            this.logger.LogInformation(SuccesfullyAddedCompanyOwnerToGivenCourse);
 
             return this.Ok(SuccesfullyAddedOwnerToGivenCompany);
         }
@@ -51,8 +56,12 @@
 
             if (result.Failure)
             {
+                this.logger.LogError(result.Error);
+
                 return this.BadRequest(result.Error);
             }
+
+            this.logger.LogInformation(AssignedSuccessfully);
 
             return this.Ok(AssignedSuccessfully);
         }
@@ -65,8 +74,12 @@
 
             if (result.Failure)
             {
+                this.logger.LogError(result.Error);
+
                 return this.BadRequest(result.Error);
             }
+
+            this.logger.LogInformation(UnassignedSuccessfully);
 
             return this.Ok(UnassignedSuccessfully);
         }
@@ -79,6 +92,8 @@
 
             if (user == null)
             {
+                this.logger.LogError(UserDoNotExist);
+
                 return null;
             }
 
