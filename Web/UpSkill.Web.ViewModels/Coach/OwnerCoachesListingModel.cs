@@ -18,7 +18,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<CompanyCoaches, OwnerCoachesListingModel>()
+            configuration.CreateMap<CompanyCoach, OwnerCoachesListingModel>()
                .ForMember(
                c => c.Id,
                c => c.MapFrom(c => c.CoachId));

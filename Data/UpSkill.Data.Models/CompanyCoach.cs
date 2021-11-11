@@ -1,6 +1,6 @@
 ﻿namespace UpSkill.Data.Models
 {
-    public class CompanyCoaches
+    public class CompanyCoach
     {
         public int CompanyId { get; set; }
 

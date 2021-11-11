@@ -11,7 +11,7 @@
         {
             this.Users = new HashSet<ApplicationUser>();
             this.Courses = new HashSet<CompanyCourse>();
-            this.Coaches = new HashSet<CompanyCoaches>();
+            this.Coaches = new HashSet<CompanyCoach>();
         }
 
         [Required]
@@ -25,6 +25,6 @@
 
         public virtual ICollection<CompanyCourse> Courses { get; set; }
 
-        public virtual ICollection<CompanyCoaches> Coaches { get; set; }
+        public virtual ICollection<CompanyCoach> Coaches { get; set; }
     }
 }

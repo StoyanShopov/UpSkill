@@ -10,7 +10,7 @@
         public Coach()
         {
             this.Courses = new HashSet<Course>();
-            this.Companies = new HashSet<CompanyCoaches>();
+            this.Companies = new HashSet<CompanyCoach>();
         }
 
         [Required]
@@ -27,6 +27,6 @@
 
         public virtual ICollection<Course> Courses { get; set; }
 
-        public virtual ICollection<CompanyCoaches> Companies { get; set; }
+        public virtual ICollection<CompanyCoach> Companies { get; set; }
     }
 }

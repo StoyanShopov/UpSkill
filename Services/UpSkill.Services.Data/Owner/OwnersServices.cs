@@ -30,7 +30,7 @@
     public class OwnersServices : IOwnerServices
     {
         private readonly IRepository<CompanyCourse> companyCourses;
-        private readonly IRepository<CompanyCoaches> companyCoaches;
+        private readonly IRepository<CompanyCoach> companyCoaches;
         private readonly ICoachServices coachService;
         private readonly ICompanyService companyService;
         private readonly IEmailSender emailSender;
@@ -38,7 +38,7 @@
 
         public OwnersServices(
             IRepository<CompanyCourse> companyCourses,
-            IRepository<CompanyCoaches> companyCoaches,
+            IRepository<CompanyCoach> companyCoaches,
             UserManager<ApplicationUser> userManager,
             ICoachServices coachService,
             ICompanyService companyService,
@@ -111,7 +111,7 @@
                 return DoesNotExist;
             }
 
-            var companyCoach = new CompanyCoaches
+            var companyCoach = new CompanyCoach
             {
                 CompanyId = companyOwner.CompanyId,
                 CoachId = model.CoachId,

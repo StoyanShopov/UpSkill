@@ -34,7 +34,7 @@
 
         public DbSet<CompanyCourse> CompanyCourses { get; set; }
 
-        public DbSet<CompanyCoaches> CompanyCoaches { get; set; }
+        public DbSet<CompanyCoach> CompanyCoaches { get; set; }
 
         public DbSet<Coach> Coaches { get; set; }
 
@@ -89,7 +89,7 @@
                 .HasKey(c => new { c.CompanyId, c.CourseId });
 
             builder
-                .Entity<CompanyCoaches>()
+                .Entity<CompanyCoach>()
                 .HasKey(c => new { c.CompanyId, c.CoachId });
         }
 
