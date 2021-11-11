@@ -22,9 +22,11 @@
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Admin.Dashboard;
     using UpSkill.Services.Data.Coach;
     using UpSkill.Services.Data.Company;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Admin.Dashboard;
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Course;
@@ -156,12 +158,13 @@
                 .AddTransient<IEmailService, EmailService>()
                 .AddTransient<IAccountService, AccountService>()
                 .AddTransient<IAdminService, AdminService>()
-                .AddTransient<ICoursesService, CoursesService>()
+                .AddTransient<ICourseService, CoursesService>()
+                .AddTransient<IDashboardService, DashboardService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
                 .AddTransient<IOwnerServices, OwnersServices>()
-                .AddTransient<IEmployeeService, EmployeesService>()
-                .AddTransient<IFileService, FileService>()
+        .AddTransient<IFileService, FilesService>()
+.AddTransient<IEmployeeService, EmployeesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
@@ -169,6 +172,7 @@
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
+                .AddTransient<IPasswordGeneratorService, PasswordGeneratorService>()
                 .AddTransient<ICurrentUserService, CurrentUserService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)

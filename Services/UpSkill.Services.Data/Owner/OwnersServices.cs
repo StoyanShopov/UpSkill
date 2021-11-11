@@ -1,6 +1,5 @@
 ﻿namespace UpSkill.Services.Data.Owner
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -45,16 +44,12 @@
             IEmailSender emailSender)
         {
             this.companyCourses = companyCourses;
+            this.companyCoaches = companyCoaches;
             this.userManager = userManager;
             this.companyCoaches = companyCoaches;
             this.coachService = coachService;
             this.companyService = companyService;
             this.emailSender = emailSender;
-        }
-
-        public Task<IEnumerable<TModel>> GetAllAsync<TModel>()
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>(string userId)
@@ -70,10 +65,17 @@
             return courses;
         }
 
-        public async Task<CoursesCountModel> CountCompanyCourses<TModel>(string userId)
+        public async Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId)
         {
-            var courses = await this.GetAllCoursesAsync<CoursesListingModel>(userId);
-            return new CoursesCountModel { Count = courses.Count() };
+            var user = await this.GetUserById(userId);
+
+            var coaches = await this.companyCoaches
+                .AllAsNoTracking()
+                .Where(c => c.CompanyId == user.CompanyId)
+                .To<TModel>()
+                .ToListAsync();
+
+            return coaches;
         }
 
         public async Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId)

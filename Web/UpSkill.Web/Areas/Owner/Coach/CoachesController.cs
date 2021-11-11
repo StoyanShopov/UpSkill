@@ -11,7 +11,7 @@
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Owner;
-    
+
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
