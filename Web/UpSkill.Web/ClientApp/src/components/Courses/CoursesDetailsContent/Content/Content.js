@@ -1,31 +1,26 @@
 import React from 'react';
-import { ReactVideo } from 'reactjs-media';
 
 import Details from './Details/Details';
-import SidebarResources from '../SidebarResources/SidebarResources';
+import SidebarResources from './SidebarResources/SidebarResources';
 
 import './Content.css'
-
-const Content = ( {course} ) => {
+ 
+function Content ({course}) {
     return(
-        <div className="container">
-            {course.map((details) => (
-                <div className="col-sm-5 text-align-center" key={details.id}>
-                    <ReactVideo
-                    src={details.video}
-                    primaryColor="read"
-                    />
+        <>
+            {course.map((courseDetails) => (
+                <div key={courseDetails.id}>
                     <Details
-                       key={details.id}
-                       courseDetails={details}                     
+                       key={courseDetails.id}
+                       courseDetails={courseDetails}                     
                     />
                     <SidebarResources
-                    key={details.id}
-                    courseResources={details}
+                    key={courseDetails.id}
+                    courseResources={courseDetails}
                     />
                 </div>
             ))}
-        </div>
+        </>
     );
 }
 

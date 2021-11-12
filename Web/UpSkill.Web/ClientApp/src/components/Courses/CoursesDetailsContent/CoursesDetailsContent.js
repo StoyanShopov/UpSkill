@@ -6,7 +6,7 @@ import Content from './Content/Content';
 import './CoursesDetailsContent.css';
 
 const CoursesDetailsContent = () => {
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState([]);
 
   useEffect(() => {
     courseDetailsContent()
@@ -16,11 +16,9 @@ const CoursesDetailsContent = () => {
   }, []);
 
     return (
-      <div className="content">
-        <div className="wrapper row">
-          <Content course={course}/>                
-        </div>
-      </div>
+      <>
+        <Content course={course} />             
+      </>      
     );
 }
 

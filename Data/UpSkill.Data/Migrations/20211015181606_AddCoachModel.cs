@@ -52,9 +52,22 @@
                 column: "CoachId");
 
             migrationBuilder.CreateIndex(
+               name: "IX_AspNetUsers_CourseId",
+               table: "AspNetUsers",
+               column: "CourseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Coaches_IsDeleted",
                 table: "Coaches",
                 column: "IsDeleted");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_Courses_CourseId",
+                table: "AspNetUsers",
+                column: "CourseId",
+                principalTable: "Courses",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Courses_Coaches_CoachId",
