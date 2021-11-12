@@ -110,7 +110,7 @@
 
             public const string GetAllRoute = "getAll";
 
-            public const string GetAllGlobalRoute = "getAllGlobal";
+            public const string GetAllCoaches = "Coaches/getAll";
 
             public const string AddOwnerCompany = "addOwnerToCompany";
 

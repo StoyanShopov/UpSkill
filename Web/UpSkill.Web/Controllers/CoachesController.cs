@@ -8,7 +8,6 @@
     using UpSkill.Web.ViewModels.Coach;
 
     using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
-    using static UpSkill.Common.GlobalConstants.ControllersResponseMessages;
 
     public class CoachesController : ControllerBase
     {
@@ -21,7 +20,7 @@
         }
 
         [HttpGet]
-        [Route(GetAllRoute)]
+        [Route(GetAllCoaches)]
         public async Task<IEnumerable<CoachListingModel>> GetAll()
             => await this.coachServices.GetAllAsync<CoachListingModel>();
     }
