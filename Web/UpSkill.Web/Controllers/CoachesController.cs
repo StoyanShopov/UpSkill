@@ -20,7 +20,7 @@
         }
 
         [HttpGet]
-        [Route(GetAllCoaches)]
+        [Route("[controller]/getAll")]
         public async Task<IEnumerable<CoachListingModel>> GetAll()
             => await this.coachServices.GetAllAsync<CoachListingModel>();
     }
