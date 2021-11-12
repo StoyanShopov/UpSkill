@@ -3,18 +3,17 @@ import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import CoachesCard from "../Coaches-Card/Coaches-Card";
 import { addCoach } from "../../../../services/coachService";
-import "./AdminCoachesCatalog.css"
+import "./AdminCoachesCatalog.css";
 import { getAllCoaches } from "../../../../services/coachService";
 import { removeCoach } from "../../../../services/adminCoachesService";
 
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
+import CreateCoach from "./CreateCoach/CreateCoach";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
 
-export default function AdminCoachesCatalog({
-  coaches,
-  setCoaches
-}) {
+export default function AdminCoachesCatalog({ coaches, setCoaches }) {
   const [onRemove, setOnRemove] = useState(false);
+  const [openAddCoachModal, setOpenAddCoachModal] = useState(false);
   const [coachId, setCoachId] = useState(0);
   const initialPageCoaches = 0;
 
@@ -25,8 +24,18 @@ export default function AdminCoachesCatalog({
   };
 
   const checkCompanyHasCoach = (coach) => {
-   return true;
+    return true;
   };
+
+  const onOpenAddCoachModal = () => {
+    setOpenAddCoachModal(true);
+    disableBodyScroll();
+  };
+
+  function onCloseAddCoachModal(){
+    setOpenAddCoachModal(false);
+    enableBodyScroll();
+  }
 
   const onDelete = (id) => {
     removeCoach(id).then(() =>
@@ -97,10 +106,11 @@ export default function AdminCoachesCatalog({
                 )}
                 {buttonToShow(checkCompanyHasCoach(coach), coach.id)}
               </CoachesCard>
-            </div>          
+            </div>
           ))}
+          <CreateCoach trigger={openAddCoachModal} closeModal={onCloseAddCoachModal}></CreateCoach>
           <div className="alignAdminCoachesContentBox">
-              <div className="addImage"></div>
+            <div className="addImage" onClick={onOpenAddCoachModal}></div>
           </div>
         </div>
       </div>

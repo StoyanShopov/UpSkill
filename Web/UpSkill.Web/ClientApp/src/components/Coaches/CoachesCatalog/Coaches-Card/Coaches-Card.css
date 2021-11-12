@@ -70,17 +70,18 @@
 }
 
 .edit-coach-img-wrp {
-    width: 400px;
-    position: absolute;
-    padding: 20px;    
-    display: flex;
-    justify-content: end;
-    align-items: end;
+  width: 400px;
+  position: absolute;
+  padding: 20px;
+  display: flex;
+  justify-content: end;
+  align-items: end;
 }
 
-.edit-coach-img {  
+.edit-coach-img {
   width: 50px;
   height: 50px;
   background: transparent url("../../../../assets/Group\ 88.png") 0% 0%
     no-repeat padding-box;
+  cursor: pointer;
 }
