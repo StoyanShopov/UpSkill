@@ -126,8 +126,9 @@ export const getAllCoaches = async (currentPage) => {
         id: c.id,
         coachFirstName: c.firstName,
         coachLastName: c.lastName,
+        coachField: c.field,
         coachFileFilePath: c.fileFilePath,
-        coachPrice: 0,
+        coachPrice: c.price,
       };
     });
     console.log(transformedResp);

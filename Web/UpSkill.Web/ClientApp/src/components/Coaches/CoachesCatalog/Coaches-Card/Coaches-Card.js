@@ -40,7 +40,7 @@ export default function CoachesCard(props) {
       </div>
       <div className="coaches-content w-75">
         <div className="coachInfo d-flex justify-content-between mt-3">
-          <span className="coaches-coachField">Marketing</span>
+          <span className="coaches-coachField">{coachField}</span>
           <span className="coaches-fullName">
             {coachFirstName}
             {` ${coachLastName}`}
