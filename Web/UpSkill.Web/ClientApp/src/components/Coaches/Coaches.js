@@ -7,6 +7,7 @@ import { ReactReduxContext } from "react-redux";
 import "./Coaches.css";
 
 import { getAllCoaches, getCoaches } from "../../services/coachService";
+import AdminCoachesCatalog from "./CoachesCatalog/AdminCoachesCatalog/AdminCoachesCatalog";
 
 export default function Coaches() {
   const { store } = useContext(ReactReduxContext);
@@ -21,6 +22,9 @@ export default function Coaches() {
   const [companyCoaches, setCompanyCoaches] = useState([]);
 
   const returnCatalog= () => {
+    if (isAdmin) {
+      return <AdminCoachesCatalog coaches={coaches} setCoaches={setCompanyCoaches}/>
+    }
     if (isCompanyOwner) {
       return <OwnerCoachesCatalog coaches={coaches} companyCoaches={companyCoaches} setCoaches={setCompanyCoaches}/>
     }

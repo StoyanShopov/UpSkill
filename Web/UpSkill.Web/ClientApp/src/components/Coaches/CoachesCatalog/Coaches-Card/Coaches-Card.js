@@ -1,8 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import "./Coaches-Card.css";
 import { Badge } from "react-bootstrap";
+import { ReactReduxContext } from "react-redux";
 
 export default function CoachesCard(props) {
+  const { store } = useContext(ReactReduxContext);
+  var {
+    isLoggedIn,
+    isCompanyOwner,
+    isEmployee,
+    isAdmin,
+  } = store.getState().auth;
+
   const {
     displaySession,
     displayPrice,
@@ -31,6 +40,9 @@ export default function CoachesCard(props) {
     <div className="coaches-Card">
       <div className="coaches-image-wrapper">
         <div className="coaches-image-wrapper-bg">
+          <div className="edit-coach-img-wrp">
+            <div className="edit-coach-img"></div>
+          </div>
           <img
             src={coachFileFilePath}
             className="coaches-image"
