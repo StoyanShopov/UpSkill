@@ -24,18 +24,15 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IRepository<CompanyCourse> companiesCourses;
-        private readonly IDeletableEntityRepository<Company> companies;
         private readonly IEmailSender emailSender;
 
         public OwnerCoursesService(
             UserManager<ApplicationUser> userManager,
             IRepository<CompanyCourse> companiesCourses,
-            IDeletableEntityRepository<Company> companies,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.companiesCourses = companiesCourses;
-            this.companies = companies;
             this.emailSender = emailSender;
         }
 
@@ -55,12 +52,11 @@
                                        AdministratorEmailName,
                                        NewCourseRequest,
                                        content);
-
         }
 
-        public async Task<Result> EnableCourseAsync(GetOwnerAndCourseByIdViewModel viewModel)
+        public async Task<Result> EnableCourseAsync(GetCourseByIdViewModel viewModel, string id)
         {
-            var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
+            var user = await this.userManager.FindByIdAsync(id);
 
             var courseInCompany = await this.companiesCourses
                                              .All()
@@ -85,9 +81,10 @@
             return false;
         }
 
-        public async Task<Result> DisableCourseAsync(GetOwnerAndCourseByIdViewModel viewModel)
+
+        public async Task<Result> DisableCourseAsync(GetCourseByIdViewModel viewModel, string id)
         {
-            var user = await this.userManager.FindByIdAsync(viewModel.OwnerId);
+            var user = await this.userManager.FindByIdAsync(id);
 
             var courseToRemove = await this.companiesCourses
                                            .All()
@@ -106,9 +103,9 @@
             return false;
         }
 
-        public async Task<IEnumerable<TModel>> GetActiveCoursesAsync<TModel>(string email)
+        public async Task<IEnumerable<TModel>> GetActiveCoursesAsync<TModel>(string id)
         {
-            var user = await this.userManager.FindByEmailAsync(email);
+            var user = await this.userManager.FindByIdAsync(id);
 
             return await this.companiesCourses
                              .All()

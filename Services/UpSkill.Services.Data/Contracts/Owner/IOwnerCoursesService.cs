@@ -11,10 +11,10 @@
     {
         Task RequestCourseAsync(RequestCourseViewModel model);
 
-        Task<Result> EnableCourseAsync(GetOwnerAndCourseByIdViewModel viewModel);
+        Task<Result> EnableCourseAsync(GetCourseByIdViewModel viewModel, string id);
 
-        Task<Result> DisableCourseAsync(GetOwnerAndCourseByIdViewModel viewModel);
+        Task<Result> DisableCourseAsync(GetCourseByIdViewModel viewModel, string id);
 
-        Task<IEnumerable<TModel>> GetActiveCoursesAsync<TModel>(string email);
+        Task<IEnumerable<TModel>> GetActiveCoursesAsync<TModel>(string id);
     }
 }
