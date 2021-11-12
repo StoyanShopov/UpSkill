@@ -6,8 +6,8 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
     using UpSkill.Services.Data.Contracts.Owner;
+    using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Course;
     using UpSkill.Web.ViewModels.Owner;
 
@@ -18,10 +18,14 @@
     public class CoursesController : OwnerBaseController
     {
         private readonly IOwnerCoursesService coursesService;
+        private readonly ICurrentUserService currentUserService;
 
-        public CoursesController(IOwnerCoursesService coursesService)
+        public CoursesController(
+            IOwnerCoursesService coursesService,
+            ICurrentUserService currentUserService)
         {
             this.coursesService = coursesService;
+            this.currentUserService = currentUserService;
         }
 
         [HttpPost]
@@ -42,9 +46,11 @@
 
         [HttpPut]
         [Route("enable")]
-        public async Task<IActionResult> EnableCourse(GetOwnerAndCourseByIdViewModel viewModel)
+        public async Task<IActionResult> EnableCourse(GetCourseByIdViewModel viewModel)
         {
-            var result = await this.coursesService.EnableCourse(viewModel);
+
+            var currentUser = this.currentUserService.GetId();
+            var result = await this.coursesService.EnableCourseAsync(viewModel, currentUser);
 
             if (result.Failure)
             {
@@ -56,9 +62,10 @@
 
         [HttpPut]
         [Route("disable")]
-        public async Task<IActionResult> DisableCourse(GetOwnerAndCourseByIdViewModel viewModel)
+        public async Task<IActionResult> DisableCourse(GetCourseByIdViewModel viewModel)
         {
-            var result = await this.coursesService.DisableCourse(viewModel);
+            var currentUser = this.currentUserService.GetId();
+            var result = await this.coursesService.DisableCourseAsync(viewModel, currentUser);
 
             if (result.Failure)
             {
@@ -69,8 +76,11 @@
         }
 
         [HttpGet]
-        [Route("getall")]
-        public async Task<IEnumerable<DetailsViewModel>> GetAll()
-           => await this.coursesService.GetAll<DetailsViewModel>();
+        [Route("getactivecourses")]
+        public async Task<IEnumerable<DetailsViewModel>> GetActiveCourses()
+        {
+           return await this.coursesService
+                            .GetActiveCoursesAsync<DetailsViewModel>(this.currentUserService.GetId());
+        }
     }
 }
