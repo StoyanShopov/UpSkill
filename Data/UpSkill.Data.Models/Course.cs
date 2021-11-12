@@ -11,6 +11,7 @@
         {
             this.Companies = new HashSet<CompanyCourse>();
             this.Users = new HashSet<UserInCourse>();
+            this.Lectures = new HashSet<Lecture>();
         }
 
         [Required]
@@ -35,5 +36,7 @@
         public virtual ICollection<CompanyCourse> Companies { get; set; }
 
         public ICollection<UserInCourse> Users { get; set; }
+
+        public virtual ICollection<Lecture> Lectures { get; set; }
     }
 }
