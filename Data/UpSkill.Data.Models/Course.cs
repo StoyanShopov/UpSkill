@@ -10,7 +10,7 @@
         public Course()
         {
             this.Companies = new HashSet<CompanyCourse>();
-            this.CourseUsers = new HashSet<UserInCourse>();
+            this.Users = new HashSet<UserInCourse>();
         }
 
         [Required]
@@ -34,6 +34,6 @@
 
         public virtual ICollection<CompanyCourse> Companies { get; set; }
 
-        public ICollection<UserInCourse> CourseUsers { get; set; }
+        public ICollection<UserInCourse> Users { get; set; }
     }
 }
