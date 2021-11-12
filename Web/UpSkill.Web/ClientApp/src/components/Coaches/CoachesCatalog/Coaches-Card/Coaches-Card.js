@@ -40,9 +40,11 @@ export default function CoachesCard(props) {
     <div className="coaches-Card">
       <div className="coaches-image-wrapper">
         <div className="coaches-image-wrapper-bg">
-          <div className="edit-coach-img-wrp">
-            <div className="edit-coach-img"></div>
-          </div>
+          {isAdmin && (
+            <div className="edit-coach-img-wrp">
+              <div className="edit-coach-img"></div>
+            </div>
+          )}
           <img
             src={coachFileFilePath}
             className="coaches-image"

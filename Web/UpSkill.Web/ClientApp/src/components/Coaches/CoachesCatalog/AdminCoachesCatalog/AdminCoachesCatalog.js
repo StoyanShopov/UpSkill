@@ -4,7 +4,8 @@ import { Button } from "react-bootstrap";
 import CoachesCard from "../Coaches-Card/Coaches-Card";
 import { addCoach } from "../../../../services/coachService";
 import "./AdminCoachesCatalog.css"
-import { getAllCoaches, removeCoach } from "../../../../services/coachService";
+import { getAllCoaches } from "../../../../services/coachService";
+import { removeCoach } from "../../../../services/adminCoachesService";
 
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
