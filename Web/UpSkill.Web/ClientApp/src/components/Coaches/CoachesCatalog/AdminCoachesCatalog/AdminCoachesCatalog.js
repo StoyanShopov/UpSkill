@@ -27,12 +27,22 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
     return true;
   };
 
+  const defineCoachesCount = () => {
+    let coursesCount = ((coaches.length+1) % 3);
+
+    if (coursesCount !== 0) {
+      return true;
+    }
+
+    return false;
+  };
+
   const onOpenAddCoachModal = () => {
     setOpenAddCoachModal(true);
     disableBodyScroll();
   };
 
-  function onCloseAddCoachModal(){
+  function onCloseAddCoachModal() {
     setOpenAddCoachModal(false);
     enableBodyScroll();
   }
@@ -108,10 +118,18 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
               </CoachesCard>
             </div>
           ))}
-          <CreateCoach trigger={openAddCoachModal} closeModal={onCloseAddCoachModal}></CreateCoach>
+          <CreateCoach
+            trigger={openAddCoachModal}
+            closeModal={onCloseAddCoachModal}
+          ></CreateCoach>
           <div className="alignAdminCoachesContentBox">
             <div className="addImage" onClick={onOpenAddCoachModal}></div>
           </div>
+          {defineCoachesCount && (
+            <div className="alignAdminCoachesContentBox">
+              {console.log(defineCoachesCount)}
+            </div>
+          )}
         </div>
       </div>
     </>
