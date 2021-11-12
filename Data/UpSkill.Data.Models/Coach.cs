@@ -19,6 +19,8 @@
         [Required]
         public string LastName { get; set; }
 
+        public string Field { get; set; }
+
         public decimal Price { get; set; }
 
         public int? FileId { get; set; }

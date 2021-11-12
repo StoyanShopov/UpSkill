@@ -12,6 +12,8 @@
 
         public decimal CoachPrice { get; set; }
 
+        public string CoachField { get; set; }
+
         public string CoachLastName { get; set; }
 
         public string CoachFileFilePath { get; set; }
