@@ -9,6 +9,7 @@
     {
         public Course()
         {
+            this.Lectures = new HashSet<Lecture>();
             this.Companies = new HashSet<CompanyCourse>();
             this.Users = new HashSet<UserInCourse>();
         }
@@ -33,6 +34,8 @@
         public File File { get; set; }
 
         public virtual ICollection<CompanyCourse> Companies { get; set; }
+
+        public virtual ICollection<Lecture> Lectures { get; set; }
 
         public ICollection<UserInCourse> Users { get; set; }
     }
