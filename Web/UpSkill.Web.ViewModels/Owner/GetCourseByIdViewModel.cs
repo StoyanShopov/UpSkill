@@ -1,6 +1,9 @@
 ﻿namespace UpSkill.Web.ViewModels.Owner
 {
-    public class GetCourseByIdViewModel
+    using UpSkill.Data.Models;
+    using UpSkill.Services.Mapping;
+
+    public class GetCourseByIdViewModel : IMapFrom<CompanyCourse>
     {
         public int CourseId { get; set; }
     }

@@ -3,7 +3,7 @@ import { Base_URL } from '../utils/baseUrlConstant';
 const API_URL = Base_URL + "Owner/Courses";
 
 const getActiveCourses = async () => {
-    await axios.get(API_URL + 'getactivecourses');
+    await axios.get(API_URL + '/getactivecourses');
 };
 
 const enableCourse = async (courseId) => {
