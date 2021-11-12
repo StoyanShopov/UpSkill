@@ -8,10 +8,16 @@
 
     public interface IIdentityService
     {
-        Task<string> GenerateJwtToken(ApplicationUser user, string secret);
+        Task<string> GenerateJwtToken(ApplicationUser user);
+
+        RefreshToken GenerateRefreshToken(string ipAddress);
+
+        Task<bool> RevokeToken(string token, string ipAddress);
+
+        Task<LoginResponseModel> RefreshToken(string token, string ipAddress);
 
         Task<Result> RegisterAsync(RegisterRequestModel model);
 
-        Task<LoginResponseModel> LoginAsync(LoginRequestModel model);
+        Task<LoginResponseModel> LoginAsync(LoginRequestModel model, string ipAddress);
     }
 }

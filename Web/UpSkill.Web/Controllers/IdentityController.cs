@@ -68,14 +68,60 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            var embededToken = await this.identity.LoginAsync(model);
+            var ipAddress = this.IpAddress();
+
+            var embededToken = await this.identity.LoginAsync(model, ipAddress);
 
             this.Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true,
+
+                // Maybe add an expiration date for the cookie?
             });
 
             return this.Ok(embededToken);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshToken()
+        {
+            var refreshToken = this.Request.Cookies[JWT];
+            var ipAddress = this.IpAddress();
+
+            var response = await this.identity.RefreshToken(refreshToken, ipAddress);
+
+            if (response == null)
+            {
+                return this.Unauthorized(new { message = "Invalid token" });
+            }
+
+            this.SetTokenCookie(response.RefreshToken);
+
+            return this.Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenRequest model)
+        {
+            // accept token from request body or cookie
+            var token = model.Token ?? this.Request.Cookies["refreshToken"];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return this.BadRequest(new { message = "Token is required" });
+            }
+
+            var ipAddress = this.IpAddress();
+
+            var response = await this.identity.RevokeToken(token, ipAddress);
+
+            if (!response)
+            {
+                return this.NotFound(new { message = "Token not found" });
+            }
+
+            return this.Ok(new { message = "Token revoked" });
         }
 
         [HttpPost]
@@ -123,6 +169,29 @@
             if (model.Password != model.ConfirmPassword)
             {
                 this.ModelState.AddModelError(nameof(model.Password), PasswordNotMatch);
+            }
+        }
+
+        private void SetTokenCookie(string token)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+
+                // Maybe add cookies expiration here?
+            };
+
+            this.Response.Cookies.Append(JWT, token, cookieOptions);
+        }
+        private string IpAddress()
+        {
+            if (this.Request.Headers.ContainsKey("X-Forwarded-For"))
+            {
+                return this.Request.Headers["X-Forwarded-For"];
+            }
+            else
+            {
+                return this.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
             }
         }
     }

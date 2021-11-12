@@ -5,6 +5,7 @@
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
+    using System.Security.Cryptography;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@
 
     using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
+    using UpSkill.Data.Configurations;
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
@@ -26,25 +28,28 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Company> companies;
-        private readonly IDeletableEntityRepository<Position> positions;
+        private readonly IDeletableEntityRepository<Position> positions; 
+        private readonly IDeletableEntityRepository<ApplicationUser> users;
         private readonly AppSettings appSettings;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IOptions<AppSettings> appSettings,
             IDeletableEntityRepository<Company> companies,
-            IDeletableEntityRepository<Position> positions)
+            IDeletableEntityRepository<Position> positions, 
+            IDeletableEntityRepository<ApplicationUser> users)
         {
             this.userManager = userManager;
             this.companies = companies;
             this.appSettings = appSettings.Value;
             this.positions = positions;
+            this.users = users;
         }
 
-        public async Task<string> GenerateJwtToken(ApplicationUser user, string secret)
+        public async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(secret);
+            var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
 
             List<string> roles = (await this.userManager.GetRolesAsync(user)).ToList();
 
@@ -56,20 +61,95 @@
                     { ClaimTypes.Name, user.UserName },
                     { ClaimTypes.Email, user.Email },
                 },
-
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddMinutes(5), // the token exipration time shuold be between 5 and 10 minutes
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
-
-            foreach (string role in roles)
-            {
-                tokenDescriptor.Claims.Add(ClaimTypes.Role, role);
-            }
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var encryptedToken = tokenHandler.WriteToken(token);
 
             return encryptedToken;
+        }
+
+        public RefreshToken GenerateRefreshToken(string ipAddress)
+        {
+            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+            {
+                var randomBytes = new byte[64];
+                rngCryptoServiceProvider.GetBytes(randomBytes);
+
+                return new RefreshToken
+                {
+                    Token = Convert.ToBase64String(randomBytes),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    CreatedOn = DateTime.UtcNow,
+                    CreatedByIp = ipAddress,
+                };
+            }
+        }
+
+        public async Task<bool> RevokeToken(string token, string ipAddress)
+        {
+            var user = await this.users
+                .All()
+                .FirstOrDefaultAsync(x => x.RefreshTokens.Any(t => t.Token == token));
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
+
+            if (!refreshToken.IsActive)
+            {
+                return false;
+            }
+
+            refreshToken.Revoked = DateTime.UtcNow;
+            refreshToken.RevokedByIp = ipAddress;
+
+            // Should this method have an Update clause or SaveChangesAsync() is enough ?
+            this.users.Update(user);
+            await this.users.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<LoginResponseModel> RefreshToken(string token, string ipAddress)
+        {
+            var user = await this.users
+                .All()
+                .FirstOrDefaultAsync(x => x.RefreshTokens.Any(t => t.Token == token));
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
+
+            if (!refreshToken.IsActive)
+            {
+                return null;
+            }
+
+            var newRefreshToken = this.GenerateRefreshToken(ipAddress);
+            refreshToken.Revoked = DateTime.UtcNow;
+            refreshToken.RevokedByIp = ipAddress;
+            refreshToken.ReplacedByToken = newRefreshToken.Token;
+            user.RefreshTokens.Add(newRefreshToken);
+
+            this.users.Update(user);
+            await this.users.SaveChangesAsync();
+
+            var jwtToken = await this.GenerateJwtToken(user);
+
+            return new LoginResponseModel
+            {
+                Token = jwtToken,
+                RefreshToken = newRefreshToken.Token,
+            };
         }
 
         public async Task<Result> RegisterAsync(RegisterRequestModel model)
@@ -102,7 +182,7 @@
             return result.Succeeded;
         }
 
-        public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model)
+        public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model, string ipAddress)
         {
             var user = await this.userManager.FindByEmailAsync(model.Email);
 
@@ -123,11 +203,20 @@
                 throw new ArgumentException(IncorrectEmailOrPassword);
             }
 
-            var token = await this.GenerateJwtToken(user, this.appSettings.Secret);
+            var token = await this.GenerateJwtToken(user);
+            var refreshToken = this.GenerateRefreshToken(ipAddress);
+
+            user.RefreshTokens.Add(refreshToken);
+
+            // Should this method have an Update clause or SaveChangesAsync() is enough ?
+            this.users.Update(user);
+
+            await this.users.SaveChangesAsync();
 
             return new LoginResponseModel()
             {
                 Token = token,
+                RefreshToken = refreshToken.Token,
             };
         }
     }
