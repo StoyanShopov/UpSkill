@@ -84,6 +84,7 @@
 
         [HttpPost]
         [AllowAnonymous]
+        [Route(RefreshTokenRoute)]
         public async Task<IActionResult> RefreshToken()
         {
             var refreshToken = this.Request.Cookies[JWT];
@@ -102,6 +103,7 @@
         }
 
         [HttpPost]
+        [Route(RevokeTokenRoute)]
         public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenRequest model)
         {
             // accept token from request body or cookie
@@ -183,6 +185,7 @@
 
             this.Response.Cookies.Append(JWT, token, cookieOptions);
         }
+
         private string IpAddress()
         {
             if (this.Request.Headers.ContainsKey("X-Forwarded-For"))

@@ -125,6 +125,10 @@
             public const string DownloadByName = "download";
 
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
+
+            public const string RefreshTokenRoute = "refresh-token";
+
+            public const string RevokeTokenRoute = "revoke-token";
         }
 
         public class MessagesConstants
