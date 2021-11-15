@@ -49,7 +49,7 @@ const DetailsContent =
     courseVideo: 'https://youtu.be/Y2a16HAsHBE',
     courseItems: [
       {
-        courseSubject: 'Introduction',
+        courseSubject: 'Introduction', 
       },
       {
         courseSubject: 'Marketing',
@@ -57,7 +57,7 @@ const DetailsContent =
       {
         courseSubject: 'Digital Marketing',
       }
-    ]
+    ],
 };
 
 export const getCourses = async (currentPage) => {
