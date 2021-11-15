@@ -214,7 +214,6 @@
 
             // Should this method have an Update clause or SaveChangesAsync() is enough ?
             this.users.Update(user);
-
             await this.users.SaveChangesAsync();
 
             return new LoginResponseModel()
