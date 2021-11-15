@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -9,10 +10,11 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
-     
+
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.ViewModels.Identity;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -24,18 +26,15 @@
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailService emailService;
-        private readonly ILogger<IdentityController> logger;
 
         public IdentityController(
             IIdentityService identity,
             UserManager<ApplicationUser> userManager,
-            IEmailService emailService,
-            ILogger<IdentityController> logger)
+            IEmailService emailService)
         {
             this.identity = identity;
             this.userManager = userManager;
             this.emailService = emailService;
-            this.logger = logger;
         }
 
         [HttpPost]
@@ -47,7 +46,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                this.logger.LogError("Model validation error");
+                NLogExtensions.GetInstance().Error(model, new Exception(this.ModelState.IsValid.ToString()));
 
                 return this.BadRequest(this.ModelState);
             }
@@ -56,13 +55,14 @@
 
             if (isUserRegistered.Failure)
             {
-                this.logger.LogError(isUserRegistered.Error);
+                NLogExtensions.GetInstance().Error(model, new Exception(isUserRegistered.Error));
 
                 return this.BadRequest(isUserRegistered.Error);
             }
 
             await this.EmailConfirmation(model.Email);
 
+            NLogExtensions.GetInstance().Info(model);
             return this.StatusCode(201);
         }
 
@@ -73,7 +73,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                this.logger.LogError("Model validation error");
+                NLogExtensions.GetInstance().Error(model, new Exception(this.ModelState.IsValid.ToString()));
 
                 return this.BadRequest(this.ModelState);
             }
@@ -85,7 +85,7 @@
                 HttpOnly = true,
             });
 
-            this.logger.LogInformation("Logged in successfully");
+            NLogExtensions.GetInstance().Info(model);
 
             return this.Ok(embededToken);
         }
@@ -96,7 +96,7 @@
         {
             this.Response.Cookies.Delete(JWT);
 
-            this.logger.LogInformation("Logged out successfully");
+            NLogExtensions.GetInstance().Info("Logged out successfully");
 
             return this.Ok(new { message = SuccessMessage });
         }
@@ -109,12 +109,16 @@
 
             var roles = await this.userManager.GetRolesAsync(user);
 
-            return new LoginResponseModel
+            var result = new LoginResponseModel
             {
                 Id = user.Id,
                 Email = user.Email,
                 Role = roles[0] ?? string.Empty,
             };
+
+            NLogExtensions.GetInstance().Info(result);
+
+            return result;
         }
 
         private async Task EmailConfirmation(string email)
@@ -126,7 +130,7 @@
 
             await this.emailService.SendEmailConfirmationAsync(origin, host, user);
 
-            this.logger.LogInformation("EmailConfirmation action succeeded");
+            NLogExtensions.GetInstance().Info("EmailConfirmation action succeeded");
 
         }
 

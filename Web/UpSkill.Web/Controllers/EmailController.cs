@@ -1,27 +1,24 @@
 ﻿namespace UpSkill.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-     
-    using UpSkill.Services.Contracts.Email;
 
+    using UpSkill.Services.Contracts.Email;
+    using UpSkill.Web.Infrastructure.Extensions;
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.MessagesConstants;
 
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
-        private readonly ILogger<EmailController> logger;
 
-        public EmailController(
-            IEmailService emailService,
-            ILogger<EmailController> logger)
+        public EmailController(IEmailService emailService)
         {
             this.emailService = emailService;
-            this.logger = logger;
         }
 
         [HttpGet]
@@ -33,12 +30,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Failure.ToString());
+                NLogExtensions.GetInstance().Error(" ", new Exception(email + token));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(EmailConfirmed);
+            NLogExtensions.GetInstance().Info(string.Concat(email, token));
 
             return this.Ok(EmailConfirmed);
         }
@@ -55,12 +52,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Failure.ToString());
+                NLogExtensions.GetInstance().Error(email, new Exception(result.Failure.ToString()));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(this.Ok().StatusCode.ToString());
+            NLogExtensions.GetInstance().Info(email);
 
             return this.Ok();
         }

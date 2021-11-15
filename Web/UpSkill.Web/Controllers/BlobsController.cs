@@ -7,9 +7,9 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-     
-    using UpSkill.Services.Contracts.Blob;
 
+    using UpSkill.Services.Contracts.Blob;
+    using UpSkill.Web.Infrastructure.Extensions;
     using static UpSkill.Common.GlobalConstants.BlobConstants;
     using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
 
@@ -17,14 +17,10 @@
     public class BlobsController : ApiController
     {
         private readonly IBlobService blobService;
-        private readonly ILogger<BlobsController> logger;
 
-        public BlobsController(
-            IBlobService blobService,
-            ILogger<BlobsController> logger)
+        public BlobsController(IBlobService blobService)
         {
             this.blobService = blobService;
-            this.logger = logger;
         }
 
         [HttpPost(Upload)]
@@ -35,12 +31,12 @@
 
             if (!this.ModelState.IsValid)
             {
-                this.logger.LogError(this.ModelState.Values.ToString());
+                NLogExtensions.GetInstance().Error(file,new Exception(this.ModelState.IsValid.ToString()));
 
                 return this.BadRequest();
             }
 
-            this.logger.LogInformation(this.StatusCode(201).StatusCode.ToString());
+            NLogExtensions.GetInstance().Info(this.StatusCode(201).StatusCode.ToString());
 
             return this.StatusCode(201);
         }
@@ -48,7 +44,7 @@
         [HttpGet(GetAllBlobs)]
         public async Task<IActionResult> GetAsync()
         {
-            this.logger.LogInformation("Entering GetAsync action ");
+            NLogExtensions.GetInstance().Info("Entering GetAsync action ");
 
             var blobs = await this.blobService.GetAllBlobs();
 
@@ -62,14 +58,14 @@
 
             if (!await blob.ExistsAsync())
             {
-                this.logger.LogError(blob.ExistsAsync().ToString());
+                NLogExtensions.GetInstance().Error(name, new Exception(blob.Exists().ToString()));
 
                 return this.BadRequest();
             }
 
             var response = await blob.DownloadAsync();
 
-            this.logger.LogInformation("DownloadAsync succeeded ");
+            NLogExtensions.GetInstance().Info("DownloadAsync succeeded ");
 
             return this.File(response.Value.Content, response.Value.ContentType, name);
         }
@@ -81,12 +77,12 @@
 
             if (result)
             {
-                this.logger.LogInformation("DeleteAsync succeeded ");
+                NLogExtensions.GetInstance().Info(name);
 
                 return this.Ok(SuccessfullyDeleted);
             }
 
-            this.logger.LogError(UnsuccessfullyDeleted);
+            NLogExtensions.GetInstance().Error(name, new Exception(UnsuccessfullyDeleted));
 
             return this.NotFound(UnsuccessfullyDeleted);
         }
