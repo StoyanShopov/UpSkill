@@ -10,7 +10,6 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
-
     using UpSkill.Data;
     using UpSkill.Data.Common;
     using UpSkill.Data.Common.Repositories;
@@ -34,9 +33,11 @@
     using UpSkill.Services.Data.Contracts.Course;
     using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Services.Data.Contracts.File;
+    using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Services.Data.Course;
     using UpSkill.Services.Data.Employee;
     using UpSkill.Services.Data.File;
+    using UpSkill.Services.Data.Owner;
     using UpSkill.Services.Email;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
@@ -159,12 +160,13 @@
                 .AddTransient<IEmailService, EmailService>()
                 .AddTransient<IAccountService, AccountService>()
                 .AddTransient<IAdminService, AdminService>()
-                .AddTransient<ICoursesService, CoursesService>()
+                .AddTransient<ICourseService, CoursesService>()
                 .AddTransient<IDashboardService, DashboardService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
-                .AddTransient<IEmployeeService, EmployeesService>()
-                .AddTransient<IFileService, FileService>()
+                .AddTransient<IOwnerServices, OwnersServices>()
+        .AddTransient<IFileService, FilesService>()
+.AddTransient<IEmployeeService, EmployeesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
@@ -172,6 +174,7 @@
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
+                .AddTransient<IPasswordGeneratorService, PasswordGeneratorService>()
                 .AddTransient<ICurrentUserService, CurrentUserService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
