@@ -56,7 +56,7 @@
 
         public async Task<Result> EnableCourseAsync(GetCourseByIdViewModel viewModel, string id)
         {
-            var user = await this.userManager.FindByIdAsync(id);
+            var user = await this.GetUser(id);
 
             var courseInCompany = await this.companiesCourses
                                              .All()
@@ -81,10 +81,9 @@
             return false;
         }
 
-
         public async Task<Result> DisableCourseAsync(GetCourseByIdViewModel viewModel, string id)
         {
-            var user = await this.userManager.FindByIdAsync(id);
+            var user = await this.GetUser(id);
 
             var courseToRemove = await this.companiesCourses
                                            .All()
@@ -105,7 +104,7 @@
 
         public async Task<IEnumerable<TModel>> GetActiveCoursesAsync<TModel>(string id)
         {
-            var user = await this.userManager.FindByIdAsync(id);
+            var user = await this.GetUser(id);
 
             return await this.companiesCourses
                              .All()
@@ -113,5 +112,19 @@
                              .To<TModel>()
                              .ToListAsync();
         }
+
+        public async Task<IEnumerable<TModel>> GetAvailableCoursesAsync<TModel>(string id)
+        {
+            var user = await this.GetUser(id);
+
+            return await this.companiesCourses
+                             .All()
+                             .Where(c => c.CompanyId != user.CompanyId)
+                             .To<TModel>()
+                             .ToListAsync();
+        }
+
+        private async Task<ApplicationUser> GetUser(string id)
+        => await this.userManager.FindByIdAsync(id);
     }
 }

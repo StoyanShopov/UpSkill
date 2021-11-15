@@ -16,5 +16,7 @@
         Task<Result> DisableCourseAsync(GetCourseByIdViewModel viewModel, string id);
 
         Task<IEnumerable<TModel>> GetActiveCoursesAsync<TModel>(string id);
+
+        Task<IEnumerable<TModel>> GetAvailableCoursesAsync<TModel>(string id);
     }
 }
