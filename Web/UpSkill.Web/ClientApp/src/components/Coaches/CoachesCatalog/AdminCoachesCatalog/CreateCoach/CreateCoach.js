@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./CreateCoach.css"
-// import { requestCoach } from "../../../../../../services/coachService";
+import "./CreateCoach.css";
+import { createCoach } from "../../../../../services/adminCoachesService";
 import { enableBodyScroll } from "../../../../../utils/utils";
 
 export default function CreateCoach({ closeModal, trigger }) {
@@ -8,19 +8,19 @@ export default function CreateCoach({ closeModal, trigger }) {
   const [coachDescription, setDescription] = useState("");
   const [coachFirstName, setCoachFirstName] = useState("");
   const [coachLastName, setCoachLastName] = useState("");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState({});
 
   const [success, setSuccess] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-//   const onChangeDescription = (e) => {
-//     setDescription(e.target.value);
-//   };
+  //   const onChangeDescription = (e) => {
+  //     setDescription(e.target.value);
+  //   };
 
-//   const onChangeField = (e) => {
-//     setCoachField(e.target.value);
-//   };
+  //   const onChangeField = (e) => {
+  //     setCoachField(e.target.value);
+  //   };
 
   const onChangeFirstName = (e) => {
     setCoachFirstName(e.target.value);
@@ -31,20 +31,29 @@ export default function CreateCoach({ closeModal, trigger }) {
   };
 
   const onChangeFile = (e) => {
-    setFile(e.target.value);
+    console.log(e.target.files[0])
+    // let inputFile={
+
+    // }
+    setFile(e.target.files[0]);
   };
 
-  function RequestCoach(e) {
+  function submitCreateCoach(e) {
     e.preventDefault();
-    if (coachField && coachDescription) {
-    //   requestCoach(user.email, user.unique_name, coachDescription, coachField)
-    //     .then(() => setSuccess(true))
-    //     .catch(() => setSuccess(false));
+    if (coachFirstName && coachLastName) {
+        createCoach(coachFirstName,coachLastName,file)
+          .then((resp) => {
+            console.log(resp)
+            if (resp.data === "Successfully created.") {
+              setSuccess(true)
+              setCoachFirstName("");
+              setCoachLastName("");
+            }
+          })
+          .catch(() => setSuccess(false));
     } else {
       setSuccess(false);
     }
-    setCoachField("");
-    setDescription("");
   }
 
   function closePopup() {
@@ -67,10 +76,9 @@ export default function CreateCoach({ closeModal, trigger }) {
               <h4>Create Coach</h4>
             </div>
           </div>
-          <form onSubmit={(e) => RequestCoach(e)}>
+          <form onSubmit={(e) => submitCreateCoach(e)}>
             <div className="addEmployee-Content px-5 m-5">
-
-            <div className="addEmployee-Content-fullname px-5 m-3">
+              <div className="addEmployee-Content-fullname px-5 m-3">
                 {success && (
                   <span style={{ color: "green", marginBottom: "0px" }}>
                     Successfully created
@@ -85,27 +93,20 @@ export default function CreateCoach({ closeModal, trigger }) {
                 />
               </div>
 
-              <div className="addEmployee-Content-fullname px-5 m-3"> 
+              <div className="addEmployee-Content-fullname px-5 m-3">
                 <input
                   type="text"
                   placeholder="Last Name*"
                   className="addEmployee-Content-input w-100 p-2"
-                  value={coachFirstName}
+                  value={coachLastName}
                   onChange={onChangeLastName}
                 />
               </div>
-
               <div className="addEmployee-Content-fullname px-5 m-3">
-                {success && (
-                  <span style={{ color: "green", marginBottom: "0px" }}>
-                    Successfully created
-                  </span>
-                )}
                 <input
                   type="file"
                   placeholder="File*"
-                  className="addEmployee-Content-input w-100 p-2"
-                  value={coachFirstName}
+                  className="w-100 p-2" 
                   onChange={onChangeFile}
                 />
               </div>
@@ -156,7 +157,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                 <input
                   type="submit"
                   className="btn addEmployee-actions-cancel btn-primary px-3 fw-bold"
-                  value="Request"
+                  value="Create"
                 />
               </div>
             </div>

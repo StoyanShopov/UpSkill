@@ -125,9 +125,9 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
           <div className="alignAdminCoachesContentBox">
             <div className="addImage" onClick={onOpenAddCoachModal}></div>
           </div>
-          {defineCoachesCount && (
+          {defineCoachesCount() && (
             <div className="alignAdminCoachesContentBox">
-              {console.log(defineCoachesCount)}
+              {console.log(defineCoachesCount())}
             </div>
           )}
         </div>
