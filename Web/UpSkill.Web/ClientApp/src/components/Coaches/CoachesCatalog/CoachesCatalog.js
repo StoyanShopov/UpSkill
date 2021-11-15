@@ -1,14 +1,16 @@
 import { Button } from 'react-bootstrap';
+import CalendlyButton from '../../Shared/Calendly/CalendlyButton';
 import CoachesCard from './Coaches-Card/Coaches-Card';
+
 
 import './CoachesCatalog.css';
 
-export default function CoachesCatalog({coaches}) {  
+export default function CoachesCatalog({ coaches }) {
   return (
     <>
       <div className="container">
         <div className="row list-unstyled coaches-list">
-           {coaches.map((coach) => (
+          {coaches.map((coach) => (
             <div className="col-sm-4 text-align-center" key={coach.id}>
               <CoachesCard
                 key={coach.id}
@@ -16,8 +18,10 @@ export default function CoachesCatalog({coaches}) {
                 displaySession={false}
                 displayPrice={true}
               >
-                <Button className="coaches-cardButton"> Add </Button>
-                {/* <Button className="coaches-cardButton"> Remove </Button>*/}
+               {/* <Button className="coaches-cardButton"> Add </Button>
+                 <Button className="coaches-cardButton"> Remove </Button>*/}
+                <CalendlyButton />
+
               </CoachesCard>
             </div>
           ))}
