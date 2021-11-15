@@ -10,7 +10,7 @@ using UpSkill.Data;
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211110173536_CourseDetails")]
+    [Migration("20211115070206_CourseDetails")]
     partial class CourseDetails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
