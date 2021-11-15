@@ -9,7 +9,7 @@ export default function CoachesCard(props) {
     isLoggedIn,
     isCompanyOwner,
     isEmployee,
-    isAdmin,
+    isAdmin,    
   } = store.getState().auth;
 
   const {
@@ -25,6 +25,35 @@ export default function CoachesCard(props) {
     },
   } = props;
 
+  function isImageNull() {
+    if (!coachFileFilePath) {
+      return (
+        <div className="coaches-image-wrapper-bg">
+          {isAdmin && (
+            <div className="edit-coach-img-wrp mt-0">
+              <div className="edit-coach-img" onClick={(e) => props.openEdit(props.coachDetails)}></div>
+            </div>
+          )}
+          <img
+            src={coachFileFilePath}
+            className="coaches-image"
+            alt="text"
+          ></img>          
+        </div>
+      );
+    }
+
+    return (
+      <div className="coaches-image-wrapper-bg">       
+        <img src={coachFileFilePath} className="coaches-image" alt="text"></img>
+        {isAdmin && (
+          <div className="edit-coach-img-wrp">
+            <div className="edit-coach-img" onClick={(e) => props.openEdit(props.coachDetails)}></div>
+          </div>
+        )}
+      </div>
+    );
+  }
   // const [Image, setImage] = useState();
 
   // function loadImage (imageName) {
@@ -39,18 +68,7 @@ export default function CoachesCard(props) {
   return (
     <div className="coaches-Card">
       <div className="coaches-image-wrapper">
-        <div className="coaches-image-wrapper-bg">
-          {isAdmin && (
-            <div className="edit-coach-img-wrp">
-              <div className="edit-coach-img"></div>
-            </div>
-          )}
-          <img
-            src={coachFileFilePath}
-            className="coaches-image"
-            alt="text"
-          ></img>
-        </div>
+        {isImageNull()}
       </div>
       <div className="coaches-content w-75">
         <div className="coachInfo d-flex justify-content-between mt-3">

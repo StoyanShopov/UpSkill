@@ -10,10 +10,13 @@ import { removeCoach } from "../../../../services/adminCoachesService";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 import CreateCoach from "./CreateCoach/CreateCoach";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
+import UpdateCoach from "./UpdateCoach/UpdateCoach";
 
 export default function AdminCoachesCatalog({ coaches, setCoaches }) {
   const [onRemove, setOnRemove] = useState(false);
   const [openAddCoachModal, setOpenAddCoachModal] = useState(false);
+  const [openEditCoachModal, setOpenEditCoachModal] = useState(false);
+  const [currentCoach, setCurrentCoach] = useState({});
   const [coachId, setCoachId] = useState(0);
   const initialPageCoaches = 0;
 
@@ -28,7 +31,7 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
   };
 
   const defineCoachesCount = () => {
-    let coursesCount = ((coaches.length+1) % 3);
+    let coursesCount = (coaches.length + 1) % 3;
 
     if (coursesCount !== 0) {
       return true;
@@ -36,6 +39,31 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
 
     return false;
   };
+
+  const setData = (coach) => {
+    let { id, coachFirstName, coachLastName } = coach;
+    localStorage.setItem("ID", id);
+    localStorage.setItem("FirstName", coachFirstName);
+    localStorage.setItem("LastName", coachLastName);
+  };
+
+  const getValue = (coach) => {
+    setData(coach);
+    console.log(coach);
+    setCurrentCoach(coach);
+    onOpenEditCoachModal();
+  };
+
+  const onOpenEditCoachModal = () => {
+    console.log("hi");
+    setOpenEditCoachModal(true);
+    disableBodyScroll();
+  };
+
+  function onCloseEditCoachModal() {
+    setOpenEditCoachModal(false);
+    enableBodyScroll();
+  }
 
   const onOpenAddCoachModal = () => {
     setOpenAddCoachModal(true);
@@ -105,6 +133,7 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
                 coachDetails={coach}
                 displaySession={false}
                 displayPrice={true}
+                openEdit={getValue}
               >
                 {onRemove && (
                   <ConfirmDelete
@@ -118,6 +147,11 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
               </CoachesCard>
             </div>
           ))}
+          <UpdateCoach
+            trigger={openEditCoachModal}
+            closeModal={onCloseEditCoachModal}
+            coachDetails={currentCoach}
+          ></UpdateCoach>
           <CreateCoach
             trigger={openAddCoachModal}
             closeModal={onCloseAddCoachModal}

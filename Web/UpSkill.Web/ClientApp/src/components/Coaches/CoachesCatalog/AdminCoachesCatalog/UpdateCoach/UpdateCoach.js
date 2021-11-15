@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./CreateCoach.css";
-import { createCoach } from "../../../../../services/adminCoachesService";
+
+import { updateCoach } from "../../../../../services/adminCoachesService";
 import { enableBodyScroll } from "../../../../../utils/utils";
 
-export default function CreateCoach({ closeModal, trigger }) {
+export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
   const [coachField, setCoachField] = useState("");
   const [coachDescription, setDescription] = useState("");
   const [coachFirstName, setCoachFirstName] = useState("");
   const [coachLastName, setCoachLastName] = useState("");
-  const [file, setFile] = useState({});
+  const [coachId, setCoachId] = useState("");
+  const [file, setFile] = useState({}); 
 
   const [success, setSuccess] = useState(false);
 
@@ -32,18 +33,23 @@ export default function CreateCoach({ closeModal, trigger }) {
 
   const onChangeFile = (e) => {
     console.log(e.target.files[0]);
-    // let inputFile={
-
-    // }
     setFile(e.target.files[0]);
   };
 
-  function submitCreateCoach(e) {
+  useEffect(() => {
+    setCoachId(localStorage.getItem("ID"));
+    setCoachFirstName(localStorage.getItem("FirstName"));
+    setCoachLastName(localStorage.getItem("LastName"));
+  },);
+
+
+  function submitEditCoach(e) {
     e.preventDefault();
     if (coachFirstName && coachLastName) {
-      createCoach(coachFirstName, coachLastName, file)
+      updateCoach(coachDetails.id, coachFirstName, coachLastName, file)
         .then((resp) => {
-          if (resp.data === "Successfully created.") {
+            console.log(resp)
+          if (resp.status === 200) {
             setSuccess(true);
             setCoachFirstName("");
             setCoachLastName("");
@@ -75,18 +81,18 @@ export default function CreateCoach({ closeModal, trigger }) {
               <h4>Create Coach</h4>
             </div>
           </div>
-          <form onSubmit={(e) => submitCreateCoach(e)}>
+          <form onSubmit={(e) => submitEditCoach(e)}>
             <div className="addEmployee-Content px-5 m-5">
               <div className="addEmployee-Content-fullname px-5 m-3">
                 {success && (
                   <span style={{ color: "green", marginBottom: "0px" }}>
-                    Successfully created
+                    Successfully updated
                   </span>
                 )}
                 <input
                   type="text"
                   placeholder="First Name*"
-                  className="addEmployee-Content-input w-100 p-2"
+                  className="addEmployee-Content-input w-100 p-2"                  
                   value={coachFirstName}
                   onChange={onChangeFirstName}
                 />
@@ -156,7 +162,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                 <input
                   type="submit"
                   className="btn addEmployee-actions-cancel btn-primary px-3 fw-bold"
-                  value="Create"
+                  value="Update"
                 />
               </div>
             </div>
