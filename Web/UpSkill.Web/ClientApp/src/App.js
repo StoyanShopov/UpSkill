@@ -1,14 +1,12 @@
-
-import React, {useReducer} from "react"; 
-import { Route } from "react-router-dom";
-import { Provider } from 'react-redux'
-
+import React, { useReducer } from 'react';
+import { Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './components/Home';
-import Layout from './components/Shared/Layout'; 
+import Layout from './components/Shared/Layout';
 import Notifications from './components/Shared/Notifications/Notifications';
 import Admin from './components/Admin/Admin';
 import Courses from './components/Courses/Courses';
@@ -22,15 +20,20 @@ import CompanyDetails from "./components/Companies/CompanyDetails/CompanyDetails
 import EditCompany from "./components/Companies/EditCompany/EditCompany";
 import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
 import {removeCompanyHandler} from "../src/services/companyService";
+import {removeEmployeeHandler} from "../src/services/employeeService"
 import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
 import store from './store';   
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses" 
 import PromoteDemote from "./components/Admin/AdminPromoteDemote";
 
-const AppWrapper = (props) => {   
-  const [notification, setNotification ] = useReducer(Auth, {type: '', state: 'none', message: ''});
-  
+
+const AppWrapper = (props) => {
+  const [notification, setNotification] = useReducer(Auth, {
+    type: '',
+    state: 'none',
+    message: '',
+  });
   return (
     <Provider store={store}> 
      <NotificationContext.Provider value={[notification, setNotification]} >
@@ -41,8 +44,8 @@ const AppWrapper = (props) => {
       </Layout>
       </NotificationContext.Provider >
     </Provider>
-  )
-}
+  );
+};
 
 
 function App() {    
@@ -60,8 +63,10 @@ function App() {
           <Route exact path='/AddCompany' component={AddCompany}/>   
           <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
           <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
+
           <Route exact path="/Admin/Companies/edit" component={EditCompany}/>  
           <Route exact path="/Admin/PromoteDemote" component={PromoteDemote}/>  
+
       </AppWrapper> 
 
   );

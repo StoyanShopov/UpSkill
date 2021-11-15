@@ -10,6 +10,7 @@
         public Coach()
         {
             this.Courses = new HashSet<Course>();
+            this.Companies = new HashSet<CompanyCoach>();
         }
 
         [Required]
@@ -23,5 +24,7 @@
         public File File { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
+
+        public virtual ICollection<CompanyCoach> Companies { get; set; }
     }
 }
