@@ -69,6 +69,14 @@
             public const string UsernameExist = "There is such exist user with this username.";
             public const string PasswordNotMatch = "Password and confirm password must be the same.";
             public const string ConfirmEmail = "Please confirm your account. From the email we sent to you.";
+
+            public const string RefreshTokenName = "refreshToken";
+            public const string InvalidToken = "Invalid token.";
+            public const string TokenRequired = "Token requried.";
+            public const string TokenNotFound = "Token not found.";
+            public const string TokenRevoked = "Token revoked.";
+
+            public const string HeaderKeyName = "X-Forwarded-For";
         }
 
         public class AccountConstants

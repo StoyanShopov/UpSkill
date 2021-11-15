@@ -94,7 +94,7 @@
 
             if (response == null)
             {
-                return this.Unauthorized(new { message = "Invalid token" });
+                return this.Unauthorized(new { message = InvalidToken });
             }
 
             this.SetTokenCookie(response.RefreshToken);
@@ -107,11 +107,11 @@
         public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenRequest model)
         {
             // accept token from request body or cookie
-            var token = model.Token ?? this.Request.Cookies["refreshToken"];
+            var token = model.Token ?? this.Request.Cookies[RefreshTokenName];
 
             if (string.IsNullOrEmpty(token))
             {
-                return this.BadRequest(new { message = "Token is required" });
+                return this.BadRequest(new { message = TokenRequired });
             }
 
             var ipAddress = this.IpAddress();
@@ -120,10 +120,10 @@
 
             if (!response)
             {
-                return this.NotFound(new { message = "Token not found" });
+                return this.NotFound(new { message = TokenNotFound });
             }
 
-            return this.Ok(new { message = "Token revoked" });
+            return this.Ok(new { message = TokenRevoked });
         }
 
         [HttpPost]
@@ -188,9 +188,9 @@
 
         private string IpAddress()
         {
-            if (this.Request.Headers.ContainsKey("X-Forwarded-For"))
+            if (this.Request.Headers.ContainsKey(HeaderKeyName))
             {
-                return this.Request.Headers["X-Forwarded-For"];
+                return this.Request.Headers[HeaderKeyName];
             }
             else
             {
