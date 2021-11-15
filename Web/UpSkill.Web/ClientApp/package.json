@@ -12,6 +12,7 @@
     "axios": "^0.21.4",
     "bootstrap": "^5.1.1",
     "chart.js": "^3.6.0",
+    "ga-4-react": "^0.1.281",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-rc.0",
@@ -26,7 +27,7 @@
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
-    "validator": "^13.6.0",
+    "validator": "^13.7.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
