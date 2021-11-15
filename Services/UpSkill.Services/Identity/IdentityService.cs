@@ -16,7 +16,6 @@
 
     using UpSkill.Common;
     using UpSkill.Data.Common.Repositories;
-    using UpSkill.Data.Configurations;
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
@@ -28,7 +27,7 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Company> companies;
-        private readonly IDeletableEntityRepository<Position> positions; 
+        private readonly IDeletableEntityRepository<Position> positions;
         private readonly IDeletableEntityRepository<ApplicationUser> users;
         private readonly AppSettings appSettings;
 
@@ -36,7 +35,7 @@
             UserManager<ApplicationUser> userManager,
             IOptions<AppSettings> appSettings,
             IDeletableEntityRepository<Company> companies,
-            IDeletableEntityRepository<Position> positions, 
+            IDeletableEntityRepository<Position> positions,
             IDeletableEntityRepository<ApplicationUser> users)
         {
             this.userManager = userManager;
@@ -64,6 +63,11 @@
                 Expires = DateTime.UtcNow.AddMinutes(5), // the token exipration time shuold be between 5 and 10 minutes
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
+
+            foreach (string role in roles)
+            {
+                tokenDescriptor.Claims.Add(ClaimTypes.Role, role);
+            }
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var encryptedToken = tokenHandler.WriteToken(token);

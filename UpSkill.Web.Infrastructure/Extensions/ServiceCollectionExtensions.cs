@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
+    using System;
     using System.Text;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -132,9 +133,8 @@
             services
                 .AddAuthentication(x =>
                 {
-                    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddJwtBearer(x =>
                 {
@@ -146,8 +146,7 @@
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
                         ValidateAudience = false,
-                        ValidateLifetime = true,
-                        RequireExpirationTime = false,
+                        ClockSkew = TimeSpan.Zero,
                     };
                 });
 

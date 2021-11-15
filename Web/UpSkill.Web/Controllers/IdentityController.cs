@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -75,8 +76,7 @@
             this.Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true,
-
-                // Maybe add an expiration date for the cookie?
+                Expires = DateTime.UtcNow.AddDays(7),
             });
 
             return this.Ok(embededToken);

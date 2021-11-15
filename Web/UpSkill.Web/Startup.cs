@@ -1,9 +1,7 @@
 ﻿namespace UpSkill.Web
 {
     using System.Reflection;
-    using System.Text;
 
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -11,7 +9,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.IdentityModel.Tokens;
+
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
     using UpSkill.Services.Mapping;

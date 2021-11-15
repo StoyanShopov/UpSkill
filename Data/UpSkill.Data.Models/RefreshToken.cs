@@ -1,24 +1,27 @@
-﻿
-namespace UpSkill.Data.Models
+﻿namespace UpSkill.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Text.Json.Serialization;
 
-    using UpSkill.Data.Common.Models;
+    using Microsoft.EntityFrameworkCore;
 
-    public class RefreshToken : BaseDeletableModel<int>
+    [Owned]
+    public class RefreshToken
     {
+        [Key]
+        [JsonIgnore]
+        public int Id { get; set; }
+
         public string Token { get; set; }
 
         public DateTime Expires { get; set; }
 
         public bool IsExpired => DateTime.UtcNow >= this.Expires;
 
+        public DateTime CreatedOn { get; set; }
+
         public string CreatedByIp { get; set; }
-
-        public string UserId { get; set; }
-
-        public ApplicationUser User { get; set; }
 
         public DateTime? Revoked { get; set; }
 
