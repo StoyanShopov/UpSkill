@@ -1,6 +1,5 @@
 .wrapper {
-    display: flex;
-    align-items: stretch;
+    
 }
 
 #sidebar {
@@ -10,6 +9,14 @@
 
 #sidebar.active {
     margin-left: -250px;
+}
+
+#btn{
+    display: block;
+    padding-bottom: 10vh;
+    padding-top: 5vh;
+    padding-left: 97.5%;
+    
 }
 
 @media screen  and (max-width: 600px){

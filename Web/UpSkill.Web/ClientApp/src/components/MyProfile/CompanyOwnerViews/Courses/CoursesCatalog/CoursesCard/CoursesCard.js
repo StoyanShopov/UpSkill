@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './CoursesCard.css';
 import googleImg from '../../../../../../assets/img/courses/google.png';
 
 export default function CoursesCard(props) {

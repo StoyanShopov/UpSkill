@@ -14,7 +14,6 @@
     using UpSkill.Services.Mapping;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.ViewModels.Course;
-    using UpSkill.Web.ViewModels.Owner;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.RequestCourseConstants;
@@ -24,15 +23,18 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IRepository<CompanyCourse> companiesCourses;
+        private readonly IRepository<Course> courses;
         private readonly IEmailSender emailSender;
 
         public OwnerCoursesService(
             UserManager<ApplicationUser> userManager,
             IRepository<CompanyCourse> companiesCourses,
+            IRepository<Course> courses,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.companiesCourses = companiesCourses;
+            this.courses = courses;
             this.emailSender = emailSender;
         }
 
@@ -54,14 +56,14 @@
                                        content);
         }
 
-        public async Task<Result> EnableCourseAsync(GetCourseByIdViewModel viewModel, string id)
+        public async Task<Result> EnableCourseAsync(int courseId, string userId)
         {
-            var user = await this.GetUser(id);
+            var user = await this.GetUser(userId);
 
             var courseInCompany = await this.companiesCourses
                                              .All()
                                              .Where(c => c.CompanyId == user.CompanyId &&
-                                                         c.CourseId == viewModel.CourseId)
+                                                         c.CourseId == courseId)
                                              .FirstOrDefaultAsync();
 
             if (courseInCompany == null)
@@ -69,7 +71,7 @@
                 var companyCourse = new CompanyCourse
                 {
                     CompanyId = user.CompanyId,
-                    CourseId = viewModel.CourseId,
+                    CourseId = courseId,
                 };
 
                 await this.companiesCourses.AddAsync(companyCourse);
@@ -81,14 +83,14 @@
             return false;
         }
 
-        public async Task<Result> DisableCourseAsync(GetCourseByIdViewModel viewModel, string id)
+        public async Task<Result> DisableCourseAsync(int courseId, string userId)
         {
-            var user = await this.GetUser(id);
+            var user = await this.GetUser(userId);
 
             var courseToRemove = await this.companiesCourses
                                            .All()
                                            .Where(c => c.CompanyId == user.CompanyId &&
-                                                       c.CourseId == viewModel.CourseId)
+                                                       c.CourseId == courseId)
                                            .FirstOrDefaultAsync();
 
             if (courseToRemove != null)
@@ -107,21 +109,22 @@
             var user = await this.GetUser(id);
 
             return await this.companiesCourses
-                             .All()
-                             .Where(c => c.CompanyId == user.CompanyId)
-                             .To<TModel>()
-                             .ToListAsync();
+                            .All()
+                            .Where(c => c.CompanyId == user.CompanyId)
+                            .To<TModel>()
+                            .ToListAsync();
         }
 
         public async Task<IEnumerable<TModel>> GetAvailableCoursesAsync<TModel>(string id)
         {
             var user = await this.GetUser(id);
+            return await this.courses
+                            .All()
+                            .SelectMany(x => x.Companies)
+                            .Where(x => x.CompanyId != user.CompanyId)
+                            .To<TModel>()
+                            .ToListAsync();
 
-            return await this.companiesCourses
-                             .All()
-                             .Where(c => c.CompanyId != user.CompanyId)
-                             .To<TModel>()
-                             .ToListAsync();
         }
 
         private async Task<ApplicationUser> GetUser(string id)

@@ -11,9 +11,9 @@
     {
         Task RequestCourseAsync(RequestCourseViewModel model);
 
-        Task<Result> EnableCourseAsync(GetCourseByIdViewModel viewModel, string id);
+        Task<Result> EnableCourseAsync(int courseId, string userId);
 
-        Task<Result> DisableCourseAsync(GetCourseByIdViewModel viewModel, string id);
+        Task<Result> DisableCourseAsync(int courseId, string userId);
 
         Task<IEnumerable<TModel>> GetActiveCoursesAsync<TModel>(string id);
 

@@ -46,11 +46,11 @@
 
         [HttpPut]
         [Route("enable")]
-        public async Task<IActionResult> EnableCourse(GetCourseByIdViewModel viewModel)
+        public async Task<IActionResult> EnableCourse(int id)
         {
 
             var currentUser = this.currentUserService.GetId();
-            var result = await this.coursesService.EnableCourseAsync(viewModel, currentUser);
+            var result = await this.coursesService.EnableCourseAsync(id, currentUser);
 
             if (result.Failure)
             {
@@ -62,10 +62,10 @@
 
         [HttpPut]
         [Route("disable")]
-        public async Task<IActionResult> DisableCourse(GetCourseByIdViewModel viewModel)
+        public async Task<IActionResult> DisableCourse(int id)
         {
             var currentUser = this.currentUserService.GetId();
-            var result = await this.coursesService.DisableCourseAsync(viewModel, currentUser);
+            var result = await this.coursesService.DisableCourseAsync(id, currentUser);
 
             if (result.Failure)
             {
@@ -79,8 +79,16 @@
         [Route("getactivecourses")]
         public async Task<IEnumerable<DetailsViewModel>> GetActiveCourses()
         {
-           return await this.coursesService
-                            .GetActiveCoursesAsync<DetailsViewModel>(this.currentUserService.GetId());
+            return await this.coursesService
+                             .GetActiveCoursesAsync<DetailsViewModel>(this.currentUserService.GetId());
+        }
+
+        [HttpGet]
+        [Route("getavailablecourses")]
+        public async Task<IEnumerable<DetailsViewModel>> GetAvailableCoursesAsync()
+        {
+            return await this.coursesService
+                             .GetAvailableCoursesAsync<DetailsViewModel>(this.currentUserService.GetId());
         }
     }
 }
