@@ -7,6 +7,7 @@
 
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.Areas.Owner;
+    using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Coach;
 
@@ -28,6 +29,10 @@
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoachListingModel>> GetAll()
-            => await this.ownerService.GetAllCoachesAsync<CoachListingModel>(this.currentUser.GetId());
+        {
+            NLogExtensions.GetInstance().Info("Entering getAll action");
+
+            return await this.ownerService.GetAllCoachesAsync<CoachListingModel>(this.currentUser.GetId());
+        }
     }
 }

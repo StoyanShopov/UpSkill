@@ -1,11 +1,13 @@
 ﻿namespace UpSkill.Web.Areas.Owner.Employee
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Employee;
 
@@ -17,25 +19,22 @@
         private readonly IEmployeeService employeesService;
         private readonly ICurrentUserService currentUser;
         private readonly IPasswordGeneratorService passwordGenerator;
-        private readonly ILogger<EmployeeController> logger;
 
         public EmployeeController(
             IEmployeeService employeesService,
             ICurrentUserService currentUser,
-            IPasswordGeneratorService passwordGenerator,
-            ILogger<EmployeeController> logger)
+            IPasswordGeneratorService passwordGenerator)
         {
             this.employeesService = employeesService;
             this.currentUser = currentUser;
             this.passwordGenerator = passwordGenerator;
-            this.logger = logger;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<ListEmployeesViewModel>> GetAll()
         {
-            this.logger.LogInformation("Entering GetAll");
+            NLogExtensions.GetInstance().Info("Entering GetAll");
             return await this.employeesService.GetAllAsync<ListEmployeesViewModel>(this.currentUser.GetId());
         }
 
@@ -47,12 +46,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogError(SuccessMessage);
+            NLogExtensions.GetInstance().Info(model);
 
             return this.Ok(SuccessMessage);
         }
@@ -64,12 +63,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Failure.ToString());
+                NLogExtensions.GetInstance().Error(id, new Exception(result.Failure.ToString()));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(EmployeeSuccesfullyDeleted);
+            NLogExtensions.GetInstance().Info(id);
 
             return this.Ok(EmployeeSuccesfullyDeleted);
         }

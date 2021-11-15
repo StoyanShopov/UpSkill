@@ -7,6 +7,7 @@
     using Microsoft.Extensions.Logging;
 
     using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Course;
 
@@ -16,23 +17,20 @@
     {
         private readonly IEmployeeService employeeService;
         private readonly ICurrentUserService currentUser;
-        private readonly ILogger<CoursesController> logger;
 
         public CoursesController(
             IEmployeeService employeeService,
-            ICurrentUserService currentUser,
-            ILogger<CoursesController> logger)
+            ICurrentUserService currentUser)
         {
             this.employeeService = employeeService;
             this.currentUser = currentUser;
-            this.logger = logger;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoursesListingModel>> GetAll()
         {
-            this.logger.LogInformation("Entering GetAll action");
+            NLogExtensions.GetInstance().Info("Entering GetAll action");
 
             return await this.employeeService.GetAllCoursesAsync<CoursesListingModel>(this.currentUser.GetId());
         }
@@ -41,7 +39,7 @@
         [Route(DetailsRoute)]
         public async Task<DetailsViewModel> GetByIdCourse(int courseId)
         {
-            this.logger.LogInformation("Entering GetByIdCourse");
+            NLogExtensions.GetInstance().Info("Entering GetByIdCourse");
 
             return await this.employeeService.GetByIdCourseAsync<DetailsViewModel>(this.currentUser.GetId(), courseId);
         }
