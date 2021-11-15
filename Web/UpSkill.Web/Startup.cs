@@ -42,7 +42,7 @@
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Home", string.Empty));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
