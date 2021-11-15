@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Coach
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@
     using Microsoft.Extensions.Logging;
 
     using UpSkill.Services.Data.Contracts.Coach;
+    using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.ViewModels.Coach;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -15,14 +17,10 @@
     public class CoachesController : AdministrationBaseController
     {
         private readonly ICoachServices coachServices;
-        private readonly ILogger<CoachesController> logger;
 
-        public CoachesController(
-            ICoachServices coachServices,
-            ILogger<CoachesController> logger)
+        public CoachesController(ICoachServices coachServices)
         {
             this.coachServices = coachServices;
-            this.logger = logger;
         }
 
         [HttpPost]
@@ -32,12 +30,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(SuccesfullyCreated);
+            NLogExtensions.GetInstance().Info(model);
 
             return this.StatusCode(201, SuccesfullyCreated);
         }
@@ -49,12 +47,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Failure.ToString());
+                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(SuccesfullyEdited);
+            NLogExtensions.GetInstance().Info(model);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -66,12 +64,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Failure.ToString());
+                NLogExtensions.GetInstance().Error(id, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(SuccesfullyDeleted);
+            NLogExtensions.GetInstance().Info(id);
 
             return this.Ok(SuccesfullyDeleted);
         }
@@ -80,7 +78,7 @@
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoachListingModel>> GetAll()
         {
-            this.logger.LogInformation("Entering GetAllaction");
+            NLogExtensions.GetInstance().Info("Entering GetAllaction");
 
             return await this.coachServices.GetAllAsync<CoachListingModel>();
         }
@@ -89,7 +87,7 @@
         [Route(DetailsRoute)]
         public async Task<CoachDetailsModel> GetDetails(int id)
         {
-            this.logger.LogInformation("Entering GetDetails action");
+            NLogExtensions.GetInstance().Info("Entering GetDetails action");
 
             return await this.coachServices.GetByIdAsync<CoachDetailsModel>(id);
         }

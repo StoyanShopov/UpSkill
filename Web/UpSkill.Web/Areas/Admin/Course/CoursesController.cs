@@ -1,10 +1,12 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.ViewModels.Course;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -13,14 +15,10 @@
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICourseService coursesService;
-        private readonly ILogger<CoursesController> logger;
 
-        public CoursesController(
-            ICourseService coursesService,
-            ILogger<CoursesController> logger)
+        public CoursesController(ICourseService coursesService)
         {
             this.coursesService = coursesService;
-            this.logger = logger;
         }
 
         [HttpPost]
@@ -30,12 +28,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(SuccesfullyCreated);
+            NLogExtensions.GetInstance().Info(model);
 
             return this.Ok(SuccesfullyCreated);
         }
@@ -48,12 +46,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(SuccesfullyAddedCompanyOwnerToGivenCourse);
+            NLogExtensions.GetInstance().Info(model);
 
             return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
         }
@@ -65,12 +63,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(SuccesfullyEdited);
+            NLogExtensions.GetInstance().Info(model);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -79,7 +77,7 @@
         [Route(DetailsRoute)]
         public async Task<DetailsViewModel> Details(int id)
         {
-            this.logger.LogInformation("Entering Details action (admin)");
+            NLogExtensions.GetInstance().Info("Entering Details action (admin)");
 
             return await this.coursesService
                        .GetByIdAsync<DetailsViewModel>(id);
@@ -92,12 +90,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(id, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(SuccesfullyDeleted);
+            NLogExtensions.GetInstance().Info(SuccesfullyDeleted);
 
             return this.Ok(SuccesfullyDeleted);
         }

@@ -28,7 +28,7 @@
             }
             catch (Exception exception)
             {
-                logger.Fatal(exception, "Stopped program because of exception");
+                logger.Fatal("Stopped program because of exception", exception, args);
                 throw;
             }
             finally

@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Areas.Admin
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,7 @@
     using Microsoft.Extensions.Logging;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.ViewModels.Administration;
     using UpSkill.Web.ViewModels.Administration.Company;
 
@@ -18,16 +20,13 @@
     {
         private readonly IAdminService adminService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly ILogger<AdminController> logger;
 
         public AdminController(
             IAdminService adminService,
-            UserManager<ApplicationUser> userManager,
-            ILogger<AdminController> logger)
+            UserManager<ApplicationUser> userManager)
         {
             this.adminService = adminService;
             this.userManager = userManager;
-            this.logger = logger;
         }
 
         [HttpPost]
@@ -38,12 +37,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(SuccesfullyAddedCompanyOwnerToGivenCourse);
+            NLogExtensions.GetInstance().Info(model);
 
             return this.Ok(SuccesfullyAddedOwnerToGivenCompany);
         }
@@ -56,12 +55,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(email, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(AssignedSuccessfully);
+            NLogExtensions.GetInstance().Info(email);
 
             return this.Ok(AssignedSuccessfully);
         }
@@ -74,12 +73,12 @@
 
             if (result.Failure)
             {
-                this.logger.LogError(result.Error);
+                NLogExtensions.GetInstance().Error(email, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.logger.LogInformation(UnassignedSuccessfully);
+            NLogExtensions.GetInstance().Info(email);
 
             return this.Ok(UnassignedSuccessfully);
         }
@@ -92,7 +91,7 @@
 
             if (user == null)
             {
-                this.logger.LogError(UserDoNotExist);
+                NLogExtensions.GetInstance().Error(email, new Exception(UserDoNotExist));
 
                 return null;
             }
@@ -103,6 +102,8 @@
                 FullName = $"{user.FirstName} {user.LastName}",
                 Role = roles,
             };
+
+            NLogExtensions.GetInstance().Info(result);
 
             return result;
         }
