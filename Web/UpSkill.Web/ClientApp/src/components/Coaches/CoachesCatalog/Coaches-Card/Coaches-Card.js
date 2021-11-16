@@ -6,7 +6,7 @@ export default function CoachesCard(props) {
     const {
         displaySession,
         displayPrice,
-        coachDetails: { fullName, company, coachField, imageUrl, imageMock, price, session },
+        coachDetails: { fullName, company, coachField, imageUrl, imageMock, price, session, calendlyUrl },
     } = props;
 
     // const [Image, setImage] = useState();      
