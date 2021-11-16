@@ -7,7 +7,7 @@ const SidebarResources = ( props) => {
         courseResources: { courseItems }
     } = props;
 
-    const [currentResources, setCurrentResources] = useState(courseItems.courseSubject);
+    const [currentResources, setCurrentResources] = useState("");
 
     const handleResources = (e) => {
         const resources = e.target.value;
@@ -20,11 +20,15 @@ const SidebarResources = ( props) => {
          </div>
          <span className="lecturesContent">Lectures</span>
             <section>
-                <select className="lecturesContentSpan" value={currentResources} onChange={handleResources}>
+                <ul>
+                    <li className="lecturesContentSpan">
                     {courseItems.map((items) => (
-                        <option value={items.courseSubject}>1.{items.courseSubject}</option>
+                        <li>
+                        {items.courseSubject}
+                        </li>
                     ))}
-                </select>
+                    </li>
+                </ul>
             </section>
             <div className="courseButtonViewMore">
                <span className="courseButtonViewMoreSpan">View More</span>
