@@ -60,7 +60,7 @@
             return this.Ok(result.Succeeded);
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("disable")]
         public async Task<IActionResult> DisableCourse(int id)
         {

@@ -124,7 +124,6 @@
                             .Where(x => x.CompanyId != user.CompanyId)
                             .To<TModel>()
                             .ToListAsync();
-
         }
 
         private async Task<ApplicationUser> GetUser(string id)

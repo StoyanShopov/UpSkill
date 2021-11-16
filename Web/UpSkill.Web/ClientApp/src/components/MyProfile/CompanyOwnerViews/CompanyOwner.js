@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import CompanyOwnerSidebar from "./CompanyOwnerSidebar/CompanyOwnerSidebar";
 import CompanyCoaches from "./CompanyCoaches/CompanyCoaches";
-import CompanyOwnerCourses from './Courses/Courses';
+import CompanyOwnerCourses from './Courses/CompanyCourses';
 import Employees from "./Employees/Employees";
 import Invoice from "./Invoice/Invoice";
 import Dashboard from "./Dashboard/Dashboard";

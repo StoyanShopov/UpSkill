@@ -2,10 +2,12 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import serviceActions from '../../../../../services/ownerCoursesService';
 import CoursesCard from './CoursesCard/CoursesCard';
+import './CoursesCatalog.css';
 
 export default function CoursesCatalog({ courses }) {
 
-    const disableCourse = (courseId) => {
+    const disableCourse = (courseId, e) => {
+        e.preventDefault();
         serviceActions.disableCourse(courseId);
     }
 
@@ -18,7 +20,7 @@ export default function CoursesCatalog({ courses }) {
                             key={course.id}
                             coursesDetails={course}
                         >
-                            <Button onClick={disableCourse(course.id)}>Remove</Button>
+                            <Button onClick={(e) => disableCourse(course.id, e)}>Remove</Button>
                         </CoursesCard>
                     </div>
                 ))}

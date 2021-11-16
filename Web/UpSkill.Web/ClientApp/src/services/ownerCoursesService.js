@@ -32,10 +32,10 @@ const getAvailableCourses = async (courseId, courseTitle, courseCoachFirstName, 
         });
 };
 const enableCourse = async (courseId) => {
-    await axios.put(API_URL + "enable?id=" + courseId);
+    await axios.put(API_URL + "enable?id=" + courseId, { headers: { "Authorization": `Bearer ${token}` } });
 };
 const disableCourse = async (courseId) => {
-    await axios.put(API_URL + "disable?id=" + courseId);
+    await axios.delete(API_URL + "disable?id=" + courseId, { headers: { "Authorization": `Bearer ${token}` } });
 };
 
 const serviceActions = {
