@@ -1,11 +1,13 @@
 ﻿namespace UpSkill.Services.Data.Course
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-
+    using Microsoft.EntityFrameworkCore.Metadata;
     using UpSkill.Common;
     using UpSkill.Data.Common.Models;
     using UpSkill.Data.Common.Repositories;
@@ -15,7 +17,8 @@
     using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Course;
-
+    using UpSkill.Web.ViewModels.Lecture;
+    using UpSkill.Web.ViewModels.Lesson;
     using static Common.GlobalConstants.AccountConstants;
     using static Common.GlobalConstants.AdminConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
@@ -183,5 +186,57 @@
             .AllAsNoTracking()
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
+
+        public async Task<AggregatedCourseInfo> GetAggregatedCourseInfoAsync(int id)
+        {
+            var course = await this.courses
+                         .All()
+                         .Where(c => c.Id == id)
+                         .Include(c => c.File)
+                         .Include(c => c.Lectures)
+                         .ThenInclude(l => l.Lessons)
+                         .FirstOrDefaultAsync();
+
+            var lessons = new List<Lesson>();
+
+            foreach (var lecture in course.Lectures)
+            {
+                foreach (var lesson in lecture.Lessons)
+                {
+                    lessons.Add(lesson);
+                }
+            }
+
+            var viewModelLessons = new List<LessonInfoViewModel>();
+
+            for (int i = 0; i < lessons.Count; i++)
+            {
+                viewModelLessons.Add(new LessonInfoViewModel());
+                viewModelLessons[i].Url = lessons[i].Url;
+                viewModelLessons[i].MediaType = lessons[i].MediaType.ToString();
+            }
+
+            List<LectureInfoViewModel> viewModelLectures = new List<LectureInfoViewModel>();
+
+            for (int i = 0; i < course.Lectures.Count; i++)
+            {
+                viewModelLectures.Add(new LectureInfoViewModel());
+                viewModelLectures[i].Name = course.Lectures[i].Name;
+                viewModelLectures[i].Description = course.Lectures[i].Description;
+                viewModelLectures[i].LessonsInfo = viewModelLessons;
+            }
+
+            var aggregateViewModel = new AggregatedCourseInfo();
+            aggregateViewModel.Id = course.Id;
+            aggregateViewModel.FileFilePath = course.File.FilePath;
+            aggregateViewModel.Title = course.Title;
+            aggregateViewModel.Price = course.Price;
+            aggregateViewModel.CategoryId = course.CategoryId;
+            aggregateViewModel.CoachId = course.CoachId;
+            aggregateViewModel.Description = course.Description;
+            aggregateViewModel.LecturesInfo = viewModelLectures;
+
+            return aggregateViewModel;
+        }
     }
 }

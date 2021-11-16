@@ -19,5 +19,7 @@
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id);
+
+        Task<AggregatedCourseInfo> GetAggregatedCourseInfoAsync(int id);
     }
 }

@@ -9,7 +9,7 @@
     {
         public Lecture()
         {
-            this.Lessons = new HashSet<Lesson>();
+            this.Lessons = new List<Lesson>();
             this.Courses = new HashSet<Course>();
         }
 
@@ -18,7 +18,7 @@
 
         public string Description { get; set; }
 
-        public ICollection<Lesson> Lessons { get; set; }
+        public List<Lesson> Lessons { get; set; }
 
         public ICollection<Course> Courses { get; set; }
     }
