@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import "./Coaches-Card.css";
-import { Badge } from "react-bootstrap";
+import GoogleLogo from "../../../../assets/img/courses/Image 2.png";
 import { ReactReduxContext } from "react-redux";
 
 export default function CoachesCard(props) {
@@ -88,7 +88,7 @@ export default function CoachesCard(props) {
           )}
 
           <h6>
-            <Badge bg="secondary">google</Badge>
+          <img src={GoogleLogo} alt="logo"></img>
           </h6>
         </div>
       </div>

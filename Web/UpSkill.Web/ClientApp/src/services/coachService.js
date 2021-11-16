@@ -114,10 +114,11 @@ const coachesCompanyOwnerMock = [
 //   return arr;
 // };
 let coaches = [];
-let arr = [];
-export const getAllCoaches = async (currentPage) => {
+
+export const getAllCoaches = async (currentPage) => {  
   try {
-    
+    let arr = [];
+    coaches=[];
     const resp = await axios.get(Base_URL + "Coaches/getAll", {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -133,7 +134,7 @@ export const getAllCoaches = async (currentPage) => {
     });
     console.log(transformedResp);
     arr.push(...transformedResp);
-    coaches.push(...resp.data);
+    coaches.push(...transformedResp);
     //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
     return arr;
   } catch (err) {}
@@ -217,7 +218,7 @@ export const requestCoach = async (
 };
 
 export const getActiveCoachesCompanyOwner = async (uId) => {
-  getAllCoaches();
+  await getAllCoaches();
   return coaches.length;
 };
 

@@ -38,9 +38,11 @@ export default function Coaches() {
   }, [companyCoaches]);
 
   useEffect(() => {
-    getCoaches(0).then((companyCoaches) => {
-      setCompanyCoaches(companyCoaches);
-    });
+    if (isCompanyOwner) {
+      getCoaches(0).then((companyCoaches) => {
+        setCompanyCoaches(companyCoaches);
+      });
+    }
   }, []);
   
   return (

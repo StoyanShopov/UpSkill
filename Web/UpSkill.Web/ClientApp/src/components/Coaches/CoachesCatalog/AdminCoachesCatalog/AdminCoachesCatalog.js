@@ -20,16 +20,6 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
   const [coachId, setCoachId] = useState(0);
   const initialPageCoaches = 0;
 
-  const history = useHistory();
-
-  const routeChange = (path) => {
-    history.push(path);
-  };
-
-  const checkCompanyHasCoach = (coach) => {
-    return true;
-  };
-
   const defineCoachesCount = () => {
     let coursesCount = (coaches.length + 1) % 3;
 
@@ -41,15 +31,15 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
   };
 
   const setData = (coach) => {
-    let { id, coachFirstName, coachLastName } = coach;
+    let { id, coachFirstName, coachLastName, coachFileFilePath } = coach;
     localStorage.setItem("ID", id);
     localStorage.setItem("FirstName", coachFirstName);
     localStorage.setItem("LastName", coachLastName);
+    localStorage.setItem("FilePath", coachFileFilePath);
   };
 
   const getValue = (coach) => {
     setData(coach);
-    console.log(coach);
     setCurrentCoach(coach);
     onOpenEditCoachModal();
   };
@@ -62,6 +52,7 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
 
   function onCloseEditCoachModal() {
     setOpenEditCoachModal(false);
+    getAllCoaches(initialPageCoaches).then((coaches) => setCoaches(coaches));
     enableBodyScroll();
   }
 
@@ -72,6 +63,7 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
 
   function onCloseAddCoachModal() {
     setOpenAddCoachModal(false);
+    getAllCoaches(initialPageCoaches).then((coaches) => setCoaches(coaches));
     enableBodyScroll();
   }
 
@@ -94,34 +86,6 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
     disableBodyScroll();
   }
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  function addCoachToCompany(coachId) {
-    addCoach(user.email, coachId).then(() => routeChange("/MyProfile/Coaches"));
-  }
-
-  const buttonToShow = (checkCompanyHasCoach, coachId) => {
-    if (checkCompanyHasCoach) {
-      return (
-        <Button
-          className="coaches-cardButton"
-          onClick={(e) => setOnRemoveInternal(coachId)}
-        >
-          Delete
-        </Button>
-      );
-    } else {
-      return (
-        <Button
-          className="coaches-cardButton"
-          onClick={(e) => addCoachToCompany(coachId)}
-        >
-          Add
-        </Button>
-      );
-    }
-  };
-
   return (
     <>
       <div className="container">
@@ -143,7 +107,12 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
                     id={coachId}
                   />
                 )}
-                {buttonToShow(checkCompanyHasCoach(coach), coach.id)}
+                <Button
+                  className="coaches-cardButton"
+                  onClick={(e) => setOnRemoveInternal(coach.id)}
+                >
+                  Delete
+                </Button>
               </CoachesCard>
             </div>
           ))}

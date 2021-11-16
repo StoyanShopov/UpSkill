@@ -9,11 +9,10 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
   const [coachFirstName, setCoachFirstName] = useState("");
   const [coachLastName, setCoachLastName] = useState("");
   const [coachId, setCoachId] = useState("");
-  const [file, setFile] = useState({}); 
-
+  const [file, setFile] = useState({});
   const [success, setSuccess] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const test = localStorage.getItem("ID");
 
   //   const onChangeDescription = (e) => {
   //     setDescription(e.target.value);
@@ -40,15 +39,14 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
     setCoachId(localStorage.getItem("ID"));
     setCoachFirstName(localStorage.getItem("FirstName"));
     setCoachLastName(localStorage.getItem("LastName"));
-  },);
-
+  }, [test]);
 
   function submitEditCoach(e) {
     e.preventDefault();
     if (coachFirstName && coachLastName) {
       updateCoach(coachDetails.id, coachFirstName, coachLastName, file)
         .then((resp) => {
-            console.log(resp)
+          console.log(resp);
           if (resp.status === 200) {
             setSuccess(true);
             setCoachFirstName("");
@@ -78,7 +76,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
               </button>
             </div>
             <div className="popup-Title p-2">
-              <h4>Create Coach</h4>
+              <h4>Update Coach</h4>
             </div>
           </div>
           <form onSubmit={(e) => submitEditCoach(e)}>
@@ -92,7 +90,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                 <input
                   type="text"
                   placeholder="First Name*"
-                  className="addEmployee-Content-input w-100 p-2"                  
+                  className="addEmployee-Content-input w-100 p-2"
                   value={coachFirstName}
                   onChange={onChangeFirstName}
                 />
