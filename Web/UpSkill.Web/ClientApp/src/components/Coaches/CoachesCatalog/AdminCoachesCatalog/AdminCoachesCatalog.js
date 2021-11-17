@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import CoachesCard from "../Coaches-Card/Coaches-Card";
-import { addCoach } from "../../../../services/coachService";
 import "./AdminCoachesCatalog.css";
 import { getAllCoaches } from "../../../../services/coachService";
 import { removeCoach } from "../../../../services/adminCoachesService";
@@ -31,10 +30,19 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
   };
 
   const setData = (coach) => {
-    let { id, coachFirstName, coachLastName, coachFileFilePath } = coach;
+    let {
+      id,
+      coachFirstName,
+      coachLastName,
+      coachField,
+      coachPrice,
+      coachFileFilePath,
+    } = coach;
     localStorage.setItem("ID", id);
     localStorage.setItem("FirstName", coachFirstName);
     localStorage.setItem("LastName", coachLastName);
+    localStorage.setItem("Field", coachField);
+    localStorage.setItem("Price", coachPrice);
     localStorage.setItem("FilePath", coachFileFilePath);
   };
 

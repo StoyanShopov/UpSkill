@@ -12,10 +12,12 @@ export const removeCoach = async (id) => {
   } catch (err) {}
 };
 
-export const createCoach = async (firstName, lastName, file) => {
+export const createCoach = async (firstName, lastName, field, price,file) => {
   let fd = new FormData(); 
   fd.append("FirstName", firstName);
   fd.append("LastName", lastName);
+  fd.append("Field", field);
+  fd.append("Price", price);
   fd.append("File",  file,)
   console.log(fd);
   try {
@@ -30,10 +32,12 @@ export const createCoach = async (firstName, lastName, file) => {
   } catch (err) {}
 };
 
-export const updateCoach = async (id,firstName, lastName, file) => {
+export const updateCoach = async (id,firstName, lastName, field, price, file) => {
   let fd = new FormData(); 
   fd.append("FirstName", firstName);
   fd.append("LastName", lastName);
+  fd.append("Field", field);
+  fd.append("Price", price);
   fd.append("File",  file,)
   console.log(fd);
   try {

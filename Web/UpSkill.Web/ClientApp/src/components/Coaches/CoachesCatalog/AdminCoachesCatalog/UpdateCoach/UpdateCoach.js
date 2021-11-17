@@ -5,7 +5,7 @@ import { enableBodyScroll } from "../../../../../utils/utils";
 
 export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
   const [coachField, setCoachField] = useState("");
-  const [coachDescription, setDescription] = useState("");
+  const [coachPrice, setCoachPrice] = useState(0);
   const [coachFirstName, setCoachFirstName] = useState("");
   const [coachLastName, setCoachLastName] = useState("");
   const [coachId, setCoachId] = useState("");
@@ -14,13 +14,13 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
 
   const test = localStorage.getItem("ID");
 
-  //   const onChangeDescription = (e) => {
-  //     setDescription(e.target.value);
-  //   };
+  const onChangeCoachPrice = (e) => {
+    setCoachPrice(e.target.value);
+  };
 
-  //   const onChangeField = (e) => {
-  //     setCoachField(e.target.value);
-  //   };
+  const onChangeField = (e) => {
+    setCoachField(e.target.value);
+  };
 
   const onChangeFirstName = (e) => {
     setCoachFirstName(e.target.value);
@@ -39,18 +39,22 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
     setCoachId(localStorage.getItem("ID"));
     setCoachFirstName(localStorage.getItem("FirstName"));
     setCoachLastName(localStorage.getItem("LastName"));
+    setCoachField(localStorage.getItem("Field"));
+    setCoachPrice(localStorage.getItem("Price"));
   }, [test]);
 
   function submitEditCoach(e) {
     e.preventDefault();
-    if (coachFirstName && coachLastName) {
-      updateCoach(coachDetails.id, coachFirstName, coachLastName, file)
+    if (coachFirstName && coachLastName && coachField) {
+      updateCoach(coachDetails.id, coachFirstName, coachLastName, coachField, coachPrice, file)
         .then((resp) => {
           console.log(resp);
           if (resp.status === 200) {
             setSuccess(true);
             setCoachFirstName("");
             setCoachLastName("");
+            setCoachField("");
+            setCoachPrice(0);
           }
         })
         .catch(() => setSuccess(false));
@@ -107,38 +111,30 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
               </div>
               <div className="addEmployee-Content-fullname px-5 m-3">
                 <input
-                  type="file"
-                  placeholder="File*"
-                  className="w-100 p-2"
-                  onChange={onChangeFile}
-                />
-              </div>
-
-              {/* <div className="addEmployee-Content-fullname px-5 m-3">
-                {success && (
-                  <span style={{ color: "green", marginBottom: "0px" }}>
-                    Successfully requested
-                  </span>
-                )}
-                <input
                   type="text"
                   placeholder="Field*"
                   className="addEmployee-Content-input w-100 p-2"
                   value={coachField}
                   onChange={onChangeField}
                 />
-              </div> */}
-
-              {/* <div className="addEmployee-Content-email px-5 m-3">
-                <textarea
+              </div>
+              <div className="addEmployee-Content-fullname px-5 m-3">
+                <input
                   type="text"
-                  placeholder="Description*"
-                  value={coachDescription}
+                  placeholder="Price"
                   className="addEmployee-Content-input w-100 p-2"
-                  onChange={onChangeDescription}
+                  value={coachPrice}
+                  onChange={onChangeCoachPrice}
                 />
-              </div> */}
-
+              </div>
+              <div className="addEmployee-Content-fullname px-5 m-3">
+                <input
+                  type="file"
+                  placeholder="File*"
+                  className="w-100 p-2"
+                  onChange={onChangeFile}
+                />
+              </div>
               <div className="addEmployee-Content-anotherEmployee px-5">
                 <div className="addEmployee-Content-anotherEmployee-btn btn">
                   + Create another coach

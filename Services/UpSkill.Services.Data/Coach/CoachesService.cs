@@ -48,6 +48,8 @@
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                Field=model.Field,
+                Price=model.Price,
                 FileId = file,
             };
 
@@ -91,6 +93,8 @@
 
             coach.FirstName = model.FirstName;
             coach.LastName = model.LastName;
+            coach.Field = model.Field;
+            coach.Price = model.Price;
             coach.FileId = file;
 
             await this.coaches.SaveChangesAsync();
