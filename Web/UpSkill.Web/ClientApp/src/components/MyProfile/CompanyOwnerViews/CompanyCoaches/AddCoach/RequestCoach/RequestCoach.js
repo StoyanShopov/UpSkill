@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { requestCoach } from "../../../../../../services/coachService";
+import { requestCoach } from "../../../../../../services/companyOwnerCoachesService";
 import { enableBodyScroll } from "../../../../../../utils/utils";
 
 export default function RequestCoach({ closeModal, trigger }) {

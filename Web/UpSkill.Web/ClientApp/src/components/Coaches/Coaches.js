@@ -6,7 +6,8 @@ import { ReactReduxContext } from "react-redux";
 
 import "./Coaches.css";
 
-import { getAllCoaches, getCoaches } from "../../services/coachService";
+import { getAllCoaches} from "../../services/coachService";
+import {getCoaches} from "../../services/companyOwnerCoachesService";
 
 export default function Coaches() {
   const { store } = useContext(ReactReduxContext);

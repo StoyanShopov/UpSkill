@@ -10,7 +10,7 @@ import RequestCoach from "./AddCoach/RequestCoach/RequestCoach";
 
 import "./CompanyCoaches.css";
 
-import { getCoaches, removeCoach } from "../../../../services/coachService";
+import { getCoaches, removeCoach } from "../../../../services/companyOwnerCoachesService";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
 
 export default function CoachList() {
