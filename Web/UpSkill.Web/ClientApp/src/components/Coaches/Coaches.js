@@ -6,7 +6,8 @@ import { ReactReduxContext } from "react-redux";
 
 import "./Coaches.css";
 
-import { getAllCoaches, getCoaches } from "../../services/coachService";
+import { getAllCoaches } from "../../services/coachService";
+import { getCoaches } from "../../services/companyOwnerCoachesService";
 import AdminCoachesCatalog from "./CoachesCatalog/AdminCoachesCatalog/AdminCoachesCatalog";
 
 export default function Coaches() {
@@ -21,15 +22,23 @@ export default function Coaches() {
   const [coaches, setCoaches] = useState([]);
   const [companyCoaches, setCompanyCoaches] = useState([]);
 
-  const returnCatalog= () => {
+  const returnCatalog = () => {
     if (isAdmin) {
-      return <AdminCoachesCatalog coaches={coaches} setCoaches={setCompanyCoaches}/>
+      return (
+        <AdminCoachesCatalog coaches={coaches} setCoaches={setCompanyCoaches} />
+      );
     }
     if (isCompanyOwner) {
-      return <OwnerCoachesCatalog coaches={coaches} companyCoaches={companyCoaches} setCoaches={setCompanyCoaches}/>
+      return (
+        <OwnerCoachesCatalog
+          coaches={coaches}
+          companyCoaches={companyCoaches}
+          setCoaches={setCompanyCoaches}
+        />
+      );
     }
-    return <CoachesCatalog coaches={coaches} />
-  }
+    return <CoachesCatalog coaches={coaches} />;
+  };
 
   useEffect(() => {
     getAllCoaches(0).then((coaches) => {
@@ -44,13 +53,11 @@ export default function Coaches() {
       });
     }
   }, []);
-  
+
   return (
     <div className="content">
       <CategoriesAndLanguageMenu atPage="Coaches" />
-      <div className="wrapper row">
-        {returnCatalog()}
-      </div>
+      <div className="wrapper row">{returnCatalog()}</div>
     </div>
   );
 }

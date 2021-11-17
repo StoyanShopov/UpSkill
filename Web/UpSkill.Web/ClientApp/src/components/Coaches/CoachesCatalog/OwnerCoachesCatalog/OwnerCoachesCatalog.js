@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import CoachesCard from "../Coaches-Card/Coaches-Card";
-import { addCoach } from "../../../../services/coachService";
-
-import { getCoaches, removeCoach } from "../../../../services/coachService";
-
+import { getCoaches, removeCoach, addCoach } from "../../../../services/companyOwnerCoachesService";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
 

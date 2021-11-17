@@ -140,47 +140,6 @@ export const getAllCoaches = async (currentPage) => {
   } catch (err) {}
 };
 
-// Gets coaches for owner
-export const getCoaches = async (currentPage) => {
-  try {
-    let arr = [];
-    const resp = await axios.get(OWN_API_URL + "getAll", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    arr.push(...resp.data);
-    //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
-    return arr;
-  } catch (err) {}
-};
-
-// Deletes coaches from owner
-export const removeCoach = async (coachId) => {
-  try {
-    const resp = await axios.delete(OWN_API_URL + "?id=" + coachId, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    return resp;
-  } catch (err) {}
-};
-
-// Adds coaches to owner
-export const addCoach = async (userEmail, coachId) => {
-  const addCoachModel = {
-    ownerEmail: userEmail,
-    coachId,
-  };
-
-  try {
-    const resp = await axios.post(OWN_API_URL, addCoachModel, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return resp;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export const getCoachesNames = async (currentPage) => {
   let arr = [];
   initialCoachesMock.map((c) => {
@@ -189,32 +148,6 @@ export const getCoachesNames = async (currentPage) => {
   });
   // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
   return arr;
-};
-
-// Requests new coach
-export const requestCoach = async (
-  requesterEmail,
-  requesterName,
-  description,
-  field
-) => {
-  const requester = {
-    requesterEmail,
-    requesterName,
-    description,
-    field,
-  };
-
-  console.log(requester);
-
-  try {
-    const resp = await axios.post(OWN_API_URL + "/newCoach", requester, {
-      headers: { Authorization: `Bearer ${token}` },
-    });    
-    return resp;   
-  } catch (err) {
-    console.log(err);
-  }
 };
 
 export const getActiveCoachesCompanyOwner = async (uId) => {
