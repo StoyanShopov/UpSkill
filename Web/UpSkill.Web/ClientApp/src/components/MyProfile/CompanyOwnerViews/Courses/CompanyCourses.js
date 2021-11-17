@@ -23,7 +23,7 @@ export default function CompanyOwnerCourses() {
     <>
       <div>
         <div id='btn'>
-        <Link to="/AvailableCourses">Manage</Link>
+        <Link to="/Courses">Manage</Link>
         </div>
         <div className="wrapper">
           <CoursesCatalog courses={courses} />

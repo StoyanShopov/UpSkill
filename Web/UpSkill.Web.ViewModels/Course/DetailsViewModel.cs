@@ -29,11 +29,6 @@
                .ForMember(
                c => c.Id,
                c => c.MapFrom(c => c.CourseId));
-
-            configuration.CreateMap<Course, DetailsViewModel>()
-               .ForMember(
-               c => c.Id,
-               c => c.MapFrom(c => c.Id));
         }
     }
 }
