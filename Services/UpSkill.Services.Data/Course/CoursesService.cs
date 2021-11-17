@@ -187,56 +187,58 @@
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
 
-        public async Task<AggregatedCourseInfo> GetAggregatedCourseInfoAsync(int id)
+        public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
         {
             var course = await this.courses
                          .All()
                          .Where(c => c.Id == id)
                          .Include(c => c.File)
                          .Include(c => c.Lectures)
-                         .ThenInclude(l => l.Lessons)
+                         .To<TModel>()
                          .FirstOrDefaultAsync();
 
-            var lessons = new List<Lesson>();
+            ;
+            //var lessons = new List<Lesson>();
 
-            foreach (var lecture in course.Lectures)
-            {
-                foreach (var lesson in lecture.Lessons)
-                {
-                    lessons.Add(lesson);
-                }
-            }
+            //foreach (var lecture in course.Lectures)
+            //{
+            //    foreach (var lesson in lecture.Lessons)
+            //    {
+            //        lessons.Add(lesson);
+            //    }
+            //}
 
-            var viewModelLessons = new List<LessonInfoViewModel>();
+            //var viewModelLessons = new List<LessonInfoViewModel>();
 
-            for (int i = 0; i < lessons.Count; i++)
-            {
-                viewModelLessons.Add(new LessonInfoViewModel());
-                viewModelLessons[i].Url = lessons[i].Url;
-                viewModelLessons[i].MediaType = lessons[i].MediaType.ToString();
-            }
+            //for (int i = 0; i < lessons.Count; i++)
+            //{
+            //    viewModelLessons.Add(new LessonInfoViewModel());
+            //    viewModelLessons[i].Url = lessons[i].Url;
+            //    viewModelLessons[i].MediaType = lessons[i].MediaType.ToString();
+            //}
 
-            List<LectureInfoViewModel> viewModelLectures = new List<LectureInfoViewModel>();
+            //List<LectureInfoViewModel> viewModelLectures = new List<LectureInfoViewModel>();
 
-            for (int i = 0; i < course.Lectures.Count; i++)
-            {
-                viewModelLectures.Add(new LectureInfoViewModel());
-                viewModelLectures[i].Name = course.Lectures[i].Name;
-                viewModelLectures[i].Description = course.Lectures[i].Description;
-                viewModelLectures[i].LessonsInfo = viewModelLessons;
-            }
+            //for (int i = 0; i < course.Lectures.Count; i++)
+            //{
+            //    viewModelLectures.Add(new LectureInfoViewModel());
+            //    viewModelLectures[i].Name = course.Lectures[i].Name;
+            //    viewModelLectures[i].Description = course.Lectures[i].Description;
+            //    viewModelLectures[i].LessonsInfo = viewModelLessons;
+            //}
 
-            var aggregateViewModel = new AggregatedCourseInfo();
-            aggregateViewModel.Id = course.Id;
-            aggregateViewModel.FileFilePath = course.File.FilePath;
-            aggregateViewModel.Title = course.Title;
-            aggregateViewModel.Price = course.Price;
-            aggregateViewModel.CategoryId = course.CategoryId;
-            aggregateViewModel.CoachId = course.CoachId;
-            aggregateViewModel.Description = course.Description;
-            aggregateViewModel.LecturesInfo = viewModelLectures;
+            //var aggregateViewModel = new AggregatedCourseInfo();
+            //aggregateViewModel.Id = course.Id;
+            //aggregateViewModel.FileFilePath = course.File.FilePath;
+            //aggregateViewModel.Title = course.Title;
+            //aggregateViewModel.Price = course.Price;
+            //aggregateViewModel.CategoryId = course.CategoryId;
+            //aggregateViewModel.CoachId = course.CoachId;
+            //aggregateViewModel.Description = course.Description;
+            //aggregateViewModel.LecturesInfo = viewModelLectures;
 
-            return aggregateViewModel;
+            //return aggregateViewModel;
+            return course;
         }
     }
 }

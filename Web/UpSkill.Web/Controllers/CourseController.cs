@@ -20,6 +20,6 @@
         [HttpGet]
         public async Task<AggregatedCourseInfo> AggregatedInformation(int id)
             => await this.courseService
-                     .GetAggregatedCourseInfoAsync(id);
+                     .GetAggregatedCourseInfoAsync<AggregatedCourseInfo>(id);
     }
 }

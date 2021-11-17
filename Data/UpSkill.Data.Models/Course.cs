@@ -9,7 +9,7 @@
     {
         public Course()
         {
-            this.Lectures = new List<Lecture>();
+            this.Lectures = new List<CourseLecture>();
             this.Companies = new HashSet<CompanyCourse>();
             this.Users = new HashSet<UserInCourse>();
         }
@@ -35,7 +35,7 @@
 
         public virtual ICollection<CompanyCourse> Companies { get; set; }
 
-        public virtual IList<Lecture> Lectures { get; set; }
+        public virtual IList<CourseLecture> Lectures { get; set; }
 
         public ICollection<UserInCourse> Users { get; set; }
     }

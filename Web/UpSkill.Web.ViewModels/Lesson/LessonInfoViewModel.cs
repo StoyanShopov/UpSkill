@@ -1,6 +1,10 @@
 ﻿namespace UpSkill.Web.ViewModels.Lesson
 {
-    public class LessonInfoViewModel
+    using UpSkill.Data.Models;
+
+    using UpSkill.Services.Mapping;
+
+    public class LessonInfoViewModel : IMapFrom<Lesson>
     {
         public string Url { get; set; }
 

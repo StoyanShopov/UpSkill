@@ -8,13 +8,13 @@
     {
         public Lesson()
         {
-            this.Lectures = new HashSet<Lecture>();
+            this.Lectures = new HashSet<LectureLesson>();
         }
 
         public string Url { get; set; }
 
         public MediaType MediaType { get; set; }
 
-        public virtual ICollection<Lecture> Lectures { get; set; }
+        public virtual ICollection<LectureLesson> Lectures { get; set; }
     }
 }

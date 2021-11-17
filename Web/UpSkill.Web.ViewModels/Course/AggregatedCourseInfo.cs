@@ -8,12 +8,9 @@
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Lecture;
 
-    public class AggregatedCourseInfo
+    public class AggregatedCourseInfo : IMapFrom<Course>
     {
-        public AggregatedCourseInfo()
-        {
-            this.LecturesInfo = new HashSet<LectureInfoViewModel>();
-        }
+
 
         public int Id { get; set; }
 
