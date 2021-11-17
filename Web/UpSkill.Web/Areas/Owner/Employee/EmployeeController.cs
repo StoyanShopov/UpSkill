@@ -1,11 +1,13 @@
 ﻿namespace UpSkill.Web.Areas.Owner.Employee
 {
     using System;
+
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+   
     using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.Infrastructure.Services;
@@ -37,6 +39,7 @@
             NLogExtensions.GetInstance().Info("Entering GetAll");
             return await this.employeesService.GetAllAsync<ListEmployeesViewModel>(this.currentUser.GetId());
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateEmployeeViewModel model)

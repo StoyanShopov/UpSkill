@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+   
     using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Web.Areas.Owner;
     using UpSkill.Web.Infrastructure.Extensions;
@@ -32,5 +33,6 @@
             NLogExtensions.GetInstance().Info("Entering getAll action");
             return await this.employeeService.GetCompanyEmployeesAsync<EmployeesListingModel>(this.currentUser.GetId());
         }
+
     }
 }

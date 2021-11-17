@@ -7,6 +7,7 @@
 
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.Areas.Owner;
+
     using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Coach;
