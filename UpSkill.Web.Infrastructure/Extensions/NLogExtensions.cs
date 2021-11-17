@@ -8,19 +8,21 @@
 
     public class NLogExtensions : INLogger
     {
-        private static readonly Lazy<NLogExtensions> Lazy = new Lazy<NLogExtensions>();
+        private static NLogExtensions instance;
         private static Logger logger;
 
-        public static NLogExtensions Instance
+        private NLogExtensions()
         {
-            get
-            {
-                return Lazy.Value;
-            }
         }
 
-        public NLogExtensions()
+        public static NLogExtensions GetInstance()
         {
+            if (instance == null)
+            {
+                instance = new NLogExtensions();
+            }
+
+            return instance;
         }
 
         public void Debug(object obj)

@@ -41,8 +41,6 @@
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
-    using UpSkill.Web.Infrastructure.Extensions;
-    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.Infrastructure.Web.Extensions;
 
@@ -170,8 +168,7 @@
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
-                .AddTransient<IBlobService, BlobService>()
-                .AddSingleton<INLogger, NLogExtensions>();
+                .AddTransient<IBlobService, BlobService>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
