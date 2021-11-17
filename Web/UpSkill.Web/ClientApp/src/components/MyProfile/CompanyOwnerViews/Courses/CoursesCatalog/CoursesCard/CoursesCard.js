@@ -1,7 +1,7 @@
 import React from 'react';
 
+import './OwnerCoursesCard.css';
 import googleImg from '../../../../../../assets/img/courses/google.png';
-import './CoursesCard.css';
 
 export default function CoursesCard(props) {
     const {
@@ -15,15 +15,15 @@ export default function CoursesCard(props) {
             <div className="courses-file-wrapper">
                 <img src={courseFileFilePath} className="courses-file" alt=""></img>
                 <h2 className="title-position-on-file">{courseTitle}</h2>
-                <h2 className="price">{coursePrice}</h2>
             </div>
             <div className="courses-content w-75">
                 <div className="coursesInfo d-flex justify-content-between mt-3">
                     <span className="courses-courseField">{courseTitle}</span>
-                    <span className="courses-fullName">{fullName}</span>
-                    <h6>
+                    <span className="price">{coursePrice}$ per person</span>
+                    <div>
                         <img src={googleImg} alt="Google" className="bage-position" />
-                    </h6>
+                    </div>
+                    <span className="courses-fullName">{fullName}</span>
                 </div>
             </div>
             <div className="btn-wrapper">

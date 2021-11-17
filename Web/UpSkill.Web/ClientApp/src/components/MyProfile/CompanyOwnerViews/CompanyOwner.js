@@ -15,7 +15,7 @@ import './CompanyOwner.css';
 
 const menuItems = [
   { name: 'Dashboard', path: '/MyProfile', exact: true, component: Dashboard },
-  { name: 'Courses', path: '/MyProfile/Courses', exact: true, component: CompanyOwnerCourses },
+  { name: 'Active Courses', path: '/MyProfile/Courses', exact: true, component: CompanyOwnerCourses },
   { name: 'Coaches', path: '/MyProfile/Coaches', exact: true, component: CompanyCoaches },
   { name: 'Employees', path: '/MyProfile/Employees', exact: true, component: Employees },
   { name: 'Invoice', path: '/MyProfile/Invoice', exact: true, component: Invoice },

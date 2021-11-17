@@ -118,10 +118,9 @@
         public async Task<IEnumerable<TModel>> GetAvailableCoursesAsync<TModel>(string id)
         {
             var user = await this.GetUser(id);
+
             return await this.courses
                             .All()
-                            .SelectMany(x => x.Companies)
-                            .Where(x => x.CompanyId != user.CompanyId)
                             .To<TModel>()
                             .ToListAsync();
         }

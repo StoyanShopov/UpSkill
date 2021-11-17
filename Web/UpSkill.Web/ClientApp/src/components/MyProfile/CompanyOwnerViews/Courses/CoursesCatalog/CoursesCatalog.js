@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import serviceActions from '../../../../../services/ownerCoursesService';
 import CoursesCard from './CoursesCard/CoursesCard';
-import './CoursesCatalog.css';
+import './OwnerCoursesCatalog.css';
 
 export default function CoursesCatalog({ courses }) {
 
@@ -10,7 +10,6 @@ export default function CoursesCatalog({ courses }) {
         e.preventDefault();
         serviceActions.disableCourse(courseId);
     }
-
     return (
         <div className="container">
             <div className="row list-unstyled myProfile-courses-list">
@@ -20,7 +19,7 @@ export default function CoursesCatalog({ courses }) {
                             key={course.id}
                             coursesDetails={course}
                         >
-                            <Button onClick={(e) => disableCourse(course.id, e)}>Remove</Button>
+                            <Button className="courses-cardButton" onClick={(e) => disableCourse(course.id,e)}>Remove</Button>
                         </CoursesCard>
                     </div>
                 ))}

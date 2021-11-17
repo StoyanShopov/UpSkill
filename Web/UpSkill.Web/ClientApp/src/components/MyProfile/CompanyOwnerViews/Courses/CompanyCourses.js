@@ -7,7 +7,7 @@ import AvailableCourses from './AvailableCourses'
 import CoursesCatalog from './CoursesCatalog/CoursesCatalog';
 import serviceActions from '../../../../services/ownerCoursesService'
 
-import './CompanyCourses.css';
+import './OwnerCompanyCourses.css';
 
 export default function CompanyOwnerCourses() {
   const [courses, setCourses] = useState([]);
@@ -23,7 +23,7 @@ export default function CompanyOwnerCourses() {
     <>
       <div>
         <div id='btn'>
-          <Link to='/AvailableCourses'>Manage</Link>
+        <Link to="/AvailableCourses">Manage</Link>
         </div>
         <div className="wrapper">
           <CoursesCatalog courses={courses} />
