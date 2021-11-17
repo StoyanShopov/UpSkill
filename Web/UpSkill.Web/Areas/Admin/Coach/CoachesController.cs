@@ -17,10 +17,14 @@
     public class CoachesController : AdministrationBaseController
     {
         private readonly ICoachServices coachServices;
+        private readonly NLogExtensions nLog;
 
-        public CoachesController(ICoachServices coachServices)
+        public CoachesController(
+            ICoachServices coachServices,
+            NLogExtensions nLog)
         {
             this.coachServices = coachServices;
+            this.nLog = nLog;
         }
 
         [HttpPost]
@@ -30,12 +34,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
+                this.nLog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
 
             return this.StatusCode(201, SuccesfullyCreated);
         }
@@ -47,12 +51,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
+                this.nLog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -64,12 +68,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(id, new Exception(result.Error));
+                this.nLog.Error(id, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(id);
+            this.nLog.Info(id);
 
             return this.Ok(SuccesfullyDeleted);
         }
@@ -78,7 +82,7 @@
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoachListingModel>> GetAll()
         {
-            NLogExtensions.GetInstance().Info("Entering GetAllaction");
+            this.nLog.Info("Entering GetAllaction");
 
             return await this.coachServices.GetAllAsync<CoachListingModel>();
         }
@@ -87,7 +91,7 @@
         [Route(DetailsRoute)]
         public async Task<CoachDetailsModel> GetDetails(int id)
         {
-            NLogExtensions.GetInstance().Info("Entering GetDetails action");
+            this.nLog.Info("Entering GetDetails action");
 
             return await this.coachServices.GetByIdAsync<CoachDetailsModel>(id);
         }

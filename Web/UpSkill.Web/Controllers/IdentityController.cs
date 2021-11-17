@@ -26,15 +26,18 @@
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailService emailService;
+        private readonly NLogExtensions nLog;
 
         public IdentityController(
             IIdentityService identity,
             UserManager<ApplicationUser> userManager,
-            IEmailService emailService)
+            IEmailService emailService,
+            NLogExtensions nLog)
         {
             this.identity = identity;
             this.userManager = userManager;
             this.emailService = emailService;
+            this.nLog = nLog;
         }
 
         [HttpPost]
@@ -46,7 +49,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(this.ModelState.IsValid.ToString()));
+                this.nLog.Error(model, new Exception(this.ModelState.IsValid.ToString()));
 
                 return this.BadRequest(this.ModelState);
             }
@@ -55,14 +58,14 @@
 
             if (isUserRegistered.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(isUserRegistered.Error));
+                this.nLog.Error(model, new Exception(isUserRegistered.Error));
 
                 return this.BadRequest(isUserRegistered.Error);
             }
 
             await this.EmailConfirmation(model.Email);
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
             return this.StatusCode(201);
         }
 
@@ -73,7 +76,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(this.ModelState.IsValid.ToString()));
+                this.nLog.Error(model, new Exception(this.ModelState.IsValid.ToString()));
 
                 return this.BadRequest(this.ModelState);
             }
@@ -85,7 +88,7 @@
                 HttpOnly = true,
             });
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
 
             return this.Ok(embededToken);
         }
@@ -96,7 +99,7 @@
         {
             this.Response.Cookies.Delete(JWT);
 
-            NLogExtensions.GetInstance().Info("Logged out successfully");
+            this.nLog.Info("Logged out successfully");
 
             return this.Ok(new { message = SuccessMessage });
         }
@@ -116,7 +119,7 @@
                 Role = roles[0] ?? string.Empty,
             };
 
-            NLogExtensions.GetInstance().Info(result);
+            this.nLog.Info(result);
 
             return result;
         }
@@ -130,7 +133,7 @@
 
             await this.emailService.SendEmailConfirmationAsync(origin, host, user);
 
-            NLogExtensions.GetInstance().Info("EmailConfirmation action succeeded");
+            this.nLog.Info("EmailConfirmation action succeeded");
 
         }
 

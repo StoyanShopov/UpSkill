@@ -2,13 +2,11 @@
 {
     using System;
 
-    public class Log
+    using UpSkill.Data.Common.Models;
+
+    public class Log : BaseModel<int>
     {
-        public int Id { get; set; }
-
         public string Level { get; set; }
-
-        public DateTime CreatedOn { get; set; }
 
         public string MachineName { get; set; }
 

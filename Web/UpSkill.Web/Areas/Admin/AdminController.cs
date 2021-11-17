@@ -20,13 +20,16 @@
     {
         private readonly IAdminService adminService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly NLogExtensions nLog;
 
         public AdminController(
             IAdminService adminService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            NLogExtensions nLog)
         {
             this.adminService = adminService;
             this.userManager = userManager;
+            this.nLog = nLog;
         }
 
         [HttpPost]
@@ -37,12 +40,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
+                this.nLog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
 
             return this.Ok(SuccesfullyAddedOwnerToGivenCompany);
         }
@@ -55,12 +58,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(email, new Exception(result.Error));
+                this.nLog.Error(email, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(email);
+            this.nLog.Info(email);
 
             return this.Ok(AssignedSuccessfully);
         }
@@ -73,12 +76,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(email, new Exception(result.Error));
+                this.nLog.Error(email, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(email);
+            this.nLog.Info(email);
 
             return this.Ok(UnassignedSuccessfully);
         }
@@ -91,7 +94,7 @@
 
             if (user == null)
             {
-                NLogExtensions.GetInstance().Error(email, new Exception(UserDoNotExist));
+                this.nLog.Error(email, new Exception(UserDoNotExist));
 
                 return null;
             }
@@ -103,7 +106,7 @@
                 Role = roles,
             };
 
-            NLogExtensions.GetInstance().Info(result);
+            this.nLog.Info(result);
 
             return result;
         }

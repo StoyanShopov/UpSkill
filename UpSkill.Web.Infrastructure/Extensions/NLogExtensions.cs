@@ -4,24 +4,23 @@
     using System.Text.Json;
 
     using NLog;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
 
-    public class NLogExtensions : Contracts.ILogger
+    public class NLogExtensions : INLogger
     {
-        private static NLogExtensions instance;
+        private static readonly Lazy<NLogExtensions> Lazy = new Lazy<NLogExtensions>();
         private static Logger logger;
 
-        private NLogExtensions()
+        public static NLogExtensions Instance
         {
+            get
+            {
+                return Lazy.Value;
+            }
         }
 
-        public static NLogExtensions GetInstance()
+        public NLogExtensions()
         {
-            if (instance == null)
-            {
-                instance = new NLogExtensions();
-            }
-
-            return instance;
         }
 
         public void Debug(object obj)

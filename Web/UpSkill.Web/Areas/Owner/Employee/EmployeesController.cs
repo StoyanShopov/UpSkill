@@ -17,20 +17,23 @@
     {
         private readonly IEmployeeService employeeService;
         private readonly ICurrentUserService currentUser;
+        private readonly NLogExtensions nLog;
 
         public EmployeesController(
             IEmployeeService employeeService,
-            ICurrentUserService currentUser)
+            ICurrentUserService currentUser,
+            NLogExtensions nLog)
         {
             this.employeeService = employeeService;
             this.currentUser = currentUser;
+            this.nLog = nLog;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<EmployeesListingModel>> GetAll()
         {
-            NLogExtensions.GetInstance().Info("Entering getAll action");
+            this.nLog.Info("Entering getAll action");
             return await this.employeeService.GetCompanyEmployeesAsync<EmployeesListingModel>(this.currentUser.GetId());
         }
 

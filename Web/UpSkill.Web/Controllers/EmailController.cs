@@ -9,16 +9,21 @@
 
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Web.Infrastructure.Extensions;
+
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.MessagesConstants;
 
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
+        private readonly NLogExtensions nLog;
 
-        public EmailController(IEmailService emailService)
+        public EmailController(
+            IEmailService emailService,
+            NLogExtensions nLog)
         {
             this.emailService = emailService;
+            this.nLog = nLog;
         }
 
         [HttpGet]
@@ -30,12 +35,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(" ", new Exception(email + token));
+                this.nLog.Error(" ", new Exception(email + token));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(string.Concat(email, token));
+            this.nLog.Info(string.Concat(email, token));
 
             return this.Ok(EmailConfirmed);
         }
@@ -52,12 +57,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(email, new Exception(result.Failure.ToString()));
+                this.nLog.Error(email, new Exception(result.Failure.ToString()));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(email);
+            this.nLog.Info(email);
 
             return this.Ok();
         }

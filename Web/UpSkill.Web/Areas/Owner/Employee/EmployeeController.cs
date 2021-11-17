@@ -21,25 +21,27 @@
         private readonly IEmployeeService employeesService;
         private readonly ICurrentUserService currentUser;
         private readonly IPasswordGeneratorService passwordGenerator;
+        private readonly NLogExtensions nLog;
 
         public EmployeeController(
             IEmployeeService employeesService,
             ICurrentUserService currentUser,
-            IPasswordGeneratorService passwordGenerator)
+            IPasswordGeneratorService passwordGenerator,
+            NLogExtensions nLog)
         {
             this.employeesService = employeesService;
             this.currentUser = currentUser;
             this.passwordGenerator = passwordGenerator;
+            this.nLog = nLog;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<ListEmployeesViewModel>> GetAll()
         {
-            NLogExtensions.GetInstance().Info("Entering GetAll");
+            this.nLog.Info("Entering GetAll");
             return await this.employeesService.GetAllAsync<ListEmployeesViewModel>(this.currentUser.GetId());
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateEmployeeViewModel model)
@@ -49,12 +51,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
+                this.nLog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
 
             return this.Ok(SuccessMessage);
         }
@@ -66,12 +68,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(id, new Exception(result.Failure.ToString()));
+                this.nLog.Error(id, new Exception(result.Failure.ToString()));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(id);
+            this.nLog.Info(id);
 
             return this.Ok(EmployeeSuccesfullyDeleted);
         }

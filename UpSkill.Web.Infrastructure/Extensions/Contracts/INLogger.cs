@@ -2,13 +2,13 @@
 {
     using System;
 
-    public interface ILogger
+    public interface INLogger
     {
         void Debug(object obj);
 
         void Info(object obj);
 
-        void Error(object obj, Exception ex );
+        void Error(object obj, Exception ex);
 
         void Fatal(object obj, Exception ex);
     }

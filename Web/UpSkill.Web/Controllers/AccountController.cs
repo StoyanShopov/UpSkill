@@ -15,10 +15,14 @@
     public class AccountController : ApiController
     {
         private readonly IAccountService account;
+        private readonly NLogExtensions nLog;
 
-        public AccountController(IAccountService account)
+        public AccountController(
+            IAccountService account,
+            NLogExtensions nLog)
         {
             this.account = account;
+            this.nLog = nLog;
         }
 
         [HttpPost]
@@ -29,12 +33,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
+                this.nLog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info("Password changed successfully");
+            this.nLog.Info("Password changed successfully");
 
             return this.Ok();
         }

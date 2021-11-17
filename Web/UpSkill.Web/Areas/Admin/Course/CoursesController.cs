@@ -15,10 +15,14 @@
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICourseService coursesService;
+        private readonly NLogExtensions nLog;
 
-        public CoursesController(ICourseService coursesService)
+        public CoursesController(
+            ICourseService coursesService,
+            NLogExtensions nLog)
         {
             this.coursesService = coursesService;
+            this.nLog = nLog;
         }
 
         [HttpPost]
@@ -28,12 +32,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
+                this.nLog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
 
             return this.Ok(SuccesfullyCreated);
         }
@@ -46,12 +50,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
+                this.nLog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
 
             return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
         }
@@ -63,12 +67,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(model, new Exception(result.Error));
+                this.nLog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(model);
+            this.nLog.Info(model);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -77,7 +81,7 @@
         [Route(DetailsRoute)]
         public async Task<DetailsViewModel> Details(int id)
         {
-            NLogExtensions.GetInstance().Info("Entering Details action (admin)");
+            this.nLog.Info("Entering Details action (admin)");
 
             return await this.coursesService
                        .GetByIdAsync<DetailsViewModel>(id);
@@ -90,12 +94,12 @@
 
             if (result.Failure)
             {
-                NLogExtensions.GetInstance().Error(id, new Exception(result.Error));
+                this.nLog.Error(id, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            NLogExtensions.GetInstance().Info(SuccesfullyDeleted);
+            this.nLog.Info(SuccesfullyDeleted);
 
             return this.Ok(SuccesfullyDeleted);
         }

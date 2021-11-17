@@ -18,20 +18,23 @@
     {
         private readonly IOwnerServices ownerService;
         private readonly ICurrentUserService currentUser;
+        private readonly NLogExtensions nLog;
 
         public CoachesController(
             IOwnerServices ownerService,
-            ICurrentUserService currentUser)
+            ICurrentUserService currentUser,
+            NLogExtensions nLog)
         {
             this.ownerService = ownerService;
             this.currentUser = currentUser;
+            this.nLog = nLog;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoachListingModel>> GetAll()
         {
-            NLogExtensions.GetInstance().Info("Entering getAll action");
+            this.nLog.Info("Entering getAll action");
 
             return await this.ownerService.GetAllCoachesAsync<CoachListingModel>(this.currentUser.GetId());
         }
