@@ -13,6 +13,7 @@ export default function CoachesCard(props) {
       coachFileFilePath,
       coachPrice,
       session,
+      calendlyUrl
     },
   } = props;
 
