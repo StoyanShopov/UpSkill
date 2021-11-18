@@ -13,9 +13,9 @@
 
     public class CoursesController : AdministrationBaseController
     {
-        private readonly ICoursesService coursesService;
+        private readonly ICourseService coursesService;
 
-        public CoursesController(ICoursesService coursesService)
+        public CoursesController(ICourseService coursesService)
         {
             this.coursesService = coursesService;
         }

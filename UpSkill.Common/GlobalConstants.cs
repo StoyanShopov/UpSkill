@@ -129,6 +129,9 @@
             public const string Disable = "disable";
 
             public const string ActiveCourses = "getActiveCourses";
+
+            public const string GetCountRoute = "count";
+
         }
 
         public class MessagesConstants
@@ -240,12 +243,26 @@
 
             public const string EmployeeOnly = "EmployeeOnly";
         }
+
         public class RequestCourseConstants
         {
             public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
                                               "<p>Requester Email: {1}</p>" +
                                               "<p>Description: {2}</p>" +
                                               "<p>Category: {3}</p>";
+
+        public class EmployeeConstants
+        {
+            public const string EmailExists = "An employee with this email already exists.";
+
+            public const string SuccessMessage = "You have successfully added an employee.";
+
+            public const string EmployeeSuccesfullyDeleted = "Employee was successfully removed";
+
+            public const string NoEmployeesFound = "Currently there are no employees added to this company.";
+
+            public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
+
         }
     }
 }

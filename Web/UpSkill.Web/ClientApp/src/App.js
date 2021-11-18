@@ -1,8 +1,6 @@
-
-import React, { useReducer } from "react";
-import { Route } from "react-router-dom";
-import { Provider } from 'react-redux'
-
+import React, { useReducer } from 'react';
+import { Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,6 +20,7 @@ import CompanyDetails from "./components/Companies/CompanyDetails/CompanyDetails
 import EditCompany from "./components/Companies/EditCompany/EditCompany";
 import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
 import { removeCompanyHandler } from "../src/services/companyService";
+import {removeEmployeeHandler} from "../src/services/employeeService"
 import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
 import store from './store';
@@ -41,28 +40,30 @@ const AppWrapper = (props) => {
         </Layout>
       </NotificationContext.Provider >
     </Provider>
-  )
-}
+  );
+};
 
 
 function App() {
   return (
     <AppWrapper>
-      <Route exact path='/' component={Home} />
-      <Route exact path='/Admin' component={Admin} />
-      <Route exact path='/Admin/Courses' component={AdminCourses} />
-      <Route exact path='/Courses' component={Courses} />
-      <Route exact path='/Coaches' component={Coaches} />
-      <Route exact path='/MyProfile' component={MyProfile} />
-      <Route exact path='/Register' component={Register} />
-      <Route exact path='/Login' component={Login} />
-      <Route exact path='/Logout' component={Logout} />
-      <Route exact path='/AddCompany' component={AddCompany} />
-      <Route exact path='/CompanyList' render={(props) => (<CompanyList {...props} getCompanyId={removeCompanyHandler} />)} />
-      <Route exact path='/Admin/Company/:id' component={CompanyDetails} />
-      <Route exact path="/Admin/Companies/edit" component={EditCompany} />
-      <Route exact path="/Admin/PromoteDemote" component={PromoteDemote} />
-    </AppWrapper>
+      <Route exact path='/' component={Home}/>          
+          <Route exact path='/Admin' component={Admin}/>
+          <Route exact path='/Admin/Courses' component={AdminCourses}/>    
+          <Route exact path='/Courses' component={Courses}/>
+          <Route exact path='/Coaches' component={Coaches}/>  
+          <Route exact path='/MyProfile' component={MyProfile}/>  
+          <Route exact path='/Register' component={Register} />  
+          <Route exact path='/Login' component={Login}/>
+          <Route exact path='/Logout' component={Logout}/>
+          <Route exact path='/AddCompany' component={AddCompany}/>   
+          <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
+          <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
+
+          <Route exact path="/Admin/Companies/edit" component={EditCompany}/>  
+          <Route exact path="/Admin/PromoteDemote" component={PromoteDemote}/>  
+
+      </AppWrapper> 
 
   );
 }

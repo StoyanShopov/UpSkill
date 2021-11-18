@@ -17,7 +17,6 @@
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
-    [AllowAnonymous]
     public class AdminController : AdministrationBaseController
     {
         private readonly IAdminService adminService;

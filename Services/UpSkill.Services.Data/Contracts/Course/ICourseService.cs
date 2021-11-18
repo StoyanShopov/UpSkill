@@ -7,7 +7,7 @@
     using UpSkill.Data.Common.Models;
     using UpSkill.Web.ViewModels.Course;
 
-    public interface ICoursesService
+    public interface ICourseService
     {
         Task<Result> CreateAsync(CreateCourseViewModel model);
 

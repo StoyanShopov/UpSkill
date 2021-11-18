@@ -3,13 +3,13 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
 
     [Authorize(Roles = CompanyOwnerRoleName)]
     [ApiController]
-    [Area(CompanyOwnerRoleName)]
+    [Area("Owner")]
     [Route("Owner/[controller]")]
-    public class OwnerBaseController : ControllerBase
+    public abstract class OwnerBaseController : ControllerBase
     {
     }
 }

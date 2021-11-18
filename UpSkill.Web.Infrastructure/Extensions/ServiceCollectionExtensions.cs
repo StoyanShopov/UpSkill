@@ -9,7 +9,6 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
-
     using UpSkill.Data;
     using UpSkill.Data.Common;
     using UpSkill.Data.Common.Repositories;
@@ -159,13 +158,16 @@
                 .AddTransient<IEmailService, EmailService>()
                 .AddTransient<IAccountService, AccountService>()
                 .AddTransient<IAdminService, AdminService>()
-                .AddTransient<ICoursesService, CoursesService>()
+                .AddTransient<ICourseService, CoursesService>()
                 .AddTransient<IDashboardService, DashboardService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
                 .AddTransient<IEmployeeService, EmployeesService>()
                 .AddTransient<IOwnerCoursesService, OwnerCoursesService>()
                 .AddTransient<IFileService, FileService>()
+                .AddTransient<IOwnerServices, OwnersServices>()
+        .AddTransient<IFileService, FilesService>()
+.AddTransient<IEmployeeService, EmployeesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
@@ -173,6 +175,7 @@
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
+                .AddTransient<IPasswordGeneratorService, PasswordGeneratorService>()
                 .AddTransient<ICurrentUserService, CurrentUserService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
