@@ -18,6 +18,8 @@
         }
 
         public async Task GetAll()
-       => await this.categories.All().ToListAsync();
+       => await this.categories
+                    .All()
+                    .ToListAsync();
     }
 }
