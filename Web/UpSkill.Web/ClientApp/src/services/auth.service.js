@@ -46,4 +46,5 @@ const identity = {
   logout,
 }
 
+
 export default identity;

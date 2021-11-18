@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Owner;
-    using UpSkill.Web.Areas.Company;
+    using UpSkill.Web.Areas.Owner;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Owner;

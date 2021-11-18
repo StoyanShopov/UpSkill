@@ -6,7 +6,7 @@ import {
   deleteCourses,
 } from "../../../../services/adminCourseService";
 import "./AdminCourses.css";
-import DetailsModal from "../Modals/DetailsModal";
+import DetailsModal from "../../../Shared/CourseDetails/DetailsModal";
 import CreateCourseModal from "../Modals/CreateCourseModal/CreateCourseModal";
 import UpdateCourseModal from "../Modals/UpdateCourseModal/UpdateCourseModal";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
