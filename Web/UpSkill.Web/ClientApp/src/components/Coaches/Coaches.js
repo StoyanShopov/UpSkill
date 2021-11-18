@@ -7,7 +7,7 @@ import { ReactReduxContext } from "react-redux";
 import "./Coaches.css";
 
 import { getAllCoaches } from "../../services/coachService";
-import { getCoaches } from "../../services/companyOwnerCoachesService";
+import {getCoaches as companyCoachesInput} from "../../services/companyOwnerCoachesService";
 import AdminCoachesCatalog from "./CoachesCatalog/AdminCoachesCatalog/AdminCoachesCatalog";
 
 export default function Coaches() {
@@ -48,7 +48,7 @@ export default function Coaches() {
 
   useEffect(() => {
     if (isCompanyOwner) {
-      getCoaches(0).then((companyCoaches) => {
+      companyCoachesInput(0).then((companyCoaches) => {
         setCompanyCoaches(companyCoaches);
       });
     }

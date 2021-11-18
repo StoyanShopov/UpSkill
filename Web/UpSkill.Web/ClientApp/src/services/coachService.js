@@ -6,7 +6,6 @@ const OWN_API_URL = Base_URL + 'Owner/Coaches/';
 
 const token = localStorage.getItem('token');
 
-const numberCoachesToShow = 6;
 const numberCoachesSessionsToShow = 3;
 
 const initialCoachesMock = [
@@ -113,16 +112,30 @@ const coachesCompanyOwnerMock = [
   },
 ];
 
-
-// export const getCoaches = async (currentPage) => {
-//   let arr = [];
-//   arr.push(...initialCoachesMock);
-//   // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
-//   return arr;
-// };
 let coaches = [];
 
-export const getAllCoaches = async (currentPage) => {  
+// export const getAllCoaches = async (coach) => {
+//   return axios
+//     .get(
+//       OWN_API_URL + 'getAll',
+//       { headers: { Authorization: `Bearer ${token}` } },
+//       { coach }
+//     )
+//     .then((response) => {
+//       coaches = [];
+//       response.data.map((x) => coaches.push(x));
+//       return coaches;
+//     });
+// };
+
+export const getCoaches = async (currentPage) => {
+  let arr = [];
+  arr.push(...initialCoachesMock);
+  // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
+  return arr;
+};
+
+export const getAllCoaches = async (currentPage) => {
   try {
     let arr = [];
     coaches=[];
@@ -140,8 +153,9 @@ export const getAllCoaches = async (currentPage) => {
         calendlyUrl: 'https://calendly.com/iltodbul-1',
       };
     });
-    console.log(transformedResp);
+    // console.log(transformedResp);
     arr.push(...transformedResp);
+    coaches = [];
     coaches.push(...transformedResp);
     //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
     return arr;

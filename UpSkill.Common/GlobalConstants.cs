@@ -110,6 +110,8 @@
 
             public const string GetAllRoute = "getAll";
 
+            public const string GetAllEmployeesRoute = "getAllEmployees";
+
             public const string GetAllCoaches = "Coaches/getAll";
 
             public const string AddOwnerCompany = "addOwnerToCompany";
@@ -266,7 +268,6 @@
             public const string NoEmployeesFound = "Currently there are no employees added to this company.";
 
             public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
-
         }
     }
 }
