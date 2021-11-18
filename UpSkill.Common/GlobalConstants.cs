@@ -110,6 +110,8 @@
 
             public const string GetAllRoute = "getAll";
 
+            public const string GetAllEmployeesRoute = "getAllEmployees";
+
             public const string GetAllCoaches = "Coaches/getAll";
 
             public const string AddOwnerCompany = "addOwnerToCompany";

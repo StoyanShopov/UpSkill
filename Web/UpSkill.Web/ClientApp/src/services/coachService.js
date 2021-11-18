@@ -163,6 +163,7 @@ export const getAllCoaches = async (currentPage) => {
     return arr;
   } catch (err) {}
 };
+
 export const getCoachesNames = async (currentPage) => {
   let arr = [];
   initialCoachesMock.map((c) => {
