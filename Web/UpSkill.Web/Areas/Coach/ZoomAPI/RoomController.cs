@@ -12,20 +12,20 @@
     using Microsoft.IdentityModel.Tokens;
     using Newtonsoft.Json.Linq;
     using RestSharp;
-    using UpSkill.Services.Data.Contracts.Course;
-    using UpSkill.Services.Hubs;
+	using UpSkill.Services.Data.Contracts.Course;
+	using UpSkill.Services.Hubs;
 	using UpSkill.Web.ViewModels.Course;
 
 	public class RoomController : CoachBaseController
     {
         private readonly IConfiguration configuration;
         private readonly IHubContext<ZoomHub> hubContext;
-        private readonly ICoursesService coursesService;
+        private readonly ICourseService coursesService;
 
         public RoomController(
             IConfiguration configuration,
             IHubContext<ZoomHub> hubContext,
-            ICoursesService coursesService)
+            ICourseService coursesService)
         {
             this.configuration = configuration;
             this.hubContext = hubContext;
