@@ -18,6 +18,7 @@ const initialCoachesMock = [
     price: 50,
     imageUrl:
       'https://i.guim.co.uk/img/uploads/2017/10/09/Sonia_Sodha,_L.png?width=300&quality=85&auto=format&fit=max&s=045793b916f0ff6e7228468ca6aa61c5',
+    calendlyUrl: 'https://calendly.com/iltodbul-1',
   },
   {
     id: '2',
@@ -26,6 +27,7 @@ const initialCoachesMock = [
     company: 'Amazon',
     price: 60,
     imageUrl: 'https://static.independent.co.uk/s3fs-public/Rachel_Hosie.png',
+    calendlyUrl: 'https://calendly.com/iltodbul',
   },
   {
     id: '3',
@@ -35,6 +37,7 @@ const initialCoachesMock = [
     price: 80,
     imageUrl:
       'https://i.guim.co.uk/img/uploads/2017/10/06/Laura-Bates,-L.png?width=300&quality=85&auto=format&fit=max&s=0349fb29cd3cef227473ea2c4dd11b2f',
+    calendlyUrl: 'https://calendly.com/iltodbul-1',
   },
   {
     id: '4',
@@ -44,6 +47,7 @@ const initialCoachesMock = [
     price: 50,
     imageUrl:
       'https://secure.gravatar.com/avatar/03fd0c159222fdf134fe37e9a8b74f0e?s=400&d=mm&r=g',
+    calendlyUrl: 'https://calendly.com/iltodbul',
   },
   {
     id: '5',
@@ -53,6 +57,7 @@ const initialCoachesMock = [
     price: 100,
     imageUrl:
       'http://www.lukasman.cz/wp-content/uploads/2020/09/foto-homepage-1-1024x549.png',
+    calendlyUrl: 'https://calendly.com/iltodbul-1',
   },
   {
     id: '6',
@@ -62,6 +67,7 @@ const initialCoachesMock = [
     price: 60,
     imageUrl:
       'https://www.freepnglogos.com/uploads/man-png/man-your-company-formations-formation-registrations-10.png',
+    calendlyUrl: 'https://calendly.com/iltodbul',
   },
   {
     id: '7',
@@ -70,6 +76,7 @@ const initialCoachesMock = [
     company: 'Google',
     price: 40,
     imageUrl: 'https://www.g20.org/wp-content/uploads/2021/01/people.jpg',
+    calendlyUrl: 'https://calendly.com/iltodbul-1',
   },
 ];
 
@@ -130,6 +137,7 @@ export const getAllCoaches = async (currentPage) => {
         coachField: c.field,
         coachFileFilePath: c.fileFilePath,
         coachPrice: c.price,
+        calendlyUrl: 'https://calendly.com/iltodbul-1',
       };
     });
     console.log(transformedResp);

@@ -22,6 +22,7 @@ export default function CoachesCard(props) {
       coachFileFilePath,
       coachPrice,
       session,
+      calendlyUrl,
     },
   } = props;
 
@@ -54,17 +55,7 @@ export default function CoachesCard(props) {
       </div>
     );
   }
-  // const [Image, setImage] = useState();
-
-  // function loadImage (imageName) {
-  //         import(`${imageMock}`)
-  //             .then(img=> setImage(img.default));
-  //     };
-
-  // useEffect(() => {
-  //     loadImage(imageMock);
-  // }, []);
-
+  
   return (
     <div className="coaches-Card">
       <div className="coaches-image-wrapper">
