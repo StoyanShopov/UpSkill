@@ -8,22 +8,7 @@
 
     public sealed class NLogExtensions : INLogger
     {
-        //private static NLogExtensions instance;
         private static Logger logger;
-
-        //private NLogExtensions()
-        //{
-        //}
-
-        //public static NLogExtensions GetInstance()
-        //{
-        //    if (instance == null)
-        //    {
-        //        instance = new NLogExtensions();
-        //    }
-
-        //    return instance;
-        //}
 
         public void Debug(object obj)
         {
