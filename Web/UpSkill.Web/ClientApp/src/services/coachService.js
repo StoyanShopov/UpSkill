@@ -115,12 +115,28 @@ const coachesCompanyOwnerMock = [
   },
 ];
 
-// export const getCoaches = async (currentPage) => {
-//   let arr = [];
-//   arr.push(...initialCoachesMock);
-//   // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
-//   return arr;
+let coaches = [];
+
+// export const getAllCoaches = async (coach) => {
+//   return axios
+//     .get(
+//       OWN_API_URL + 'getAll',
+//       { headers: { Authorization: `Bearer ${token}` } },
+//       { coach }
+//     )
+//     .then((response) => {
+//       coaches = [];
+//       response.data.map((x) => coaches.push(x));
+//       return coaches;
+//     });
 // };
+
+export const getCoaches = async (currentPage) => {
+  let arr = [];
+  arr.push(...initialCoachesMock);
+  // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
+  return arr;
+};
 
 export const getAllCoaches = async (currentPage) => {
   try {
@@ -138,8 +154,10 @@ export const getAllCoaches = async (currentPage) => {
         coachPrice: c.price,
       };
     });
-    console.log(transformedResp);
+    // console.log(transformedResp);
     arr.push(...transformedResp);
+    coaches = [];
+    coaches.push(...transformedResp);
     //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
     return arr;
   } catch (err) {}
@@ -155,7 +173,8 @@ export const getCoachesNames = async (currentPage) => {
 };
 
 export const getActiveCoachesCompanyOwner = async (uId) => {
-  return activeCoachesCompanyOwnerCount;
+  await getAllCoaches();
+  return coaches.length;
 };
 
 export const getCoachesSessionsForCompanyOwner = async (
