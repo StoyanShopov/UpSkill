@@ -45,7 +45,10 @@ function AddCoachModal({ closeModal, setOpenRequest }) {
               </button>
               <button
                 className="btn btn-primary cdelete-button"
+                // Until CompanyOwner Refresh problem is fixed
                 onClick={() => (window.location.href = "/Coaches")}
+                //When is fixed we should use this instead
+                // onClick={() => routeChange("/Coaches")}
               >
                 Coaches
               </button>

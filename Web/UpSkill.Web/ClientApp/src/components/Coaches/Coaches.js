@@ -7,7 +7,7 @@ import { ReactReduxContext } from "react-redux";
 import "./Coaches.css";
 
 import { getAllCoaches} from "../../services/coachService";
-import {getCoaches} from "../../services/companyOwnerCoachesService";
+import {getCoaches as companyCoachesInput} from "../../services/companyOwnerCoachesService";
 
 export default function Coaches() {
   const { store } = useContext(ReactReduxContext);
@@ -35,7 +35,7 @@ export default function Coaches() {
   }, [companyCoaches]);
 
   useEffect(() => {
-    getCoaches(0).then((companyCoaches) => {
+    companyCoachesInput(0).then((companyCoaches) => {
       setCompanyCoaches(companyCoaches);
     });
   }, []);
