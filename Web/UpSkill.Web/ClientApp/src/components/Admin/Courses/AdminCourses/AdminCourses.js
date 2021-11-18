@@ -74,7 +74,7 @@ export default function AdminCourses() {
       console.log(courses);
       setCourses(courses);
     });
-  },[]);
+  }, []);
 
   return (
     <div>

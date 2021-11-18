@@ -1,58 +1,60 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
-	using System.Collections.Generic;
-	using System.Text;
+    using System.Text;
 
-	using Microsoft.AspNetCore.Authentication.JwtBearer;
-	using Microsoft.AspNetCore.Identity;
-	using Microsoft.EntityFrameworkCore;
-	using Microsoft.Extensions.Configuration;
-	using Microsoft.Extensions.DependencyInjection;
-	using Microsoft.IdentityModel.Tokens;
-	using Microsoft.OpenApi.Models;
-
-	using UpSkill.Data;
-	using UpSkill.Data.Common;
-	using UpSkill.Data.Common.Repositories;
-	using UpSkill.Data.Models;
-	using UpSkill.Data.Repositories;
-	using UpSkill.Services;
-	using UpSkill.Services.Account;
-	using UpSkill.Services.Blob;
-	using UpSkill.Services.Contracts.Account;
-	using UpSkill.Services.Contracts.Blob;
-	using UpSkill.Services.Contracts.Email;
-	using UpSkill.Services.Contracts.Identity;
-	using UpSkill.Services.Data.Admin;
-	using UpSkill.Services.Data.Admin.Dashboard;
-	using UpSkill.Services.Data.Coach;
-	using UpSkill.Services.Data.Company;
-	using UpSkill.Services.Data.Contracts.Admin;
-	using UpSkill.Services.Data.Contracts.Admin.Dashboard;
-	using UpSkill.Services.Data.Contracts.Coach;
-	using UpSkill.Services.Data.Contracts.Company;
-	using UpSkill.Services.Data.Contracts.Course;
-	using UpSkill.Services.Data.Contracts.Employee;
-	using UpSkill.Services.Data.Contracts.File;
-	using UpSkill.Services.Data.Course;
-	using UpSkill.Services.Data.Employee;
-	using UpSkill.Services.Data.File;
-	using UpSkill.Services.Email;
-	using UpSkill.Services.Hubs;
-	using UpSkill.Services.Identity;
-	using UpSkill.Services.Messaging;
-	using UpSkill.Web.Filters;
-	using UpSkill.Web.Infrastructure.Services;
-	using UpSkill.Web.Infrastructure.Web.Extensions;
-	using UpSkill.Web.ViewModels.Chat;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
+    using UpSkill.Data;
+    using UpSkill.Data.Common;
+    using UpSkill.Data.Common.Repositories;
+    using UpSkill.Data.Models;
+    using UpSkill.Data.Repositories;
+    using UpSkill.Services.Hubs;
+    using UpSkill.Services;
+    using UpSkill.Services.Account;
+    using UpSkill.Services.Blob;
+    using UpSkill.Services.Contracts.Account;
+    using UpSkill.Services.Contracts.Blob;
+    using UpSkill.Services.Contracts.Email;
+    using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Services.Data.Admin;
+    using UpSkill.Services.Data.Admin.Dashboard;
+    using UpSkill.Services.Data.Coach;
+    using UpSkill.Services.Data.Company;
+    using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Services.Data.Contracts.Admin.Dashboard;
+    using UpSkill.Services.Data.Contracts.Coach;
+    using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Services.Data.Contracts.File;
+    using UpSkill.Services.Data.Contracts.Owner;
+    using UpSkill.Services.Data.Course;
+    using UpSkill.Services.Data.Employee;
+    using UpSkill.Services.Data.File;
+    using UpSkill.Services.Data.Owner;
+    using UpSkill.Services.Email;
+    using UpSkill.Services.Identity;
+    using UpSkill.Services.Messaging;
+    using UpSkill.Web.Filters;
+    using UpSkill.Web.Infrastructure.Services;
+    using UpSkill.Web.Infrastructure.Web.Extensions;
+    using UpSkill.Web.ViewModels.Chat;
 	using UpSkill.Web.ViewModels.Zoom;
-	using static Common.GlobalConstants;
-	using static Common.GlobalConstants.EmailSenderConstants;
-	using static Common.GlobalConstants.PoliciesNamesConstants;
-	using static Common.GlobalConstants.RolesNamesConstants;
-	using static Common.GlobalConstants.SwaggerConstants;
 
-	public static class ServiceCollectionExtensions
+    using static Common.GlobalConstants;
+    using static Common.GlobalConstants.EmailSenderConstants;
+    using static Common.GlobalConstants.PoliciesNamesConstants;
+    using static Common.GlobalConstants.RolesNamesConstants;
+    using static Common.GlobalConstants.SwaggerConstants;
+
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddEmailSender(
             this IServiceCollection services,
@@ -160,12 +162,13 @@
                 .AddTransient<IEmailService, EmailService>()
                 .AddTransient<IAccountService, AccountService>()
                 .AddTransient<IAdminService, AdminService>()
-                .AddTransient<ICoursesService, CoursesService>()
+                .AddTransient<ICourseService, CoursesService>()
                 .AddTransient<IDashboardService, DashboardService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
-                .AddTransient<IEmployeeService, EmployeesService>()
-                .AddTransient<IFileService, FileService>()
+                .AddTransient<IOwnerServices, OwnersServices>()
+        .AddTransient<IFileService, FilesService>()
+.AddTransient<IEmployeeService, EmployeesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
@@ -176,6 +179,7 @@
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
+                .AddTransient<IPasswordGeneratorService, PasswordGeneratorService>()
                 .AddTransient<ICurrentUserService, CurrentUserService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)

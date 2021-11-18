@@ -18,5 +18,8 @@
 
         public string GetId()
            => this.user?.GetUserId();
+
+        public string GetUserName()
+            => this.user?.Identity?.Name;
     }
 }

@@ -21,7 +21,7 @@
     using static Common.GlobalConstants.ControllersResponseMessages;
     using static Common.GlobalConstants.RolesNamesConstants;
 
-    public class CoursesService : ICoursesService
+    public class CoursesService : ICourseService
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;

@@ -125,6 +125,8 @@
             public const string DownloadByName = "download";
 
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
+
+            public const string GetCountRoute = "count";
         }
 
         public class MessagesConstants
@@ -237,6 +239,19 @@
             public const string OwnerOnly = "OwnerOnly";
 
             public const string EmployeeOnly = "EmployeeOnly";
+        }
+
+        public class EmployeeConstants
+        {
+            public const string EmailExists = "An employee with this email already exists.";
+
+            public const string SuccessMessage = "You have successfully added an employee.";
+
+            public const string EmployeeSuccesfullyDeleted = "Employee was successfully removed";
+
+            public const string NoEmployeesFound = "Currently there are no employees added to this company.";
+
+            public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
         }
     }
 }

@@ -21,6 +21,7 @@ import CompanyDetails from "./components/Companies/CompanyDetails/CompanyDetails
 import EditCompany from "./components/Companies/EditCompany/EditCompany";
 import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
 import { removeCompanyHandler } from "../src/services/companyService";
+import {removeEmployeeHandler} from "../src/services/employeeService"
 import NotificationContext from "./Context/NotificationContext";
 import SignalRHubClient from "./components/Chat/SignalRHubClient";
 import ZoomHubClient from "./components/Zoom/ZoomHubClient";
@@ -32,7 +33,11 @@ import PromoteDemote from "./components/Admin/AdminPromoteDemote";
 
 
 const AppWrapper = (props) => {
-  const [notification, setNotification] = useReducer(Auth, { type: '', state: 'none', message: '' });
+  const [notification, setNotification] = useReducer(Auth, {
+     type: '', 
+     state: 'none', 
+     message: '' 
+    });
 
   return (
     <Provider store={store}>
@@ -48,8 +53,8 @@ const AppWrapper = (props) => {
         </ZoomHubClient>
       </NotificationContext.Provider >
     </Provider>
-  )
-}
+  );
+};
 
 
 function App() {

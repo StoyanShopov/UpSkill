@@ -69,9 +69,9 @@ function DetailsModal(props) {
               </div>
             </div>
           </div>
-          <div className="detailsModal-courses-image-course-wrapper">
-            <div className="detailsModel-courses-image-course"></div>
-            <div className="detailsModel-courses-img-course-body">
+          <div className="detailsModal-image-course-wrapper">
+            <div className="detailsModel-image-course"></div>
+            <div className="detailsModel-img-course-body">
               <h4>What you'll learn</h4>
               <p>
                 - Learn more information about Digital Marketing - Improve your
