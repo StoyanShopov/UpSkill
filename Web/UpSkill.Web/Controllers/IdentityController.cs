@@ -9,12 +9,11 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Logging;
 
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Identity;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -26,13 +25,13 @@
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailService emailService;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public IdentityController(
             IIdentityService identity,
             UserManager<ApplicationUser> userManager,
             IEmailService emailService,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.identity = identity;
             this.userManager = userManager;

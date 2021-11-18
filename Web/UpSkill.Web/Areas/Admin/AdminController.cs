@@ -9,6 +9,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
     using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Administration;
     using UpSkill.Web.ViewModels.Administration.Company;
 
@@ -20,12 +21,12 @@
     {
         private readonly IAdminService adminService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public AdminController(
             IAdminService adminService,
             UserManager<ApplicationUser> userManager,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.adminService = adminService;
             this.userManager = userManager;

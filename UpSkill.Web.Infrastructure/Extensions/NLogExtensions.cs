@@ -6,24 +6,24 @@
     using NLog;
     using UpSkill.Web.Infrastructure.Extensions.Contracts;
 
-    public class NLogExtensions : INLogger
+    public sealed class NLogExtensions : INLogger
     {
-        private static NLogExtensions instance;
+        //private static NLogExtensions instance;
         private static Logger logger;
 
-        private NLogExtensions()
-        {
-        }
+        //private NLogExtensions()
+        //{
+        //}
 
-        public static NLogExtensions GetInstance()
-        {
-            if (instance == null)
-            {
-                instance = new NLogExtensions();
-            }
+        //public static NLogExtensions GetInstance()
+        //{
+        //    if (instance == null)
+        //    {
+        //        instance = new NLogExtensions();
+        //    }
 
-            return instance;
-        }
+        //    return instance;
+        //}
 
         public void Debug(object obj)
         {

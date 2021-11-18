@@ -4,10 +4,10 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-   
+
     using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Web.Areas.Owner;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Employee;
 
@@ -17,12 +17,12 @@
     {
         private readonly IEmployeeService employeeService;
         private readonly ICurrentUserService currentUser;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public EmployeesController(
             IEmployeeService employeeService,
             ICurrentUserService currentUser,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.employeeService = employeeService;
             this.currentUser = currentUser;

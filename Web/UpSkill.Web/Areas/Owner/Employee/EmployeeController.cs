@@ -6,10 +6,9 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-   
+
     using UpSkill.Services.Data.Contracts.Employee;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Employee;
 
@@ -21,13 +20,13 @@
         private readonly IEmployeeService employeesService;
         private readonly ICurrentUserService currentUser;
         private readonly IPasswordGeneratorService passwordGenerator;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public EmployeeController(
             IEmployeeService employeesService,
             ICurrentUserService currentUser,
             IPasswordGeneratorService passwordGenerator,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.employeesService = employeesService;
             this.currentUser = currentUser;

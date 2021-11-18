@@ -4,9 +4,8 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
     using UpSkill.Services.Data.Contracts.Course;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Course;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -15,11 +14,11 @@
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICourseService coursesService;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public CoursesController(
             ICourseService coursesService,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.coursesService = coursesService;
             this.nLog = nLog;

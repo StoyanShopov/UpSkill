@@ -8,7 +8,7 @@
     using Microsoft.Extensions.Logging;
 
     using UpSkill.Services.Data.Contracts.Coach;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Coach;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -17,11 +17,11 @@
     public class CoachesController : AdministrationBaseController
     {
         private readonly ICoachServices coachServices;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public CoachesController(
             ICoachServices coachServices,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.coachServices = coachServices;
             this.nLog = nLog;

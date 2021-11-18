@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Contracts.Owner;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Course;
 
@@ -16,12 +16,12 @@
     {
         private readonly IOwnerServices ownerService;
         private readonly ICurrentUserService currentUser;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public CoursesController(
             IOwnerServices ownerService,
             ICurrentUserService currentUser,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.ownerService = ownerService;
             this.currentUser = currentUser;

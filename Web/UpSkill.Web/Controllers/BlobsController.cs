@@ -6,10 +6,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
     using UpSkill.Services.Contracts.Blob;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
 
     using static UpSkill.Common.GlobalConstants.BlobConstants;
     using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
@@ -18,11 +17,11 @@
     public class BlobsController : ApiController
     {
         private readonly IBlobService blobService;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public BlobsController(
             IBlobService blobService,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.blobService = blobService;
             this.nLog = nLog;

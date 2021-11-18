@@ -5,10 +5,9 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
     using UpSkill.Services.Data.Contracts.Company;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Company;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -17,11 +16,11 @@
     public class CompaniesController : AdministrationBaseController
     {
         private readonly ICompanyService companyService;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public CompaniesController(
             ICompanyService companyService,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.companyService = companyService;
             this.nLog = nLog;

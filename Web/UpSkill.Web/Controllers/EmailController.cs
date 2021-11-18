@@ -5,10 +5,9 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
     using UpSkill.Services.Contracts.Email;
-    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.MessagesConstants;
@@ -16,11 +15,11 @@
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
-        private readonly NLogExtensions nLog;
+        private readonly INLogger nLog;
 
         public EmailController(
             IEmailService emailService,
-            NLogExtensions nLog)
+            INLogger nLog)
         {
             this.emailService = emailService;
             this.nLog = nLog;
