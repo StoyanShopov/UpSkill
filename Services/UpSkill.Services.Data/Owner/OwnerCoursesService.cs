@@ -23,18 +23,15 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IRepository<CompanyCourse> companiesCourses;
-        private readonly IRepository<Course> courses;
         private readonly IEmailSender emailSender;
 
         public OwnerCoursesService(
             UserManager<ApplicationUser> userManager,
             IRepository<CompanyCourse> companiesCourses,
-            IRepository<Course> courses,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.companiesCourses = companiesCourses;
-            this.courses = courses;
             this.emailSender = emailSender;
         }
 
@@ -54,33 +51,6 @@
                                        AdministratorEmailName,
                                        NewCourseRequest,
                                        content);
-        }
-
-        public async Task<Result> EnableCourseAsync(int courseId, string userId)
-        {
-            var user = await this.GetUser(userId);
-
-            var courseInCompany = await this.companiesCourses
-                                             .All()
-                                             .Where(c => c.CompanyId == user.CompanyId &&
-                                                         c.CourseId == courseId)
-                                             .FirstOrDefaultAsync();
-
-            if (courseInCompany == null)
-            {
-                var companyCourse = new CompanyCourse
-                {
-                    CompanyId = user.CompanyId,
-                    CourseId = courseId,
-                };
-
-                await this.companiesCourses.AddAsync(companyCourse);
-                await this.companiesCourses.SaveChangesAsync();
-
-                return true;
-            }
-
-            return false;
         }
 
         public async Task<Result> DisableCourseAsync(int courseId, string userId)
@@ -111,16 +81,6 @@
             return await this.companiesCourses
                             .All()
                             .Where(c => c.CompanyId == user.CompanyId)
-                            .To<TModel>()
-                            .ToListAsync();
-        }
-
-        public async Task<IEnumerable<TModel>> GetAvailableCoursesAsync<TModel>(string id)
-        {
-            var user = await this.GetUser(id);
-
-            return await this.courses
-                            .All()
                             .To<TModel>()
                             .ToListAsync();
         }

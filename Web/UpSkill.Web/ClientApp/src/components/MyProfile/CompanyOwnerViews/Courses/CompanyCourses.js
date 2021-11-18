@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import AvailableCourses from './AvailableCourses'
-
 import CoursesCatalog from './CoursesCatalog/CoursesCatalog';
 import serviceActions from '../../../../services/ownerCoursesService'
 
@@ -23,7 +21,7 @@ export default function CompanyOwnerCourses() {
     <>
       <div>
         <div id='btn'>
-        <Link to="/Courses">Manage</Link>
+          <Button href='/Courses'>Manage</Button>
         </div>
         <div className="wrapper">
           <CoursesCatalog courses={courses} />
