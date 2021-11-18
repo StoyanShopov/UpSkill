@@ -14,13 +14,13 @@ export default function CreateCoach({ closeModal, trigger }) {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-    const onChangeCoachPrice = (e) => {
-      setCoachPrice(e.target.value);
-    };
+  const onChangeCoachPrice = (e) => {
+    setCoachPrice(e.target.value);
+  };
 
-    const onChangeField = (e) => {
-      setCoachField(e.target.value);
-    };
+  const onChangeField = (e) => {
+    setCoachField(e.target.value);
+  };
 
   const onChangeFirstName = (e) => {
     setCoachFirstName(e.target.value);
@@ -41,7 +41,7 @@ export default function CreateCoach({ closeModal, trigger }) {
   function submitCreateCoach(e) {
     e.preventDefault();
     if (coachFirstName && coachLastName && coachField) {
-      createCoach(coachFirstName, coachLastName, coachField, coachPrice ,file)
+      createCoach(coachFirstName, coachLastName, coachField, coachPrice, file)
         .then((resp) => {
           if (resp.data === "Successfully created.") {
             setSuccess(true);
@@ -65,21 +65,21 @@ export default function CreateCoach({ closeModal, trigger }) {
 
   return trigger ? (
     <div className="deleteModal-background">
-      <div className="popup">
-        <div className="popup-createCoach-inner">
-          <div className="popup-Header">
+      <div className="createCoach-popup">
+        <div className="createCoach-popup-createCoach-inner">
+          <div className="createCoach-popup-Header">
             <div className="closebtn d-flex justify-content-end p-2">
               <button onClick={(e) => closePopup()} className="closebtn btn">
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <div className="popup-Title p-2">
+            <div className="createCoach-popup-Title p-2">
               <h4>Create Coach</h4>
             </div>
           </div>
           <form onSubmit={(e) => submitCreateCoach(e)}>
-            <div className="addEmployee-Content px-5 m-5">
-              <div className="addEmployee-Content-fullname px-5 m-3">
+            <div className="createCoach-Content px-5 m-5">
+              <div className="createCoach-Content-fullname px-5 m-3">
                 {success && (
                   <span style={{ color: "green", marginBottom: "0px" }}>
                     Successfully created
@@ -88,40 +88,40 @@ export default function CreateCoach({ closeModal, trigger }) {
                 <input
                   type="text"
                   placeholder="First Name*"
-                  className="addEmployee-Content-input w-100 p-2"
+                  className="createCoach-Content-input w-100 p-2"
                   value={coachFirstName}
                   onChange={onChangeFirstName}
                 />
               </div>
 
-              <div className="addEmployee-Content-fullname px-5 m-3">
+              <div className="createCoach-Content-fullname px-5 m-3">
                 <input
                   type="text"
                   placeholder="Last Name*"
-                  className="addEmployee-Content-input w-100 p-2"
+                  className="createCoach-Content-input w-100 p-2"
                   value={coachLastName}
                   onChange={onChangeLastName}
                 />
               </div>
-              <div className="addEmployee-Content-fullname px-5 m-3">
+              <div className="createCoach-Content-fullname px-5 m-3">
                 <input
                   type="text"
                   placeholder="Field*"
-                  className="addEmployee-Content-input w-100 p-2"
+                  className="createCoach-Content-input w-100 p-2"
                   value={coachField}
                   onChange={onChangeField}
                 />
               </div>
-              <div className="addEmployee-Content-fullname px-5 m-3">
+              <div className="createCoach-Content-fullname px-5 m-3">
                 <input
                   type="text"
                   placeholder="Price"
-                  className="addEmployee-Content-input w-100 p-2"
+                  className="createCoach-Content-input w-100 p-2"
                   value={coachPrice}
                   onChange={onChangeCoachPrice}
                 />
               </div>
-              <div className="addEmployee-Content-fullname px-5 m-3">
+              <div className="createCoach-Content-fullname px-5 m-3">
                 <input
                   type="file"
                   placeholder="File*"
@@ -129,27 +129,27 @@ export default function CreateCoach({ closeModal, trigger }) {
                   onChange={onChangeFile}
                 />
               </div>
-              <div className="addEmployee-Content-anotherEmployee px-5">
-                <div className="addEmployee-Content-anotherEmployee-btn btn">
+              <div className="createCoach-Content-anotherEmployee px-5">
+                <div className="createCoach-Content-anotherEmployee-btn btn">
                   + Create another coach
                 </div>
               </div>
             </div>
 
-            <div className="addEmployee-actions d-flex px-5 d-flex justify-content-center">
-              <div className="addEmployee-actions-cancel-wrapper px-3">
+            <div className="createCoach-actions d-flex px-5 d-flex justify-content-center">
+              <div className="createCoach-actions-cancel-wrapper px-3">
                 <button
                   onClick={(e) => closePopup()}
-                  className=" btn addEmployee-actions-cancel btn-outline-primary px-3 fw-bold"
+                  className=" btn createCoach-actions-cancel btn-outline-primary px-3 fw-bold"
                 >
                   Cancel
                 </button>
               </div>
 
-              <div className="addEmployee-actions-save-wrapper px-3">
+              <div className="createCoach-actions-save-wrapper px-3">
                 <input
                   type="submit"
-                  className="btn addEmployee-actions-cancel btn-primary px-3 fw-bold"
+                  className="btn createCoach-actions-cancel btn-primary px-3 fw-bold"
                   value="Create"
                 />
               </div>
