@@ -1,24 +1,24 @@
 ﻿namespace UpSkill.Web
 {
-	using System.Reflection;
+    using System.Reflection;
 
-	using Microsoft.AspNetCore.Builder;
-	using Microsoft.AspNetCore.Hosting;
-	using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-	using Microsoft.EntityFrameworkCore;
-	using Microsoft.Extensions.Configuration;
-	using Microsoft.Extensions.DependencyInjection;
-	using Microsoft.Extensions.Hosting;
-	using UpSkill.Data;
-	using UpSkill.Data.Seeding;
-	using UpSkill.Services.Hubs;
-	using UpSkill.Services.Mapping;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using UpSkill.Data;
+    using UpSkill.Data.Seeding;
+    using UpSkill.Services.Hubs;
+    using UpSkill.Services.Mapping;
 
-	using UpSkill.Web.Infrastructure.Web.Extensions;
-	using UpSkill.Web.ViewModels;
-	using UpSkill.Web.Web.Extensions;
+    using UpSkill.Web.Infrastructure.Web.Extensions;
+    using UpSkill.Web.ViewModels;
+    using UpSkill.Web.Web.Extensions;
 
-	public class Startup
+    public class Startup
     {
         private readonly IConfiguration configuration;
 
@@ -100,7 +100,8 @@
                 .ApplyMigrations();
 
             app.UseAzureSignalR(route => {
-				route.MapHub<ChatHub>("/chat");
+                route.MapHub<ChatHub>("/chat");
+                route.MapHub<ZoomHub>("/zoom");
             });
 
             app.UseSpa(spa =>

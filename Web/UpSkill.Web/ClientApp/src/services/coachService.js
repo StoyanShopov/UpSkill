@@ -1,3 +1,6 @@
+import axios from "axios";
+import { Base_URL } from "../utils/baseUrlConstant";
+
 const numberCoachesToShow = 6;
 const numberCoachesSessionsToShow = 3;
 
@@ -134,3 +137,9 @@ export const getCoachesSessionsForCompanyOwner = async (
 
   return [mount.name, arr];
 };
+
+export const createRoom = async (courseId,user) =>
+   axios.get(`${Base_URL}Coach/Room?courseId=${courseId.toString()}&user=${user}`)
+  .then(res => res.data)
+  .then(data => data)
+  .catch(e => e);

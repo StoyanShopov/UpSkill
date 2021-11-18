@@ -9,7 +9,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
 
@@ -18,34 +18,27 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Web.ViewModels.Identity;
-    
-
 
     using static UpSkill.Common.GlobalConstants.IdentityConstants;
     using static UpSkill.Common.GlobalConstants.PositionsNamesConstants;
 
-	public class IdentityService : IIdentityService
+    public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Company> companies;
-        private readonly IDeletableEntityRepository<Course> courses;
         private readonly IDeletableEntityRepository<Position> positions;
         private readonly AppSettings appSettings;
-       // private readonly IHubContext<ChatHub> chatHub;
-
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IOptions<AppSettings> appSettings,
             IDeletableEntityRepository<Company> companies,
-            IDeletableEntityRepository<Position> positions,
-            IDeletableEntityRepository<Course> courses)
+            IDeletableEntityRepository<Position> positions)
         {
             this.userManager = userManager;
             this.companies = companies;
             this.appSettings = appSettings.Value;
             this.positions = positions;
-            this.courses = courses;
         }
 
         public async Task<string> GenerateJwtToken(ApplicationUser user, string secret)
@@ -76,15 +69,8 @@
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var encryptedToken = tokenHandler.WriteToken(token);
 
-            //await this.ConnectToCoursesHub(user);
-
             return encryptedToken;
         }
-
-        //public Task ConnectToCoursesHub(ApplicationUser user)
-        //{
-        //    this.chat
-        //}
 
         public async Task<Result> RegisterAsync(RegisterRequestModel model)
         {

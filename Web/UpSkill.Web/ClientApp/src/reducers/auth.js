@@ -4,6 +4,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  SET_WARNING_MESSAGE,
   CLEAR_MESSAGE,
 } from "../actions/types";
 
@@ -81,6 +82,13 @@ export default function Auth(init = initialState, action) {
         isLoggedIn: false,
         user: null,
       };
+      case SET_WARNING_MESSAGE:
+        return {
+          state: 'opened', 
+          type: 'warning' ,
+          message: payload.message,
+          link: payload.link,
+        };
     case CLEAR_MESSAGE:
         return {
           state: 'closed',

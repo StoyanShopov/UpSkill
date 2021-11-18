@@ -1,5 +1,4 @@
-
-import React, { useReducer, useState, useEffect, useContext } from "react";
+import React, { useReducer } from "react";
 import { Route } from "react-router-dom";
 import { Provider } from 'react-redux'
 
@@ -24,6 +23,7 @@ import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
 import { removeCompanyHandler } from "../src/services/companyService";
 import NotificationContext from "./Context/NotificationContext";
 import SignalRHubClient from "./components/Chat/SignalRHubClient";
+import ZoomHubClient from "./components/Zoom/ZoomHubClient";
 import Auth from "./reducers/auth";
 import store from './store';
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses"
@@ -37,13 +37,15 @@ const AppWrapper = (props) => {
   return (
     <Provider store={store}>
       <NotificationContext.Provider value={[notification, setNotification]} >
-        <SignalRHubClient>
-          <Layout>
-            <Notifications state={notification.state} message={notification.message} />
-            {props.children}
+        <ZoomHubClient>
+          <SignalRHubClient>
+            <Layout>
+              <Notifications state={notification.state} message={notification.message} />
+              {props.children}
 
-          </Layout>
+            </Layout>
           </SignalRHubClient>
+        </ZoomHubClient>
       </NotificationContext.Provider >
     </Provider>
   )

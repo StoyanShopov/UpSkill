@@ -1,4 +1,5 @@
 import { useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import notificationContext from "../../../Context/NotificationContext";
 
@@ -8,12 +9,11 @@ function Notifications({ state, message }) {
     let [notification, setNotification] = useContext(notificationContext);
 
     useEffect(() => {
-        
         setTimeout(() => {
             setNotification({type:'CLEAR_MESSAGE'});
-        }, 6000);
+        }, 7000);
 
-    }, [state,setNotification]);
+    }, [setNotification]);
 
 
     const closeNotification = () => {
@@ -23,8 +23,13 @@ function Notifications({ state, message }) {
     return (
         <div className="noti-container">
             <div className="noti-wrapper">
-                <div className={`${notification.type} ${notification.state} notification`}>
-                    <p>{message}</p>
+                <div className={`${notification.type} ${notification.state} notification table-borderless`}>
+                    <p className="row">
+                    <span className="col">{message}</span>
+                    {notification.link
+                    ? <a href={notification.link} className="link col"  target="_blank" rel="noreferrer">JOIN NOW</a>
+                    : null} 
+                    </p>                    
                     <button className="close-btn" onClick={() => closeNotification()}>✖</button>
                 </div>
             </div>

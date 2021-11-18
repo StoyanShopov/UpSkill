@@ -1,17 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from "react-router-dom";
-import { ReactReduxContext } from 'react-redux'
 
 import Lobby from './Chat/Lobby';
 import Chat from './Chat/Chat';
 
 import chatContext from "../Context/ChatContext";
+import zoomContext from "../Context/ZoomContext";
 
 
-export default function Home() {
-	
+export default function Home() {	
 	const [joinRoom, sendMessage, closeConnection, messages, setMessages, connection] = useContext(chatContext);	
-
+	const [joinCourses, sendJoinMessage, startRoom, sendInviteMessage, receiveMessage] = useContext(zoomContext);	
+	
 	return (
 		<>
 			{!connection
@@ -23,6 +23,15 @@ export default function Home() {
 			<NavLink to="/Courses" className="btn btn-outline-info mt-5 font-weight-bold" exact={true}>
 				<b>To Courses</b>
 			</NavLink>
+
+			<div className="w-25 mt-5">
+			<h4>Part of a Coach View</h4>
+				<form onSubmit={e => startRoom(e)}>
+				<input type="text" placeholder="course Id... exmp: 8"/>
+				<input type="submit" className="btn btn-outline-danger m-3 font-weight-bold" value="Start Room" />
+				</form>
+				<p className="fw-bold">Login first would be wise...</p>
+			</div>
 
 			<div className="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 

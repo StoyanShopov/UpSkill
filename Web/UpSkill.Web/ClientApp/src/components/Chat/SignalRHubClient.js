@@ -2,11 +2,10 @@ import React, { useState, useContext } from "react";
 import ChatContext from "../../Context/ChatContext";
 import notificationContext from "../../Context/NotificationContext";
 
-
-
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { Base_URL } from "../../utils/baseUrlConstant";
 
-
+// This is not part of the project: TEST SERVICE
 function SignalRHubClient(props) {
     const [connection, setConnection] = useState();
     const [messages, setMessages] = useState([]);
@@ -16,7 +15,7 @@ function SignalRHubClient(props) {
     const joinRoom = async (name) => {
       try {
         const connection = new HubConnectionBuilder()
-          .withUrl("https://localhost:44319/chat")
+          .withUrl(`${Base_URL}chat`)
           .configureLogging(LogLevel.Information)                
           .build();
   
@@ -32,14 +31,11 @@ function SignalRHubClient(props) {
         await connection.invoke("JoinRoom", { name });
         let lastMessages = await connection.invoke("GetLastMessages");
   
-        console.log(lastMessages);
-  
         await Array.prototype.reverse.call(lastMessages).forEach(m => {
           receiveMessage(m.name,m.message,m.currentTime, name);        
         });
   
-        setConnection(connection);
-  
+        setConnection(connection);  
       } catch (e) {
         console.log(e);
       }

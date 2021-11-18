@@ -2,12 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.SignalR;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Web.ViewModels.Chat;
-    using Microsoft.AspNetCore.SignalR;
-    using System.Linq;
 
     public class ChatHub : Hub
     {

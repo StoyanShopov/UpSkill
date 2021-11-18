@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
+// This is not part of the project: TEST SERVICE
 function Lobby({joinRoom}) {
     const [name, setName] = useState(''); 
     

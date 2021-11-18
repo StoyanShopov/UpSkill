@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import './Chat.css';
 
+// This is not part of the project: TEST SERVICE
 function Chat({ messages, sendMessage }) {
     const [message, setMessage] = useState('');
     const messageRef = useRef();
