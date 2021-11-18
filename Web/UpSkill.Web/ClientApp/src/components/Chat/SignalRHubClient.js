@@ -62,7 +62,6 @@ function SignalRHubClient(props) {
                     isMine: name === messageName,
                 }]);
           }
-        console.log('message received: ', message);    
        } catch (e) {
         console.log(e);
       }
