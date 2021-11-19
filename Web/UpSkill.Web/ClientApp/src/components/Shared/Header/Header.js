@@ -25,7 +25,6 @@ function Header() {
 	const dispatch = useDispatch();
   
 	useEffect(() => {
-		console.log(isLoggedIn);
 	  history.listen((location) => {
 		dispatch(clearMessage()); // clear message when changing location
 	  });
