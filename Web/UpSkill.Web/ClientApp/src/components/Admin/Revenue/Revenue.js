@@ -1,3 +1,1 @@
-export default function Revenue() {
-    
-}
+export default function Revenue() {}
