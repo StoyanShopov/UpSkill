@@ -24,8 +24,21 @@ const SidebarResources = ( props) => {
                     <li className="lecturesContentSpan">
                     {lectures.map((lecture) => (
                         <li>
-                        {lecture.courseSubject}
-                        {lecture.courseVideo}
+                            <select 
+                            value={currentResources} 
+                            onChange={handleResources}>
+                                <option 
+                                value={lecture.courseSubject}>
+                                    {lecture.courseSubject}
+                                </option>
+                                <br></br>
+                                <option value={lecture.courseVideo}>
+                                   Lecture Video
+                                </option>
+                                <option value={lecture.resource}>
+                                    Resources
+                                </option>
+                            </select>
                         </li>
                     ))}
                     </li>
