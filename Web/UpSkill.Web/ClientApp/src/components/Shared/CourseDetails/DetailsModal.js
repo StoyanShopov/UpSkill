@@ -66,7 +66,7 @@ function DetailsModal(props) {
                   <i class="fa fa-star rating-color"></i>
                   <i class="fa fa-star"></i>
                 </div>
-                <span class="review-count">12 Reviews</span>
+                <span className="review-count">12 Reviews</span>
               </div>
             </div>
           </div>

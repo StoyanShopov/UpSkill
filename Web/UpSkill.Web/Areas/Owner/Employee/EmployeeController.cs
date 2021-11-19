@@ -76,5 +76,10 @@
 
             return this.Ok(EmployeeSuccesfullyDeleted);
         }
+
+        [HttpGet]
+        [Route(GetAllEmployeesRoute)]
+        public async Task<IEnumerable<EmployeesListingModel>> GetAllCompanyEmployees()
+            => await this.employeesService.GetCompanyEmployeesAsync<EmployeesListingModel>(this.currentUser.GetId());
     }
 }
