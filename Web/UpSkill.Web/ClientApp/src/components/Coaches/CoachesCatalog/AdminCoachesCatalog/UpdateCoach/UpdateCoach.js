@@ -71,6 +71,12 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
             setCoachField("");
             setCoachPrice(0);
             setCalendlyUrl("")
+            localStorage.removeItem("ID");
+            localStorage.removeItem("FirstName");
+            localStorage.removeItem("LastName");
+            localStorage.removeItem("Field");
+            localStorage.removeItem("Price");
+            localStorage.removeItem("CalendlyUrl");
           }
         })
         .catch(() => setSuccess(false));
