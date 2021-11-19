@@ -102,13 +102,11 @@
 
             builder
                 .Entity<CourseLecture>()
-                .HasKey(c => new { c.CoursesId, c.LecturesId });
+                .HasKey(c => new { c.CourseId, c.LectureId });
 
             builder
                 .Entity<LectureLesson>()
-                .HasKey(c => new { c.LecturesId, c.LessonsId });
-
-            
+                .HasKey(c => new { c.LectureId, c.LessonId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

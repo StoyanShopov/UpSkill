@@ -8,24 +8,30 @@
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Lecture;
 
-    public class AggregatedCourseInfo : IMapFrom<Course>
+    public class AggregatedCourseInfo : IMapFrom<Course>, IHaveCustomMappings
     {
-
-
         public int Id { get; set; }
 
-        public string Title { get; set; }
+        public string CourseTitle { get; set; }
 
-        public string Description { get; set; }
+        public string CourseDescription { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal CoursePrice { get; set; }
 
-        public int CategoryId { get; set; }
+        public int CourseCategoryId { get; set; }
 
-        public int CoachId { get; set; }
+        public int CourseCoachId { get; set; }
 
-        public string FileFilePath { get; set; }
+        public string CourseFileFilePath { get; set; }
 
-        public ICollection<LectureInfoViewModel> LecturesInfo { get; set; }
+        public IEnumerable<CourseLectureModel> CourseLectures { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<CourseLecture, AggregatedCourseInfo>()
+              .ForMember(
+              c => c.Id,
+              c => c.MapFrom(c => c.CourseId));
+        }
     }
 }

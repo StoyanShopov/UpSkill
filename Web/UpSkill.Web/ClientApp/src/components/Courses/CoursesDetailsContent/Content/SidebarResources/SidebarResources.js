@@ -4,7 +4,7 @@ import './SidebarResources.css';
 
 const SidebarResources = ( props) => {
     const {
-        courseResources: { courseItems }
+        courseResources: { lectures }
     } = props;
 
     const [currentResources, setCurrentResources] = useState("");
@@ -22,9 +22,10 @@ const SidebarResources = ( props) => {
             <section>
                 <ul>
                     <li className="lecturesContentSpan">
-                    {courseItems.map((items) => (
+                    {lectures.map((lecture) => (
                         <li>
-                        {items.courseSubject}
+                        {lecture.courseSubject}
+                        {lecture.courseVideo}
                         </li>
                     ))}
                     </li>

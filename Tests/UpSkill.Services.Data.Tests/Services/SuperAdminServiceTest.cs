@@ -141,6 +141,9 @@
             var companyCoursesMock = new Mock<IRepository<CompanyCourse>>();
             companyCoursesMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.CompanyCourses);
 
+            var courseLectureMock = new Mock<IRepository<CourseLecture>>();
+            courseLectureMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.CourseLecture);
+
             var coursesMock = new Mock<IDeletableEntityRepository<Course>>();
             coursesMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.Courses);
 
@@ -150,6 +153,7 @@
                 userManagerMock,
                 companyServiceMock.Object,
                 companyCoursesMock.Object,
+                courseLectureMock.Object,
                 coursesMock.Object,
                 filesMock.Object);
 
