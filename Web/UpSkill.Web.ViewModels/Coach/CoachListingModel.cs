@@ -13,6 +13,10 @@
 
         public string LastName { get; set; }
 
+        public string Field { get; set; }
+
+        public decimal Price { get; set; }
+
         public string FileFilePath { get; set; }
 
         public string CalendlyUrl { get; set; }
