@@ -1,7 +1,7 @@
 ﻿namespace UpSkill.Web
 {
     using System.Reflection;
-
+    using JavaScriptEngineSwitcher.V8;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -50,6 +50,12 @@
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
+
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -62,6 +68,13 @@
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
+
+            JavaScriptEngineSwitcher.Core
+                                    .JsEngineSwitcher
+                                    .Current
+                                    .DefaultEngineName = V8JsEngine.EngineName;
+
+            JavaScriptEngineSwitcher.Core.JsEngineSwitcher.Current.EngineFactories.AddV8();
 
             if (env.IsDevelopment())
             {

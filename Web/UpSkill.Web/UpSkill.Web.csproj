@@ -17,6 +17,9 @@
 	</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
+    <PackageReference Include="JavaScriptEngineSwitcher.V8" Version="3.13.3" />
+    <PackageReference Include="JavaScriptEngineSwitcher.V8.Native.win-x64" Version="3.13.3" />
+    <PackageReference Include="JavaScriptEngineSwitcher.V8.Native.win-x86" Version="3.13.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
@@ -30,13 +33,16 @@
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.6" />
+    <PackageReference Include="React.Core" Version="5.2.12" />
+    <PackageReference Include="React.Web" Version="5.2.12" />
+    <PackageReference Include="React.Web.Mvc4" Version="5.2.12" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
 
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 
 
-	<ItemGroup>
+	<ItemGroup> 
 		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.11" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
@@ -73,6 +79,7 @@
 
 
 	<ItemGroup>
+    
 		<Folder Include="ClientApp\src\components\" />
 		<Folder Include="ClientApp\src\services\" />
 	</ItemGroup>
@@ -94,7 +101,6 @@
 		<Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
 		<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
 	</Target>
-
 	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
 		<!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
 		<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />

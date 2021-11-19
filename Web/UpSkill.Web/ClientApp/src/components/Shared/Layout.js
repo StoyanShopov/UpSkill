@@ -4,14 +4,17 @@ import FooterMenu from './Footer/Footer';
 
 import './Layout.css';
 
-export default function Layout(props) {
+function Layout(props) {
     return (
-      <>
-        <NavMenu />
-                <div className="container paddingTopContent">
-                    {props.children}
-                </div>
-        <FooterMenu/>
-      </>
-    );  
+        <>
+            <NavMenu />
+            <div className="container paddingTopContent">
+                {props.children}
+            </div>
+            <FooterMenu />
+        </>
+    );
 }
+
+React.render(<Layout />, document.getElementById("reactdiv"));
+export default function Layout();
