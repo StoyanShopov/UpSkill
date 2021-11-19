@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Base_URL } from "../utils/baseUrlConstant";
+import Feedback from "react-bootstrap/esm/Feedback";
 
 const token = localStorage.getItem("token");
 
@@ -12,13 +13,14 @@ export const removeCoach = async (id) => {
   } catch (err) {}
 };
 
-export const createCoach = async (firstName, lastName, field, price,file) => {
+export const createCoach = async (firstName, lastName, field, price,file, calendlyUrl) => {
   let fd = new FormData(); 
   fd.append("FirstName", firstName);
   fd.append("LastName", lastName);
   fd.append("Field", field);
   fd.append("Price", price);
   fd.append("File",  file,)
+  fd.append("CalendlyUrl", calendlyUrl)
   console.log(fd);
   try {
     const resp = await axios.post(
@@ -32,13 +34,14 @@ export const createCoach = async (firstName, lastName, field, price,file) => {
   } catch (err) {}
 };
 
-export const updateCoach = async (id,firstName, lastName, field, price, file) => {
+export const updateCoach = async (id,firstName, lastName, field, price, file, calendlyUrl) => {
   let fd = new FormData(); 
   fd.append("FirstName", firstName);
   fd.append("LastName", lastName);
   fd.append("Field", field);
   fd.append("Price", price);
   fd.append("File",  file,)
+  fd.append("CalendlyUrl", calendlyUrl)
   console.log(fd);
   try {
     const resp = await axios.put(

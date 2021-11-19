@@ -150,7 +150,7 @@ export const getAllCoaches = async (currentPage) => {
         coachField: c.field,
         coachFileFilePath: c.fileFilePath,
         coachPrice: c.price,
-        calendlyUrl: 'https://calendly.com/iltodbul-1',
+        calendlyUrl: c.calendlyUrl,
       };
     });
     // console.log(transformedResp);

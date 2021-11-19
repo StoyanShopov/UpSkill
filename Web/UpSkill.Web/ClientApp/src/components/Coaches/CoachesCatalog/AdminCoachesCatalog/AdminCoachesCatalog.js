@@ -37,6 +37,7 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
       coachField,
       coachPrice,
       coachFileFilePath,
+      calendlyUrl,
     } = coach;
     localStorage.setItem("ID", id);
     localStorage.setItem("FirstName", coachFirstName);
@@ -44,6 +45,7 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
     localStorage.setItem("Field", coachField);
     localStorage.setItem("Price", coachPrice);
     localStorage.setItem("FilePath", coachFileFilePath);
+    localStorage.setItem("CalendlyUrl", calendlyUrl);
   };
 
   const getValue = (coach) => {

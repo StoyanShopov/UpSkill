@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  margin-top: 50px;
+  margin-top: 40px;
   background-color: rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
@@ -14,8 +14,8 @@
 .createCoach-popup-createCoach-inner {
   position: relative;
   width: 100%;
-  height: fit-content;
-  padding-bottom: 3rem;
+  height: fit-content; 
+  padding-bottom: 2em;
   overflow: hidden;
   max-width: 640px;
   background-color: white;
@@ -52,6 +52,10 @@
 
 .createCoach-Content-anotherEmployee-btn {
   color: #296cfb;
+}
+
+.createCoach-actions{
+  margin-top: -30px; 
 }
 
 ::placeholder {

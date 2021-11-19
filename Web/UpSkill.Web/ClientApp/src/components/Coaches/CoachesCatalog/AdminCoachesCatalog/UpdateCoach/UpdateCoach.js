@@ -11,9 +11,14 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
   const [coachLastName, setCoachLastName] = useState("");
   const [coachId, setCoachId] = useState("");
   const [file, setFile] = useState({});
+  const [calendlyUrl, setCalendlyUrl] = useState("");
   const [success, setSuccess] = useState(false);
 
   const test = localStorage.getItem("ID");
+
+  const onChangeCalendlyUrl = (e) => {
+    setCalendlyUrl(e.target.value);
+  };
 
   const onChangeCoachPrice = (e) => {
     setCoachPrice(e.target.value);
@@ -42,6 +47,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
     setCoachLastName(localStorage.getItem("LastName"));
     setCoachField(localStorage.getItem("Field"));
     setCoachPrice(localStorage.getItem("Price"));
+    setCalendlyUrl(localStorage.getItem("CalendlyUrl"))
   }, [test]);
 
   function submitEditCoach(e) {
@@ -53,7 +59,8 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
         coachLastName,
         coachField,
         coachPrice,
-        file
+        file,
+        calendlyUrl,
       )
         .then((resp) => {
           console.log(resp);
@@ -63,6 +70,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
             setCoachLastName("");
             setCoachField("");
             setCoachPrice(0);
+            setCalendlyUrl("")
           }
         })
         .catch(() => setSuccess(false));
@@ -82,12 +90,12 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
       <div className="updateCoach-popup">
         <div className="updateCoach-popup-createCoach-inner">
           <div className="updateCoach-popup-Header">
-            <div className="closebtn d-flex justify-content-end p-2">
+            <div className="closebtn d-flex justify-content-end pt-2 pe-2">
               <button onClick={(e) => closePopup()} className="closebtn btn">
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <div className="updateCoach-popup-Title p-2">
+            <div className="updateCoach-popup-Title pb-2">
               <h4>Update Coach</h4>
             </div>
           </div>
@@ -135,6 +143,15 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   onChange={onChangeCoachPrice}
                 />
               </div>
+              <div className="createCoach-Content-fullname px-5 m-3">
+                <input
+                  type="text"
+                  placeholder="Calendly url*"
+                  className="createCoach-Content-input w-100 p-2"
+                  value={calendlyUrl}
+                  onChange={onChangeCalendlyUrl}
+                />
+              </div>
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
                   type="file"
@@ -143,14 +160,14 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   onChange={onChangeFile}
                 />
               </div>
-              <div className="updateCoach-Content-anotherEmployee px-5">
+              <div className="updateCoach-Content-anotherEmployee ps-5">
                 <div className="updateCoach-Content-anotherEmployee-btn btn">
                   + Create another coach
                 </div>
               </div>
             </div>
 
-            <div className="updateCoach-actions d-flex px-5 d-flex justify-content-center">
+            <div className="updateCoach-actions d-flex d-flex justify-content-center">
               <div className="updateCoach-actions-cancel-wrapper px-3">
                 <button
                   onClick={(e) => closePopup()}

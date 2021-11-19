@@ -9,10 +9,15 @@ export default function CreateCoach({ closeModal, trigger }) {
   const [coachFirstName, setCoachFirstName] = useState("");
   const [coachLastName, setCoachLastName] = useState("");
   const [file, setFile] = useState({});
+  const [calendlyUrl, setCalendlyUrl] = useState("");
 
   const [success, setSuccess] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const onChangeCalendlyUrl = (e) => {
+    setCalendlyUrl(e.target.value);
+  };
 
   const onChangeCoachPrice = (e) => {
     setCoachPrice(e.target.value);
@@ -41,7 +46,7 @@ export default function CreateCoach({ closeModal, trigger }) {
   function submitCreateCoach(e) {
     e.preventDefault();
     if (coachFirstName && coachLastName && coachField) {
-      createCoach(coachFirstName, coachLastName, coachField, coachPrice, file)
+      createCoach(coachFirstName, coachLastName, coachField, coachPrice, file, calendlyUrl)
         .then((resp) => {
           if (resp.data === "Successfully created.") {
             setSuccess(true);
@@ -49,6 +54,7 @@ export default function CreateCoach({ closeModal, trigger }) {
             setCoachLastName("");
             setCoachField("");
             setCoachPrice(0);
+            setCalendlyUrl("");
           }
         })
         .catch(() => setSuccess(false));
@@ -68,12 +74,12 @@ export default function CreateCoach({ closeModal, trigger }) {
       <div className="createCoach-popup">
         <div className="createCoach-popup-createCoach-inner">
           <div className="createCoach-popup-Header">
-            <div className="closebtn d-flex justify-content-end p-2">
+            <div className="closebtn d-flex justify-content-end pt-2 pe-2">
               <button onClick={(e) => closePopup()} className="closebtn btn">
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <div className="createCoach-popup-Title p-2">
+            <div className="createCoach-popup-Title pb-2">
               <h4>Create Coach</h4>
             </div>
           </div>
@@ -123,21 +129,29 @@ export default function CreateCoach({ closeModal, trigger }) {
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
+                  type="text"
+                  placeholder="Calendly url*"
+                  className="createCoach-Content-input w-100 p-2"
+                  value={calendlyUrl}
+                  onChange={onChangeCalendlyUrl}
+                />
+              </div>
+              <div className="createCoach-Content-fullname px-5 m-3">
+                <input
                   type="file"
                   placeholder="File*"
                   className="w-100 p-2"
                   onChange={onChangeFile}
                 />
               </div>
-              <div className="createCoach-Content-anotherEmployee px-5">
+              <div className="createCoach-Content-anotherEmployee ps-5">
                 <div className="createCoach-Content-anotherEmployee-btn btn">
                   + Create another coach
                 </div>
               </div>
             </div>
-
-            <div className="createCoach-actions d-flex px-5 d-flex justify-content-center">
-              <div className="createCoach-actions-cancel-wrapper px-3">
+            <div className="createCoach-actions d-flex px-1 d-flex justify-content-center">
+              <div className="createCoach-actions-cancel-wrapper px-1">
                 <button
                   onClick={(e) => closePopup()}
                   className=" btn createCoach-actions-cancel btn-outline-primary px-3 fw-bold"
@@ -145,7 +159,6 @@ export default function CreateCoach({ closeModal, trigger }) {
                   Cancel
                 </button>
               </div>
-
               <div className="createCoach-actions-save-wrapper px-3">
                 <input
                   type="submit"
