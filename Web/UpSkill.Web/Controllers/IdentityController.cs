@@ -79,6 +79,7 @@
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route(LogoutRoute)]
         public IActionResult Logout()
         {

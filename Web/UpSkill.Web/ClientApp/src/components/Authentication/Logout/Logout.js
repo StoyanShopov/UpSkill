@@ -6,6 +6,10 @@ import chatContext from "../../../Context/ChatContext";
 
 import { logout } from "../../../actions/auth";  
 
+import {
+  LOGOUT,
+} from "../../../actions/types";
+
 const Logout = (props) => {
   const { isLoggedIn } = useSelector(state => state.auth);
   let [notification, setNotification] = useContext(notificationContext);
@@ -17,14 +21,14 @@ const Logout = (props) => {
     if(!isLoggedIn){
         props.history.push("/Login");        
     }
+    logout()
+        .then(async () => { 
+          dispatch({
+            type:LOGOUT,
+          });
 
-    dispatch(logout())
-        .then(() => {          
-          props.history.push("/");
-          localStorage.removeItem("user");     
-          localStorage.removeItem("token");      
-          
-          closeConnection();
+          await props.history.push("/");
+          localStorage.removeItem("user");                
           setNotification({type:'LOGOUT', payload: `Goodbye !`});
         })
         .catch(() => {

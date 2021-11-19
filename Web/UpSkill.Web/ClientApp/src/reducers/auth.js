@@ -14,20 +14,10 @@ import {
   EmployeeRoleName,
 } from '../utils/webConstants';
 
-const user = () => JSON.parse(localStorage.getItem("user")) || null;
+const user = () => JSON.parse(localStorage.getItem("user"));
 
-const initialState = user
-  ? { 
-       state: 'opened', 
-       type: 'success' , 
-       message: '', 
-       isLoggedIn: true,
-       user: user,
-       isAdmin: user()?.role === AdministratorRoleName,
-       isCompanyOwner: user()?.role === CompanyOwnerRoleName,
-       isEmployee: user()?.role===EmployeeRoleName,
-    }
-  : { isLoggedIn: false,
+const initialState = { 
+      isLoggedIn: false,
       user: null,
       isAdmin: false,
       isCompanyOwner: false,
@@ -93,7 +83,7 @@ export default function Auth(init = initialState, action) {
         return {
           state: 'closed',
           type: '' ,
-          message: ''
+          message: '',
         }; 
     default:
       return init;

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UpSkill.Data;
 
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211103104330_CompanyCoachesTable")]
+    partial class CompanyCoachesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,6 +181,9 @@ namespace UpSkill.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -249,6 +254,8 @@ namespace UpSkill.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("CourseId");
+
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("ManagerId");
@@ -295,25 +302,6 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.Chat.Message", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("OwnerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Time")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
                 {
                     b.Property<int>("Id")
@@ -321,17 +309,11 @@ namespace UpSkill.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CalendlyUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Field")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FileId")
                         .HasColumnType("int");
@@ -397,7 +379,7 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoach", b =>
+            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoaches", b =>
                 {
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -538,21 +520,6 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("Positions");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.UserInCourse", b =>
-                {
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicationUserId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("UserInCourses");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("UpSkill.Data.Models.ApplicationRole", null)
@@ -612,6 +579,10 @@ namespace UpSkill.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("UpSkill.Data.Models.Course", null)
+                        .WithMany("Users")
+                        .HasForeignKey("CourseId");
+
                     b.HasOne("UpSkill.Data.Models.ApplicationUser", "Manager")
                         .WithMany("ChildUsers")
                         .HasForeignKey("ManagerId");
@@ -647,7 +618,7 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("File");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoach", b =>
+            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoaches", b =>
                 {
                     b.HasOne("UpSkill.Data.Models.Coach", "Coach")
                         .WithMany("Companies")
@@ -710,32 +681,11 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("File");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.UserInCourse", b =>
-                {
-                    b.HasOne("UpSkill.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("Courses")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UpSkill.Data.Models.Course", "Course")
-                        .WithMany("Users")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Course");
-                });
-
             modelBuilder.Entity("UpSkill.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("ChildUsers");
 
                     b.Navigation("Claims");
-
-                    b.Navigation("Courses");
 
                     b.Navigation("Logins");
 

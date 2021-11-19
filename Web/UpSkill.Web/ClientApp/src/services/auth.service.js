@@ -35,11 +35,11 @@ const login = async (email, password) => {
     });
 };
 
-const logout = () => {
-  return axios
-      .post(API_URL + "logout", authHeader())
+const logout = async () => {
+  return await axios
+    .post(API_URL + "logout")
     .then((res) => {
-        localStorage.removeItem(userStorageVarName);      
+        localStorage.removeItem("user");      
         localStorage.removeItem("token");      
     });
 };
@@ -52,5 +52,6 @@ const identity = {
   logout,
   getUser,
 }
+
 
 export default identity;
