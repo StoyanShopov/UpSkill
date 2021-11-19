@@ -2,8 +2,6 @@ import React from 'react';
 
 import Details from './Details/Details';
 import SidebarResources from './SidebarResources/SidebarResources';
-
-import './Content.css'
  
 function Content ({course}) {
     return(

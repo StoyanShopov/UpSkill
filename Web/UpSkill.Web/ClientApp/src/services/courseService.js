@@ -55,9 +55,13 @@ const DetailsContent =
       },
       {
         courseSubject: 'Marketing',
+        courseVideo: 'https://youtu.be/Y2a16HAsHBE',
+        resource: 'file.pdf',
       },
       {
         courseSubject: 'Digital Marketing',
+        courseVideo: 'https://youtu.be/Y2a16HAsHBE',
+        resource: 'file.pdf',
       }
     ],
 };

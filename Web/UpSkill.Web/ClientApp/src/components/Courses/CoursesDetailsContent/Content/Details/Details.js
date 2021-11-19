@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { ReactVideo } from 'reactjs-media';
 import { Editor } from '@tinymce/tinymce-react';
 
+import sanitizeHtml from 'sanitize-html';
+
 import './Details.css';
 
 import marketingImg from '../../../../../assets/img/courses/Marketing.png';
@@ -12,6 +14,14 @@ const Details = (props) => {
     } = props;
 
     const [text, setText] = useState(courseDescription);
+
+    const sanitizeText = sanitizeHtml(text, {
+        allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
+        allowedAttributes: {
+          'a': [ 'href' ]
+        },
+        allowedIframeHostnames: ['www.youtube.com']
+      });
 
     return(
         <div className="container">
@@ -24,7 +34,7 @@ const Details = (props) => {
                 /><br/>
                 <h4 className="lectureDescriptionContent">Lecture Description</h4>
                 <Editor
-                initialValue={text}
+                initialValue={sanitizeText}
                 onEditorChange={(newText) => setText(newText)}
                 init={{
                     height: 180,
@@ -41,8 +51,7 @@ const Details = (props) => {
                       content_style: 'font: normal normal bold 22px/27px Montserrat;' + 
                       'letter-spacing: 1.1px; color: #000000; opacity: 1;'
                 }}
-                /><br/>    
-                {/* <p className="descriptionContent">{courseDescription}</p> */}
+                /><br/>
                 <h4 className="instructorContent">Instructor</h4>
                 <p>{courseLecturer}</p>                
         </div>   
