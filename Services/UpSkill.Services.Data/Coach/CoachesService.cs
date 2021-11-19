@@ -51,6 +51,7 @@
                 Field=model.Field,
                 Price=model.Price,
                 FileId = file,
+                CalendlyUrl = model.CalendlyUrl,
             };
 
             await this.coaches.AddAsync(coach);

@@ -39,10 +39,13 @@ const login = (email, password) => {
     });
 };
 
-const logout = () => {
-  return axios.post(API_URL + "logout").then((res) => {
-    localStorage.removeItem("user");
-  });
+const logout = async () => {
+  return await axios
+    .post(API_URL + "logout")
+    .then((res) => {
+        localStorage.removeItem("user");      
+        localStorage.removeItem("token");      
+    });
 };
 
 const identity = {
