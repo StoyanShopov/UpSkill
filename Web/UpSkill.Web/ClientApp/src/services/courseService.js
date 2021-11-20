@@ -6,8 +6,6 @@ const API_URL = Base_URL + "Course";
 const token = localStorage.getItem("token");
 
 const numberCoursesToShow = 5;
-const API_URL = "https://localhost:44319/Admin/Courses";
-const axios = require("axios");
 
 const initialCourses = [
   {

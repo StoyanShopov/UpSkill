@@ -10,9 +10,9 @@
 
     public class CourseController : ApiController
     {
-        private readonly ICoursesService courseService;
+        private readonly ICourseService courseService;
 
-        public CourseController(ICoursesService courseService)
+        public CourseController(ICourseService courseService)
         {
             this.courseService = courseService;
         }
