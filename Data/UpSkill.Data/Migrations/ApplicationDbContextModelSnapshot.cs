@@ -302,11 +302,17 @@ namespace UpSkill.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CalendlyUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Field")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FileId")
                         .HasColumnType("int");
@@ -324,6 +330,9 @@ namespace UpSkill.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -367,6 +376,21 @@ namespace UpSkill.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoach", b =>
+                {
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoachId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CompanyId", "CoachId");
+
+                    b.HasIndex("CoachId");
+
+                    b.ToTable("CompanyCoaches");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
@@ -720,6 +744,25 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("File");
                 });
 
+            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoach", b =>
+                {
+                    b.HasOne("UpSkill.Data.Models.Coach", "Coach")
+                        .WithMany("Companies")
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("UpSkill.Data.Models.Company", "Company")
+                        .WithMany("Coaches")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
                 {
                     b.HasOne("UpSkill.Data.Models.Company", "Company")
@@ -835,11 +878,15 @@ namespace UpSkill.Data.Migrations
 
             modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
                 {
+                    b.Navigation("Companies");
+
                     b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Company", b =>
                 {
+                    b.Navigation("Coaches");
+
                     b.Navigation("Courses");
 
                     b.Navigation("Users");

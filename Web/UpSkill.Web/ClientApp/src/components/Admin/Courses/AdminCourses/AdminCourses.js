@@ -6,7 +6,7 @@ import {
   deleteCourses,
 } from "../../../../services/adminCourseService";
 import "./AdminCourses.css";
-import DetailsModal from "../Modals/DetailsModal";
+import DetailsModal from "../../../Shared/CourseDetails/DetailsModal";
 import CreateCourseModal from "../Modals/CreateCourseModal/CreateCourseModal";
 import UpdateCourseModal from "../Modals/UpdateCourseModal/UpdateCourseModal";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
@@ -90,7 +90,7 @@ export default function AdminCourses() {
             Add
           </button>
         </div>
-        <div className="row list-unstyled courses-list">
+        <div className="row list-unstyled admin-courses-list">
           {courses.map((course) => (
             <div className="col-6 text-align-center ">
               <AdminCoursesCard
