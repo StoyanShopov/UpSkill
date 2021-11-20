@@ -191,15 +191,5 @@
               .AllAsNoTracking()
               .Where(uc => uc.CourseId == id)
               .ToListAsync();
-
-        public async Task<Result> SendAllUsersInviteToZoom(int id, string joinUrl)
-        {
-            var users = await this.GetAllUsersInCourse(id);
-
-
-
-
-            return true;
-        }
     }
 }
