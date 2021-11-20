@@ -3,7 +3,7 @@ import React from 'react';
 import Details from './Details/Details';
 import SidebarResources from './SidebarResources/SidebarResources';
  
-function Content ({course}) {
+function Content ( { course } ) {
     return(
         <>
             {course.map((courseDetails) => (

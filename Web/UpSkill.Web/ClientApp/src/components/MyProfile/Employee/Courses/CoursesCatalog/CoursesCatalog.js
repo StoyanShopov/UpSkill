@@ -16,7 +16,9 @@ export default function CoursesCatalog({ courses }) {
                             key={course.id} 
                             coursesDetails={course}
                         >
-                            <Button to={`/DetailsContent${course.id}`} className="courses-cardButton">Compete</Button>
+                            <a href={`/Course?id=${course.id}`}>
+                           <Button className="courses-cardButton">Compete</Button>   
+                           </a>           
                         </CoursesCard>
                         </div>
                     ))}

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import { courseDetailsContent } from '../../../services/courseService';
+
 import Content from './Content/Content';
 
 const CoursesDetailsContent = () => {
-  const [course, setCourse] = useState([]);
+  const [course, setCourse] = useState({});
 
   useEffect(() => {
     courseDetailsContent()
@@ -14,7 +15,9 @@ const CoursesDetailsContent = () => {
   }, []);
 
     return (
-        <Content course={course} />                 
+      <div className="container">
+      <Content course={course} />   
+      </div>              
     );
 }
 

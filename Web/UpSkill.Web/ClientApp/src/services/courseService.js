@@ -1,7 +1,7 @@
 import axios from "axios"; 
 import { Base_URL } from '../utils/baseUrlConstant';
 
-const API_URL = Base_URL + "Courses/";
+const API_URL = Base_URL + "Course";
 
 const token = localStorage.getItem("token");
 
@@ -79,15 +79,15 @@ export const getCourses = async (currentPage) => {
   return arr;
 };
 
-export const courseDetailsContent = async () => {
-  let  arr = [];
-  arr.push(DetailsContent);
-  return arr;
-}
+// export const courseDetailsContent = async () => {
+//   let  arr = [];
+//   arr.push(DetailsContent);
+//   return arr;
+// }
 
-// export const courseDetailsContent = async (course) => {
-//   const response = await axios.get(`${API_URL}contentDetails?id=${course.id}`, { headers: { "Authorization": `Bearer ${token}` } }, {
-//     course
-//   });
-//   return response;
-// };
+export const courseDetailsContent = async (course) => {
+  const responce = await axios.get(`${API_URL}?id=${course.id}`, {
+    course
+  });
+  return responce.data;
+};
