@@ -1,10 +1,12 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css');
+
 .courseTitleContent{
     top: 341px;
     left: 156px;
     width: 140px;
     height: 100px;
     text-align: right;
-    font: normal normal 35px/100px Montserrat, ExtraBold;
+    font: normal normal 35px/100px Montserrat;
     letter-spacing: -1px;
     color: #000000;
 }

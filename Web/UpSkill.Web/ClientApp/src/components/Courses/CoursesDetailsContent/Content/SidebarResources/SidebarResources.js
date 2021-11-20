@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import './SidebarResources.css';
 
-const SidebarResources = ( props) => {
+const SidebarResources = ( props ) => {
     const {
         courseResources: { lectures }
     } = props;
