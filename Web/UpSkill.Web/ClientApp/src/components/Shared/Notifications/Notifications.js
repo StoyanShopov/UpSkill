@@ -9,10 +9,13 @@ function Notifications({ state, message }) {
     let [notification, setNotification] = useContext(notificationContext);
 
     useEffect(() => {
-        setTimeout(() => {
+        let interval = setInterval(() => {
             setNotification({type:'CLEAR_MESSAGE'});
-        }, 7000);
+        }, 6000);
 
+        return () => {
+            clearInterval(interval);
+          };
     }, [setNotification]);
 
 

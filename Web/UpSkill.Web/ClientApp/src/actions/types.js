@@ -7,3 +7,4 @@ export const LOGOUT = "LOGOUT";
 export const SET_MESSAGE = "SET_MESSAGE";
 export const SET_WARNING_MESSAGE = "SET_WARNING_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE"; 
+export const CHECK_CURRENT_STATE = "CHECK_CURRENT_STATE"; 

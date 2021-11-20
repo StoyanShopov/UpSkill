@@ -60,8 +60,6 @@
             {
                 await this.Groups
                 .AddToGroupAsync(this.Context.ConnectionId, courseId.ToString());
-
-                await this.SendJoinMessage(courseId.ToString());
             }
 
             return allCourses;

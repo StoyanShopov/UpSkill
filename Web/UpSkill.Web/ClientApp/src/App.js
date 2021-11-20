@@ -1,7 +1,6 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { Route } from "react-router-dom";
-import { Provider } from 'react-redux'
-
+import { Provider, useDispatch, useSelector } from 'react-redux'
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -30,7 +29,7 @@ import store from './store';
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses"
 import PromoteDemote from "./components/Admin/AdminPromoteDemote";
 
-
+import {CHECK_CURRENT_STATE} from "./actions/types";
 
 const AppWrapper = (props) => {
   const [notification, setNotification] = useReducer(Auth, {
@@ -38,9 +37,17 @@ const AppWrapper = (props) => {
      state: 'none', 
      message: '' 
     });
+  
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch({
+      type: CHECK_CURRENT_STATE
+    });
+  
+  }, []);
 
   return (
-    <Provider store={store}>
       <NotificationContext.Provider value={[notification, setNotification]} >
         <ZoomHubClient>
           <SignalRHubClient>
@@ -52,13 +59,13 @@ const AppWrapper = (props) => {
           </SignalRHubClient>
         </ZoomHubClient>
       </NotificationContext.Provider >
-    </Provider>
   );
 };
 
 
 function App() {
   return (
+    <Provider store={store}>
     <AppWrapper>
       <Route exact path='/' component={Home} />
       <Route exact path='/Admin' component={Admin} />
@@ -75,6 +82,7 @@ function App() {
       <Route exact path="/Admin/Companies/edit" component={EditCompany} />
       <Route exact path="/Admin/PromoteDemote" component={PromoteDemote} />
     </AppWrapper>
+    </Provider>
   );
 }
 

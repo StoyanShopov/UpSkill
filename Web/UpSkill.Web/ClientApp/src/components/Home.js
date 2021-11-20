@@ -24,13 +24,16 @@ export default function Home() {
 				<b>To Courses</b>
 			</NavLink>
 
-			<div className="w-25 mt-5">
+			<div className="w-50 mt-5">
 			<h4>Part of a Coach View</h4>
 				<form onSubmit={e => startRoom(e)}>
 				<input type="text" placeholder="course Id... exmp: 8"/>
 				<input type="submit" className="btn btn-outline-danger m-3 font-weight-bold" value="Start Room" />
 				</form>
-				<p className="fw-bold">Login first would be wise...</p>
+				<p className="fw-bold">1. Login first with ownerMotionSoftware@test.test at browser 1.</p>
+				<p className="fw-bold">2. Login again with employeeMotionSoftware@test.test at browser 2</p>
+				<p className="fw-bold">3. Start course room with 
+				id: 8, at browser 1. Since they are both part of it, then the owner will receive invitation with host abilities, and everyone else simple join invite.</p>
 			</div>
 
 			<div className="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
