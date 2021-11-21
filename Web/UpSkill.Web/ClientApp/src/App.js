@@ -26,7 +26,7 @@ import NotificationContext from "./Context/NotificationContext";
 import store from './store';   
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses" 
 import PromoteDemote from "./components/Admin/AdminPromoteDemote";
-
+import CourseDetailsContent from "./components/Courses/CoursesDetailsContent/CoursesDetailsContent";
 
 const AppWrapper = (props) => {
   const [notification, setNotification] = useReducer(Auth, {
@@ -61,10 +61,9 @@ function App() {
           <Route exact path='/AddCompany' component={AddCompany}/>   
           <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
           <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
-
           <Route exact path="/Admin/Companies/edit" component={EditCompany}/>  
           <Route exact path="/Admin/PromoteDemote" component={PromoteDemote}/>  
-
+          <Route exact path="/Course/:id" component={CourseDetailsContent}/>
       </AppWrapper> 
   );
 }

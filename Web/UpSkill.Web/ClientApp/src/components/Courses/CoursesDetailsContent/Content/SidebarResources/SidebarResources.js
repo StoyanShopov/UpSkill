@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+
+import { CourseContentContext } from "../../CoursesDetailsContent";
 
 import './SidebarResources.css';
 
-const SidebarResources = ( props ) => {
-    const {
-        courseResources: { lectures }
-    } = props;
-
+const SidebarResources = ( ) => {
+    const { course } = useContext(CourseContentContext);
     const [currentResources, setCurrentResources] = useState("");
 
     const handleResources = (e) => {
         const currentResources = e.target.value;
         setCurrentResources(currentResources)
     };
+
+    console.log(course);
 
     return(
         <div className="container">
@@ -22,20 +23,20 @@ const SidebarResources = ( props ) => {
             <section>
                 <ul>
                     <li className="lecturesContentSpan">
-                    {lectures.map((lecture) => (
+                    {course.map((lecture) => (
                         <li>
                             <hr/>
                             <select
-                            key={lecture.id}
+                            key={lecture.courseLectures.id}
                             onChange={handleResources}>
                                 <option 
-                                value={lecture.courseSubject}>
-                                    {lecture.courseSubject}
+                                value={lecture.courseLectures.lectureName}>
+                                    {lecture.courseLectures.lectureName}
                                 </option>
-                                <option value={lecture.courseVideo}>
+                                <option value={lecture.courseLectures.lectureLessons.lessonUrl}>
                                    Lecture Video
                                 </option>
-                                <option value={lecture.resource}>
+                                <option value={lecture.courseLectures.lectureLessons.lessonMediaType}>
                                     Resources
                                 </option>
                             </select>

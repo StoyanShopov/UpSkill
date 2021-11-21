@@ -25,7 +25,7 @@ function CourseCard(props) {
         isDetailsOpen(true);
         getDetails({id, courseName, coachName});
       }}>
-        <img src={image} alt="courses" style={{ width: 450, height: 248 }} />
+      <img src={image} alt="courses" style={{ width: 450, height: 248 }} />
       </div>
       <div className="cardBody row">
         <div className="cardText col-md-5">

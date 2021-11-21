@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap'; 
 
 import CoursesCard from './CoursesCard/CoursesCard';
@@ -15,10 +15,10 @@ export default function CoursesCatalog({ courses }) {
                         <CoursesCard
                             key={course.id} 
                             coursesDetails={course}
-                        >
-                            <a href={`/Course?id=${course.id}`}>
-                           <Button className="courses-cardButton">Compete</Button>   
-                           </a>           
+                        > 
+                        <Link to={`/Course/${course.id}`}>
+                            <Button className="courses-cardButton">Compete</Button>    
+                        </Link>       
                         </CoursesCard>
                         </div>
                     ))}

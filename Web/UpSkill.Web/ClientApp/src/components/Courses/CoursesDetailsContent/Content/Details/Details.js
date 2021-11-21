@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ReactVideo } from 'reactjs-media';
 import { Editor } from '@tinymce/tinymce-react';
 
 import sanitizeHtml from 'sanitize-html';
 
+import { CourseContentContext } from "../../CoursesDetailsContent";
+
 import './Details.css';
 
-import marketingImg from '../../../../../assets/img/courses/Marketing.png';
+const Details = () => {
+    const { course } = useContext(CourseContentContext);
 
-const Details = (props) => {
-    const {  
-        courseDetails: { courseTitle, courseVideo, courseLecturer, courseDescription },
-    } = props;
-
-    const [text, setText] = useState(courseDescription);
+    const [text, setText] = useState(course.courseDescription);
 
     const sanitizeText = sanitizeHtml(text, {
         allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
@@ -25,11 +23,11 @@ const Details = (props) => {
 
     return(
         <div className="container">
-                <h2 className="courseTitleContent">{courseTitle}</h2>
+                <h2 className="courseTitleContent">{course.courseTitle}</h2>
                 <ReactVideo
                 className="courseVideoContent"
-                src={courseVideo}
-                poster={marketingImg}
+                src="https://youtu.be/Y2a16HAsHBE"
+                poster={course.courseFileFilePath}
                 primaryColor="red"
                 /><br/>
                 <h4 className="lectureDescriptionContent">Lecture Description</h4>
@@ -53,7 +51,7 @@ const Details = (props) => {
                 }}
                 /><br/>
                 <h4 className="instructorContent">Instructor</h4>
-                <p>{courseLecturer}</p>                
+                <p>{course.courseCoachId}</p>                
         </div>   
     )
 }

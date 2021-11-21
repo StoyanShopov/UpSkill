@@ -66,7 +66,6 @@ export default function CoursesCatalog() {
                 getDetails={getValue}
                 price={course.price}
               ></CourseCard>
-
             </div>
           ))}
           { defineCoursesCount() && (<div className="alignContentBox"></div>) }

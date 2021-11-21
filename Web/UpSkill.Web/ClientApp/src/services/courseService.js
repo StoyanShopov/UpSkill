@@ -84,10 +84,22 @@ export const getCourses = async (currentPage) => {
   return arr;
 };
 
+let data = [];
 
-export const getCourseDetails = async (id) => {
-  try {
-    const resp = await axios.get(API_URL + "/details?id=" + id);
-    console.log(resp)
-  } catch (err) {}
+export const courseDetailsContent = async (course) => {
+  return await axios.get(API_URL +`?id=${course.id}`,
+  {course}
+  )
+  .then((response) => {
+    data = response.data;
+    console.log(data);
+    return data;
+  });
 };
+
+// export const getCourseDetails = async (id) => {
+//   try {
+//     const resp = await axios.get(API_URL + "/details?id=" + id);
+//     console.log(resp)
+//   } catch (err) {}
+// };
