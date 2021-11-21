@@ -13,7 +13,7 @@
     font-weight: bolder;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1500px) {
     .coaches-list{
         flex-direction: column; 
         display: flex;
