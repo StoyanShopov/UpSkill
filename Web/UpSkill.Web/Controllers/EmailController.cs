@@ -1,11 +1,13 @@
 ﻿namespace UpSkill.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Contracts.Email;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.MessagesConstants;
@@ -13,8 +15,15 @@
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
+        private readonly INLogger nLog;
 
-        public EmailController(IEmailService emailService) => this.emailService = emailService;
+        public EmailController(
+            IEmailService emailService,
+            INLogger nLog)
+        {
+            this.emailService = emailService;
+            this.nLog = nLog;
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -25,8 +34,12 @@
 
             if (result.Failure)
             {
+                this.nLog.Error(" ", new Exception(email + token));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nLog.Info(string.Concat(email, token));
 
             return this.Ok(EmailConfirmed);
         }
@@ -43,8 +56,12 @@
 
             if (result.Failure)
             {
+                this.nLog.Error(email, new Exception(result.Failure.ToString()));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nLog.Info(email);
 
             return this.Ok();
         }

@@ -4,8 +4,10 @@ import Clients from "./Clients/Clients";
 import Revenue from "./Revenue/Revenue";
 import CompanyCoaches from "../MyProfile/CompanyOwnerViews/CompanyCoaches/CompanyCoaches"; 
 import CompanyOwnerSidebar from "../Shared/AdminCompanyOwnerSidebar/AdminCompanyOwnerSidebar";
+import AdminCourses from "./Courses/AdminCourses/AdminCourses";
 
 const menuItems = [
+  { name: 'Courses', path: '/Admin/Courses', exact: true, component: AdminCourses },
   { name: 'Dashboard', path: '/Admin', exact: true, component: Dashboard },
   { name: 'Clients', path: '/Admin/Clients', exact: true, component: Clients },
   { name: 'Revenue', path: '/Admin/Revenue', exact: true, component: Revenue },

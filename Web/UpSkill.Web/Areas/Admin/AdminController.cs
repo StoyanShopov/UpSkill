@@ -1,18 +1,20 @@
 ﻿namespace UpSkill.Web.Areas.Admin
 {
-    using System.Linq;
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
 
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
+    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Administration;
     using UpSkill.Web.ViewModels.Administration.Company;
 
-    using static Common.GlobalConstants;
     using static Common.GlobalConstants.AdminConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
@@ -21,13 +23,16 @@
     {
         private readonly IAdminService adminService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly INLogger nLog;
 
         public AdminController(
             IAdminService adminService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            INLogger nLog)
         {
             this.adminService = adminService;
             this.userManager = userManager;
+            this.nLog = nLog;
         }
 
         [HttpPost]
@@ -38,8 +43,12 @@
 
             if (result.Failure)
             {
+                this.nLog.Error(model, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nLog.Info(model);
 
             return this.Ok(SuccesfullyAddedOwnerToGivenCompany);
         }
@@ -52,8 +61,12 @@
 
             if (result.Failure)
             {
+                this.nLog.Error(email, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nLog.Info(email);
 
             return this.Ok(AssignedSuccessfully);
         }
@@ -66,8 +79,12 @@
 
             if (result.Failure)
             {
+                this.nLog.Error(email, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nLog.Info(email);
 
             return this.Ok(UnassignedSuccessfully);
         }
@@ -80,6 +97,8 @@
 
             if (user == null)
             {
+                this.nLog.Error(email, new Exception(UserDoNotExist));
+
                 return null;
             }
 
@@ -89,6 +108,8 @@
                 FullName = $"{user.FirstName} {user.LastName}",
                 Role = roles,
             };
+
+            this.nLog.Info(result);
 
             return result;
         }
