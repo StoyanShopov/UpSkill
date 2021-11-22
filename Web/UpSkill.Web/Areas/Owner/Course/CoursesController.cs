@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Contracts.Owner;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Course;
 
@@ -15,18 +16,24 @@
     {
         private readonly IOwnerServices ownerService;
         private readonly ICurrentUserService currentUser;
+        private readonly INLogger nLog;
 
         public CoursesController(
             IOwnerServices ownerService,
-            ICurrentUserService currentUser)
+            ICurrentUserService currentUser,
+            INLogger nLog)
         {
             this.ownerService = ownerService;
             this.currentUser = currentUser;
+            this.nLog = nLog;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoursesListingModel>> GetAll()
-            => await this.ownerService.GetAllCoursesAsync<CoursesListingModel>(this.currentUser.GetId());
+        {
+            this.nLog.Info("Entering getAll action");
+            return await this.ownerService.GetAllCoursesAsync<CoursesListingModel>(this.currentUser.GetId());
+        }
     }
 }
