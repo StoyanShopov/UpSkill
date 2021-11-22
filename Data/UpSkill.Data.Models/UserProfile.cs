@@ -7,7 +7,7 @@
     public class UserProfile : BaseDeletableModel<int>
     {
         [Required]
-        public string UserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
 
