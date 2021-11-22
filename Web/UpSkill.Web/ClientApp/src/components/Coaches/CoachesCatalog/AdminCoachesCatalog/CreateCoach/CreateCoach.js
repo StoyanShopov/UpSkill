@@ -10,10 +10,56 @@ export default function CreateCoach({ closeModal, trigger }) {
   const [coachLastName, setCoachLastName] = useState("");
   const [file, setFile] = useState({});
   const [calendlyUrl, setCalendlyUrl] = useState("");
-
+  const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  let handleValidation = () => {
+    let fields = {
+      coachField,
+      coachPrice,
+      coachFirstName,
+      coachLastName,
+      calendlyUrl,
+      file,
+    };
+    let errorsValidation = {};
+    let formIsValid = true;
+
+    if (!fields["coachField"]) {
+      formIsValid = false;
+      errorsValidation["coachField"] = "Cannot be empty";
+    }
+
+    if (!fields["file"]) {
+      formIsValid = false;
+      errorsValidation["file"] = "Cannot be empty";
+    }
+
+    if (!fields["coachFirstName"]) {
+      formIsValid = false;
+      errorsValidation["coachFirstName"] = "Cannot be empty";
+    }
+
+    if (!fields["coachLastName"]) {
+      formIsValid = false;
+      errorsValidation["coachLastName"] = "Cannot be empty";
+    }
+
+    if (!fields["calendlyUrl"]) {
+      formIsValid = false;
+      errorsValidation["calendlyUrl"] = "Cannot be empty";
+    }
+
+    if (fields["coachPrice"] < 0) {
+      formIsValid = false;
+      errorsValidation["coachPrice"] = "Cannot be negative number";
+    }
+
+    setErrors(errorsValidation);
+    return formIsValid;
+  };
 
   const onChangeCalendlyUrl = (e) => {
     setCalendlyUrl(e.target.value);
@@ -45,8 +91,15 @@ export default function CreateCoach({ closeModal, trigger }) {
 
   function submitCreateCoach(e) {
     e.preventDefault();
-    if (coachFirstName && coachLastName && coachField) {
-      createCoach(coachFirstName, coachLastName, coachField, coachPrice, file, calendlyUrl)
+    if (handleValidation()) {
+      createCoach(
+        coachFirstName,
+        coachLastName,
+        coachField,
+        coachPrice,
+        file,
+        calendlyUrl
+      )
         .then((resp) => {
           if (resp.data === "Successfully created.") {
             setSuccess(true);
@@ -98,6 +151,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={coachFirstName}
                   onChange={onChangeFirstName}
                 />
+                <p style={{ color: "red" }}>{errors["coachFirstName"]}</p>
               </div>
 
               <div className="createCoach-Content-fullname px-5 m-3">
@@ -108,7 +162,9 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={coachLastName}
                   onChange={onChangeLastName}
                 />
+                <p style={{ color: "red" }}>{errors["coachLastName"]}</p>
               </div>
+
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
                   type="text"
@@ -117,6 +173,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={coachField}
                   onChange={onChangeField}
                 />
+                <p style={{ color: "red" }}>{errors["coachField"]}</p>
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
@@ -126,6 +183,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={coachPrice}
                   onChange={onChangeCoachPrice}
                 />
+                <p style={{ color: "red" }}>{errors["coachPrice"]}</p>
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
@@ -135,6 +193,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={calendlyUrl}
                   onChange={onChangeCalendlyUrl}
                 />
+                <p style={{ color: "red" }}>{errors["calendlyUrl"]}</p>
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
@@ -143,6 +202,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   className="w-100 p-2"
                   onChange={onChangeFile}
                 />
+                <p style={{ color: "red" }}>{errors["file"]}</p>
               </div>
               <div className="createCoach-Content-anotherEmployee ps-5">
                 <div className="createCoach-Content-anotherEmployee-btn btn">

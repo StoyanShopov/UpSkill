@@ -13,8 +13,55 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
   const [file, setFile] = useState({});
   const [calendlyUrl, setCalendlyUrl] = useState("");
   const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const test = localStorage.getItem("ID");
+
+  let handleValidation = () => {
+    let fields = {
+      coachField,
+      coachPrice,
+      coachFirstName,
+      coachLastName,
+      calendlyUrl,
+      file,
+    };
+    let errorsValidation = {};
+    let formIsValid = true;
+
+    if (!fields["coachField"]) {
+      formIsValid = false;
+      errorsValidation["coachField"] = "Cannot be empty";
+    }
+
+    if (!fields["file"]) {
+      formIsValid = false;
+      errorsValidation["file"] = "Cannot be empty";
+    }
+
+    if (!fields["coachFirstName"]) {
+      formIsValid = false;
+      errorsValidation["coachFirstName"] = "Cannot be empty";
+    }
+
+    if (!fields["coachLastName"]) {
+      formIsValid = false;
+      errorsValidation["coachLastName"] = "Cannot be empty";
+    }
+
+    if (!fields["calendlyUrl"]) {
+      formIsValid = false;
+      errorsValidation["calendlyUrl"] = "Cannot be empty";
+    }
+
+    if (fields["coachPrice"] < 0  || !fields["coachPrice"]) {
+      formIsValid = false;
+      errorsValidation["coachPrice"] = "Cannot be negative number";
+    }
+
+    setErrors(errorsValidation);
+    return formIsValid;
+  };
 
   const onChangeCalendlyUrl = (e) => {
     setCalendlyUrl(e.target.value);
@@ -52,7 +99,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
 
   function submitEditCoach(e) {
     e.preventDefault();
-    if (coachFirstName && coachLastName && coachField) {
+    if (handleValidation()) {
       updateCoach(
         coachDetails.id,
         coachFirstName,
@@ -119,9 +166,9 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   className="updateCoach-Content-input w-100 p-2"
                   value={coachFirstName}
                   onChange={onChangeFirstName}
-                />
+                />                
+                <p style={{ color: "red" }}>{errors["coachFirstName"]}</p>
               </div>
-
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
                   type="text"
@@ -130,6 +177,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   value={coachLastName}
                   onChange={onChangeLastName}
                 />
+                <p style={{ color: "red" }}>{errors["coachLastName"]}</p>
               </div>
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
@@ -139,6 +187,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   value={coachField}
                   onChange={onChangeField}
                 />
+                <p style={{ color: "red" }}>{errors["coachField"]}</p>
               </div>
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
@@ -148,6 +197,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   value={coachPrice}
                   onChange={onChangeCoachPrice}
                 />
+                <p style={{ color: "red" }}>{errors["coachPrice"]}</p>
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
@@ -157,6 +207,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   value={calendlyUrl}
                   onChange={onChangeCalendlyUrl}
                 />
+                <p style={{ color: "red" }}>{errors["calendlyUrl"]}</p>
               </div>
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
