@@ -1,33 +1,28 @@
 import React, { createContext ,useState, useEffect } from 'react';
 
 import { courseDetailsContent } from '../../../services/courseService';
-
-import Details from './Content/Details/Details';
-import SidebarResources from './Content/SidebarResources/SidebarResources';
+import Content from './Content/Content';
 
 export const CourseContentContext = createContext();
 
-const CoursesDetailsContent = (id) => {
+const CoursesDetailsContent = (props) => {
   const [course, setCourse] = useState([]);
+  const courseId = props.match.params.id
 
   useEffect(() => {
-    courseDetailsContent(id)
+    courseDetailsContent(courseId)
     .then((course) => {
       setCourse(course);
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  }, []);
-
-  console.log(course);
+  }, [courseId]);
 
     return (
-      <CourseContentContext.Provider value={
-        {course}
-      }>
         <div className="container">
-          <Details />
-          <SidebarResources />
-        </div>
-      </CourseContentContext.Provider>      
+          <Content course={course}/>
+        </div>  
     );
 }
 

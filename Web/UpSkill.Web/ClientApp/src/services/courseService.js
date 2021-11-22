@@ -86,13 +86,12 @@ export const getCourses = async (currentPage) => {
 
 let data = [];
 
-export const courseDetailsContent = async (course) => {
-  return await axios.get(API_URL +`?id=${course.id}`,
-  {course}
+export const courseDetailsContent = (courseId) => {
+  return axios.get(API_URL +`?id=${courseId}`
   )
   .then((response) => {
-    data = response.data;
-    console.log(data);
+    data = [];
+    data.push(response.data);
     return data;
   });
 };

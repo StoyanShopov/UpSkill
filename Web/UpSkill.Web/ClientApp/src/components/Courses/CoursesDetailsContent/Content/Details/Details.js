@@ -1,33 +1,42 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { ReactVideo } from 'reactjs-media';
 import { Editor } from '@tinymce/tinymce-react';
 
 import sanitizeHtml from 'sanitize-html';
 
-import { CourseContentContext } from "../../CoursesDetailsContent";
-
 import './Details.css';
 
-const Details = () => {
-    const { course } = useContext(CourseContentContext);
+const Details = (props) => {
+  const {   
+    courseDetails: 
+    { 
+      id,
+      courseTitle, 
+      courseFileFilePath, 
+      courseDescription,
+      courseCoachFirstName,
+      courseCoachLastName,
+    },
+  } = props;
 
-    const [text, setText] = useState(course.courseDescription);
+    const [text, setText] = useState(courseDescription);
 
     const sanitizeText = sanitizeHtml(text, {
-        allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
-        allowedAttributes: {
-          'a': [ 'href' ]
-        },
-        allowedIframeHostnames: ['www.youtube.com']
-      });
+      allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
+      allowedAttributes: {
+        'a': [ 'href' ]
+      },
+      allowedIframeHostnames: ['www.youtube.com']
+    });
 
     return(
-        <div className="container">
-                <h2 className="courseTitleContent">{course.courseTitle}</h2>
+    <>
+        <div className="container" key={id}>
+                <h2 className="courseTitleContent">{courseTitle}</h2>
                 <ReactVideo
                 className="courseVideoContent"
                 src="https://youtu.be/Y2a16HAsHBE"
-                poster={course.courseFileFilePath}
+                poster={courseFileFilePath}
                 primaryColor="red"
                 /><br/>
                 <h4 className="lectureDescriptionContent">Lecture Description</h4>
@@ -51,8 +60,9 @@ const Details = () => {
                 }}
                 /><br/>
                 <h4 className="instructorContent">Instructor</h4>
-                <p>{course.courseCoachId}</p>                
-        </div>   
+                <p>{courseCoachFirstName + " " + courseCoachLastName}</p>                
+        </div>
+    </>
     )
 }
 

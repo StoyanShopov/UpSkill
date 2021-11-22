@@ -20,7 +20,9 @@
 
         public int CourseCategoryId { get; set; }
 
-        public int CourseCoachId { get; set; }
+        public string CourseCoachFirstName { get; set; }
+
+        public string CourseCoachLastName { get; set; }
 
         public string CourseFileFilePath { get; set; }
 
