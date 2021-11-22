@@ -13,10 +13,20 @@ import {
   EmployeeRoleName,
 } from '../utils/webConstants';
 
-const user = () => JSON.parse(localStorage.getItem("user"));
+const user = () => JSON.parse(localStorage.getItem("user")) || null;
 
-const initialState = { 
-      isLoggedIn: false,
+const initialState = user
+  ? { 
+       state: 'opened', 
+       type: 'success' , 
+       message: '', 
+       isLoggedIn: true,
+       user: user,
+       isAdmin: user()?.role === AdministratorRoleName,
+       isCompanyOwner: user()?.role === CompanyOwnerRoleName,
+       isEmployee: user()?.role===EmployeeRoleName,
+    }
+  : { isLoggedIn: false,
       user: null,
       isAdmin: false,
       isCompanyOwner: false,

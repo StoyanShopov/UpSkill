@@ -19,20 +19,18 @@ const Logout = (props) => {
     if(!isLoggedIn){
         props.history.push("/Login");        
     }
-    logout()
-        .then(async () => { 
-          dispatch({
-            type:LOGOUT,
-          });
 
-          await props.history.push("/");
-          localStorage.removeItem("user");                
-          setNotification({type:'LOGOUT', payload: `Goodbye !`});
-        })
-        .catch(() => {
-          props.history.push("/Login");
-        });
-  }, []);
+    dispatch(logout())
+    .then(() => { 
+      props.history.push("/");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");                
+      setNotification({type:'LOGOUT', payload: `Goodbye !`});
+    })
+    .catch(() => {
+      props.history.push("/Login");
+    });
+}, []);
    
   return (
     <div></div>
