@@ -26,6 +26,8 @@
 
         public const string NewCourseRequest = "RequestCourse";
 
+        public const string NewCoachRequest = "New Coach Request";
+
         public class AdminConstants
         {
             public const string AlreadyAssignedToRole = "This user is already updated wtih the corresponding role!";
@@ -108,6 +110,10 @@
 
             public const string GetAllRoute = "getAll";
 
+            public const string GetAllEmployeesRoute = "getAllEmployees";
+
+            public const string GetAllCoaches = "Coaches/getAll";
+
             public const string AddOwnerCompany = "addOwnerToCompany";
 
             public const string Promote = "promote";
@@ -131,6 +137,8 @@
             public const string ActiveCourses = "getActiveCourses";
 
             public const string GetCountRoute = "count";
+
+            public const string NewCoach = "newCoach";
 
         }
 
@@ -208,6 +216,8 @@
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
 
             public const string SuccesfullyAddedCompanyOwnerToGivenCourse = "You have successfully added a company to this course.";
+
+            public const string SuccesfullyAddedCoachToGivenCompany = "You have successfully added a coach to this company.";
         }
 
         public class CategoriesNamesConstants
@@ -245,11 +255,14 @@
         }
 
         public class RequestCourseConstants
+
+        public class RequestCoachConstants
         {
             public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
                                               "<p>Requester Email: {1}</p>" +
                                               "<p>Description: {2}</p>" +
-                                              "<p>Category: {3}</p>";
+                                              "<p>Field: {3}</p>";
+        }
 
         public class EmployeeConstants
         {

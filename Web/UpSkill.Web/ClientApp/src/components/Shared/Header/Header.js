@@ -11,6 +11,11 @@ import Logo from '../../../assets/logo-NoBg.png';
 import UserProfilePic from '../../../assets/userProfilePic.png';
 import './Header.css';
 
+import {
+	LOGOUT,
+  } from "../../../actions/types";
+  
+
 function Header() { 
 	const [isActive, setisActive] = useState(false);   
 

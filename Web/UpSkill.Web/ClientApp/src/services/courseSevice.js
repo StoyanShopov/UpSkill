@@ -57,7 +57,7 @@ export const getAllCourses = async (course) => {
 };
 
 export const getActiveCoursesCompanyOwner = async (uId) => {
-  getAllCourses();
+  await getAllCourses();
   return courses.length;
 };
 
