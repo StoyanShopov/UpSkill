@@ -3,8 +3,78 @@
 @{
     ViewData["Title"] = "Home";
 }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<div id="reactdiv"></div>
+<header>
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">UpSkill</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="btn btn-primary" href="../ClientApp/src/components/Authentication/Login/">Login</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="btn btn-primary" href="#">Request A Demo</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-<script src="../ClientApp/src/components/Shared/Layout.js"></script>
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem me-3"></i>UpSkill
+                        </h6>
+                        <p>
+                           UpSkill gives everyone the opportunity to grow professionally
+                            and develop into a specialist in every field.
+                        </p>
+                        <button class="btn btn-outline-primary">
+                            Get Started
+                        </button>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Company
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">About us</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Contact us</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Privacy Policy</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Laravel</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Services
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Courses</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Coaches</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Requests</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="text-center p-4">
+            © UpSkill 2021
+        </div>
+    </footer>
