@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Course
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -183,5 +184,11 @@
             .AllAsNoTracking()
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+        => await this.courses
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
     }
 }

@@ -10,45 +10,41 @@ import Layout from './components/Shared/Layout';
 import Notifications from './components/Shared/Notifications/Notifications';
 import Admin from './components/Admin/Admin';
 import Courses from './components/Courses/Courses';
-import Coaches from './components/Coaches/Coaches'; 
-import MyProfile from './components/MyProfile/MyProfile'; 
-import Login from './components/Authentication/Login/Login'; 
-import Logout from './components/Authentication/Logout/Logout'; 
+import Coaches from './components/Coaches/Coaches';
+import MyProfile from './components/MyProfile/MyProfile';
+import Login from './components/Authentication/Login/Login';
+import Logout from './components/Authentication/Logout/Logout';
 import Register from './components/Authentication/Register/Register';
 import AddCompany from "./components/Companies/AddCompany/AddCompany";
 import CompanyDetails from "./components/Companies/CompanyDetails/CompanyDetails";
 import EditCompany from "./components/Companies/EditCompany/EditCompany";
 import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
-import {removeCompanyHandler} from "../src/services/companyService";
+import { removeCompanyHandler } from "../src/services/companyService";
 import {removeEmployeeHandler} from "../src/services/employeeService"
 import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
-import store from './store';   
-import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses" 
+import store from './store';
+import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses"
 import PromoteDemote from "./components/Admin/AdminPromoteDemote";
 
-
 const AppWrapper = (props) => {
-  const [notification, setNotification] = useReducer(Auth, {
-    type: '',
-    state: 'none',
-    message: '',
-  });
-  return (
-    <Provider store={store}> 
-     <NotificationContext.Provider value={[notification, setNotification]} >
-      <Layout> 
-        <Notifications state={notification.state} message={notification.message} />
-          {props.children}   
+  const [notification, setNotification] = useReducer(Auth, { type: '', state: 'none', message: '' });
 
-      </Layout>
+  return (
+    <Provider store={store}>
+      <NotificationContext.Provider value={[notification, setNotification]} >
+        <Layout>
+          <Notifications state={notification.state} message={notification.message} />
+          {props.children}
+
+        </Layout>
       </NotificationContext.Provider >
     </Provider>
   );
 };
 
 
-function App() {    
+function App() {
   return (
     <AppWrapper>
       <Route exact path='/' component={Home}/>          
