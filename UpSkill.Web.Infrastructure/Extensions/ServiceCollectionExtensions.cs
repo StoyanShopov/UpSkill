@@ -43,6 +43,8 @@
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
+    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.Infrastructure.Web.Extensions;
     using UpSkill.Web.ViewModels.Chat;
@@ -175,7 +177,8 @@
                 .AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>())
                 .AddTransient<IBlobService, BlobService>()
                 .AddTransient<ZoomHub>()
-                .AddTransient<IDictionary<string, ZoomCourseConnection>>(opts => new Dictionary<string, ZoomCourseConnection>());
+                .AddTransient<IDictionary<string, ZoomCourseConnection>>(opts => new Dictionary<string, ZoomCourseConnection>())
+                .AddSingleton<INLogger, NLogExtensions>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services

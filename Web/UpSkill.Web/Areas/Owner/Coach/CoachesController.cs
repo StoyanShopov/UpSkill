@@ -8,6 +8,8 @@
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.Areas.Owner;
+
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Owner;
@@ -20,6 +22,7 @@
         private readonly IOwnerServices ownerService;
         private readonly ICoachServices coachServices;
         private readonly ICurrentUserService currentUser;
+        private readonly INLogger nLog;
 
         public CoachesController(
             IOwnerServices ownerService,
