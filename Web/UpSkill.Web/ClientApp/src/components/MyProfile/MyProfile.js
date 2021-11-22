@@ -6,6 +6,7 @@ import { history } from "../../helpers/history";
 
 import CompanyOwner from "./CompanyOwnerViews/CompanyOwner";
 import Employee from "./Employee/Employee";
+import Admin from "../Admin/Admin";
 
 function MyProfile() {
   const { store } = useContext(ReactReduxContext);
@@ -25,12 +26,8 @@ function MyProfile() {
   } else if (isEmployee) return <Employee />;
   //Probably the admin will acces his area from here too
   else if (isAdmin)
-    return (
-      <div className="container p-5 text-center">
-        <h2>Admin Dashboard here?</h2>
-      </div>
-    );
-  //     return <Admin />;
+    return  <Admin />;
+       
   else
     return (
       <div className="container p-5 text-center vh-70">
