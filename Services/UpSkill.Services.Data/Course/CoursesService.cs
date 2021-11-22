@@ -6,7 +6,6 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-
     using UpSkill.Common;
     using UpSkill.Data.Common.Models;
     using UpSkill.Data.Common.Repositories;
@@ -26,6 +25,7 @@
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
+        private readonly IRepository<UserInCourse> usersInCourses;
         private readonly IDeletableEntityRepository<Course> courses;
         private readonly IFileService fileService;
 
@@ -35,12 +35,14 @@
             UserManager<ApplicationUser> userManager,
             ICompanyService companiesService,
             IRepository<CompanyCourse> companyCourses,
+            IRepository<UserInCourse> usersInCourses,
             IDeletableEntityRepository<Course> courses,
             IFileService fileService)
         {
             this.courses = courses;
             this.companiesService = companiesService;
             this.companyCourses = companyCourses;
+            this.usersInCourses = usersInCourses;
             this.userManager = userManager;
             this.fileService = fileService;
         }
@@ -184,6 +186,12 @@
             .AllAsNoTracking()
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
+
+
+        public async Task<ICollection<UserInCourse>> GetAllUsersInCourse(int id) => await this.usersInCourses
+              .AllAsNoTracking()
+              .Where(uc => uc.CourseId == id)
+              .ToListAsync();
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
         => await this.courses

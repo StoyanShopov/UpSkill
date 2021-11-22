@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UpSkill.Data;
 
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211107004448_MessageChatTable")]
+    partial class MessageChatTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,6 +181,9 @@ namespace UpSkill.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -248,6 +253,8 @@ namespace UpSkill.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("IsDeleted");
 
@@ -321,17 +328,11 @@ namespace UpSkill.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CalendlyUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Field")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FileId")
                         .HasColumnType("int");
@@ -349,9 +350,6 @@ namespace UpSkill.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -395,21 +393,6 @@ namespace UpSkill.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Companies");
-                });
-
-            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoach", b =>
-                {
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CoachId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CompanyId", "CoachId");
-
-                    b.HasIndex("CoachId");
-
-                    b.ToTable("CompanyCoaches");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
@@ -612,6 +595,10 @@ namespace UpSkill.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("UpSkill.Data.Models.Course", null)
+                        .WithMany("Users")
+                        .HasForeignKey("CourseId");
+
                     b.HasOne("UpSkill.Data.Models.ApplicationUser", "Manager")
                         .WithMany("ChildUsers")
                         .HasForeignKey("ManagerId");
@@ -645,25 +632,6 @@ namespace UpSkill.Data.Migrations
                         .HasForeignKey("FileId");
 
                     b.Navigation("File");
-                });
-
-            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoach", b =>
-                {
-                    b.HasOne("UpSkill.Data.Models.Coach", "Coach")
-                        .WithMany("Companies")
-                        .HasForeignKey("CoachId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("UpSkill.Data.Models.Company", "Company")
-                        .WithMany("Coaches")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Coach");
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
@@ -719,7 +687,7 @@ namespace UpSkill.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("UpSkill.Data.Models.Course", "Course")
-                        .WithMany("Users")
+                        .WithMany("CourseUsers")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -744,15 +712,11 @@ namespace UpSkill.Data.Migrations
 
             modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
                 {
-                    b.Navigation("Companies");
-
                     b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Company", b =>
                 {
-                    b.Navigation("Coaches");
-
                     b.Navigation("Courses");
 
                     b.Navigation("Users");
@@ -761,6 +725,8 @@ namespace UpSkill.Data.Migrations
             modelBuilder.Entity("UpSkill.Data.Models.Course", b =>
                 {
                     b.Navigation("Companies");
+
+                    b.Navigation("CourseUsers");
 
                     b.Navigation("Users");
                 });

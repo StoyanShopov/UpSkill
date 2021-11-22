@@ -11,6 +11,7 @@ import logo from "../../../assets/logo-NoBg.png";
 import manKey from "../../../assets/manKey.png"; 
 
 import notificationContext from "../../../Context/NotificationContext";
+import zoomContext from "../../../Context/ZoomContext";
 
 import { login } from "../../../actions/auth";  
 
@@ -21,6 +22,8 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+	const [joinCourses, sendJoinMessage, startRoom, sendInviteMessage, receiveMessage, closeConnection, connection] = useContext(zoomContext);	
 
   const { isLoggedIn } = useSelector(state => state.auth);
   const { message } = useSelector(state => state.message); 
@@ -39,7 +42,7 @@ const Login = (props) => {
     setPassword(password);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin =async (e) => {
     e.preventDefault();
 
     setLoading(true);
@@ -47,8 +50,10 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(login(email, password))
-        .then(() => {
+      await dispatch(login(email, password))
+        .then(async () => {
+          closeConnection();
+          joinCourses();
           props.history.push("/MyProfile");
           setNotification({type:'LOGIN_SUCCESS', payload: `Welcome ${email}!`});
         })

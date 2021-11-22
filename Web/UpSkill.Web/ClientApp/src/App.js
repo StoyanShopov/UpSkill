@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react';
-import { Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import React, { useReducer, useEffect } from "react";
+import { Route } from "react-router-dom";
+import { Provider, useDispatch, useSelector } from 'react-redux'
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,50 +21,69 @@ import EditCompany from "./components/Companies/EditCompany/EditCompany";
 import CompanyList from "./components/Companies/CompaniesCatalog/CompanyList";
 import { removeCompanyHandler } from "../src/services/companyService";
 import {removeEmployeeHandler} from "../src/services/employeeService"
-import Auth from "./reducers/auth";
 import NotificationContext from "./Context/NotificationContext";
+import SignalRHubClient from "./components/Chat/SignalRHubClient";
+import ZoomHubClient from "./components/Zoom/ZoomHubClient";
+import Auth from "./reducers/auth";
+
 import store from './store';
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses"
 import PromoteDemote from "./components/Admin/AdminPromoteDemote";
 
+import {CHECK_CURRENT_STATE} from "./actions/types";
+
 const AppWrapper = (props) => {
-  const [notification, setNotification] = useReducer(Auth, { type: '', state: 'none', message: '' });
+  const [notification, setNotification] = useReducer(Auth, {
+     type: '', 
+     state: 'none', 
+     message: '' 
+    });
+  
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch({
+      type: CHECK_CURRENT_STATE
+    });
+  
+  }, []);
 
   return (
-    <Provider store={store}>
       <NotificationContext.Provider value={[notification, setNotification]} >
-        <Layout>
-          <Notifications state={notification.state} message={notification.message} />
-          {props.children}
+        <ZoomHubClient>
+          <SignalRHubClient>
+            <Layout>
+              <Notifications state={notification.state} message={notification.message} />
+              {props.children}
 
-        </Layout>
+            </Layout>
+          </SignalRHubClient>
+        </ZoomHubClient>
       </NotificationContext.Provider >
-    </Provider>
   );
 };
 
 
 function App() {
   return (
+    <Provider store={store}>
     <AppWrapper>
-      <Route exact path='/' component={Home}/>          
-          <Route exact path='/Admin' component={Admin}/>
-          <Route exact path='/Admin/Courses' component={AdminCourses}/>    
-          <Route exact path='/Courses' component={Courses}/>
-          <Route exact path='/Coaches' component={Coaches}/>  
-          <Route exact path='/MyProfile' component={MyProfile}/>  
-          <Route exact path='/Register' component={Register} />  
-          <Route exact path='/Login' component={Login}/>
-          <Route exact path='/Logout' component={Logout}/>
-          <Route exact path='/AddCompany' component={AddCompany}/>   
-          <Route exact path='/CompanyList'  render={(props)=> (<CompanyList {...props} getCompanyId = {removeCompanyHandler}/>)}/>   
-          <Route exact path='/Admin/Company/:id' component={CompanyDetails}/>   
-
-          <Route exact path="/Admin/Companies/edit" component={EditCompany}/>  
-          <Route exact path="/Admin/PromoteDemote" component={PromoteDemote}/>  
-
-      </AppWrapper> 
-
+      <Route exact path='/' component={Home} />
+      <Route exact path='/Admin' component={Admin} />
+      <Route exact path='/Admin/Courses' component={AdminCourses} />
+      <Route exact path='/Courses' component={Courses} />
+      <Route exact path='/Coaches' component={Coaches} />
+      <Route exact path='/MyProfile' component={MyProfile} />
+      <Route exact path='/Register' component={Register} />
+      <Route exact path='/Login' component={Login} />
+      <Route exact path='/Logout' component={Logout} />
+      <Route exact path='/AddCompany' component={AddCompany} />
+      <Route exact path='/CompanyList' render={(props) => (<CompanyList {...props} getCompanyId={removeCompanyHandler} />)} />
+      <Route exact path='/Admin/Company/:id' component={CompanyDetails} />
+      <Route exact path="/Admin/Companies/edit" component={EditCompany} />
+      <Route exact path="/Admin/PromoteDemote" component={PromoteDemote} />
+    </AppWrapper>
+    </Provider>
   );
 }
 
