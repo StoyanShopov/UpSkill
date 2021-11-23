@@ -257,6 +257,9 @@
         }
 
         public class RequestCourseConstants
+        {
+            public const string HtmlContent = "";
+        }
 
         public class RequestCoachConstants
         {
