@@ -16,7 +16,6 @@ import zoomContext from "../../../Context/ZoomContext";
 import { login } from "../../../actions/auth";
 
 import "./Login.css";
-import { Base_URL } from "../../../utils/baseUrlConstant";
 
 const Login = (props) => {
   const form = useRef();
@@ -73,39 +72,39 @@ const Login = (props) => {
   }
 
   return (
-    <div className="loginWrapper">
+    <div className="AuthWrapper">
       <div className="row p-5">
         <div className="container col-md-6 login-photos">
-          <div id="right-triangle"></div>
+          <div id="log-triangle"></div>
           <img src={manKey} alt="IMG" className="login-Image" />
         </div>
         <div className="base-container col-md-6 mt-4 text-center">
           <Link to="/" className="image text-center">
-            <img src={logo} alt="UpSkill" className="login-logo" />
+            <img src={logo} alt="UpSkill" className="Auth-logo" />
           </Link>
           <div className="header text-dark text-center m-3">
             <h1 className="fw-bolder">Welcome back!</h1>
             <h5>Please login to your account!</h5>
           </div>
           <Form onSubmit={handleLogin} ref={form}>
-            <div className="content login-form mt-3">
-              <div className="form m-5">
-                <div className="form-group login-form-internal">
+            <div className="content auth-form mt-3">
+              <div className="form auth-form-wrapper">
+                <div className="form-group auth-form-internal">
                   <label htmlFor="email"></label>
                   <Input
                     type="text"
-                    className="form-control p-3 login-form-Input"
+                    className="form-control p-3 auth-form-Input"
                     name="email"
                     placeholder="Email Address"
                     value={email}
                     onChange={onChangeEmail}
                     validations={[required]} />
                 </div>
-                <div className="form-group login-form-internal">
+                <div className="form-group auth-form-internal">
                   <label htmlFor="password"></label>
                   <Input
                     type="password"
-                    className="form-control p-3 login-form-Input"
+                    className="form-control p-3 auth-form-Input"
                     name="password"
                     placeholder="Password"
                     value={password}
@@ -128,9 +127,9 @@ const Login = (props) => {
                       {loading && (
                         <span className="spinner-border spinner-border-sm"></span>
                       )}
-                      <h4 className="px-5">LogIn<span className="login-dots">...</span></h4>
+                      <h4 className="auth-btn-internal">LogIn<span className="login-dots">...</span></h4>
                     </button>
-                    <Link to="/Register" className="btn btn-outline-primary col-xs-2 px-5 m-auto mt-2" type="button"><h4 className="px-5">SignUp</h4></Link>
+                    <Link to="/Register" className="btn btn-outline-primary col-xs-2 px-5 m-auto mt-2" type="button"><h4 className="auth-btn-internal">SignUp</h4></Link>
                   </div>
                   {message && (
                     <div className="form-group">
