@@ -60,7 +60,7 @@
                     { ClaimTypes.Name, user.UserName },
                     { ClaimTypes.Email, user.Email },
                 },
-                Expires = DateTime.UtcNow.AddMinutes(5), // the token exipration time shuold be between 5 and 10 minutes
+                Expires = DateTime.UtcNow.AddMinutes(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
 
@@ -75,84 +75,15 @@
             return encryptedToken;
         }
 
-        public RefreshToken GenerateRefreshToken(string ipAddress)
+        public RefreshToken GenerateRefreshToken()
         {
-            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+            using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            var randomBytes = new byte[64];
+            rngCryptoServiceProvider.GetBytes(randomBytes);
+
+            return new RefreshToken
             {
-                var randomBytes = new byte[64];
-                rngCryptoServiceProvider.GetBytes(randomBytes);
-
-                return new RefreshToken
-                {
-                    Token = Convert.ToBase64String(randomBytes),
-                    Expires = DateTime.UtcNow.AddDays(7),
-                    CreatedOn = DateTime.UtcNow,
-                    CreatedByIp = ipAddress,
-                };
-            }
-        }
-
-        public async Task<bool> RevokeToken(string token, string ipAddress)
-        {
-            var user = await this.users
-                .All()
-                .FirstOrDefaultAsync(x => x.RefreshTokens.Any(t => t.Token == token));
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
-
-            if (!refreshToken.IsActive)
-            {
-                return false;
-            }
-
-            refreshToken.Revoked = DateTime.UtcNow;
-            refreshToken.RevokedByIp = ipAddress;
-
-            // Should this method have an Update clause or SaveChangesAsync() is enough ?
-            this.users.Update(user);
-            await this.users.SaveChangesAsync();
-
-            return true;
-        }
-
-        public async Task<LoginResponseModel> RefreshToken(string token, string ipAddress)
-        {
-            var user = await this.users
-                .All()
-                .FirstOrDefaultAsync(x => x.RefreshTokens.Any(t => t.Token == token));
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
-
-            if (!refreshToken.IsActive)
-            {
-                return null;
-            }
-
-            var newRefreshToken = this.GenerateRefreshToken(ipAddress);
-            refreshToken.Revoked = DateTime.UtcNow;
-            refreshToken.RevokedByIp = ipAddress;
-            refreshToken.ReplacedByToken = newRefreshToken.Token;
-            user.RefreshTokens.Add(newRefreshToken);
-
-            this.users.Update(user);
-            await this.users.SaveChangesAsync();
-
-            var jwtToken = await this.GenerateJwtToken(user);
-
-            return new LoginResponseModel
-            {
-                Token = jwtToken,
-                RefreshToken = newRefreshToken.Token,
+                Token = Convert.ToBase64String(randomBytes),
             };
         }
 
@@ -186,7 +117,7 @@
             return result.Succeeded;
         }
 
-        public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model, string ipAddress)
+        public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model)
         {
             var user = await this.userManager.FindByEmailAsync(model.Email);
 
@@ -208,18 +139,13 @@
             }
 
             var token = await this.GenerateJwtToken(user);
-            var refreshToken = this.GenerateRefreshToken(ipAddress);
 
-            user.RefreshTokens.Add(refreshToken);
-
-            // Should this method have an Update clause or SaveChangesAsync() is enough ?
             this.users.Update(user);
             await this.users.SaveChangesAsync();
 
             return new LoginResponseModel()
             {
                 Token = token,
-                RefreshToken = refreshToken.Token,
             };
         }
     }

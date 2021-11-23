@@ -1,6 +1,7 @@
 ﻿namespace UpSkill.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -56,6 +57,10 @@
 
             await this.EmailConfirmation(model.Email);
 
+            var user = await this.userManager.FindByEmailAsync(model.Email);
+
+            await this.SetRefreshToken(user);
+
             return this.StatusCode(201);
         }
 
@@ -69,9 +74,7 @@
                 return this.BadRequest(this.ModelState);
             }
 
-            var ipAddress = this.IpAddress();
-
-            var embededToken = await this.identity.LoginAsync(model, ipAddress);
+            var embededToken = await this.identity.LoginAsync(model);
 
             this.Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
             {
@@ -79,51 +82,39 @@
                 Expires = DateTime.UtcNow.AddDays(7),
             });
 
+            var user = await this.userManager.FindByEmailAsync(model.Email);
+
+            await this.SetRefreshToken(user);
+
             return this.Ok(embededToken);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [Route(RefreshTokenRoute)]
-        public async Task<IActionResult> RefreshToken()
+        [Authorize]
+        [HttpPost("refreshToken")]
+        public async Task<ActionResult<LoginResponseModel>> RefreshToken()
         {
-            var refreshToken = this.Request.Cookies[JWT];
-            var ipAddress = this.IpAddress();
+            var refreshToken = this.Request.Cookies["refreshToken"];
 
-            var response = await this.identity.RefreshToken(refreshToken, ipAddress);
+            var user = await this.userManager.Users
+                .Include(r => r.RefreshTokens)
+                .FirstOrDefaultAsync(x => x.UserName == this.User.FindFirstValue(ClaimTypes.Name));
 
-            if (response == null)
+            if (user == null)
             {
-                return this.Unauthorized(new { message = InvalidToken });
+                return this.Unauthorized();
             }
 
-            this.SetTokenCookie(response.RefreshToken);
+            var oldToken = user.RefreshTokens.SingleOrDefault(x => x.Token == refreshToken);
 
-            return this.Ok(response);
-        }
-
-        [HttpPost]
-        [Route(RevokeTokenRoute)]
-        public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenRequest model)
-        {
-            // accept token from request body or cookie
-            var token = model.Token ?? this.Request.Cookies[RefreshTokenName];
-
-            if (string.IsNullOrEmpty(token))
+            if (oldToken != null && !oldToken.IsActive)
             {
-                return this.BadRequest(new { message = TokenRequired });
+                return this.Unauthorized();
             }
 
-            var ipAddress = this.IpAddress();
-
-            var response = await this.identity.RevokeToken(token, ipAddress);
-
-            if (!response)
+            return new LoginResponseModel
             {
-                return this.NotFound(new { message = TokenNotFound });
-            }
-
-            return this.Ok(new { message = TokenRevoked });
+                Token = await this.identity.GenerateJwtToken(user),
+            };
         }
 
         [HttpPost]
@@ -143,12 +134,31 @@
 
             var roles = await this.userManager.GetRolesAsync(user);
 
+            await this.SetRefreshToken(user);
+
             return new LoginResponseModel
             {
                 Id = user.Id,
                 Email = user.Email,
                 Role = roles[0] ?? string.Empty,
             };
+        }
+
+        private async Task SetRefreshToken(ApplicationUser user)
+        {
+            var refreshToken = this.identity.GenerateRefreshToken();
+
+            user.RefreshTokens.Add(refreshToken);
+
+            await this.userManager.UpdateAsync(user);
+
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(7),
+            };
+
+            this.Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
         }
 
         private async Task EmailConfirmation(string email)
@@ -171,30 +181,6 @@
             if (model.Password != model.ConfirmPassword)
             {
                 this.ModelState.AddModelError(nameof(model.Password), PasswordNotMatch);
-            }
-        }
-
-        private void SetTokenCookie(string token)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-
-                // Maybe add cookies expiration here?
-            };
-
-            this.Response.Cookies.Append(JWT, token, cookieOptions);
-        }
-
-        private string IpAddress()
-        {
-            if (this.Request.Headers.ContainsKey(HeaderKeyName))
-            {
-                return this.Request.Headers[HeaderKeyName];
-            }
-            else
-            {
-                return this.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
             }
         }
     }

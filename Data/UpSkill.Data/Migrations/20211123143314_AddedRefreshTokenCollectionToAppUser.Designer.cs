@@ -10,8 +10,8 @@ using UpSkill.Data;
 namespace UpSkill.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211110095510_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20211123143314_AddedRefreshTokenCollectionToAppUser")]
+    partial class AddedRefreshTokenCollectionToAppUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -310,6 +310,9 @@ namespace UpSkill.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Field")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("FileId")
                         .HasColumnType("int");
 
@@ -326,6 +329,9 @@ namespace UpSkill.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -369,6 +375,21 @@ namespace UpSkill.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoach", b =>
+                {
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoachId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CompanyId", "CoachId");
+
+                    b.HasIndex("CoachId");
+
+                    b.ToTable("CompanyCoaches");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
@@ -497,52 +518,6 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("Positions");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.RefreshToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpiryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsRevoked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JwtId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RefreshTokens");
-                });
-
             modelBuilder.Entity("UpSkill.Data.Models.UserInCourse", b =>
                 {
                     b.Property<string>("ApplicationUserId")
@@ -627,11 +602,57 @@ namespace UpSkill.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.OwnsMany("UpSkill.Data.Models.RefreshToken", "RefreshTokens", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<string>("CreatedByIp")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<DateTime>("CreatedOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime>("Expires")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("ReplacedByToken")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<DateTime?>("Revoked")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("RevokedByIp")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Token")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("UserId")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("RefreshToken");
+
+                            b1.WithOwner("User")
+                                .HasForeignKey("UserId");
+
+                            b1.Navigation("User");
+                        });
+
                     b.Navigation("Company");
 
                     b.Navigation("Manager");
 
                     b.Navigation("Position");
+
+                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
@@ -650,6 +671,25 @@ namespace UpSkill.Data.Migrations
                         .HasForeignKey("FileId");
 
                     b.Navigation("File");
+                });
+
+            modelBuilder.Entity("UpSkill.Data.Models.CompanyCoach", b =>
+                {
+                    b.HasOne("UpSkill.Data.Models.Coach", "Coach")
+                        .WithMany("Companies")
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("UpSkill.Data.Models.Company", "Company")
+                        .WithMany("Coaches")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.CompanyCourse", b =>
@@ -696,15 +736,6 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("File");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.RefreshToken", b =>
-                {
-                    b.HasOne("UpSkill.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("UpSkill.Data.Models.UserInCourse", b =>
                 {
                     b.HasOne("UpSkill.Data.Models.ApplicationUser", "ApplicationUser")
@@ -739,11 +770,15 @@ namespace UpSkill.Data.Migrations
 
             modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
                 {
+                    b.Navigation("Companies");
+
                     b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Company", b =>
                 {
+                    b.Navigation("Coaches");
+
                     b.Navigation("Courses");
 
                     b.Navigation("Users");
