@@ -9,7 +9,7 @@ const SidebarResources = (props) => {
 
     const [currentResources, setCurrentResources] = useState("");
 
-    const handleResources = (e) => {
+    const handleResources = (e) => { 
         const currentResources = e.target.value;
         setCurrentResources(currentResources)
     };
@@ -32,19 +32,11 @@ const SidebarResources = (props) => {
                                 value={lecture.lectureName}>
                                     {lecture.lectureName}
                                 </option>
-                                <option
-                                value={lecture.lectureDescription}>
-                                    Lecture Description
-                                </option>
                                 {lecture.lectureLessons.map((lesson) => (
                                     <>
                                     <option
                                     value={lesson.lessonUrl}>
-                                        Lecture Video
-                                    </option>
-                                    <option
-                                    value={lesson.lessonMediaType}>
-                                        Resources
+                                        {lesson.lessonMediaType}
                                     </option>
                                     </>
                                 ))}
