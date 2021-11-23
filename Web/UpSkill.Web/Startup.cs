@@ -52,7 +52,7 @@
             services.AddSingleton(this.configuration);
 
             services.AddSignalR()
-                   .AddAzureSignalR();
+                    .AddAzureSignalR("Endpoint=https://ourupskill.service.signalr.net;AccessKey=L9i75xUhkfovf/nC3KsT4N1dkJbsURSY7vDoPVBaURE=;Version=1.0;");
 
             services.AddEmailSender(this.configuration);
 
