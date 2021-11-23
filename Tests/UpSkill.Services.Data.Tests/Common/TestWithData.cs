@@ -32,6 +32,12 @@
                 Email = "user@example.com",
                 CompanyId = 0,
             },
+                new ApplicationUser()
+            {
+                Id = "2",
+                Email = "user2@example.com",
+                CompanyId = 1,
+            },
                 new Course()
             {
                 Id = 1,
@@ -49,6 +55,27 @@
                 Price = 122,
                 CoachId = 2,
                 CategoryId = 2,
-            });
+            },
+                new CompanyCourse()
+            {
+                CompanyId = 1,
+                CourseId = 2,
+            },
+                new CompanyCourse()
+             {
+                 CompanyId = 1,
+                 CourseId = 1,
+             },
+                new CompanyCoach()
+             {
+                CompanyId = 1,
+                CoachId = 2,
+             },
+                new CompanyCoach()
+             {
+                CompanyId = 1,
+                CoachId = 1,
+             });
+
     }
 }
