@@ -1,0 +1,98 @@
+.loginWrapper{
+    position: absolute;
+    z-index: 1100;
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    overflow-y: hidden;
+}
+
+.login-logo{
+    width: 33%;
+    height: 23%; 
+}
+
+.login-logo:hover{
+    filter: contrast(2);
+}
+
+.login-form{
+    position: relative;
+    z-index: 11;
+}
+
+.login-photos{
+    height: 100%;
+}
+
+.login-Image{
+    position: relative;
+    z-index: 11;
+    top: 7rem;
+    width: 30rem;
+}
+
+.login-form-internal{
+    padding: 0 7rem;
+}
+
+.login-form-Input{
+    background-color: white;
+    border: 4px solid #296CFB;
+}
+
+.login-form-Input::placeholder {
+    color: #296CFB;
+    opacity: 1;
+    font-weight: 500;
+    font-size: larger;
+}
+
+.login-form-btns-wrapper{
+    padding: 2rem 7rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.login-dots{
+    color: #296CFB;
+}
+
+#right-triangle {
+    width: 0;
+    height: 0;
+    border-left: 1000px solid #E8FBF5;
+    border-top: 1000px solid transparent;
+    border-bottom: 1000px solid transparent;
+    position: absolute;
+    left: 0;
+    top: -22rem;
+    z-index: 10;
+ }
+
+@media screen and (max-width: 1100px) {
+    .login-Image{
+        width: 60%!important;
+    }
+
+    .login-form-btns-wrapper{
+        padding: 0;
+    }
+
+    #right-triangle {
+        border-left: 92px solid #E8FBF5;
+        border-top: 80px solid transparent;
+        border-bottom: 100% solid transparent;
+    }
+
+    .login-form-internal{
+        padding: 0;        
+    }
+
+    .login-form{
+        padding: 0;
+    }
+}
