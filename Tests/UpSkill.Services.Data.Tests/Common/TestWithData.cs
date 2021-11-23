@@ -75,7 +75,14 @@
              {
                 CompanyId = 1,
                 CoachId = 1,
-             });
+             },
+                new Coach() 
+                {
+                    Id=3,
+                    FirstName="Stanimir",
+                    LastName = "Stanimir",
+                    Field="Marketing",
+                });
 
     }
 }
