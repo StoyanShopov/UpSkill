@@ -1,7 +1,7 @@
 import axios from "axios";
-import jwt from 'jwt-decode'
+import jwt from "jwt-decode";
 
-import { Base_URL } from '../utils/baseUrlConstant';
+import { Base_URL } from "../utils/baseUrlConstant";
 
 import authHeader from './auth-header';
 
@@ -11,7 +11,7 @@ const userStorageVarName = "user";
 const register = async (firstName, lastName, companyName, email, password, confirmPassword) => { 
   return axios.post(API_URL + "register", { 
     firstName,
-    lastName, 
+    lastName,
     companyName,
     email,
     password,

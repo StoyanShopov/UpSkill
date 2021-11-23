@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Base_URL} from "../utils/baseUrlConstant"
+import { Base_URL } from "../utils/baseUrlConstant";
 
 const numberCoachesToShow = 6;
 
@@ -208,8 +208,8 @@ export const requestCoach = async (
   try {
     const resp = await axios.post(OWN_API_URL + "/newCoach", requester, {
       headers: { Authorization: `Bearer ${token}` },
-    });    
-    return resp;   
+    });
+    return resp;
   } catch (err) {
     console.log(err);
   }
