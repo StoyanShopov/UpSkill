@@ -258,7 +258,10 @@
 
         public class RequestCourseConstants
         {
-            public const string HtmlContent = "";
+            public const string HtmlContent = "<p>Requester Email: {0}</p>" +
+                                              "<p>Requester Full Name: {1}</p>" +
+                                              "<p>Description: {2}</p>" +
+                                              "<p>Category: {3}</p>";
         }
 
         public class RequestCoachConstants
