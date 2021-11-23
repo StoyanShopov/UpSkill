@@ -24,7 +24,7 @@
 
         public const string UserNotFound = "User not found!";
 
-        public const string PriceFormat = "decimal(6, 2)";
+        public const string NewCourseRequest = "RequestCourse";
 
         public const string NewCoachRequest = "New Coach Request";
 
@@ -132,9 +132,14 @@
 
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
 
+            public const string Disable = "disable";
+
+            public const string ActiveCourses = "getActiveCourses";
+
             public const string GetCountRoute = "count";
 
             public const string NewCoach = "newCoach";
+
         }
 
         public class MessagesConstants
@@ -251,6 +256,8 @@
             public const string EmployeeOnly = "EmployeeOnly";
         }
 
+        public class RequestCourseConstants
+
         public class RequestCoachConstants
         {
             public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
@@ -270,6 +277,7 @@
             public const string NoEmployeesFound = "Currently there are no employees added to this company.";
 
             public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
+
         }
     }
 }
