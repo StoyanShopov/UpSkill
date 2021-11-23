@@ -170,7 +170,7 @@
                 .AddTransient<ICoachServices, CoachesService>()
                 .AddTransient<IEmployeeService, EmployeesService>()
                 .AddTransient<IOwnerCoursesService, OwnerCoursesService>()
-                .AddTransient<IFileService, FileService>()
+                .AddTransient<IFileService, FilesService>()
                 .AddTransient<IOwnerServices, OwnersServices>()
         .AddTransient<IFileService, FilesService>()
 .AddTransient<IEmployeeService, EmployeesService>()
