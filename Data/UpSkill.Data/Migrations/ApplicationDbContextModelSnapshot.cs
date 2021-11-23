@@ -295,6 +295,25 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("UpSkill.Data.Models.Chat.Message", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("OwnerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Time")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
                 {
                     b.Property<int>("Id")

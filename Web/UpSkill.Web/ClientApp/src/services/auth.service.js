@@ -3,17 +3,13 @@ import jwt from "jwt-decode";
 
 import { Base_URL } from "../utils/baseUrlConstant";
 
-const API_URL = Base_URL + "Identity/";
+import authHeader from './auth-header';
 
-const register = (
-  firstName,
-  lastName,
-  companyName,
-  email,
-  password,
-  confirmPassword
-) => {
-  return axios.post(API_URL + "register", {
+const API_URL = Base_URL + "Identity/";
+const userStorageVarName = "user";
+
+const register = async (firstName, lastName, companyName, email, password, confirmPassword) => { 
+  return axios.post(API_URL + "register", { 
     firstName,
     lastName,
     companyName,
@@ -23,7 +19,7 @@ const register = (
   });
 };
 
-const login = (email, password) => {
+const login = async (email, password) => {
   return axios
     .post(API_URL + "login", {
       email,
@@ -31,8 +27,8 @@ const login = (email, password) => {
     })
     .then((response) => {
       if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(jwt(response.data.token)));
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem(userStorageVarName, JSON.stringify(jwt(response.data.token)));                
       }
 
       return response.data;
@@ -48,10 +44,14 @@ const logout = async () => {
     });
 };
 
+export const getUser = () => JSON.parse(localStorage.getItem(userStorageVarName)) || null;
+
 const identity = {
   register,
   login,
   logout,
-};
+  getUser,
+}
+
 
 export default identity;

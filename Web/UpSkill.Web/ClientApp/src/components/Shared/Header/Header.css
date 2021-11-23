@@ -22,3 +22,9 @@
 	margin-left: 4px;
 	margin-right: 4px;
 }
+
+@media all and (max-width: 1200px) and (min-width: 960px) {
+	.img-fluid{
+		max-height: 3rem;
+	}
+}
