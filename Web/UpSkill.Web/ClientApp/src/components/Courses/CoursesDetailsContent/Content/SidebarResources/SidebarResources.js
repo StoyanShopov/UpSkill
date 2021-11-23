@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+
+import CourseDetailsResourcesContext from '../../../../../Context/CourseDetailsResourcesContext';
 
 import './SidebarResources.css';
 
-const SidebarResources = (props) => {
-    const {
-        courseResources: {courseLectures}
-    } = props;
+const SidebarResources = ({courseLectures}) => {
+    const [lecture, setLecture] = useContext(CourseDetailsResourcesContext);
 
-    const [currentResources, setCurrentResources] = useState("");
-
-    const handleResources = (e) => { 
-        const currentResources = e.target.value;
-        setCurrentResources(currentResources)
-    };
+    const OnClickResources = (e) => {
+        e.preventDefault();
+        const lecture = e.target.value;
+        setLecture(lecture);
+    }
 
     return(
         <div className="container">
@@ -26,19 +25,17 @@ const SidebarResources = (props) => {
                         <li>
                             <hr/>
                             <select
-                            key={lecture.id}
-                            onChange={handleResources}>
-                                <option 
-                                value={lecture.lectureName}>
+                            key={lecture.id}>
+                                <option
+                                value={lecture}
+                                onClick={OnClickResources}>
                                     {lecture.lectureName}
                                 </option>
-                                {lecture.lectureLessons.map((lesson) => (
-                                    <>
+                                {lecture.lectureLessons.map((lesson) => (                             
                                     <option
                                     value={lesson.lessonUrl}>
                                         {lesson.lessonMediaType}
                                     </option>
-                                    </>
                                 ))}
                             </select>
                         </li>

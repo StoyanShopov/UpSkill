@@ -3,6 +3,8 @@
 .courseTitleContent{
     top: 341px;
     left: 110px;
+    width: 258px;
+    height: 80px;
     text-align: right;
     font: normal normal 35px/100px Montserrat;
     letter-spacing: -1px;
