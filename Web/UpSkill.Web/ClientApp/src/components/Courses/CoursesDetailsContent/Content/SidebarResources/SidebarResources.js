@@ -9,7 +9,7 @@ const SidebarResources = (props) => {
         courseResources: { courseFileFilePath, courseCoachFirstName, courseCoachLastName ,courseLectures}
     }=props
 
-    const [currentLecture, setCurrentLecture] = useState({});
+    const [currentLecture, setCurrentLecture] = useState([]);
     const OnClickResources = (e) => {
         e.preventDefault();
         const lecture = e.target.value;
@@ -18,24 +18,19 @@ const SidebarResources = (props) => {
 
 return(
         <div className="container">
-        {courseLectures.map((lecture) =>(
-          <>
-            {lecture.lectureLessons.map((lesson) => (
-            <>
-                <Details
-                key={lecture.id}
-                lectureName={lecture.lectureName}
-                lectureDescription={lecture.lectureDescription}
-                lessonVideo={lesson.lessonUrl}
-                courseImage={courseFileFilePath}
-                coachFirstName={courseCoachFirstName}
-                coachLastName={courseCoachLastName}
-                />
+         <Details
+            key={currentLecture.id}
+            lecture={currentLecture}
+            courseImage={courseFileFilePath}
+            coachFirstName={courseCoachFirstName}
+            coachLastName={courseCoachLastName}
+            />
          <div className="courseResourcesSidebar"></div>
          <span className="lecturesContent">Lectures</span>
             <section>
                 <ul>
                     <li className="lecturesContentSpan">
+                    {courseLectures.map((lecture) =>(
                         <li>
                         <hr/>
                         <select
@@ -44,23 +39,22 @@ return(
                             value={lecture}
                             onClick={OnClickResources}>
                                  {lecture.lectureName}
-                            </option>                           
+                            </option>
+                            {lecture.lectureLessons.map((lesson) => (                           
                             <option
                             value={lesson.lessonUrl}>
                                 {lesson.lessonMediaType}
                             </option>
+                            ))}
                         </select>
                         </li>
+                    ))}
                     </li>
                 </ul>
             </section>
             <div className="courseButtonViewMore">
                <span className="courseButtonViewMoreSpan">View More</span>
             </div>
-            </>
-            ))}
-          </>
-        ))}
       </div>
    )
 }
