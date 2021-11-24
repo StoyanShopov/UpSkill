@@ -5,6 +5,10 @@ import { Base_URL } from '../utils/baseUrlConstant';
 
 const API_URL = Base_URL + "Identity/";
 
+// const RefreshToken = () => {
+//   axios.post(API_URL + "refreshToken", {})
+// }
+
 const register = (firstName, lastName, companyName, email, password, confirmPassword) => { 
   return axios.post(API_URL + "register", { 
     firstName,
@@ -36,7 +40,7 @@ const logout = () => {
   return axios
     .post(API_URL + "logout")
     .then((res) => {
-        localStorage.removeItem("user");      
+        localStorage.removeItem("user");
     });
 };
 
