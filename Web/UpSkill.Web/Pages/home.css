@@ -1,0 +1,141 @@
+﻿html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Montserrat;
+}
+
+.container {
+    min-height: 100%;
+    position: relative;
+}
+
+.header {
+    box-shadow: 0px 3px 6px #00000029;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    padding: 10px;
+    min-height: 50px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    align-items: center;
+}
+
+.body {
+    padding: 10px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: transparent url('/Path\ 8.svg') 0% 0% no-repeat padding-box;
+    background-size: cover;
+    height: 50vh;
+}
+
+.buttons {
+}
+
+.login {
+    border: 2px solid #296CFB;
+    color: #296CFB;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    padding: 15px 32px;
+    text-align: center;
+    letter-spacing: 1.1px;
+    font-size: 12px;
+}
+
+.register {
+    background-color: #0004ff;
+    border: 2px solid #296CFB;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1.1px;
+    color: #FFFFFF;
+    font-size: 12px;
+}
+
+.img-and-text {
+    display: flex;
+}
+
+.upskill {
+    font: normal normal bold 30px/37px Montserrat;
+    letter-spacing: 1.5px;
+    color: #000000;
+    text-transform: lowercase;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20vh;
+    color: #FFFFFF;
+}
+
+.desc-child {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    color: #FFFFFF;
+    margin-top: -30px;
+}
+
+.button-desc {
+    width: 250px;
+}
+
+.img-text {
+    display: flex;
+}
+
+.upskill {
+    color: #FFFFFF;
+    letter-spacing: 2.25px;
+}
+
+.links {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .links img {
+        padding-top: 10px;
+        width: 40px;
+        height: 40px;
+    }
+
+.company,
+.services {
+    letter-spacing: 1.1px;
+    font-size: 20px;
+}
+
+    .company h1,
+    .services h1 {
+        font-weight: 600;
+        font-size: 22px;
+    }
+
+    .company div,
+    .services div {
+        font-weight: 600;
+        font-size: 22px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+    }
+
+        .company div a,
+        .services div a {
+            text-decoration: none;
+            color: white;
+            padding-top: 20px;
+            font-size: 19px;
+        }
