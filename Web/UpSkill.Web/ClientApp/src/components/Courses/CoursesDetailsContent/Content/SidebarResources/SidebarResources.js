@@ -1,51 +1,66 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 
-import CourseDetailsResourcesContext from '../../../../../Context/CourseDetailsResourcesContext';
+import Details from "../Details/Details";
 
 import './SidebarResources.css';
 
-const SidebarResources = ({courseLectures}) => {
-    const [lecture, setLecture] = useContext(CourseDetailsResourcesContext);
+const SidebarResources = (props) => {
+    const {
+        courseResources: { courseFileFilePath, courseCoachFirstName, courseCoachLastName ,courseLectures}
+    }=props
 
+    const [currentLecture, setCurrentLecture] = useState({});
     const OnClickResources = (e) => {
         e.preventDefault();
         const lecture = e.target.value;
-        setLecture(lecture);
+        setCurrentLecture(lecture);
     }
 
-    return(
+return(
         <div className="container">
-         <div className="courseResourcesSidebar">
-         </div>
+        {courseLectures.map((lecture) =>(
+          <>
+            {lecture.lectureLessons.map((lesson) => (
+            <>
+                <Details
+                key={lecture.id}
+                lectureName={lecture.lectureName}
+                lectureDescription={lecture.lectureDescription}
+                lessonVideo={lesson.lessonUrl}
+                courseImage={courseFileFilePath}
+                coachFirstName={courseCoachFirstName}
+                coachLastName={courseCoachLastName}
+                />
+         <div className="courseResourcesSidebar"></div>
          <span className="lecturesContent">Lectures</span>
             <section>
                 <ul>
                     <li className="lecturesContentSpan">
-                    {courseLectures.map((lecture) => (
                         <li>
-                            <hr/>
-                            <select
-                            key={lecture.id}>
-                                <option
-                                value={lecture}
-                                onClick={OnClickResources}>
-                                    {lecture.lectureName}
-                                </option>
-                                {lecture.lectureLessons.map((lesson) => (                             
-                                    <option
-                                    value={lesson.lessonUrl}>
-                                        {lesson.lessonMediaType}
-                                    </option>
-                                ))}
-                            </select>
+                        <hr/>
+                        <select
+                        key={lecture.id}>
+                            <option
+                            value={lecture}
+                            onClick={OnClickResources}>
+                                 {lecture.lectureName}
+                            </option>                           
+                            <option
+                            value={lesson.lessonUrl}>
+                                {lesson.lessonMediaType}
+                            </option>
+                        </select>
                         </li>
-                    ))}
                     </li>
                 </ul>
             </section>
             <div className="courseButtonViewMore">
                <span className="courseButtonViewMoreSpan">View More</span>
             </div>
+            </>
+            ))}
+          </>
+        ))}
       </div>
    )
 }

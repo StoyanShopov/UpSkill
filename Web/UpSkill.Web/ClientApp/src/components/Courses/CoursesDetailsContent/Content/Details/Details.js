@@ -5,23 +5,10 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import sanitizeHtml from 'sanitize-html';
 
-import CourseDetailsResourcesContext from "../../../../../Context/CourseDetailsResourcesContext";
-
 import './Details.css';
 
 const Details = (props) => { 
-  const {   
-    courseDetails: 
-    {
-      id,
-      courseFileFilePath, 
-      courseCoachFirstName,
-      courseCoachLastName,
-      courseLectures,
-    },
-  } = props;
-
-  const[lecture, setLecture] = useState("");
+  const { id, lectureName, lectureDescription, lessonVideo, courseImage, coachFirstName, coachLastName } = props;
 
     const [text, setText] = useState("");
     const { store } = useContext(ReactReduxContext);
@@ -29,25 +16,21 @@ const Details = (props) => {
 
     return(
     <>
-    <CourseDetailsResourcesContext.Provider
-    value={[lecture, setLecture]}>
         <div className="container" key={id}>
             <>
-              <h2 className="courseTitleContent">{lecture.lectureName}</h2>
-              {lecture.lectureLessons.map((lesson) => (
+              <h2 className="courseTitleContent">{lectureName}</h2>
                 <>
                 <ReactVideo
                 className="courseVideoContent"
-                src={lesson.lessonUrl}
-                poster={courseFileFilePath}
+                src={lessonVideo}
+                poster={courseImage}
                 primaryColor="red" /><br/>
                 </>
-              ))}
               <h4 className="lectureDescriptionContent">Lecture Description</h4>
               <>
                 {isAdmin ? (
                   <Editor
-                    initialValue={sanitizeHtml(lecture.lectureDescription)}
+                    initialValue={sanitizeHtml(lectureDescription)}
                     onEditorChange={(newText) => setText(newText)}
                     init={{
                       height: 180,
@@ -64,13 +47,12 @@ const Details = (props) => {
                       content_style: 'font: normal normal bold 22px/27px Montserrat;' +
                         'letter-spacing: 1.1px; color: #000000; opacity: 1;'
                     }} />) : (
-                  <p className="descriptionContent">{sanitizeHtml(lecture.lectureDescription)}</p>
+                  <p className="descriptionContent">{sanitizeHtml(lectureDescription)}</p>
                 )}<br />
              </>
-              <h4 className="instructorContent">Instructor</h4><p>{courseCoachFirstName + " " + courseCoachLastName}</p>
+              <h4 className="instructorContent">Instructor</h4><p>{coachFirstName + " " + coachLastName}</p>
             </>           
         </div>
-        </CourseDetailsResourcesContext.Provider>
     </>
     )
 }
