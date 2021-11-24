@@ -48,7 +48,7 @@
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.Infrastructure.Web.Extensions;
     using UpSkill.Web.ViewModels.Chat;
-	using UpSkill.Web.ViewModels.Zoom;
+    using UpSkill.Web.ViewModels.Zoom;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.EmailSenderConstants;

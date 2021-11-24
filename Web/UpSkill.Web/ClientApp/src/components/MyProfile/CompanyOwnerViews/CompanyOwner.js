@@ -7,7 +7,6 @@ import CompanyCoaches from "./CompanyCoaches/CompanyCoaches";
 import Employees from "./Employees/Employees";
 import Invoice from "./Invoice/Invoice";
 import Dashboard from "./Dashboard/Dashboard";
-import Logout from "../../Authentication/Logout/Logout";
 
 import "./CompanyOwner.css";
 

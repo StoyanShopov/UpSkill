@@ -18,6 +18,8 @@
 
         public const string BlobStorage = "BlobStorage";
 
+        public const string SignalR = "SignalR";
+
         public const string ApplicationSettings = "ApplicationSettings";
 
         public const string Unauthorized = "Unauthorized";
