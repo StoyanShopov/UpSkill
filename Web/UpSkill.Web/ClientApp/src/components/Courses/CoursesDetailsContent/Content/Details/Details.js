@@ -14,8 +14,6 @@ const Details = (props) => {
     const { store } = useContext(ReactReduxContext);
     var { isAdmin } = store.getState().auth;
 
-  console.log(lecture);
-
     return(
     <>
         <div className="container" key={id}>

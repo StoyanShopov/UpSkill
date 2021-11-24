@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SidebarResources from './SidebarResources/SidebarResources';
-import CourseDetailsResourcesContext from '../../../../Context/CourseDetailsResourcesContext';
 
 function Content ({course}) {
     return(
