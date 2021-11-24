@@ -78,7 +78,7 @@ function App() {
         <Route exact path='/Admin/Courses' component={AdminCourses} />
         <Route exact path='/Courses' component={Courses} />
         <Route exact path='/Coaches' component={Coaches} />
-        <Route exact path='/MyProfile' component={MyProfile} />
+        <Route path='/MyProfile' component={MyProfile} />
         <Route exact path='/Register' component={Register} />
         <Route exact path='/Login' component={Login} />
         <Route exact path='/Logout' component={Logout} />
