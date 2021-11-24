@@ -3,24 +3,20 @@ import React, { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux"; 
 import { ReactReduxContext } from 'react-redux'
 
-import { clearMessage } from "../../../actions/message";
+import IdentityContext from "../../../Context/IdentityContext";
 
+import { clearMessage } from "../../../actions/message";
 import { history } from "../../../helpers/history"; 
 
 import Logo from '../../../assets/logo-NoBg.png';
 import UserProfilePic from '../../../assets/userProfilePic.png';
 import './Header.css';
 
-import {
-	LOGOUT,
-	CHECK_CURRENT_STATE
-  } from "../../../actions/types";
-  
-
 function Header() { 
-	const [isActive, setisActive] = useState(false);   
-
-	const { store } = useContext(ReactReduxContext)
+	const [isActive, setisActive] = useState(false);
+	
+	const { store } = useContext(ReactReduxContext);
+	const [loading, setLoading] = useContext(IdentityContext);
     var {isLoggedIn, user} = store.getState().auth;
 
 	const dispatch = useDispatch();
@@ -83,14 +79,18 @@ function Header() {
                                   </li>
                                </div>
                          ) : (
-                            <div className="navbar-nav ml-auto">
+							loading ? (
+								<span className="spinner-border spinner-border-sm"></span>
+							)
+							:
+                            (<div className="navbar-nav ml-auto">
                                 <li className="nav-item">
 			                     <NavLink to="/Login" className="btn btn-outline-info font-weight-bold mt-2" exact={true}>
                                     <b>Login</b>
                                  </NavLink>
                                 </li>
                             </div>
-                          )}
+						 ))}
 						</ul>
 					</section>
 
