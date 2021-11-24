@@ -4,10 +4,35 @@ import jwt from 'jwt-decode'
 import { Base_URL } from '../utils/baseUrlConstant';
 
 const API_URL = Base_URL + "Identity/";
+let refreshTokenTimeout = "";
 
-// const RefreshToken = () => {
-//   axios.post(API_URL + "refreshToken", {})
-// }
+const refreshToken = () => {
+  axios.post(API_URL + "refreshToken", {});
+  //TODO: Must return ApplicationUser object here.
+}
+
+refreshToken = async () => {
+  this.stopRefreshTokenTimer();
+  try {
+      const user = await agent.Account.refreshToken();
+      runInAction(() => this.user = user);
+      store.commonStore.setToken(user.token);
+      this.startRefreshTokenTimer(user);
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+startRefreshTokenTimer = (user) => {
+  const jwtToken = JSON.parse(user.token.split('.')[1]);
+  const expires = new Date(jwtToken.exp * 1000);
+  const timeout = expires.getTime() - Date.now() - (60 * 1000);
+  this.refreshTokenTimeout = setTimeout(this.refreshToken, timeout);
+}
+
+stopRefreshTokenTimer() {
+  clearTimeout(this.refreshTokenTimeout);
+}
 
 const register = (firstName, lastName, companyName, email, password, confirmPassword) => { 
   return axios.post(API_URL + "register", { 
@@ -17,7 +42,8 @@ const register = (firstName, lastName, companyName, email, password, confirmPass
     email,
     password,
     confirmPassword,
-  });
+  })
+  .then(this.startRefreshTokenTimer(user));
 };
 
 const login = (email, password) => {
@@ -32,6 +58,7 @@ const login = (email, password) => {
         localStorage.setItem("user", JSON.stringify(jwt(response.data.token)));
       }
 
+      this.startRefreshTokenTimer(user);
       return response.data;
     });
 };

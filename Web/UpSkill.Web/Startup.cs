@@ -79,7 +79,8 @@
                 .UseCors(options => options
                     .AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod())
+                    .AllowAnyMethod()
+                    .WithExposedHeaders("WWW-Authenticate"))
                 .UseHttpsRedirection()
                 .UseAuthentication()
                 .UseAuthorization()
