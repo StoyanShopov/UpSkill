@@ -1,19 +1,28 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 
 import CourseDetailsResourcesContext from '../../../../../Context/CourseDetailsResourcesContext';
 
 import './SidebarResources.css';
 
-const SidebarResources = ({courseLectures}) => {
-    const [lecture, setLecture] = useContext(CourseDetailsResourcesContext);
+const SidebarResources = (props) => {
+    const {
+        courseResources: {courseLectures}
+    }=props;
+
+    const [currentLecture, setCurrentLecture] = useState([]);
 
     const OnClickResources = (e) => {
         e.preventDefault();
-        const lecture = e.target.value;
-        setLecture(lecture);
+        const currentLecture = e.target.value;
+        setCurrentLecture(currentLecture);
     }
 
+    console.log(currentLecture);
+
     return(
+        <CourseDetailsResourcesContext.Provider
+        value={[currentLecture, setCurrentLecture]}>
+        {props.children}
         <div className="container">
          <div className="courseResourcesSidebar">
          </div>
@@ -22,6 +31,7 @@ const SidebarResources = ({courseLectures}) => {
                 <ul>
                     <li className="lecturesContentSpan">
                     {courseLectures.map((lecture) => (
+                        <>
                         <li>
                             <hr/>
                             <select
@@ -39,6 +49,7 @@ const SidebarResources = ({courseLectures}) => {
                                 ))}
                             </select>
                         </li>
+                        </>
                     ))}
                     </li>
                 </ul>
@@ -47,6 +58,7 @@ const SidebarResources = ({courseLectures}) => {
                <span className="courseButtonViewMoreSpan">View More</span>
             </div>
       </div>
+    </CourseDetailsResourcesContext.Provider>
    )
 }
 

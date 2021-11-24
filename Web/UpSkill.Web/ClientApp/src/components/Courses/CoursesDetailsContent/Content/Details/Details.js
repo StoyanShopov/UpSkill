@@ -1,4 +1,4 @@
-import React, { useContext ,useState } from "react";
+import React, { useContext, useState } from "react";
 import { ReactReduxContext } from "react-redux";
 import { ReactVideo } from 'reactjs-media';
 import { Editor } from '@tinymce/tinymce-react';
@@ -10,36 +10,26 @@ import CourseDetailsResourcesContext from "../../../../../Context/CourseDetailsR
 import './Details.css';
 
 const Details = (props) => { 
-  const {   
-    courseDetails: 
-    {
-      id,
-      courseFileFilePath, 
-      courseCoachFirstName,
-      courseCoachLastName,
-      courseLectures,
-    },
-  } = props;
+  const {
+    lecture: {lecture, lectureLessons}
+  }=props;
 
-  const[lecture, setLecture] = useState("");
+  // const [currentLecture, setCurrentLecture] = useContext(CourseDetailsResourcesContext);
+  const [text, setText] = useState("");
+  const { store } = useContext(ReactReduxContext);
+  var { isAdmin } = store.getState().auth;
 
-    const [text, setText] = useState("");
-    const { store } = useContext(ReactReduxContext);
-    var { isAdmin } = store.getState().auth;
+  console.log(lecture);
 
     return(
-    <>
-    <CourseDetailsResourcesContext.Provider
-    value={[lecture, setLecture]}>
-        <div className="container" key={id}>
+        <div className="container" key={lecture.id}>
             <>
               <h2 className="courseTitleContent">{lecture.lectureName}</h2>
-              {lecture.lectureLessons.map((lesson) => (
+              {lectureLessons.map((lesson) => (
                 <>
                 <ReactVideo
                 className="courseVideoContent"
                 src={lesson.lessonUrl}
-                poster={courseFileFilePath}
                 primaryColor="red" /><br/>
                 </>
               ))}
@@ -67,12 +57,10 @@ const Details = (props) => {
                   <p className="descriptionContent">{sanitizeHtml(lecture.lectureDescription)}</p>
                 )}<br />
              </>
-              <h4 className="instructorContent">Instructor</h4><p>{courseCoachFirstName + " " + courseCoachLastName}</p>
-            </>           
-        </div>
-        </CourseDetailsResourcesContext.Provider>
-    </>
-    )
+              {/* <h4 className="instructorContent">Instructor</h4><p>{courseCoachFirstName + " " + courseCoachLastName}</p>  */}
+            </>       
+      </div>
+  )
 }
 
 export default Details;
