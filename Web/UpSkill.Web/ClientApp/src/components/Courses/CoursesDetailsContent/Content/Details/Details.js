@@ -1,4 +1,4 @@
-import React, { useContext ,useState } from "react";
+import React, { useContext, useState } from "react";
 import { ReactReduxContext } from "react-redux";
 import { ReactVideo } from 'reactjs-media';
 import { Editor } from '@tinymce/tinymce-react';
@@ -13,6 +13,8 @@ const Details = (props) => {
     const [text, setText] = useState("");
     const { store } = useContext(ReactReduxContext);
     var { isAdmin } = store.getState().auth;
+
+  console.log(lecture);
 
     return(
     <>

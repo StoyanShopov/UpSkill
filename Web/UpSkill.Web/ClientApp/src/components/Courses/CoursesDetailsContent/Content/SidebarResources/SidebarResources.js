@@ -17,6 +17,9 @@ const SidebarResources = (props) => {
     }
 
 return(
+        <CourseDetailsResourcesContext.Provider
+        value={[currentLecture, setCurrentLecture]}>
+        {props.children}
         <div className="container">
         {courseLectures.map((lecture) =>(
           <>
@@ -62,6 +65,7 @@ return(
           </>
         ))}
       </div>
+    </CourseDetailsResourcesContext.Provider>
    )
 }
 

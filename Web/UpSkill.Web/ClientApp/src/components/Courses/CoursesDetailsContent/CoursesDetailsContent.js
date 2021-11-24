@@ -1,9 +1,7 @@
-import React, { createContext ,useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { courseDetailsContent } from '../../../services/courseService';
 import Content from './Content/Content';
-
-export const CourseContentContext = createContext();
 
 const CoursesDetailsContent = (props) => {
   const [course, setCourse] = useState([]);
