@@ -1,4 +1,4 @@
-import {logout} from "../services/auth.service"
+import {logout} from "../services/auth.service";
 
 export default function authHeader() {
     const user = JSON.parse(localStorage.getItem('user'));

@@ -79,7 +79,7 @@
             this.Response.Cookies.Append(JWT, embededToken.Token, new CookieOptions()
             {
                 HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddMinutes(3),
             });
 
             var user = await this.userManager.FindByEmailAsync(model.Email);
@@ -121,7 +121,7 @@
         [Route(LogoutRoute)]
         public IActionResult Logout()
         {
-            this.Response.Cookies.Delete(JWT);
+            this.Response.Cookies.Delete("refreshToken");
 
             return this.Ok(new { message = SuccessMessage });
         }
@@ -155,7 +155,7 @@
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddDays(5),
             };
 
             this.Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);

@@ -17,7 +17,7 @@
 
         public string Token { get; set; }
 
-        public DateTime Expires { get; set; } = DateTime.UtcNow.AddDays(7);
+        public DateTime Expires { get; set; }
 
         public bool IsExpired => DateTime.UtcNow >= this.Expires;
 
