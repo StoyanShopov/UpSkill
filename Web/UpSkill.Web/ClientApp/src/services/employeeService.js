@@ -74,3 +74,22 @@ export const getEmployee = async () => {
       return response.data;
     });
 };
+
+export const updateEmployee = async (id, firstName, lastName, file, description) => {
+  let fd = new FormData(); 
+  fd.append("FirstName", firstName);
+  fd.append("LastName", lastName);
+  fd.append("Description", description);
+  fd.append("File",  file,)
+  console.log(fd);
+  try {
+    const resp = await axios.put(
+      Base_URL + 'Employee/Employees/........',
+      fd,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return resp;
+  } catch (err) {}
+};
