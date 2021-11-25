@@ -8,7 +8,8 @@ function Content ({course}) {
             {course.map((courseDetails) => (
                 <div className="col-sm-5 text-align-center" key={courseDetails.id}>
                     <SidebarResources
-                       courseResources={courseDetails}
+                    key={courseDetails.id}   
+                    courseResources={courseDetails}
                     />
                 </div>
             ))}

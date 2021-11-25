@@ -5,32 +5,31 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import sanitizeHtml from 'sanitize-html';
 
+import CourseDetailsResourcesContext from "../../../../../Context/CourseDetailsResourcesContext";
+
 import './Details.css';
 
-const Details = (props) => { 
-  const { id, lectureName, lectureDescription, lessonVideo, courseImage, coachFirstName, coachLastName } = props;
-
-    const [text, setText] = useState("");
-    const { store } = useContext(ReactReduxContext);
-    var { isAdmin } = store.getState().auth;
+const Details = () => { 
+  const [currentLecture, courseFileFilePath, courseCoachFirstName, courseCoachLastName] = useContext(CourseDetailsResourcesContext);
+  console.log(currentLecture, courseFileFilePath, courseCoachFirstName, courseCoachLastName);
+  const [text, setText] = useState("");
+  const { store } = useContext(ReactReduxContext);
+  var { isAdmin } = store.getState().auth;
 
     return(
-    <>
-        <div className="container" key={id}>
-            <>
-              <h2 className="courseTitleContent">{lectureName}</h2>
-                <>
+        <div className="container" key={currentLecture.id}>
+              <h2 className="courseTitleContent">{currentLecture.lecture?.lectureName}</h2>
+              {currentLecture?.lecture?.lectureLessons.map((lesson) => (
                 <ReactVideo
+                key={lesson.id}
                 className="courseVideoContent"
-                src={lessonVideo}
-                poster={courseImage}
-                primaryColor="red" /><br/>
-                </>
+                src={lesson.lessonUrl}
+                poster={courseFileFilePath}
+                primaryColor="red" />))}<br/>
               <h4 className="lectureDescriptionContent">Lecture Description</h4>
-              <>
                 {isAdmin ? (
                   <Editor
-                    initialValue={sanitizeHtml(lectureDescription)}
+                    initialValue={sanitizeHtml(currentLecture.lecture?.lectureDescription)}
                     onEditorChange={(newText) => setText(newText)}
                     init={{
                       height: 180,
@@ -47,13 +46,11 @@ const Details = (props) => {
                       content_style: 'font: normal normal bold 22px/27px Montserrat;' +
                         'letter-spacing: 1.1px; color: #000000; opacity: 1;'
                     }} />) : (
-                  <p className="descriptionContent">{sanitizeHtml(lectureDescription)}</p>
+                  <p className="descriptionContent">{sanitizeHtml(currentLecture.lecture?.lectureDescription)}</p>
                 )}<br />
-             </>
-              <h4 className="instructorContent">Instructor</h4><p>{coachFirstName + " " + coachLastName}</p>
-            </>           
+
+              <h4 className="instructorContent">Instructor</h4><p>{courseCoachFirstName + " " + courseCoachLastName}</p>        
         </div>
-    </>
     )
 }
 
