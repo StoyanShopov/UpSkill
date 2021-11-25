@@ -34,6 +34,12 @@
             },
                 new ApplicationUser()
             {
+                Id = "3",
+                Email = "",
+                CompanyId = 0,
+            },
+                new ApplicationUser()
+            {
                 Id = "2",
                 Email = "user2@example.com",
                 CompanyId = 1,

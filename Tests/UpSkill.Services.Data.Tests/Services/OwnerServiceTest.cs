@@ -92,7 +92,13 @@
                 OwnerEmail = companyOwner.Email,
             };
 
-            var service = await this.MockOwnersServices(CoachId, CompanyId, CompanyOwnerId, AdminId);
+            var users = new List<ApplicationUser>
+            {
+                admin,
+                companyOwner,
+            };
+
+            var service = await this.MockOwnersServices(CoachId, CompanyId, CompanyOwnerId, AdminId, MockUserManager(users));
 
             var result = await service.AddCoachAsync(companyCoach);
 
@@ -103,7 +109,9 @@
         public async Task AddCoachAsyncShouldReturnNotACompanyOwner()
         {
             const int CoachId = 3;
-            const string CompanyOwnerId = "2";
+            const string CompanyOwnerId = "3";
+            const int CompanyId = 1;
+            const string AdminId = "1";
             const string DatabaseName = "AddCoachToCompany";
             await this.InitializeDatabase(DatabaseName);
             var companyOwner = await this.Database
@@ -112,17 +120,23 @@
             var coach = await this.Database
                .Coaches
                .FindAsync(CoachId);
-
             var companyCoach = new AddCoachToCompanyModel()
             {
                 CoachId = coach.Id,
                 OwnerEmail = "",
             };
 
-            var service = new Mock<IOwnerServices>();
-            service.Setup(o => o.AddCoachAsync(companyCoach)).ReturnsAsync(UserNotInCompanyOwnerRole);
+            //var service = new Mock<IOwnerServices>();
+            //service.Setup(o => o.AddCoachAsync(companyCoach)).ReturnsAsync(UserNotInCompanyOwnerRole);
 
-            var result = await service.Object.AddCoachAsync(companyCoach);
+            //var result = await service.Object.AddCoachAsync(companyCoach);
+            var store = new Mock<IUserStore<ApplicationUser>>();
+            var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
+            mgr.Setup(u => u.GetRolesAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(new List<string>
+                { AdministratorRoleName });
+            var service = await this.MockOwnersServices(CoachId, CompanyId, CompanyOwnerId, AdminId, mgr);
+
+            var result = await service.AddCoachAsync(companyCoach);
 
             Assert.Equal(UserNotInCompanyOwnerRole,result.Error);
             Assert.True(result.Failure);
@@ -147,6 +161,12 @@
             var coach = await this.Database
                 .Coaches
                 .FindAsync(CoachId);
+            var company = await this.Database
+                .Companies
+                .FindAsync(companyOwner.CompanyId);
+            var admin = await this.Database
+                .Users
+                .FindAsync("1");
             var companyCoachNoSuchCoach = new AddCoachToCompanyModel()
             {
                 CoachId = InvalidCoachId,
@@ -156,15 +176,53 @@
             var companyCoachNoSuchCompany = new AddCoachToCompanyModel()
             {
                 CoachId = coach.Id,
-                OwnerEmail = companyOwner.Email,
+                OwnerEmail = companyOwner2.Email,
             };
+            var users = new List<ApplicationUser>
+            {
+                admin,
+                companyOwner,
+            };
+            var coachViewModelMock = new CoachDetailsModel
+            {
+                Id = coach.Id,
+                FirstName = coach.FirstName,
+                CalendlyUrl = coach.CalendlyUrl,
+                LastName = coach.LastName,
+            };
+            var coachesServiceMock = new Mock<ICoachServices>();
+            coachesServiceMock.Setup(cs => cs.GetByIdAsync<CoachDetailsModel>(InvalidCoachId)).ReturnsAsync(value: null);
+            coachesServiceMock.Setup(cs => cs.GetByIdAsync<CoachDetailsModel>(coach.Id)).ReturnsAsync(coachViewModelMock);
+            var companyServiceMock = new Mock<ICompanyService>();
+            companyServiceMock.Setup(cs => cs.GetByIdAsync<CompanyDetailsModel>(company.Id)).ReturnsAsync(value: null);
 
-            var service = new Mock<IOwnerServices>();
-            service.Setup(o => o.AddCoachAsync(companyCoachNoSuchCoach)).ReturnsAsync(DoesNotExist);
-            service.Setup(o => o.AddCoachAsync(companyCoachNoSuchCompany)).ReturnsAsync(DoesNotExist);
+            var repository = new MockRepository(MockBehavior.Strict) { DefaultValue = DefaultValue.Mock };
 
-            var result = await service.Object.AddCoachAsync(companyCoachNoSuchCoach);
-            var resultNoSuchCompany = await service.Object.AddCoachAsync(companyCoachNoSuchCompany);
+            var companyCoursesMock = new Mock<IRepository<CompanyCourse>>();
+            companyCoursesMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.CompanyCourses);
+
+            var companyCoachesMock = new Mock<IRepository<CompanyCoach>>();
+            companyCoachesMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.CompanyCoaches);
+
+            var coursesMock = new Mock<IDeletableEntityRepository<Course>>();
+            coursesMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.Courses);
+
+            var emailSenderMock = new Mock<IEmailSender>();
+
+            var userManagerMock = MockUserManager<ApplicationUser>(users).Object;
+
+            var service = new OwnersServices(
+                            companyCoursesMock.Object,
+                            companyCoachesMock.Object,
+                            userManagerMock,
+                            coachesServiceMock.Object,
+                            companyServiceMock.Object,
+                            emailSenderMock.Object);
+            //service.Setup(o => o.AddCoachAsync(companyCoachNoSuchCoach)).ReturnsAsync(DoesNotExist);
+            //service.Setup(o => o.AddCoachAsync(companyCoachNoSuchCompany)).ReturnsAsync(DoesNotExist);
+
+            var result = await service.AddCoachAsync(companyCoachNoSuchCoach);
+            var resultNoSuchCompany = await service.AddCoachAsync(companyCoachNoSuchCompany);
 
             Assert.Equal(DoesNotExist, result.Error);
             Assert.True(result.Failure);
@@ -217,7 +275,6 @@
             mgr.Setup(u => u.GetRolesAsync(It.IsAny<TUser>())).ReturnsAsync(new List<string>
                 { CompanyOwnerRoleName });
             mgr.Setup(u => u.IsInRoleAsync(It.IsAny<TUser>(), AdministratorRoleName)).ReturnsAsync(true);
-
             mgr.Setup(x => x.DeleteAsync(It.IsAny<TUser>())).ReturnsAsync(IdentityResult.Success);
             mgr.Setup(x => x.CreateAsync(It.IsAny<TUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<TUser, string>((x, y) => ls.Add(x));
             mgr.Setup(x => x.UpdateAsync(It.IsAny<TUser>())).ReturnsAsync(IdentityResult.Success);
@@ -226,10 +283,11 @@
         }
 
         private async Task<IOwnerServices> MockOwnersServices(
-            int coachId, 
-            int companyId, 
-            string companyOwnerId, 
-            string adminId)
+            int coachId,
+            int companyId,
+            string companyOwnerId,
+            string adminId,
+            Mock<UserManager<ApplicationUser>> userManager)
         {
             int thisCoachId = coachId;
             int thisCompanyId = companyId;
@@ -266,7 +324,7 @@
                 companyOwner,
             };
 
-            var userManagerMock = MockUserManager<ApplicationUser>(users).Object;
+            //var userManagerMock = MockUserManager<ApplicationUser>(users).Object;
 
             var companyServiceMock = new Mock<ICompanyService>();
             companyServiceMock.Setup(cs => cs.GetByIdAsync<CompanyDetailsModel>(company.Id)).ReturnsAsync(companyViewModelMock);
@@ -290,7 +348,7 @@
             var service = new OwnersServices(
                 companyCoursesMock.Object,
                 companyCoachesMock.Object,
-                userManagerMock,
+                userManager.Object,
                 coachesServiceMock.Object,
                 companyServiceMock.Object,
                 emailSenderMock.Object);
