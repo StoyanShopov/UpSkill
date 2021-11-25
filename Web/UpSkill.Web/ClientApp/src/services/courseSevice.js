@@ -43,9 +43,9 @@ const coursesCompanyOwnerMock = [
 let courses = [];
 
 export const getAllCourses = async (course) => {
-  return axios
+  return await axios
     .get(
-      OWN_API_URL + 'getAll',
+      OWN_API_URL + 'getActiveCourses',
       { headers: { Authorization: `Bearer ${token}` } },
       { course }
     )

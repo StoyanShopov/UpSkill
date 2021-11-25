@@ -134,7 +134,6 @@
             await this.emailService.SendEmailConfirmationAsync(origin, host, user);
 
             this.nLog.Info("EmailConfirmation action succeeded");
-
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)

@@ -160,6 +160,16 @@
                 .ToListAsync();
         }
 
+        public async Task<TModel> GetEmployeeInfo<TModel>(string userId)
+        {
+            return await this.users
+                .AllAsNoTracking()
+                .Include(x => x.Company)
+                .Where(u => u.Id == userId)
+                .To<TModel>()
+                .FirstOrDefaultAsync();
+        }
+
         private async Task<ApplicationUser> GetUserById(string userId)
             => await this.userManager.FindByIdAsync(userId);
     }

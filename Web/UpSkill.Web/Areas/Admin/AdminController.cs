@@ -3,14 +3,11 @@
     using System;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Admin;
-    using UpSkill.Web.Infrastructure.Extensions;
     using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Administration;
     using UpSkill.Web.ViewModels.Administration.Company;

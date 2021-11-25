@@ -15,7 +15,6 @@
         private readonly string bot;
         private const string room = "devs";
 
-
         private readonly IRepository<Message> messages;
 
         private readonly IDictionary<string, UserConnection> connections;
@@ -89,6 +88,5 @@
 
             await base.OnDisconnectedAsync(exception);
         }
-
     }
 }

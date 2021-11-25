@@ -100,7 +100,8 @@
                 })
                 .ApplyMigrations();
 
-            app.UseAzureSignalR(route => {
+            app.UseAzureSignalR(route =>
+            {
                 route.MapHub<ChatHub>("/chat");
                 route.MapHub<ZoomHub>("/zoom");
             });

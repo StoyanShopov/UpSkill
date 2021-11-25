@@ -8,23 +8,13 @@ const token = localStorage.getItem('token');
 
 let data = [];
 
-export const getCourses = (
-  courseId,
-  courseTitle,
-  courseCoachFirstName,
-  courseCoachLastName,
-  courseFileFilePath
-) => {
+export const getCourses = (course) => {
   return axios
     .get(
       EMP_API_URL + 'getAll',
       { headers: { Authorization: `Bearer ${token}` } },
       {
-        courseId,
-        courseTitle,
-        courseCoachFirstName,
-        courseCoachLastName,
-        courseFileFilePath,
+        course,
       }
     )
     .then((response) => {
@@ -37,7 +27,7 @@ const numberEmployeesToShow = 3;
 let employees = [];
 
 export const getEmployeeWithEmail = async (currentPage) => {
-  getAllEmployees();
+  await getAllEmployees();
 
   let arr = [];
   arr.push(
@@ -56,7 +46,7 @@ export const getEmployeesTotalCountCompanyOwner = async (uId) => {
 };
 
 export const getAllEmployees = async (employee) => {
-  return axios
+  return await axios
     .get(
       OWN_API_URL + 'getAllEmployees',
       { headers: { Authorization: `Bearer ${token}` } },
@@ -74,16 +64,13 @@ export const removeEmployeeHandler = async (id) => {
   return await axios.delete(Base_URL + `Owner/Employee?id=${id}`);
 };
 
-export const getEmployeeById = (id) => {
-  const employee = {
-    id: 'employee-id',
-    firstName: 'Pata',
-    lastName: 'Negra',
-    companyName: 'Name of the Company',
-  };
-  return employee;
-};
-
-export const getEmployee = async (id) => {
-  return await axios.get(Base_URL + `Owner/Employee?id=${id}`);
+export const getEmployee = async () => {
+  return await axios
+    .get(
+      Base_URL + 'Employee/Employees',
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+    .then((response) => {
+      return response.data;
+    });
 };

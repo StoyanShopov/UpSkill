@@ -1,12 +1,10 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
-
-    using System.Collections.Generic;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    
     using UpSkill.Services.Data.Contracts.Course;
     using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Course;

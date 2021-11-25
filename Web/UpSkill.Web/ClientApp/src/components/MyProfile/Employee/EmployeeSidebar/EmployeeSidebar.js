@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-bootstrap';
 
-import { getEmployeeById } from '../../../../services/employeeService';
+import { getEmployee } from '../../../../services/employeeService';
 
 import './EmployeeSidebar.css';
 
@@ -21,12 +21,12 @@ export default function EmployeeSidebar({ menuItems }) {
     history.location.pathname.length
   );
 
-  useEffect(() => {
-    setUser(getEmployeeById());
+  useEffect(() => { 
+    getEmployee()
+    .then((u) => {
+      setUser(u);  
+    });
   }, []);
-
-  let u = console.log(localStorage.getItem('user'));
-  console.log(u.nameid);
 
   const onClickHandler = () => {
     console.log('Clicked');

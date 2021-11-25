@@ -1,8 +1,8 @@
 ﻿namespace UpSkill.Web.Areas.Coach.ZoomAPI
 {
     using System;
-	using System.Collections.Generic;
-	using System.Net;
+    using System.Collections.Generic;
+    using System.Net;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -12,11 +12,11 @@
     using Microsoft.IdentityModel.Tokens;
     using Newtonsoft.Json.Linq;
     using RestSharp;
-	using UpSkill.Services.Data.Contracts.Course;
-	using UpSkill.Services.Hubs;
-	using UpSkill.Web.ViewModels.Course;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Hubs;
+    using UpSkill.Web.ViewModels.Course;
 
-	public class RoomController : CoachBaseController
+    public class RoomController : CoachBaseController
     {
         private readonly IConfiguration configuration;
         private readonly IHubContext<ZoomHub> hubContext;
