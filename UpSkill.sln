@@ -36,7 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSkill.Web.ViewModels", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSkill.Web.Infrastructure", "UpSkill.Web.Infrastructure\UpSkill.Web.Infrastructure.csproj", "{6D60D24B-0A7C-48AB-B634-C93EC6EE791D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandBox", "SandBox\SandBox.csproj", "{0EEC9EEC-5268-4591-BFFE-6F35462F511C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SandBox", "SandBox\SandBox.csproj", "{0EEC9EEC-5268-4591-BFFE-6F35462F511C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpSkill.Services.Data.Tests.MyTested", "Tests\UpSkill.Services.Data.Tests.MyTested\UpSkill.Services.Data.Tests.MyTested.csproj", "{723E6C9E-9882-407D-9D3D-985D1BEF48E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +102,10 @@ Global
 		{0EEC9EEC-5268-4591-BFFE-6F35462F511C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EEC9EEC-5268-4591-BFFE-6F35462F511C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EEC9EEC-5268-4591-BFFE-6F35462F511C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{723E6C9E-9882-407D-9D3D-985D1BEF48E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723E6C9E-9882-407D-9D3D-985D1BEF48E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723E6C9E-9882-407D-9D3D-985D1BEF48E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723E6C9E-9882-407D-9D3D-985D1BEF48E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7} = {E389DEB6-5F90-444B-A054-12A10D39C76F}
 		{6D60D24B-0A7C-48AB-B634-C93EC6EE791D} = {E389DEB6-5F90-444B-A054-12A10D39C76F}
 		{0EEC9EEC-5268-4591-BFFE-6F35462F511C} = {7A731632-6714-44E2-A9E4-069EBA9E666C}
+		{723E6C9E-9882-407D-9D3D-985D1BEF48E4} = {7A731632-6714-44E2-A9E4-069EBA9E666C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {384484BE-4680-4529-9CC2-AD37BA4D12D1}

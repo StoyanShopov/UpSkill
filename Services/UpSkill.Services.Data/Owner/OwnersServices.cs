@@ -78,7 +78,7 @@
             return coaches;
         }
 
-        public async Task<Result> AddCoachAsync(AddCoachToCompanyModel model)
+        public virtual async Task<Result> AddCoachAsync(AddCoachToCompanyModel model)
         {
             var companyOwner = await this.userManager.FindByEmailAsync(model.OwnerEmail);
             var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
