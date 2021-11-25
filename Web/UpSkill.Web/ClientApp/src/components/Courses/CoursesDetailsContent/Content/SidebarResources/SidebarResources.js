@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import CourseDetailsResourcesContext from '../../../../../Context/CourseDetailsResourcesContext';
-import Details from "../Details/Details";
+import Details from "./Details/Details";
 
 import './SidebarResources.css';
 
@@ -11,8 +11,6 @@ const SidebarResources = (props) => {
     }=props
 
     const [currentLecture, setCurrentLecture] = useState({});
-
-    console.log(currentLecture);
 
 return(
     <CourseDetailsResourcesContext.Provider

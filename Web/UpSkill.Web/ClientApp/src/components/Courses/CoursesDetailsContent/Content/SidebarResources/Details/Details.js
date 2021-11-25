@@ -5,13 +5,12 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import sanitizeHtml from 'sanitize-html';
 
-import CourseDetailsResourcesContext from "../../../../../Context/CourseDetailsResourcesContext";
+import CourseDetailsResourcesContext from "../../../../../../Context/CourseDetailsResourcesContext";
 
 import './Details.css';
 
 const Details = () => { 
   const [currentLecture, courseFileFilePath, courseCoachFirstName, courseCoachLastName] = useContext(CourseDetailsResourcesContext);
-  console.log(currentLecture, courseFileFilePath, courseCoachFirstName, courseCoachLastName);
   const [text, setText] = useState("");
   const { store } = useContext(ReactReduxContext);
   var { isAdmin } = store.getState().auth;
@@ -48,7 +47,6 @@ const Details = () => {
                     }} />) : (
                   <p className="descriptionContent">{sanitizeHtml(currentLecture.lecture?.lectureDescription)}</p>
                 )}<br />
-
               <h4 className="instructorContent">Instructor</h4><p>{courseCoachFirstName + " " + courseCoachLastName}</p>        
         </div>
     )
