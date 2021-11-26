@@ -24,13 +24,13 @@ function DetailsModal({ deleteItem, closeModal, itemName, id }) {
           <div className="btn-update-course-container">
             <div>
               <button
-                className="btn btn-outline-primary cancel-button"
+                className="btn btn-outline-primary cdelete-button"
                 onClick={() => closeModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="btn btn-primary submit-button"
+                className="btn btn-primary cdelete-button"
                 onClick={() => deleteItem(id)}
               >
                 Delete

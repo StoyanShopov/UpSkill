@@ -1,28 +1,63 @@
-import React, {useEffect, useState} from 'react';
-import CategoriesAndLanguageMenu from '../CategoriesAndLanguageMenu/categoryAndLanguageMenu';
-import CoachesCatalog from '../Coaches/CoachesCatalog/CoachesCatalog';
+import React, { useEffect, useState, useContext } from "react";
+import CategoriesAndLanguageMenu from "../CategoriesAndLanguageMenu/categoryAndLanguageMenu";
+import CoachesCatalog from "../Coaches/CoachesCatalog/CoachesCatalog";
+import OwnerCoachesCatalog from "../Coaches/CoachesCatalog/OwnerCoachesCatalog/OwnerCoachesCatalog";
+import { ReactReduxContext } from "react-redux";
 
-import './Coaches.css';
+import "./Coaches.css";
 
-import { getCoaches } from '../../services/coachService';
+import { getAllCoaches } from "../../services/coachService";
+import {getCoaches as companyCoachesInput} from "../../services/companyOwnerCoachesService";
+import AdminCoachesCatalog from "./CoachesCatalog/AdminCoachesCatalog/AdminCoachesCatalog";
 
 export default function Coaches() {
+  const { store } = useContext(ReactReduxContext);
+  var {
+    isLoggedIn,
+    isCompanyOwner,
+    isEmployee,
+    isAdmin,
+  } = store.getState().auth;
+
   const [coaches, setCoaches] = useState([]);
+  const [companyCoaches, setCompanyCoaches] = useState([]);
+
+  const returnCatalog = () => {
+    if (isAdmin) {
+      return (
+        <AdminCoachesCatalog coaches={coaches} setCoaches={setCompanyCoaches} />
+      );
+    }
+    if (isCompanyOwner) {
+      return (
+        <OwnerCoachesCatalog
+          coaches={coaches}
+          companyCoaches={companyCoaches}
+          setCoaches={setCompanyCoaches}
+        />
+      );
+    }
+    return <CoachesCatalog coaches={coaches} />;
+  };
 
   useEffect(() => {
-    getCoaches(0).then((coaches) => {
+    getAllCoaches(0).then((coaches) => {
       setCoaches(coaches);
     });
+  }, [companyCoaches]);
+
+  useEffect(() => {
+    if (isCompanyOwner) {
+      companyCoachesInput(0).then((companyCoaches) => {
+        setCompanyCoaches(companyCoaches);
+      });
+    }
   }, []);
 
   return (
     <div className="content">
       <CategoriesAndLanguageMenu atPage="Coaches" />
-      <div className="wrapper row">
-
-         <CoachesCatalog coaches={coaches}/>
-      
-      </div>
+      <div className="wrapper row">{returnCatalog()}</div>
     </div>
   );
 }

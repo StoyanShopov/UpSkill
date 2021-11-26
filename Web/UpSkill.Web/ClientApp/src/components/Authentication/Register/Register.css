@@ -1,0 +1,33 @@
+#reg-triangle{
+    width: 0;
+    height: 0;
+    border-left: 950px solid #EAF1FF;
+    border-top: 1100px solid transparent;
+    border-bottom: 1000px solid transparent;
+    position: absolute;
+    left: 0;
+    top: -22rem;
+    z-index: 10;
+}
+
+.register-Image{    
+    position: relative;
+    z-index: 11;
+    top: 7rem;
+    left: 4rem;
+    width: 20rem;
+    height: 40rem;
+}
+
+@media (max-width: 780px) {    
+    .register-Image{
+        display: none;
+    }
+
+    #reg-triangle {
+        z-index: -1;
+        border-left: 352px solid #EAF1FF;
+        border-top: 1000px solid transparent;
+        border-bottom: 100% solid transparent;
+    }
+}
