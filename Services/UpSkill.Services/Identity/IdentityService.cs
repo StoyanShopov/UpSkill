@@ -84,7 +84,7 @@
             return new RefreshToken
             {
                 Token = Convert.ToBase64String(randomBytes),
-                Expires = DateTime.UtcNow.AddDays(5),
+                Expires = DateTime.UtcNow.AddMinutes(5),
             };
         }
 

@@ -41,7 +41,6 @@ const logout = async () => {
   return await axios
     .post(API_URL + "logout")
     .then((res) => {
-        TokenService.removeUser();
         localStorage.removeItem("user");      
         localStorage.removeItem("token");      
     });
@@ -53,9 +52,7 @@ const identity = {
   register,
   login,
   logout,
-  getCurrentUser,
   getUser,
 }
-
 
 export default identity;

@@ -176,7 +176,7 @@
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(5),
+                Expires = DateTime.UtcNow.AddMinutes(5),
             };
 
             this.Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);

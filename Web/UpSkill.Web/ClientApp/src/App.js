@@ -25,6 +25,7 @@ import IdentityContext from "./Context/IdentityContext";
 import SignalRHubClient from "./components/Chat/SignalRHubClient";
 import ZoomHubClient from "./components/Zoom/ZoomHubClient";
 import Auth from "./reducers/auth";
+import instance from "./services/instance";
 
 import store from './store';
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses"
@@ -87,6 +88,7 @@ function App() {
         <Route exact path='/Admin/Company/:id' component={CompanyDetails} />
         <Route exact path="/Admin/Companies/edit" component={EditCompany} />
         <Route exact path="/Admin/PromoteDemote" component={PromoteDemote} />
+        <Route exact path="/refreshToken/" />
       </AppWrapper>
     </Provider>
   );
