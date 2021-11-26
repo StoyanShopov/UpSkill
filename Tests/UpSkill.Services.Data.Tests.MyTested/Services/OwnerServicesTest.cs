@@ -1,7 +1,7 @@
 ﻿namespace UpSkill.Services.Data.Tests.MyTested.Services
 {
     using UpSkill.Services.Data.Owner;
-    
+
     using Xunit;
     using UpSkill.Web.Areas.Owner.Coach;
     using UpSkill.Web.ViewModels.Owner;
@@ -13,30 +13,38 @@
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Services.Data.Contracts.Owner;
+    using UpSkill.Services.Data.Tests.MyTested.Mocks;
 
     public class OwnerServicesTest
     {
-        private Mock<ICoachServices> coachServiceMock = new Mock<ICoachServices>();
-        private Mock<ICurrentUserService> currentUserServiceMock = new Mock<ICurrentUserService>();
-        private Mock<IOwnerServices> ownerServicesMock = new Mock<IOwnerServices>();
-
+        //private OwnerServicesMock ownerServicesMock = new OwnerServicesMock();
+        private ICurrentUserService currentUserServiceMock = new Mock<ICurrentUserService>().Object;
+        private ICoachServices coachesServiceMock = new Mock<ICoachServices>().Object;
+        private Mock<IOwnerServices> ownerServiceMock = new Mock<IOwnerServices>();
         [Fact]
         public void AddCoachAsyncShouldAddCoachToCompany()
-            => MyController<CoachesController>
+        {
+            ownerServiceMock.Setup(o => o.AddCoachAsync(new AddCoachToCompanyModel
+            {
+                CoachId = 4,
+                OwnerEmail = "ownerMotionSoftware@test.test"
+            })).ReturnsAsync(true);
+
+            MyController<CoachesController>
             .Instance(instance => instance
             .WithDependencies(
-                ownerServicesMock,
-                currentUserServiceMock,
-                coachServiceMock))
-            .Calling(c => c.AddCoachToOwner(
-                new AddCoachToCompanyModel
-                {
-                    CoachId = 2,
-                    OwnerEmail = "ownerMotionSoftware@test.test"
-                }
-                ))
+              ownerServiceMock.Object,
+               currentUserServiceMock,
+               coachesServiceMock
+               ))
+            .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
+            {
+                CoachId = 4,
+                OwnerEmail = "ownerMotionSoftware@test.test"
+            }))
             .ShouldReturn()
             .Ok();
+        }
     }
 }
 

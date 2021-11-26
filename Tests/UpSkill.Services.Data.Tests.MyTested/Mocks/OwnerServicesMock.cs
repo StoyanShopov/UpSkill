@@ -22,7 +22,7 @@ namespace UpSkill.Services.Data.Tests.MyTested.Mocks
         public static IOwnerServices AddCoachAsyncReturnsTrue(AddCoachToCompanyModel model)
         {           
                 var ownerServiceMock = new Mock<IOwnerServices>();
-            if (model.OwnerEmail == "ownerMotionSoftware@test.test" && model.CoachId == 2)
+            if (model.OwnerEmail == "ownerMotionSoftware@test.test" && model.CoachId == 4)
             {
                 ownerServiceMock.Setup(o => o.AddCoachAsync(model)).ReturnsAsync(true);
             }
@@ -32,7 +32,6 @@ namespace UpSkill.Services.Data.Tests.MyTested.Mocks
             }
 
             return ownerServiceMock.Object;
-
 
         }
         //public OwnerServicesMock(IRepository<CompanyCourse> companyCourses, IRepository<CompanyCoach> companyCoaches, UserManager<ApplicationUser> userManager, ICoachServices coachService, ICompanyService companyService, IEmailSender emailSender) : base(companyCourses, companyCoaches, userManager, coachService, companyService, emailSender)

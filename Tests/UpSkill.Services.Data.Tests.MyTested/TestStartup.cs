@@ -21,7 +21,7 @@ namespace UpSkill.Services.Data.Tests.MyTested
 
         public void ConfigureTestServices(IServiceCollection services)
         {
-            base.ConfigureServices(services);;
+            base.ConfigureServices(services);
         }
     }
 }
