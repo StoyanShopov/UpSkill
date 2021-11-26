@@ -5,6 +5,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_MESSAGE,
+  CHECK_CURRENT_STATE,
 } from "../actions/types";
 
 import {
@@ -87,6 +88,17 @@ export default function Auth(init = initialState, action) {
           type: '' ,
           message: ''
         }; 
+    case CHECK_CURRENT_STATE:
+        return{
+          state: 'closed',
+          type: '',
+          message: '',
+          isLoggedIn: user() ? true : false,
+          user: user(),
+          isAdmin: user()?.role === AdministratorRoleName,
+          isCompanyOwner: user()?.role === CompanyOwnerRoleName,
+          isEmployee: user()?.role === EmployeeRoleName,
+        };
     default:
       return init;
   }

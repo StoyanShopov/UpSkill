@@ -7,6 +7,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
+  CHECK_CURRENT_STATE,
 } from "./types";
 
 import AuthService from "../services/auth.service";

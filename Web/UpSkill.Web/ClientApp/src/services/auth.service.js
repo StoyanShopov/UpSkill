@@ -15,7 +15,6 @@ const register = (firstName, lastName, companyName, email, password, confirmPass
     password,
     confirmPassword,
   })
-  
 };
 
 const login = (email, password) => {
