@@ -26,6 +26,14 @@
                 Id = 1,
                 Name = "TestCompany",
             },
+                new Coach()
+                {
+                    Id = 1,
+                    FirstName = "TestFirstName",
+                    LastName = "TestLastName",
+                    Field = "1",
+                    Price = 100,
+                },
                 new ApplicationUser()
             {
                 Id = "1",

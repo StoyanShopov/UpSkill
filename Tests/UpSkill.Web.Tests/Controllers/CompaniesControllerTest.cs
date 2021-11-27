@@ -31,7 +31,7 @@
 
         [Theory]
         [InlineData(TestCompany)]
-        public void PostCreateShouldReturnSuccesfullyWhenDataIsValid(string name)
+        public void PostCreateShouldReturnSuccessfullyWhenDataIsValid(string name)
             => MyController<CompaniesController>
             .Calling(c => c.Create(new CreateCompanyRequestModel
             {
@@ -44,6 +44,7 @@
             .Data(data => data
                .WithSet<Company>(set =>
                {
+                   set.ShouldNotBeNull();
                    set.SingleOrDefault(a => a.Name == name);
                }))
             .AndAlso()
@@ -107,7 +108,7 @@
 
         [Theory]
         [InlineData(TestCompany, 1)]
-        public async Task PutCompanyShouldReturnSuccesfullyEdited(string name, int id)
+        public async Task PutCompanyShouldReturnSuccessfullyEdited(string name, int id)
         {
             await this.InitializeDatabase(CompanyExist);
             var company = this.Database
@@ -129,6 +130,7 @@
                 .Data(data => data
                 .WithSet<Company>(set =>
                 {
+                    set.ShouldNotBeNull();
                     var company = set.SingleOrDefault(c => c.Id == id);
 
                     company.ShouldNotBeNull();
@@ -147,6 +149,43 @@
             .ShouldHave()
             .ActionAttributes(attributes => attributes
             .RestrictingForHttpMethod(HttpMethod.Delete));
+
+        [Fact]
+        public void DeleteShouldReturnDoesntExistWhenTheInputIdDoesntExistInOurDatabaseTableCompany()
+            => MyController<CompaniesController>
+            .Instance()
+            .Calling(c => c.Delete(
+                With.Any<int>()))
+            .ShouldReturn()
+            .BadRequest(DoesNotExist);
+
+        [Theory]
+        [InlineData(1)]
+        public async Task DeleteShouldReturnSuccessfulyDeleted(int id)
+        {
+            await this.InitializeDatabase(CompanyExist);
+            var company = this.Database
+                .Companies
+                .FirstOrDefault(c => c.Id == id);
+
+            MyController<CompaniesController>
+                .Instance(instance => instance
+                .WithData(company))
+                .Calling(c => c.Delete(id))
+                .ShouldHave()
+                .ValidModelState()
+                .AndAlso()
+                .ShouldHave()
+                .Data(data => data
+                .WithSet<Company>(set =>
+                {
+                    set.ShouldNotBeNull();
+                    set.SingleOrDefault(c => c.Id == id);
+                }))
+                .AndAlso()
+                .ShouldReturn()
+                .Ok(SuccesfullyDeleted);
+        }
 
         [Fact]
         public void GetAllShouldBeAllowedOnlyForGetRequestsAndTheCorrectRoute()
