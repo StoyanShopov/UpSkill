@@ -11,7 +11,10 @@
 
         public class Company
         {
+            public const string CompanyExist = "CompanyExist";
+
             public const string TestCompany = "TestCompany";
+            public const string EditedCompany = "EditedCompany";
         }
     }
 }
