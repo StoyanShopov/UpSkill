@@ -10,6 +10,7 @@
 
     using Xunit;
 
+    using static Comman.TestConstants.Comman;
     using static Comman.TestConstants.Company;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
@@ -26,7 +27,7 @@
 
         [Theory]
         [InlineData(TestCompany)]
-        public void CreateCompanyShouldReturnSuccesfullyWhenDataIsValid(string name)
+        public void PostCreateShouldReturnSuccesfullyWhenDataIsValid(string name)
             => MyController<CompaniesController>
             .Calling(c => c.Create(new CreateCompanyRequestModel
             {
@@ -44,5 +45,43 @@
             .AndAlso()
             .ShouldReturn()
             .StatusCode(201, SuccesfullyCreated);
+
+        [Fact]
+        public void EditPutShouldBeAllowedOnlyForPutRequest()
+            => MyController<CompaniesController>
+            .Instance()
+            .Calling(c => c.Edit(With.Default<UpdateCompanyRequestModel>(), 0))
+            .ShouldHave()
+            .ActionAttributes(attributes => attributes
+            .RestrictingForHttpMethod(HttpMethod.Put));
+
+        [Fact]
+        public void DeleteShouldBeAllowedOnlyForDeleteRequests()
+            => MyController<CompaniesController>
+            .Instance()
+            .Calling(c => c.Delete(0))
+            .ShouldHave()
+            .ActionAttributes(attributes => attributes
+            .RestrictingForHttpMethod(HttpMethod.Delete));
+
+        [Fact]
+        public void GetAllShouldBeAllowedOnlyForGetRequestsAndTheCorrectRoute()
+            => MyController<CompaniesController>
+            .Instance()
+            .Calling(c => c.GetAll())
+            .ShouldHave()
+            .ActionAttributes(attributes => attributes
+            .RestrictingForHttpMethod(HttpMethod.Get)
+            .SpecifyingRoute(GetAll));
+
+        [Fact]
+        public void GetDetailsByIdShoulBeAllowedForGetRequestsAndTheCorrectRoute()
+            => MyController<CompaniesController>
+            .Instance()
+            .Calling(c => c.GetDetails(0))
+            .ShouldHave()
+            .ActionAttributes(attributes => attributes
+            .RestrictingForHttpMethod(HttpMethod.Get)
+            .SpecifyingRoute(Details));
     }
 }
