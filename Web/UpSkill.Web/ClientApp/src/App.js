@@ -26,6 +26,8 @@ import SignalRHubClient from "./components/Chat/SignalRHubClient";
 import ZoomHubClient from "./components/Zoom/ZoomHubClient";
 import Auth from "./reducers/auth";
 
+import UpdateEmployee from './components/MyProfile/Employee/UpdateEmployee/UpdateEmployee'
+
 import store from './store';
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses"
 import PromoteDemote from "./components/Admin/AdminPromoteDemote";
@@ -54,6 +56,7 @@ const AppWrapper = (props) => {
   return (
     <NotificationContext.Provider value={[notification, setNotification]} >
       <IdentityContext.Provider value={[loading, setLoading]} >
+      <UpdateEmployee />{/* For test purpose => Delete */}
         <ZoomHubClient>
           <SignalRHubClient>
             <Layout>
