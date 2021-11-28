@@ -1,7 +1,10 @@
 ﻿namespace UpSkill.Web.Tests.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
 
     using MyTested.AspNetCore.Mvc;
 
@@ -56,9 +59,9 @@
         public async Task PostCreateShouldReturnBadRequestWhenTheCompanyAlreadyExist(string name)
         {
             await this.InitializeDatabase(CompanyExist);
-            var company = this.Database
+            var company = await this.Database
                 .Companies
-                .FirstOrDefault(c => c.Name == name);
+                .FirstOrDefaultAsync(c => c.Name == name);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
@@ -111,9 +114,9 @@
         public async Task PutCompanyShouldReturnSuccessfullyEdited(string name, int id)
         {
             await this.InitializeDatabase(CompanyExist);
-            var company = this.Database
+            var company = await this.Database
                 .Companies
-                .FirstOrDefault(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
@@ -164,9 +167,9 @@
         public async Task DeleteShouldReturnSuccessfulyDeleted(int id)
         {
             await this.InitializeDatabase(CompanyExist);
-            var company = this.Database
+            var company = await this.Database
                 .Companies
-                .FirstOrDefault(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
@@ -198,6 +201,22 @@
             .SpecifyingRoute(GetAll));
 
         [Fact]
+        public async Task GetShouldReturnTheCorrectDataWithCorrectModel()
+        {
+            await this.InitializeDatabase(CompanyExist);
+            var companies = await this.Database
+                .Companies
+                .ToListAsync();
+
+            MyController<CompaniesController>
+               .Instance(instance => instance
+               .WithData(companies))
+               .Calling(c => c.GetAll())
+               .ShouldReturn()
+               .ResultOfType<IEnumerable<CompanyListingModel>>();
+        }
+
+        [Fact]
         public void GetDetailsByIdShoulBeAllowedForGetRequestsAndTheCorrectRoute()
             => MyController<CompaniesController>
             .Instance()
@@ -206,5 +225,23 @@
             .ActionAttributes(attributes => attributes
             .RestrictingForHttpMethod(HttpMethod.Get)
             .SpecifyingRoute(Details));
+
+        [Theory]
+        [InlineData(1)]
+        public async Task GetDetailsShouldReturnCorrectDataWithCorrectModelWhenInputIdIsValid(int id)
+        {
+            await this.InitializeDatabase(CompanyExist);
+            var company = await this.Database
+                .Companies
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            MyController<CompaniesController>
+                .Instance(instance => instance
+                .WithData(company))
+                .Calling(c => c.GetDetails(company.Id))
+                .ShouldReturn()
+                .ResultOfType<CompanyDetailsModel>(result => result
+                .Passing(c => c.Id == company.Id));
+        }
     }
 }
