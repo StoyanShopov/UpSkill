@@ -6,6 +6,10 @@ body {
     font-family: Montserrat;
 }
 
+    body h1 {
+        font-size: 22px;
+    }
+
 .container {
     min-height: 100%;
     position: relative;
@@ -18,46 +22,69 @@ body {
     min-height: 50px;
     display: flex;
     justify-content: space-between;
-    padding: 0 40px;
+    padding: 10px 50px;
     align-items: center;
 }
 
 .body {
+    display: block;
     padding: 10px;
+    height: 150vh;
+    max-height: 1000px;
 }
 
 .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background: transparent url('/Path\ 8.svg') 0% 0% no-repeat padding-box;
+    background: transparent url('assets/Path\ 8.svg') 0% 0% no-repeat padding-box;
     background-size: cover;
+    bottom: 31px;
+    position: absolute;
+    left: 0;
+    width: 100%;
     height: 50vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    max-height: 500px;
+    padding-bottom: 70px;
+    overflow: hidden;
 }
 
-.buttons {
+.copyright {
+    background-color: #0B2969;
+    background-size: contain;
+    bottom: 0;
+    border-top: 2px solid white;
+    color: white;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    font-size: 15px;
+    padding-top: 10px;
 }
 
 .login {
     border: 2px solid #296CFB;
-    color: #296CFB;
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    padding: 15px 32px;
+    color: #296CFB;
+    font-weight: 900;
+    padding: 10px 25px;
     text-align: center;
     letter-spacing: 1.1px;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .register {
-    background-color: #0004ff;
+    background-color: #296CFB;
     border: 2px solid #296CFB;
-    padding: 15px 32px;
+    padding: 10px 25px;
+    font-weight: 900;
     text-align: center;
     text-decoration: none;
     letter-spacing: 1.1px;
     color: #FFFFFF;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .img-and-text {
@@ -71,28 +98,45 @@ body {
     text-transform: lowercase;
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20vh;
-    color: #FFFFFF;
-}
-
 .desc-child {
     display: flex;
     flex-direction: column;
     max-width: 400px;
     color: #FFFFFF;
-    margin-top: -30px;
+    margin-top: -60px;
 }
 
+    .desc-child p {
+        font-size: 20px;
+        line-height: 2;
+    }
+
 .button-desc {
-    width: 250px;
+    width: 200px;
+    font-size: 13px;
+    padding: 10px;
+    font-weight: 900;
 }
+
+    .button-desc a {
+        text-decoration: none;
+        color: #296CFB;
+    }
+
+    .button-desc:hover {
+        text-decoration: none;
+        color: red;
+    }
 
 .img-text {
     display: flex;
+    align-items: center;
 }
+
+    .img-text img {
+        max-height: 50px;
+        max-width: 80px;
+    }
 
 .upskill {
     color: #FFFFFF;
@@ -100,42 +144,97 @@ body {
 }
 
 .links {
-    margin-top: 30px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
 }
 
     .links img {
         padding-top: 10px;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
     }
 
 .company,
 .services {
     letter-spacing: 1.1px;
-    font-size: 20px;
+    color: white;
 }
-
-    .company h1,
-    .services h1 {
-        font-weight: 600;
-        font-size: 22px;
-    }
 
     .company div,
     .services div {
         font-weight: 600;
-        font-size: 22px;
         display: flex;
         flex-direction: column;
         text-decoration: none;
     }
 
-        .company div a,
-        .services div a {
-            text-decoration: none;
-            color: white;
-            padding-top: 20px;
-            font-size: 19px;
+    .company h1,
+    .services h1 {
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .company div a,
+    .services div a {
+        text-decoration: none;
+        color: white;
+        padding-top: 20px;
+        font-size: 14px;
+    }
+
+@media only screen and (max-width: 768px) {
+    .header {
+        padding: 10px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .login {
+        color: #296CFB;
+        font-weight: 900;
+        padding: 5px 0px;
+        text-align: center;
+        font-size: 9px;
+        width: 10vh;
+    }
+
+    .register {
+        padding: 5px 25px;
+        font-weight: 900;
+        text-align: center;
+        color: #FFFFFF;
+        font-size: 9px;
+        width: 20vh;
+        white-space: nowrap;
+    }
+
+    .footer {
+        flex-wrap: wrap;
+        overflow: scroll;
+        height: 80vh;
+        bottom: 0px;
+    }
+
+        .footer .desc {
+            flex-basis: 100%;
         }
+
+    .desc-child {
+        margin-top: 0px;
+        margin-left: 3%;
+    }
+
+        .desc-child p {
+            font-size: 15px;
+            line-height: 2;
+        }
+}
