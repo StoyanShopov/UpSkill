@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -48,7 +47,7 @@
                .WithSet<Company>(set =>
                {
                    set.ShouldNotBeNull();
-                   set.SingleOrDefault(a => a.Name == name);
+                   set.SingleOrDefault(a => a.Name == name).ShouldNotBeNull();
                }))
             .AndAlso()
             .ShouldReturn()
@@ -56,12 +55,12 @@
 
         [Theory]
         [InlineData(TestCompany)]
-        public async Task PostCreateShouldReturnBadRequestWhenTheCompanyAlreadyExist(string name)
+        public void PostCreateShouldReturnBadRequestWhenTheCompanyAlreadyExist(string name)
         {
-            await this.InitializeDatabase(CompanyExist);
-            var company = await this.Database
+            this.InitializeDatabase(PostCompanyExist);
+            var company = this.Database
                 .Companies
-                .FirstOrDefaultAsync(c => c.Name == name);
+                .FirstOrDefault(c => c.Name == name);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
@@ -72,7 +71,7 @@
                 }))
                 .ShouldHave()
                 .Data(data => data
-                .WithSet<Company>(set => set.Contains(company)))
+                .WithSet<Company>(set => set.Contains(company)).ShouldNotBeNull())
                 .AndAlso()
                 .ShouldReturn()
                 .BadRequest(AlreadyExist);
@@ -111,12 +110,12 @@
 
         [Theory]
         [InlineData(TestCompany, 1)]
-        public async Task PutCompanyShouldReturnSuccessfullyEdited(string name, int id)
+        public void PutCompanyShouldReturnSuccessfullyEdited(string name, int id)
         {
-            await this.InitializeDatabase(CompanyExist);
-            var company = await this.Database
+            this.InitializeDatabase(PutCompanyExist);
+            var company = this.Database
                 .Companies
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefault(c => c.Id == id);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
@@ -134,7 +133,7 @@
                 .WithSet<Company>(set =>
                 {
                     set.ShouldNotBeNull();
-                    var company = set.SingleOrDefault(c => c.Id == id);
+                    var company = set.SingleOrDefault(c => c.Id == id).ShouldNotBeNull();
 
                     company.ShouldNotBeNull();
                     company.Name.ShouldBe($"Edit {name}");
@@ -164,17 +163,17 @@
 
         [Theory]
         [InlineData(1)]
-        public async Task DeleteShouldReturnSuccessfulyDeleted(int id)
+        public void DeleteShouldReturnSuccessfulyDeleted(int id)
         {
-            await this.InitializeDatabase(CompanyExist);
-            var company = await this.Database
+            this.InitializeDatabase(DeleteCompanyExist);
+            var company = this.Database
                 .Companies
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefault(c => c.Id == id);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
                 .WithData(company))
-                .Calling(c => c.Delete(id))
+                .Calling(c => c.Delete(company.Id))
                 .ShouldHave()
                 .ValidModelState()
                 .AndAlso()
@@ -201,12 +200,12 @@
             .SpecifyingRoute(GetAll));
 
         [Fact]
-        public async Task GetShouldReturnTheCorrectDataWithCorrectModel()
+        public void GetShouldReturnTheCorrectDataWithCorrectModel()
         {
-            await this.InitializeDatabase(CompanyExist);
-            var companies = await this.Database
+            this.InitializeDatabase(GetAllCompanyExist);
+            var companies = this.Database
                 .Companies
-                .ToListAsync();
+                .ToList();
 
             MyController<CompaniesController>
                .Instance(instance => instance
@@ -228,12 +227,12 @@
 
         [Theory]
         [InlineData(1)]
-        public async Task GetDetailsShouldReturnCorrectDataWithCorrectModelWhenInputIdIsValid(int id)
+        public void GetDetailsShouldReturnCorrectDataWithCorrectModelWhenInputIdIsValid(int id)
         {
-            await this.InitializeDatabase(CompanyExist);
-            var company = await this.Database
+            this.InitializeDatabase(GetDeatailsCompanyExist);
+            var company = this.Database
                 .Companies
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefault(c => c.Id == id);
 
             MyController<CompaniesController>
                 .Instance(instance => instance

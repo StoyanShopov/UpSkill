@@ -11,9 +11,18 @@
 
         public class Company
         {
-            public const string CompanyExist = "CompanyExist";
+            public const string PostCompanyExist = "PostCompanyExist";
+
+            public const string PutCompanyExist = "PutCompanyExist";
+
+            public const string DeleteCompanyExist = "DeleteCompanyExist";
+
+            public const string GetAllCompanyExist = "GetAllCompanyExist";
+
+            public const string GetDeatailsCompanyExist = "GetDetailsCompanyExist";
 
             public const string TestCompany = "TestCompany";
+
             public const string EditedCompany = "EditedCompany";
 
             public const string TestPostRouteCompany = "Admin/companies";

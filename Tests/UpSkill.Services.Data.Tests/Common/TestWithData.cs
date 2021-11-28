@@ -1,26 +1,24 @@
 ﻿namespace UpSkill.Services.Data.Tests.Common
 {
-    using System.Threading.Tasks;
-
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
 
     public abstract class TestWithData
     {
-        protected async Task InitializeDatabase(string databaseName)
+        protected void InitializeDatabase(string databaseName)
         {
             var fakeDatabase = new FakeUpSkillDbContext(databaseName);
 
-            await AddFakeData(fakeDatabase);
+            AddFakeData(fakeDatabase);
 
             this.Database = fakeDatabase.Data;
         }
 
         protected ApplicationDbContext Database { get; private set; }
 
-        private static async Task AddFakeData(FakeUpSkillDbContext dbContext)
-            => await dbContext.AddFakeDataAsync(
+        private static void AddFakeData(FakeUpSkillDbContext dbContext)
+            => dbContext.AddFakeData(
                 new Company()
             {
                 Id = 1,

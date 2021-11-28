@@ -40,7 +40,7 @@
         {
             const int Id = 1;
             const string DatabaseName = "DeleteCompany";
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
             var repository = new Mock<IDeletableEntityRepository<Company>>();
             var company = await this.Database
                 .Companies
@@ -58,7 +58,7 @@
             const int Id = 1;
             const string UpdatedCompanyName = "UpdatedCompany";
             const string DatabaseName = "EditCompany";
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
             var repository = new Mock<IDeletableEntityRepository<Company>>();
             var company = await this.Database
                 .Companies
@@ -77,7 +77,7 @@
             const string UserId = "1";
             const int Id = 1;
             const string DatabaseName = "AddOwnerToCompany";
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
             var user = await this.Database
                 .Users
                 .FindAsync(UserId);
@@ -195,7 +195,7 @@
             const string UpdatedCoachFirstName = "UpdatedFirstName";
             const string UpdatedCoachLasttName = "UpdatedLastName";
             const string DatabaseName = "EditCoach";
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
             var repository = new Mock<IDeletableEntityRepository<Coach>>();
             var coach = await this.Database
                 .Coaches
@@ -215,7 +215,7 @@
         {
             const int Id = 1;
             const string DatabaseName = "DeleteCoach";
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
             var repository = new Mock<IDeletableEntityRepository<Coach>>();
             var coach = await this.Database
                 .Coaches
