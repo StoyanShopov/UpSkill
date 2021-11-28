@@ -86,7 +86,7 @@
             .Data(data => data
             .WithSet<Company>(set =>
             {
-                set.ShouldNotBeEmpty();
+                set.SingleOrDefault(c => c.Name == null);
             }))
             .InvalidModelState();
 
@@ -181,8 +181,7 @@
                 .Data(data => data
                 .WithSet<Company>(set =>
                 {
-                    set.ShouldNotBeNull();
-                    set.SingleOrDefault(c => c.Id == id);
+                    set.SingleOrDefault(c => c.Id == id).ShouldBeNull();
                 }))
                 .AndAlso()
                 .ShouldReturn()
