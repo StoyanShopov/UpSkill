@@ -5,6 +5,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_MESSAGE,
+  REFRESH_TOKEN
 } from "../actions/types";
 
 import {
@@ -87,7 +88,14 @@ export default function Auth(init = initialState, action) {
           type: '' ,
           message: ''
         }; 
-    default:
-      return init;
+   
+      case REFRESH_TOKEN:
+      return {
+        ...init,
+        user: { ...user, accessToken: payload },
+      };
+      default:
+        return init;
+  
   }
 } 
