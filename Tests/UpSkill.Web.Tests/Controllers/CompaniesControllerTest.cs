@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Microsoft.EntityFrameworkCore;
-
     using MyTested.AspNetCore.Mvc;
 
     using Shouldly;
@@ -58,20 +56,20 @@
         public void PostCreateShouldReturnBadRequestWhenTheCompanyAlreadyExist(string name)
         {
             this.InitializeDatabase(PostCompanyExist);
-            var company = this.Database
-                .Companies
-                .FirstOrDefault(c => c.Name == name);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
-                .WithData(company))
+                .WithData(this.Database.Companies.ToList()))
                 .Calling(c => c.Create(new CreateCompanyRequestModel
                 {
                     Name = name,
                 }))
                 .ShouldHave()
                 .Data(data => data
-                .WithSet<Company>(set => set.Contains(company)).ShouldNotBeNull())
+                  .WithSet<Company>(set =>
+                  {
+                     set.SingleOrDefault(a => a.Name == name).ShouldNotBeNull();
+                  }))
                 .AndAlso()
                 .ShouldReturn()
                 .BadRequest(AlreadyExist);
@@ -113,13 +111,10 @@
         public void PutCompanyShouldReturnSuccessfullyEdited(string name, int id)
         {
             this.InitializeDatabase(PutCompanyExist);
-            var company = this.Database
-                .Companies
-                .FirstOrDefault(c => c.Id == id);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
-                .WithData(company))
+                .WithData(this.Database.Companies.ToList()))
                 .Calling(c => c.Edit(
                     new UpdateCompanyRequestModel
                     {
@@ -166,14 +161,11 @@
         public void DeleteShouldReturnSuccessfulyDeleted(int id)
         {
             this.InitializeDatabase(DeleteCompanyExist);
-            var company = this.Database
-                .Companies
-                .FirstOrDefault(c => c.Id == id);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
-                .WithData(company))
-                .Calling(c => c.Delete(company.Id))
+                .WithData(this.Database.Companies.ToList()))
+                .Calling(c => c.Delete(id))
                 .ShouldHave()
                 .ValidModelState()
                 .AndAlso()
@@ -202,13 +194,10 @@
         public void GetShouldReturnTheCorrectDataWithCorrectModel()
         {
             this.InitializeDatabase(GetAllCompanyExist);
-            var companies = this.Database
-                .Companies
-                .ToList();
 
             MyController<CompaniesController>
                .Instance(instance => instance
-               .WithData(companies))
+               .WithData(this.Database.Companies.ToList()))
                .Calling(c => c.GetAll())
                .ShouldReturn()
                .ResultOfType<IEnumerable<CompanyListingModel>>();
@@ -229,17 +218,14 @@
         public void GetDetailsShouldReturnCorrectDataWithCorrectModelWhenInputIdIsValid(int id)
         {
             this.InitializeDatabase(GetDeatailsCompanyExist);
-            var company = this.Database
-                .Companies
-                .FirstOrDefault(c => c.Id == id);
 
             MyController<CompaniesController>
                 .Instance(instance => instance
-                .WithData(company))
-                .Calling(c => c.GetDetails(company.Id))
+                .WithData(this.Database.Companies.ToList()))
+                .Calling(c => c.GetDetails(id))
                 .ShouldReturn()
                 .ResultOfType<CompanyDetailsModel>(result => result
-                .Passing(c => c.Id == company.Id));
+                .Passing(c => c.Id == id));
         }
     }
 }
