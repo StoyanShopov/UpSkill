@@ -39,6 +39,16 @@
                 await userManager.CreateAsync(administrator, "administrator");
                 await userManager.AddToRoleAsync(administrator, AdministratorRoleName);
 
+                var coachCompany = await dbContext.Companies
+                   .FirstOrDefaultAsync(x => x.Name == MotionCompanyName);
+                var positionCoach = await dbContext
+                    .Positions.FirstOrDefaultAsync(x => x.Name == GraphicDesignerPositionName);
+
+                ApplicationUser coach = CreateCoach(coachCompany, positionCoach);
+
+                await userManager.CreateAsync(coach, "coachTest");
+                await userManager.AddToRoleAsync(coach, CoachRoleName);
+
                 var positionOwner = await dbContext.Positions
                     .FirstOrDefaultAsync(x => x.Name == OwnerPositionName);
                 var motionCompany = await dbContext.Companies
@@ -90,6 +100,22 @@
                 Company = motionCompany,
                 Position = positionOwner,
                 Manager = administrator,
+            };
+        }
+
+        private static ApplicationUser CreateCoach(Company coachCompany, Position positionCoach)
+        {
+            return new ApplicationUser
+            {
+                UserName = "coach",
+                NormalizedUserName = "coach".ToUpper(),
+                Email = "coach@test.test",
+                NormalizedEmail = "coach@test.test".ToUpper(),
+                EmailConfirmed = true,
+                FirstName = "coach",
+                LastName = "coach",
+                Company = coachCompany,
+                Position = positionCoach,
             };
         }
 

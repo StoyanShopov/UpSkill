@@ -1,15 +1,12 @@
 import axios from "axios";
 import {Base_URL} from "../utils/baseUrlConstant"
 
-const numberCoachesToShow = 6;
 
-const OWN_API_URL = Base_URL + "Owner/Coaches";
+const OWN_API_URL = Base_URL + 'Owner/Coaches/';
+
+const token = localStorage.getItem('token');
 
 const numberCoachesSessionsToShow = 3;
-
-const token = localStorage.getItem("token");
-
-const activeCoachesCompanyOwnerCount = 3;
 
 const initialCoachesMock = [
   {
@@ -141,6 +138,7 @@ export const getCoaches = async (currentPage) => {
 export const getAllCoaches = async (currentPage) => {
   try {
     let arr = [];
+    coaches=[];
     const resp = await axios.get(Base_URL + "Coaches/getAll", {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -152,7 +150,7 @@ export const getAllCoaches = async (currentPage) => {
         coachField: c.field,
         coachFileFilePath: c.fileFilePath,
         coachPrice: c.price,
-        calendlyUrl: 'https://calendly.com/iltodbul-1',
+        calendlyUrl: c.calendlyUrl,
       };
     });
     // console.log(transformedResp);
@@ -192,3 +190,9 @@ export const getCoachesSessionsForCompanyOwner = async (
 
   return [mount.name, arr];
 };
+
+export const createRoom = async (courseId,user) =>
+   axios.get(`${Base_URL}Coach/Room?courseId=${courseId.toString()}&user=${user}`)
+  .then(res => res.data)
+  .then(data => data)
+  .catch(e => e);

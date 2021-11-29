@@ -14,14 +14,14 @@
     public class AccountController : ApiController
     {
         private readonly IAccountService account;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public AccountController(
             IAccountService account,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.account = account;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpPost]
@@ -32,12 +32,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(model, new Exception(result.Error));
+                this.nlog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info("Password changed successfully");
+            this.nlog.Info("Password changed successfully");
 
             return this.Ok();
         }

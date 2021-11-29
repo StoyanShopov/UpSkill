@@ -1,9 +1,11 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+
     using UpSkill.Services.Data.Contracts.Course;
     using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Course;
@@ -14,14 +16,14 @@
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICourseService coursesService;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public CoursesController(
             ICourseService coursesService,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.coursesService = coursesService;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpPost]
@@ -31,12 +33,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(model, new Exception(result.Error));
+                this.nlog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyCreated);
         }
@@ -49,12 +51,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(model, new Exception(result.Error));
+                this.nlog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
         }
@@ -66,12 +68,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(model, new Exception(result.Error));
+                this.nlog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -80,7 +82,7 @@
         [Route(DetailsRoute)]
         public async Task<DetailsViewModel> Details(int id)
         {
-            this.nLog.Info("Entering Details action (admin)");
+            this.nlog.Info("Entering Details action (admin)");
 
             return await this.coursesService
                        .GetByIdAsync<DetailsViewModel>(id);
@@ -93,14 +95,19 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(id, new Exception(result.Error));
+                this.nlog.Error(id, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(SuccesfullyDeleted);
+            this.nlog.Info(SuccesfullyDeleted);
 
             return this.Ok(SuccesfullyDeleted);
         }
+
+        [HttpGet]
+        [Route(GetAllRoute)]
+        public async Task<IEnumerable<DetailsViewModel>> GetAll()
+        => await this.coursesService.GetAllAsync<DetailsViewModel>();
     }
 }

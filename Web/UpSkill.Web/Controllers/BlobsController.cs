@@ -17,14 +17,14 @@
     public class BlobsController : ApiController
     {
         private readonly IBlobService blobService;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public BlobsController(
             IBlobService blobService,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.blobService = blobService;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpPost(Upload)]
@@ -35,12 +35,12 @@
 
             if (!this.ModelState.IsValid)
             {
-                this.nLog.Error(file, new Exception(this.ModelState.IsValid.ToString()));
+                this.nlog.Error(file, new Exception(this.ModelState.IsValid.ToString()));
 
                 return this.BadRequest();
             }
 
-            this.nLog.Info(this.StatusCode(201).StatusCode.ToString());
+            this.nlog.Info(this.StatusCode(201).StatusCode.ToString());
 
             return this.StatusCode(201);
         }
@@ -48,7 +48,7 @@
         [HttpGet(GetAllBlobs)]
         public async Task<IActionResult> GetAsync()
         {
-            this.nLog.Info("Entering GetAsync action ");
+            this.nlog.Info("Entering GetAsync action ");
 
             var blobs = await this.blobService.GetAllBlobs();
 
@@ -62,14 +62,14 @@
 
             if (!await blob.ExistsAsync())
             {
-                this.nLog.Error(name, new Exception(blob.Exists().ToString()));
+                this.nlog.Error(name, new Exception(blob.Exists().ToString()));
 
                 return this.BadRequest();
             }
 
             var response = await blob.DownloadAsync();
 
-            this.nLog.Info("DownloadAsync succeeded ");
+            this.nlog.Info("DownloadAsync succeeded ");
 
             return this.File(response.Value.Content, response.Value.ContentType, name);
         }
@@ -81,12 +81,12 @@
 
             if (result)
             {
-                this.nLog.Info(name);
+                this.nlog.Info(name);
 
                 return this.Ok(SuccessfullyDeleted);
             }
 
-            this.nLog.Error(name, new Exception(UnsuccessfullyDeleted));
+            this.nlog.Error(name, new Exception(UnsuccessfullyDeleted));
 
             return this.NotFound(UnsuccessfullyDeleted);
         }
