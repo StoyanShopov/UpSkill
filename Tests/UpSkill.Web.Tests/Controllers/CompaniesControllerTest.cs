@@ -106,6 +106,19 @@
             .ShouldReturn()
             .BadRequest(DoesNotExist);
 
+        [Fact]
+        public void PutCompanyShouldReturnTheErrorWhenTryDoUpdateNameWithNullValue()
+            => MyController<CompaniesController>
+            .Instance()
+            .Calling(c => c.Edit(With.Default<UpdateCompanyRequestModel>(), With.Any<int>()))
+            .ShouldHave()
+            .Data(data => data
+            .WithSet<Company>(set =>
+            {
+                set.SingleOrDefault(c => c.Name == null);
+            }))
+            .InvalidModelState();
+
         [Theory]
         [InlineData(TestCompany, 1)]
         public void PutCompanyShouldReturnSuccessfullyEdited(string name, int id)

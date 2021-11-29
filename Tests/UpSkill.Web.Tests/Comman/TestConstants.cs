@@ -25,11 +25,15 @@
 
             public const string EditedCompany = "EditedCompany";
 
-            public const string TestPostRouteCompany = "Admin/companies";
+            public const string TestPostRouteCompany = "Admin/Companies";
 
-            public const string TestPutRouteCompany = "/Admin/companies?id=1";
+            public const string TestPutRouteCompany = "/Admin/Companies?id=1";
 
-            public const string TestDeleteRouteCompany = "/Admin/companies?id=1";
+            public const string TestDeleteRouteCompany = "/Admin/Companies?id=1";
+
+            public const string TestGetAllRouteCompany = "/Admin/Companies/getAll";
+
+            public const string TestGetDetailsRouteCompany = "/Admin/Companies/details?id=1";
         }
     }
 }

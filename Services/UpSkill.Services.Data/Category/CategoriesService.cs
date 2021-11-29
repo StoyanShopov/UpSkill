@@ -4,9 +4,9 @@
 
     using Microsoft.EntityFrameworkCore;
 
-    using Contracts.Category;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
+    using UpSkill.Services.Data.Contracts.Category;
 
     public class CategoriesService : ICategoriesService
     {

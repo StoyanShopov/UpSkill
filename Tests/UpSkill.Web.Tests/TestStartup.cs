@@ -12,7 +12,7 @@
 
         public void ConfigureTestServices(IServiceCollection services)
         {
-            base.ConfigureServices(services);
+            this.ConfigureServices(services);
         }
     }
 }
