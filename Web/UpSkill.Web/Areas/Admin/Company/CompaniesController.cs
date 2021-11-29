@@ -16,14 +16,14 @@
     public class CompaniesController : AdministrationBaseController
     {
         private readonly ICompanyService companyService;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public CompaniesController(
             ICompanyService companyService,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.companyService = companyService;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpPost]
@@ -33,12 +33,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(model, new Exception(result.Error));
+                this.nlog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.StatusCode(201, SuccesfullyCreated);
         }
@@ -50,12 +50,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(model, new Exception(result.Error));
+                this.nlog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -67,12 +67,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(id, new Exception(result.Error));
+                this.nlog.Error(id, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(id);
+            this.nlog.Info(id);
 
             return this.Ok(SuccesfullyDeleted);
         }
@@ -81,7 +81,7 @@
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
         {
-            this.nLog.Info("Entering getAll action");
+            this.nlog.Info("Entering getAll action");
 
             return await this.companyService.GetAllAsync<CompanyListingModel>();
         }
@@ -90,7 +90,7 @@
         [Route(DetailsRoute)]
         public async Task<CompanyDetailsModel> GetDetails(int id)
         {
-            this.nLog.Info("Entering GetDetails action");
+            this.nlog.Info("Entering GetDetails action");
 
             return await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
         }

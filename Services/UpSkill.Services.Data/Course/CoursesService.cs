@@ -187,7 +187,6 @@
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
 
-
         public async Task<ICollection<UserInCourse>> GetAllUsersInCourse(int id) => await this.usersInCourses
               .AllAsNoTracking()
               .Where(uc => uc.CourseId == id)

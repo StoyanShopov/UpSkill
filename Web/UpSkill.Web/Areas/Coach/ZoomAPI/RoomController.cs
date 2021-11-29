@@ -1,8 +1,8 @@
 ﻿namespace UpSkill.Web.Areas.Coach.ZoomAPI
 {
     using System;
-	using System.Collections.Generic;
-	using System.Net;
+    using System.Collections.Generic;
+    using System.Net;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -12,11 +12,11 @@
     using Microsoft.IdentityModel.Tokens;
     using Newtonsoft.Json.Linq;
     using RestSharp;
-	using UpSkill.Services.Data.Contracts.Course;
-	using UpSkill.Services.Hubs;
-	using UpSkill.Web.ViewModels.Course;
+    using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Services.Hubs;
+    using UpSkill.Web.ViewModels.Course;
 
-	public class RoomController : CoachBaseController
+    public class RoomController : CoachBaseController
     {
         private readonly IConfiguration configuration;
         private readonly IHubContext<ZoomHub> hubContext;
@@ -69,14 +69,14 @@
             var request = new RestRequest(Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddJsonBody(new { topic = $"Meeting with {coachName}", duration = "30", start_time = "2021-10-29T05:00:00", type = "2" });
-            request.AddHeader("authorization", String.Format("Bearer {0}", tokenString));
+            request.AddHeader("authorization", string.Format("Bearer {0}", tokenString));
 
             IRestResponse restResponse = await client.ExecuteAsync(request);
             HttpStatusCode statusCode = restResponse.StatusCode;
             int numericStatusCode = (int)statusCode;
-            var jObject = JObject.Parse(restResponse.Content);
-            var hostURL = (string)jObject["start_url"];
-            var joinURL = (string)jObject["join_url"];
+            var obj = JObject.Parse(restResponse.Content);
+            var hostURL = (string)obj["start_url"];
+            var joinURL = (string)obj["join_url"];
             var code = Convert.ToString(numericStatusCode);
 
             this.SummonAllStudents(courseId.ToString(), joinURL, user);
