@@ -35,5 +35,21 @@
 
             public const string TestGetDetailsRouteCompany = "/Admin/Companies/details?id=1";
         }
+
+        public class RolesNamesConstants
+        {
+            public const string AdministratorRoleName = "Administrator";
+
+            public const string CompanyOwnerRoleName = "Owner";
+
+            public const string CompanyEmployeeRoleName = "Employee";
+        }
+
+        public class CompanyOwnerConstants
+        {
+            public const string TestOwnerUserName = "ownerMotionSoftware";
+            public const string TestOwnerEmail = "ownerMotionSoftware@test.test";
+            public const int TestCompanyId = 2;
+        }
     }
 }

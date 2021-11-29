@@ -30,34 +30,34 @@
     public class OwnerServiceTest: TestWithData
     {
         [Fact]
-        public async Task GetAllCoursesAsyncShouldReturnAllCompanyCourses()
+        public  void GetAllCoursesAsyncShouldReturnAllCompanyCourses()
         {
             const string DatabaseName = "GetAllCompanyCourses";
             var companyId = 1;
             var companyCoursesCount = 2;
 
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
 
             var repository = new Mock<IRepository<CompanyCourse>>();
 
-            var companyCourses = await this.Database.CompanyCourses
-                .Where(cc => cc.CompanyId == companyId).ToListAsync();
+            var companyCourses =  this.Database.CompanyCourses
+                .Where(cc => cc.CompanyId == companyId).ToList();
 
             Assert.NotNull(companyCourses);
             Assert.Equal(companyCoursesCount, companyCourses.Count);
         }
 
         [Fact]
-        public async Task GetAllCoachesAsyncShouldReturnAllCompanyCoaches()
+        public void GetAllCoachesAsyncShouldReturnAllCompanyCoaches()
         {
             const string DatabaseName = "GetAllCompanyCoaches";
             var companyId = 1;
             var companyCoachesCount = 2;
 
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
 
-            var companyCoaches = await this.Database.CompanyCoaches
-                .Where(cc => cc.CompanyId == companyId).ToListAsync();
+            var companyCoaches =  this.Database.CompanyCoaches
+                .Where(cc => cc.CompanyId == companyId).ToList();
 
             Assert.NotNull(companyCoaches);
             Assert.Equal(companyCoachesCount, companyCoaches.Count);
@@ -71,20 +71,20 @@
             const string CompanyOwnerId = "2";
             const string AdminId = "1";
             const string DatabaseName = "AddCoachToCompany";
-            await this.InitializeDatabase(DatabaseName);
-            var companyOwner = await this.Database
+            this.InitializeDatabase(DatabaseName);
+            var companyOwner = this.Database
                 .Users
-                .FindAsync(CompanyOwnerId);
-            var admin = await this.Database
+                .Find(CompanyOwnerId);
+            var admin = this.Database
                 .Users
-                .FindAsync(AdminId);
+                .Find(AdminId);
 
-            var company = await this.Database
+            var company =  this.Database
                 .Companies
-                .FindAsync(CompanyId);
-            var coach = await this.Database
+                .Find(CompanyId);
+            var coach = this.Database
                .Coaches
-               .FindAsync(CoachId);
+               .Find(CoachId);
 
             var companyCoach = new AddCoachToCompanyModel()
             {
@@ -113,13 +113,13 @@
             const int CompanyId = 1;
             const string AdminId = "1";
             const string DatabaseName = "AddCoachToCompany";
-            await this.InitializeDatabase(DatabaseName);
-            var companyOwner = await this.Database
+            this.InitializeDatabase(DatabaseName);
+            var companyOwner = this.Database
                 .Users
-                .FindAsync(CompanyOwnerId);
-            var coach = await this.Database
+                .Find(CompanyOwnerId);
+            var coach = this.Database
                .Coaches
-               .FindAsync(CoachId);
+               .Find(CoachId);
             var companyCoach = new AddCoachToCompanyModel()
             {
                 CoachId = coach.Id,
@@ -151,22 +151,22 @@
             const string CompanyOwnerId1 = "2";
             const string CompanyOwnerId2 = "1";
             const string DatabaseName = "AddCoachToCompany";
-            await this.InitializeDatabase(DatabaseName);
-            var companyOwner = await this.Database
+            this.InitializeDatabase(DatabaseName);
+            var companyOwner = this.Database
                 .Users
-                .FindAsync(CompanyOwnerId1);
-            var companyOwner2 = await this.Database
+                .Find(CompanyOwnerId1);
+            var companyOwner2 = this.Database
                 .Users
-                .FindAsync(CompanyOwnerId2);
-            var coach = await this.Database
+                .Find(CompanyOwnerId2);
+            var coach = this.Database
                 .Coaches
-                .FindAsync(CoachId);
-            var company = await this.Database
+                .Find(CoachId);
+            var company = this.Database
                 .Companies
-                .FindAsync(companyOwner.CompanyId);
-            var admin = await this.Database
+                .Find(companyOwner.CompanyId);
+            var admin = this.Database
                 .Users
-                .FindAsync("1");
+                .Find("1");
             var companyCoachNoSuchCoach = new AddCoachToCompanyModel()
             {
                 CoachId = InvalidCoachId,
@@ -238,7 +238,7 @@
             const int CoachId = 1;
             const string CompanyOwnerId = "2";
             const string DatabaseName = "AddCoachToCompany";
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
             var companyOwner = await this.Database
                 .Users
                 .FindAsync(CompanyOwnerId);

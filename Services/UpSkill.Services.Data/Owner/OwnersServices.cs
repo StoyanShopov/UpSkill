@@ -81,11 +81,15 @@
         public virtual async Task<Result> AddCoachAsync(AddCoachToCompanyModel model)
         {
             var companyOwner = await this.userManager.FindByEmailAsync(model.OwnerEmail);
-            var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
+            //var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
 
-            if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
+            //if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
+            //{
+            //    return UserNotInCompanyOwnerRole;
+            //}
+            if (companyOwner == null)
             {
-                return UserNotInCompanyOwnerRole;
+                return DoesNotExist;
             }
 
             var coach = await this.coachService.GetByIdAsync<CoachDetailsModel>(model.CoachId);
