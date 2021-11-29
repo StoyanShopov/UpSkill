@@ -38,6 +38,11 @@
                 Email = "user@example.com",
                 CompanyId = 0,
             },
+                new Position()
+                {
+                    Id = 1,
+                    Name = "Owner",
+                },
                 new Course()
             {
                 Id = 1,

@@ -7,6 +7,8 @@
             public const string GetAll = "getAll";
 
             public const string Details = "details";
+
+            public const string OwnerRole = "Owner";
         }
 
         public class Company
@@ -34,6 +36,23 @@
             public const string TestGetAllRouteCompany = "/Admin/Companies/getAll";
 
             public const string TestGetDetailsRouteCompany = "/Admin/Companies/details?id=1";
+        }
+
+        public class Identity
+        {
+            public const string IdentityRegisterDatabaseWithValidInputData = "IdentityRegisterDatabase";
+
+            public const string TestFirstName = "TestFirstName";
+
+            public const string TestLastName = "TestLastName";
+
+            public const string TestEmail = "testEmail@abv.bg";
+
+            public const string TestCompanyName = "TestCompanyName";
+
+            public const string TestPassword = "testPass123";
+
+            public const string TestConfirmPassword = "testPass123";
         }
     }
 }
