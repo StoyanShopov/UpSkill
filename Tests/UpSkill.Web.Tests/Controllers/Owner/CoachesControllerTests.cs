@@ -87,7 +87,6 @@
             .ShouldReturn()
             .Ok();
 
-
         [Theory]
         [InlineData(5, TestOwnerEmail)]
         public void AddCoachAsyncShouldReturnFailureIfUserEmailIsNotOfAexistingUser(int coachId, string email)
@@ -106,7 +105,6 @@
             .AndAlso()
             .ShouldReturn()
             .BadRequest(DoesNotExist);
-
 
         [Theory]
         [InlineData(5, TestOwnerEmail)]
@@ -127,7 +125,6 @@
             .AndAlso()
             .ShouldReturn()
             .BadRequest(DoesNotExist);
-
 
         [Theory]
         [InlineData(5, "Christopher", TestOwnerEmail)]
@@ -154,7 +151,6 @@
             .AndAlso()
             .ShouldReturn()
             .BadRequest(DoesNotExist);
-
 
         [Fact]
         public void GetAllShouldReturnResultWithIenumarableListingModel()
@@ -184,7 +180,6 @@
             .ShouldHave()
             .ActionAttributes(atributes => atributes
             .RestrictingForHttpMethod(HttpMethod.Get));
-
         }
     }
 }
