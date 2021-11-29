@@ -139,6 +139,7 @@
             var repository = new MockRepository(MockBehavior.Strict) { DefaultValue = DefaultValue.Mock };
 
             var companyCoursesMock = new Mock<IRepository<CompanyCourse>>();
+            var usersInCoursesMock = new Mock<IRepository<UserInCourse>>();
             companyCoursesMock.Setup(x => x.AllAsNoTracking()).Returns(this.Database.CompanyCourses);
 
             var coursesMock = new Mock<IDeletableEntityRepository<Course>>();
@@ -150,6 +151,7 @@
                 userManagerMock,
                 companyServiceMock.Object,
                 companyCoursesMock.Object,
+                usersInCoursesMock.Object,
                 coursesMock.Object,
                 filesMock.Object);
 

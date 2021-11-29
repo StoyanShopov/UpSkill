@@ -80,6 +80,7 @@ export const login = (email, password) => (dispatch) => {
   );
 };
 
+
 export const logout = () => (dispatch) => {
   AuthService.logout();
 
@@ -97,3 +98,5 @@ export const refreshToken = (accessToken) => (dispatch) => {
     payload: accessToken,
   });
 }
+
+

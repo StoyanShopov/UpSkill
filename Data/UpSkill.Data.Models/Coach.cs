@@ -27,6 +27,8 @@
 
         public File File { get; set; }
 
+        public string CalendlyUrl { get; set; }
+
         public virtual ICollection<Course> Courses { get; set; }
 
         public virtual ICollection<CompanyCoach> Companies { get; set; }

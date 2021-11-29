@@ -1,17 +1,20 @@
 import React, { useState, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import { isEmail } from 'validator';
 
-import logo from '../../../assets/logo-NoBg.png';
+import logo from '../../../assets/UpSkillLogo.png';
 import manCase from '../../../assets/manCase.png';
 
 import notificationContext from '../../../Context/NotificationContext';
 
 import { register } from '../../../actions/auth';
+
+import './Register.css';
 
 const required = (value) => {
   if (!value) {
@@ -133,122 +136,131 @@ const Register = () => {
   };
 
   return (
-    <div className="row">
-      <div className="container col-md-6">
-        <img src={manCase} alt="IMG" />
-      </div>
-      <div className="base-container col-md-6">
-        <div className="image">
-          <img src={logo} alt="" />
+    <div className="AuthWrapper">
+      <div className="row">
+        <div className="container col-md-6 login-photos">
+          <div id="reg-triangle"></div>
+          <img src={manCase} alt="Man with a case." className="register-Image" />
         </div>
-        <Form onSubmit={handleRegister} ref={form}>
-          {!successful && (
-            <div>
-              <div className="form-group ">
-                <label htmlFor="firstName"></label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={onChangeFirstName}
-                  validations={[required]}
-                />
-              </div>
+        <div className="base-container col-md-6 mt-5 text-center p-5">
+          <div className="image">
+            <Link to="/" className="image text-center">
+              <img src={logo} alt="UpSkill" className="Auth-logo" />
+            </Link>
+          </div>
+          <Form onSubmit={handleRegister} ref={form} className="mt-3 auth-form">
+            <div className="auth-form-internal">
+              {!successful && (
+                <div className="">
+                  <div className="form-group">
+                    <label htmlFor="firstName"></label>
+                    <Input
+                      type="text"
+                      className="form-control auth-form-Input"
+                      name="firstName"
+                      placeholder="First Name"
+                      value={firstName}
+                      onChange={onChangeFirstName}
+                      validations={[required]}
+                    />
+                  </div>
 
-              <div className="form-group ">
-                <label htmlFor="lastName"></label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={onChangeLastName}
-                  validations={[required]}
-                />
-              </div>
+                  <div className="form-group ">
+                    <label htmlFor="lastName"></label>
+                    <Input
+                      type="text"
+                      className="form-control auth-form-Input"
+                      name="lastName"
+                      placeholder="Last Name"
+                      value={lastName}
+                      onChange={onChangeLastName}
+                      validations={[required]}
+                    />
+                  </div>
 
-              <div className="form-group ">
-                <label htmlFor="companyName"></label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="companyName"
-                  placeholder="Company Name"
-                  value={companyName}
-                  onChange={onChangeCompanyName}
-                  validations={[required]}
-                />
-              </div>
+                  <div className="form-group ">
+                    <label htmlFor="companyName"></label>
+                    <Input
+                      type="text"
+                      className="form-control auth-form-Input"
+                      name="companyName"
+                      placeholder="Company Name"
+                      value={companyName}
+                      onChange={onChangeCompanyName}
+                      validations={[required]}
+                    />
+                  </div>
 
-              <div className="form-group ">
-                <label htmlFor="email"></label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div>
+                  <div className="form-group ">
+                    <label htmlFor="email"></label>
+                    <Input
+                      type="text"
+                      className="form-control auth-form-Input"
+                      name="email"
+                      placeholder="Email Address"
+                      value={email}
+                      onChange={onChangeEmail}
+                      validations={[required, validEmail]}
+                    />
+                  </div>
 
-              <div className="form-group ">
-                <label htmlFor="password"></label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
-                />
-              </div>
+                  <div className="form-group ">
+                    <label htmlFor="password"></label>
+                    <Input
+                      type="password"
+                      className="form-control auth-form-Input"
+                      name="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={onChangePassword}
+                      validations={[required, vpassword]}
+                    />
+                  </div>
 
-              <div className="form-group ">
-                <label htmlFor="confirmPassword"></label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={onChangeConfirmPassword}
-                  validations={[required, vconfirmPassword]}
-                />
-              </div>
-              <br />
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
-                <br />
-                <br />
-                <div className="link-info">
-                  <p>Already have an account?</p>{' '}
-                  <a href="/Login">
-                    <b>Login here</b>
-                  </a>
+                  <div className="form-group ">
+                    <label htmlFor="confirmPassword"></label>
+                    <Input
+                      type="password"
+                      className="form-control auth-form-Input"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={confirmPassword}
+                      onChange={onChangeConfirmPassword}
+                      validations={[required, vconfirmPassword]}
+                    />
+                  </div>
+                  <br />
+                  <div className="form-group">
+                    <button className="btn btn-primary btn-block px-5 m-auto mt-2">                      
+                      <h4 className="auth-btn-internal">SignUp</h4>
+                    </button>
+                    <br />
+                    <br />
+                    <div className="link-info">
+                      <a href="/Login">
+                        <p>Already have an account?</p>
+                        <b>Login here</b>
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
+              {message && (
+                <div className="form-group">
+                  <div
+                    className={
+                      successful ? 'alert alert-success' : 'alert alert-danger'
+                    }
+                    role="alert"
+                  >
+                    {message}
+                  </div>
+                </div>
+              )}
+              <CheckButton style={{ display: 'none' }} ref={checkBtn} />
             </div>
-          )}
-          {message && (
-            <div className="form-group">
-              <div
-                className={
-                  successful ? 'alert alert-success' : 'alert alert-danger'
-                }
-                role="alert"
-              >
-                {message}
-              </div>
-            </div>
-          )}
-          <CheckButton style={{ display: 'none' }} ref={checkBtn} />
-        </Form>
+          </Form>
+        </div>
       </div>
     </div>
   );

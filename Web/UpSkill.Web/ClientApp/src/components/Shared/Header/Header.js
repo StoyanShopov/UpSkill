@@ -3,8 +3,9 @@ import React, { useState, useEffect, useContext } from "react";
 import { useDispatch } from "react-redux"; 
 import { ReactReduxContext } from 'react-redux'
 
-import { clearMessage } from "../../../actions/message";
+import IdentityContext from "../../../Context/IdentityContext";
 
+import { clearMessage } from "../../../actions/message";
 import { history } from "../../../helpers/history"; 
 
 import Logo from '../../../assets/logo-NoBg.png';
@@ -12,18 +13,19 @@ import UserProfilePic from '../../../assets/userProfilePic.png';
 import './Header.css';
 
 function Header() { 
-	const [isActive, setisActive] = useState(false);   
-
-	const { store } = useContext(ReactReduxContext)
+	const [isActive, setisActive] = useState(false);
+	
+	const { store } = useContext(ReactReduxContext);
+	const [loading, setLoading] = useContext(IdentityContext);
     var {isLoggedIn, user} = store.getState().auth;
 
 	const dispatch = useDispatch();
   
-	useEffect(() => {
+	useEffect(() => {	
 	  history.listen((location) => {
 		dispatch(clearMessage()); // clear message when changing location
 	  });
-	}, []);
+	}, [user, isLoggedIn, dispatch]);
 	
 	return ( 
 		<header className="Header site-header"> 
@@ -40,13 +42,13 @@ function Header() {
 							<ul className="navbar-nav ml-auto pl-lg-4 d-flex justify-content-end ms-auto w-50">
 							<article className="container justify-content-around d-flex">
 								<li className="nav-item px-lg-2  text-decoration-none">
-									<NavLink to="/Courses" className="nav-link font-weight-bold" exact={true}>
+									<NavLink to="/Courses" className="nav-link font-weight-bold mt-2" exact={true}>
 										<b>Courses</b>
 									</NavLink>
 								</li>
 
 								<li className="nav-item px-lg-2 text-decoration-none">
-									<NavLink to="/Coaches" className="nav-link font-weight-bold" exact={true}>
+									<NavLink to="/Coaches" className="nav-link font-weight-bold mt-2" exact={true}>
 										<b>Coaches</b>
 						</NavLink>
 								</li>
@@ -60,36 +62,35 @@ function Header() {
 							</NavLink>
 								</li>
 							</article>
-
-								<article className="d-flex justify-content-end" style={{ width: 10 +'em'}} id="userProfile">
+   
+							{isLoggedIn ? (
+                                <div className="navbar-nav ml-auto">
+                                    <article className="d-flex justify-content-end" style={{ width: 10 +'em'}} id="userProfile">
 									<li className="nav-item px-lg-2  text-decoration-none d-flex justify-content-end">
-									  <NavLink to="/MyProfile" className="nav-link col-xl-5 p-0">
+									  <NavLink to="/MyProfile" className="nav-link col-xl-5 p-2">
 										<img src={UserProfilePic} alt="User" className="img-fluid rounded" ></img>
 									  </NavLink>
 								</li> 
-							</article>   
-							{isLoggedIn ? (
-                                <div className="navbar-nav ml-auto">
-                                    <li className="nav-item">
-                                        <NavLink to={"/MyProfile"} className="nav-link"> 
-                                          {user.email}
-                                       </NavLink>
-                                   </li>
+								</article>
                                   <li className="nav-item">
-									<NavLink to="/Logout" className="nav-link btn btn-secondary">
+									<NavLink to="/Logout" className="nav-link btn btn-secondary mt-2">
                                         LogOut
                                     </NavLink>
                                   </li>
                                </div>
                          ) : (
-                            <div className="navbar-nav ml-auto">
+							loading ? (
+								<span className="spinner-border spinner-border-sm"></span>
+							)
+							:
+                            (<div className="navbar-nav ml-auto">
                                 <li className="nav-item">
-			                     <NavLink to="/Login" className="btn btn-outline-info font-weight-bold" exact={true}>
+			                     <NavLink to="/Login" className="btn btn-outline-info font-weight-bold mt-2" exact={true}>
                                     <b>Login</b>
                                  </NavLink>
                                 </li>
                             </div>
-                          )}
+						 ))}
 						</ul>
 					</section>
 

@@ -19,6 +19,8 @@
 
         public string FileFilePath { get; set; }
 
+        public string CalendlyUrl { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<CompanyCoach, CoachListingModel>()

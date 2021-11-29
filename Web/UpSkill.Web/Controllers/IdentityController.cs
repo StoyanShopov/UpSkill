@@ -14,6 +14,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Contracts.Email;
     using UpSkill.Services.Contracts.Identity;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Identity;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -25,15 +26,18 @@
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailService emailService;
+        private readonly INLogger nLog;
 
         public IdentityController(
             IIdentityService identity,
             UserManager<ApplicationUser> userManager,
-            IEmailService emailService)
+            IEmailService emailService,
+            INLogger nLog)
         {
             this.identity = identity;
             this.userManager = userManager;
             this.emailService = emailService;
+            this.nLog = nLog;
         }
 
         [HttpPost]
@@ -45,6 +49,8 @@
 
             if (!this.ModelState.IsValid)
             {
+                this.nLog.Error(model, new Exception(this.ModelState.IsValid.ToString()));
+
                 return this.BadRequest(this.ModelState);
             }
 
@@ -52,6 +58,8 @@
 
             if (isUserRegistered.Failure)
             {
+                this.nLog.Error(model, new Exception(isUserRegistered.Error));
+
                 return this.BadRequest(isUserRegistered.Error);
             }
 
@@ -60,6 +68,8 @@
             var user = await this.userManager.FindByEmailAsync(model.Email);
 
             await this.SetRefreshToken(user);
+
+            this.nLog.Info(model);
 
             return this.StatusCode(201);
         }
@@ -71,6 +81,8 @@
         {
             if (!this.ModelState.IsValid)
             {
+                this.nLog.Error(model, new Exception(this.ModelState.IsValid.ToString()));
+
                 return this.BadRequest(this.ModelState);
             }
 
@@ -85,6 +97,8 @@
             var user = await this.userManager.FindByEmailAsync(model.Email);
 
             await this.SetRefreshToken(user);
+
+            this.nLog.Info(model);
 
             return this.Ok(embededToken);
         }
@@ -118,10 +132,13 @@
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route(LogoutRoute)]
         public IActionResult Logout()
         {
             this.Response.Cookies.Delete(JWT);
+
+            this.nLog.Info("Logged out successfully");
 
             return this.Ok(new { message = SuccessMessage });
         }
@@ -136,12 +153,16 @@
 
             await this.SetRefreshToken(user);
 
-            return new LoginResponseModel
+            var result = new LoginResponseModel
             {
                 Id = user.Id,
                 Email = user.Email,
                 Role = roles[0] ?? string.Empty,
             };
+
+            this.nLog.Info(result);
+
+            return result;
         }
 
         private async Task SetRefreshToken(ApplicationUser user)
@@ -155,7 +176,7 @@
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(5),
+                Expires = DateTime.UtcNow.AddMinutes(5),
             };
 
             this.Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
@@ -169,6 +190,9 @@
             var host = this.Request.Host.Value;
 
             await this.emailService.SendEmailConfirmationAsync(origin, host, user);
+
+            this.nLog.Info("EmailConfirmation action succeeded");
+
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)
