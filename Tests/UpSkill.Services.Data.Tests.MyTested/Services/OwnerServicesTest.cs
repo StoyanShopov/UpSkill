@@ -1,50 +1,86 @@
-﻿namespace UpSkill.Services.Data.Tests.MyTested.Services
+﻿using UpSkill.Services.Data.Owner;
+
+using Xunit;
+using UpSkill.Web.Areas.Owner.Coach;
+using UpSkill.Web.ViewModels.Owner;
+
+using global::MyTested.AspNetCore.Mvc;
+using Moq;
+using UpSkill.Data.Models;
+using UpSkill.Services.Data.Contracts.Coach;
+using UpSkill.Web.Infrastructure.Services;
+using UpSkill.Services.Data.Contracts.Owner;
+using UpSkill.Services.Data.Tests.MyTested.Mocks;
+using UpSkill.Web.ViewModels.Coach;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+
+namespace UpSkill.Services.Data.Tests.MyTested.Services
 {
-    using UpSkill.Services.Data.Owner;
-
-    using Xunit;
-    using UpSkill.Web.Areas.Owner.Coach;
-    using UpSkill.Web.ViewModels.Owner;
-
-    using static Common.GlobalConstants.ControllersResponseMessages;
-    using global::MyTested.WebApi;
-    using global::MyTested.AspNetCore.Mvc;
-    using Moq;
-    using UpSkill.Services.Data.Contracts.Coach;
-    using UpSkill.Web.Infrastructure.Services;
-    using UpSkill.Services.Data.Contracts.Owner;
-    using UpSkill.Services.Data.Tests.MyTested.Mocks;
-
     public class OwnerServicesTest
     {
-        //private OwnerServicesMock ownerServicesMock = new OwnerServicesMock();
-        private ICurrentUserService currentUserServiceMock = new Mock<ICurrentUserService>().Object;
-        private ICoachServices coachesServiceMock = new Mock<ICoachServices>().Object;
-        private Mock<IOwnerServices> ownerServiceMock = new Mock<IOwnerServices>();
-        [Fact]
-        public void AddCoachAsyncShouldAddCoachToCompany()
+        ApplicationUser user = new ApplicationUser
         {
-            ownerServiceMock.Setup(o => o.AddCoachAsync(new AddCoachToCompanyModel
-            {
-                CoachId = 4,
-                OwnerEmail = "ownerMotionSoftware@test.test"
-            })).ReturnsAsync(true);
+            UserName = "ownerMotionSoftware",
+            NormalizedUserName = "ownerMotionSoftware".ToUpper(),
+            Email = "ownerMotionSoftware@test.test",
+            NormalizedEmail = "ownerMotionSoftware@test.test".ToUpper(),
+            EmailConfirmed = true,
+            FirstName = "ownerMotionSoftware",
+            LastName = "ownerMotionSoftware",
+            
+        };
 
+        [Theory]
+        [InlineData(5, "ownerMotionSoftware@test.test")]
+        public void AddCoachAsyncShouldBeRestrictedForPostMethods(int coachId, string email)
+        =>
             MyController<CoachesController>
-            .Instance(instance => instance
-            .WithDependencies(
-              ownerServiceMock.Object,
-               currentUserServiceMock,
-               coachesServiceMock
-               ))
+            .Instance()
+            .WithData(user)
+            .WithUser(u => u.WithNameType("ownerMotionSoftware").WithIdentifier(user.Id).WithRoleType("Owner"))
             .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
             {
-                CoachId = 4,
-                OwnerEmail = "ownerMotionSoftware@test.test"
+                CoachId = coachId,
+                OwnerEmail = email
             }))
+            .ShouldHave()
+            .ActionAttributes(attributes => attributes
+                       .RestrictingForHttpMethod(HttpMethod.Post));
+            
+        
+
+        [Fact]
+        public  void GetAllShouldReturnResultWithIenumarableListingModel()
+        {
+            MyController<CoachesController>
+            .Instance()
+            .WithData(user)
+            .WithUser(u => u.WithNameType("ownerMotionSoftware").WithIdentifier(user.Id).WithRoleType("Owner"))
+            .Calling(c => c.GetAll())
+            .ShouldHave()
+            .ActionAttributes(atributes => atributes
+            .RestrictingForHttpMethod(HttpMethod.Get)
+            .SpecifyingRoute("getAll"))
+            .AndAlso()
             .ShouldReturn()
-            .Ok();
+            .ResultOfType<IEnumerable<OwnerCoachesListingModel>>();
         }
+
+        [Fact]
+        public void GetAllShouldBeRestrictedForPostMethods()
+        {
+            MyController<CoachesController>
+            .Instance()
+            .WithData(user)
+            .WithUser(u => u.WithNameType("ownerMotionSoftware").WithIdentifier(user.Id).WithRoleType("Owner"))
+            .Calling(c => c.GetAll())
+            .ShouldHave()
+            .ActionAttributes(atributes => atributes
+            .RestrictingForHttpMethod(HttpMethod.Get));
+
+        }
+
     }
 }
 
