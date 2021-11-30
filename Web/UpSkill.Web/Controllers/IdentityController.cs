@@ -136,7 +136,7 @@
         [Route(LogoutRoute)]
         public IActionResult Logout()
         {
-            this.Response.Cookies.Delete("refreshToken");
+            this.Response.Cookies.Delete(JWT);
 
             this.nLog.Info("Logged out successfully");
 

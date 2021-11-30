@@ -7,7 +7,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
-  CHECK_CURRENT_STATE,
+  REFRESH_TOKEN
 } from "./types";
 
 import AuthService from "../services/auth.service";
@@ -80,4 +80,23 @@ export const login = (email, password) => (dispatch) => {
   );
 };
 
-export const logout = async () =>  await AuthService.logout(); 
+
+export const logout = () => (dispatch) => {
+  AuthService.logout();
+
+  dispatch({
+    type: LOGOUT,
+  });
+
+  
+  return Promise.resolve();
+}; 
+
+export const refreshToken = (accessToken) => (dispatch) => {
+  dispatch({
+    type: REFRESH_TOKEN,
+    payload: accessToken,
+  });
+}
+
+

@@ -6,7 +6,7 @@ import {
   LOGOUT,
   SET_WARNING_MESSAGE,
   CLEAR_MESSAGE,
-  CHECK_CURRENT_STATE,
+  REFRESH_TOKEN
 } from "../actions/types";
 
 import {
@@ -99,7 +99,14 @@ export default function Auth(init = initialState, action) {
           isCompanyOwner: user()?.role === CompanyOwnerRoleName,
           isEmployee: user()?.role === EmployeeRoleName,
         }; 
-    default:
-      return init;
+   
+      case REFRESH_TOKEN:
+      return {
+        ...init,
+        user: { ...user, accessToken: payload },
+      };
+      default:
+        return init;
+  
   }
 } 
