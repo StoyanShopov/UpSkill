@@ -35,5 +35,12 @@
 
             public const string TestGetDetailsRouteCompany = "/Admin/Companies/details?id=1";
         }
+
+        public class Coach
+        {
+            public const string GetAllCoaches = "[controller]/getAll";
+
+            public const string GetAllCoachesExist = "GetAllCoachesExist";
+        }
     }
 }
