@@ -361,5 +361,16 @@
             .ShouldReturn()
             .Ok();
         }
+
+        [Fact]
+        public void RequestCoachShouldBeAllowedOnlyForPostMethod()
+        {
+            MyController<CoachesController>
+            .Instance()
+            .Calling(c => c.RequestCoach(With.Any<RequestCoachModel>()))
+            .ShouldHave()
+            .ActionAttributes(atributes => atributes
+            .RestrictingForHttpMethod(HttpMethod.Post));
+        }
     }
 }
