@@ -31,7 +31,7 @@ import store from './store';
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses"
 import PromoteDemote from "./components/Admin/AdminPromoteDemote";
 
-import { CHECK_CURRENT_STATE } from "./actions/types";
+import { REFRESH_TOKEN } from "./actions/types";
 import { useState } from "react";
 
 const AppWrapper = (props) => {
@@ -47,7 +47,7 @@ const AppWrapper = (props) => {
 
   useEffect(() => {
     dispatch({
-      type: CHECK_CURRENT_STATE
+      type: REFRESH_TOKEN
     });
     setLoading(false);
   }, []);

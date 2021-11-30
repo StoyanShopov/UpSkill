@@ -8,7 +8,7 @@ import CompanyOwner from "./CompanyOwnerViews/CompanyOwner";
 import Employee from "./Employee/Employee";
 import Admin from "../Admin/Admin";
 
-import { CHECK_CURRENT_STATE } from "../../actions/types";
+import { REFRESH_TOKEN } from "../../actions/types";
 
 function MyProfile() {
   const { store } = useContext(ReactReduxContext);
@@ -21,7 +21,7 @@ function MyProfile() {
 
   useEffect(() => {
     dispatch({
-      type: CHECK_CURRENT_STATE
+      type: REFRESH_TOKEN
     });
 
     var {

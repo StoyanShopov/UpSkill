@@ -88,17 +88,7 @@ export default function Auth(init = initialState, action) {
           type: '' ,
           message: '',
         }; 
-    case CHECK_CURRENT_STATE:
-        return {
-          state: 'closed',
-          type: '' ,
-          message: '',
-          isLoggedIn: user() ? true : false,
-          user: user(),
-          isAdmin: user()?.role === AdministratorRoleName,
-          isCompanyOwner: user()?.role === CompanyOwnerRoleName,
-          isEmployee: user()?.role===EmployeeRoleName,
-        }; 
+   
    
       case REFRESH_TOKEN:
       return {
