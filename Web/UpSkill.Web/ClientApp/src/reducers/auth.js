@@ -38,7 +38,7 @@ export default function Auth(init = initialState, action) {
         user: user(),
         isAdmin: user()?.role === AdministratorRoleName,
         isCompanyOwner: user()?.role === CompanyOwnerRoleName,
-        isEmployee: user()?.role===EmployeeRoleName,
+        isEmployee: user()?.role === EmployeeRoleName,
       };
     case REGISTER_FAIL:
       return {
@@ -57,7 +57,7 @@ export default function Auth(init = initialState, action) {
         user: user(),
         isAdmin: user()?.role === AdministratorRoleName,
         isCompanyOwner: user()?.role === CompanyOwnerRoleName,
-        isEmployee: user()?.role===EmployeeRoleName,
+        isEmployee: user()?.role === EmployeeRoleName,
       }; 
     case LOGIN_FAIL:
       return {
@@ -88,7 +88,19 @@ export default function Auth(init = initialState, action) {
           type: '' ,
           message: '',
         }; 
-   
+
+    case CHECK_CURRENT_STATE:
+        return {
+          state: 'closed',
+          type: '' ,
+          message: '',
+          isLoggedIn: user() ? true : false,
+          user: user(),
+          isAdmin: user()?.role === AdministratorRoleName,
+          isCompanyOwner: user()?.role === CompanyOwnerRoleName,
+          isEmployee: user()?.role === EmployeeRoleName,
+        }; 
+
    
       case REFRESH_TOKEN:
       return {

@@ -1,6 +1,8 @@
 import axios from "axios";
 import TokenService from "./tokenService";
+
 import { Base_URL } from "../utils/baseUrlConstant";
+import { logout } from "../actions/auth";
 import { refreshToken } from "../actions/auth";
 
 const instance = axios.create({
@@ -9,6 +11,7 @@ const instance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
 
 export const setup = (store) => {
   instance.interceptors.request.use(
@@ -30,7 +33,7 @@ instance.interceptors.response.use(
     return res;
   },
   async (err) => {
-    const originalConfig = err.config;
+
 
     if (originalConfig.url !== "Identity/Login" && err.response) {
       // Access Token was expired
@@ -51,7 +54,6 @@ instance.interceptors.response.use(
           return Promise.reject(_error);
         }
       }
-    }
 
     return Promise.reject(err);
   }
