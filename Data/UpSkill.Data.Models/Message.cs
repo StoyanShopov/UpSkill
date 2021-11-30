@@ -10,8 +10,7 @@
 
         public string Time { get; set; }
 
-        //public string GroupChatId { get; init; }
-
+        // public string GroupChatId { get; init; }
         public string OwnerName { get; init; }
     }
 }

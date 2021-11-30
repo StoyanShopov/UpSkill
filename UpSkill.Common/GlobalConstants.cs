@@ -141,7 +141,6 @@
             public const string GetCountRoute = "count";
 
             public const string NewCoach = "newCoach";
-
         }
 
         public class MessagesConstants
@@ -171,7 +170,7 @@
             public const string CompanyOwnerRoleName = "Owner";
 
             public const string CompanyEmployeeRoleName = "Employee";
-            
+
             public const string CoachRoleName = "Coach";
 
             public const string WritePolicy = "writepolicy";
@@ -285,7 +284,6 @@
             public const string NoEmployeesFound = "Currently there are no employees added to this company.";
 
             public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
-
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿namespace UpSkill.Services.Data.Tests.Fakes
 {
-    using System.Threading.Tasks;
-
     using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Data;
@@ -19,10 +17,10 @@
 
         public ApplicationDbContext Data { get; }
 
-        public async Task AddFakeDataAsync(params object[] data)
+        public void AddFakeData(params object[] data)
         {
             this.Data.AddRange(data);
-            await this.Data.SaveChangesAsync();
+            this.Data.SaveChanges();
         }
     }
 }
