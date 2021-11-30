@@ -6,6 +6,7 @@
     using MyTested.AspNetCore.Mvc;
     using Shouldly;
     using UpSkill.Data.Models;
+    using UpSkill.Services.Data.Tests.Common;
     using UpSkill.Web.Areas.Owner.Coach;
     using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Owner;
@@ -17,8 +18,11 @@
     using static Comman.TestConstants.RolesNamesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
-    public class CoachesControllerTests
+    public class CoachesControllerTests: TestWithData
     {
+        private const int TestCompanyId = 2;
+        private const int TestCoachId = 5;
+
         private readonly ApplicationUser user = new ApplicationUser
         {
             UserName =TestOwnerUserName,
@@ -33,7 +37,7 @@
 
         [Theory]
         [InlineData(5, TestOwnerEmail)]
-        public void AddCoachAsyncShouldBeRestrictedForPostMethods(int coachId, string email)
+        public void AddCoachAsyncShouldBeAllowedOnlyForPostMethods(int coachId, string email)
         =>
             MyController<CoachesController>
             .Instance()
@@ -170,7 +174,7 @@
         }
 
         [Fact]
-        public void GetAllShouldBeRestrictedForPostMethods()
+        public void GetAllShouldBeAllowedOnlyForGetMethods()
         {
             MyController<CoachesController>
             .Instance()
@@ -180,6 +184,182 @@
             .ShouldHave()
             .ActionAttributes(atributes => atributes
             .RestrictingForHttpMethod(HttpMethod.Get));
+        }
+
+        [Fact]
+        public void DeleteCoachFromOwnerShouldBeAllowedOnlyForDeleteMethods()
+        {
+            MyController<CoachesController>
+            .Instance()
+            .WithData(this.user)
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .Calling(c => c.DeleteCoachFromOwner(TestCoachId))
+            .ShouldHave()
+            .ActionAttributes(atributes => atributes
+            .RestrictingForHttpMethod(HttpMethod.Delete));
+        }
+
+        [Fact]
+        public void DeleteCoachFromOwnerShouldReturnBadRequestIfWrongIdIsPassedOrTheCoachIsNotAddedToThisCompany()
+        {
+            MyController<CoachesController>
+            .Instance()
+            .WithData(
+                this.user,
+                new Company
+                {
+                    Id = this.user.CompanyId,
+                    Name = TestCompany,
+                })
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .Calling(c => c.DeleteCoachFromOwner(TestCoachId))
+            .ShouldHave()
+            .ActionAttributes(atributes => atributes
+            .RestrictingForHttpMethod(HttpMethod.Delete))
+            .AndAlso()
+            .ShouldReturn()
+            .BadRequest(DoesNotExist);
+        }
+
+        [Theory]
+        [InlineData(TestCoachId, "Christopher")]
+        public void DeleteCoachFromOwnerShouldRemoveCoachFromCompanyAndShouldReturnRemovedSuccessfully(int coachId, string coachName)
+        {
+            MyController<CoachesController>
+            .Instance()
+            .WithData(
+                this.user,
+                new Coach
+                {
+                    Id = TestCoachId,
+                    FirstName = coachName,
+                },
+                new Company
+                {
+                    Id = this.user.CompanyId,
+                    Name = TestCompany,
+                },
+                new CompanyCoach
+                {
+                    CoachId = coachId,
+                    CompanyId = this.user.CompanyId,
+                })
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .Calling(c => c.DeleteCoachFromOwner(coachId))
+            .ShouldHave()
+            .ActionAttributes(atributes => atributes
+            .RestrictingForHttpMethod(HttpMethod.Delete))
+            .AndAlso()
+            .ShouldHave()
+            .Data(data => data
+                .WithSet<CompanyCoach>(set =>
+                {
+                    set.SingleOrDefault(cc => cc.CoachId == coachId && cc.CompanyId == this.user.CompanyId).ShouldBeNull();
+                }))
+            .AndAlso()
+            .ShouldReturn()
+            .Ok(SuccesfullyDeleted);
+        }
+
+        [Theory]
+        [InlineData(TestCoachId, "TestCoach")]
+        public void DeleteCoachFromOwnerShouldReturnBadRequestIfCoachIdProvidedIsNotOfACoachAddedToTheGivenOwnerCompany(int coachId,string coachName)
+        {
+            MyController<CoachesController>
+            .Instance()
+            .WithData(
+                this.user,
+                new Coach
+                {
+                    Id = coachId,
+                    FirstName = coachName,
+                },
+                new Company
+                {
+                    Id = this.user.CompanyId,
+                    Name = TestCompany,
+                },
+                new CompanyCoach
+                {
+                    CoachId = 2,
+                    CompanyId = this.user.CompanyId,
+                })
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .Calling(c => c.DeleteCoachFromOwner(coachId))
+            .ShouldHave()
+            .ActionAttributes(atributes => atributes
+            .RestrictingForHttpMethod(HttpMethod.Delete))
+            .AndAlso()
+            .ShouldReturn()
+            .BadRequest(DoesNotExist);
+        }
+
+        [Theory]
+        [InlineData(TestCoachId)]
+        public void DeleteCoachFromOwnerShouldReturnBadRequestIfCoachIdProvidedIsNotOfAValidCoach(int coachId)
+        {
+            MyController<CoachesController>
+            .Instance()
+            .WithData(
+                this.user,
+                new Company
+                {
+                    Id = this.user.CompanyId,
+                    Name = TestCompany,
+                },
+                new CompanyCoach
+                {
+                    CoachId = coachId,
+                    CompanyId = this.user.CompanyId,
+                })
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .Calling(c => c.DeleteCoachFromOwner(coachId))
+            .ShouldHave()
+            .ActionAttributes(atributes => atributes
+            .RestrictingForHttpMethod(HttpMethod.Delete))
+            .AndAlso()
+            .ShouldReturn()
+            .BadRequest(DoesNotExist);
+        }
+
+        [Fact]
+        public void RequestCoachShouldShouldHaveInvalidModelStateIfCalledWithModelStateWithInvalidRequesterName()
+        {
+            MyController<CoachesController>
+            .Instance()
+            .Calling(c => c.RequestCoach(With.Default<RequestCoachModel>()))
+            .ShouldHave()
+            .InvalidModelState();
+        }
+
+        [Fact]
+        public void RequestCoachShouldShouldReturnBadRequestIfCalledWithEmptyModel()
+        {
+            MyController<CoachesController>
+            .Instance()
+            .Calling(c => c.RequestCoach(With.Any<RequestCoachModel>()))
+            .ShouldReturn()
+            .BadRequest();
+        }
+
+        [Theory]
+        [InlineData("SomeDescription", "TestField")]
+        public void RequestCoachShouldReturnOkIfAValidModelStateIsPassedAndRequestDidNotThrowException(string description, string field)
+        {
+            MyController<CoachesController>
+            .Instance()
+            .Calling(c => c.RequestCoach(new RequestCoachModel
+            {
+                RequesterEmail = this.user.Email,
+                RequesterName = this.user.FirstName,
+                Description = description,
+                Field = field,
+            }))
+            .ShouldHave()
+            .ValidModelState()
+            .AndAlso()
+            .ShouldReturn()
+            .Ok();
         }
     }
 }

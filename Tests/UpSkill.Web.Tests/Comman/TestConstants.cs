@@ -39,6 +39,7 @@
         public class Coach
         {
             public const string TestAddCoachToOwnerRouteCoach = "Owner/Coaches";
+
             public const string TestGetAllRouteCompanyCoach = "/Owner/Coaches/getAll";
         }
 
@@ -54,8 +55,8 @@
         public class CompanyOwnerConstants
         {
             public const string TestOwnerUserName = "ownerMotionSoftware";
+
             public const string TestOwnerEmail = "ownerMotionSoftware@test.test";
-            public const int TestCompanyId = 2;
         }
     }
 }
