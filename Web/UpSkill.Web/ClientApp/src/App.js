@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Route ,useLocation, Switch } from "react-router-dom";
 import { Provider, useDispatch } from 'react-redux'
 
 import './App.css';
@@ -45,6 +45,8 @@ const AppWrapper = (props) => {
 
   const dispatch = useDispatch();
 
+  
+
   useEffect(() => {
     dispatch({
       type: CHECK_CURRENT_STATE
@@ -71,9 +73,18 @@ const AppWrapper = (props) => {
 
 
 function App() {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    // TODO: Add interceptors on response here.
+    
+    console.log('Location changed');
+  }, [location]);
+
   return (
     <Provider store={store}>
       <AppWrapper>
+        <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/Admin' component={Admin} />
         <Route exact path='/Admin/Courses' component={AdminCourses} />
@@ -89,6 +100,7 @@ function App() {
         <Route exact path="/Admin/Companies/edit" component={EditCompany} />
         <Route exact path="/Admin/PromoteDemote" component={PromoteDemote} />
         <Route exact path="/refreshToken/" />
+        </Switch>
       </AppWrapper>
     </Provider>
   );

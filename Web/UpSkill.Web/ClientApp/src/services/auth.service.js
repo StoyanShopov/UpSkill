@@ -1,5 +1,6 @@
 import axios from "axios";
 import TokenService from "./tokenService";
+import instance from "./instance";
 import jwt from "jwt-decode";
 
 import { Base_URL } from "../utils/baseUrlConstant";
@@ -11,7 +12,7 @@ const userStorageVarName = "user";
 
 
 const register = async (firstName, lastName, companyName, email, password, confirmPassword) => { 
-  return axios.post(API_URL + "register", { 
+  return instance.post(API_URL + "register", { 
     firstName,
     lastName,
     companyName,
@@ -22,7 +23,7 @@ const register = async (firstName, lastName, companyName, email, password, confi
 };
 
 const login = async (email, password) => {
-  return axios
+  return instance
     .post(API_URL + "login", {
       email,
       password,
