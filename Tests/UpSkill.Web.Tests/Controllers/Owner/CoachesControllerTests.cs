@@ -18,14 +18,14 @@
     using static Comman.TestConstants.RolesNamesConstants;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
-    public class CoachesControllerTests: TestWithData
+    public class CoachesControllerTests : TestWithData
     {
         private const int TestCompanyId = 2;
         private const int TestCoachId = 5;
 
         private readonly ApplicationUser user = new ApplicationUser
         {
-            UserName =TestOwnerUserName,
+            UserName = TestOwnerUserName,
             NormalizedUserName = TestOwnerUserName.ToUpper(),
             Email = TestOwnerEmail,
             NormalizedEmail = TestOwnerEmail.ToUpper(),
@@ -53,8 +53,8 @@
                        .RestrictingForHttpMethod(HttpMethod.Post));
 
         [Theory]
-        [InlineData(5, "Sasho" , TestOwnerEmail)]
-        public void AddCoachAsyncShouldAddCoachToCompanyAndShouldReturnSucceeded(int coachId, string coachFirstName,string email)
+        [InlineData(5, "Sasho", TestOwnerEmail)]
+        public void AddCoachAsyncShouldAddCoachToCompanyAndShouldReturnSucceeded(int coachId, string coachFirstName, string email)
         =>
             MyController<CoachesController>
             .Instance()
@@ -116,7 +116,7 @@
         =>
             MyController<CoachesController>
             .Instance()
-            .WithData(user)
+            .WithData(this.user)
             .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
             .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
             {
@@ -263,7 +263,7 @@
 
         [Theory]
         [InlineData(TestCoachId, "TestCoach")]
-        public void DeleteCoachFromOwnerShouldReturnBadRequestIfCoachIdProvidedIsNotOfACoachAddedToTheGivenOwnerCompany(int coachId,string coachName)
+        public void DeleteCoachFromOwnerShouldReturnBadRequestIfCoachIdProvidedIsNotOfACoachAddedToTheGivenOwnerCompany(int coachId, string coachName)
         {
             MyController<CoachesController>
             .Instance()

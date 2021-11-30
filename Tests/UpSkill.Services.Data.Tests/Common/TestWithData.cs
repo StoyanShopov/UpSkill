@@ -41,7 +41,7 @@
                 new ApplicationUser()
             {
                 Id = "3",
-                Email = "",
+                Email = string.Empty,
                 CompanyId = 0,
             },
                 new ApplicationUser()
@@ -88,13 +88,12 @@
                 CompanyId = 1,
                 CoachId = 1,
              },
-                new Coach() 
+                new Coach()
                 {
-                    Id=3,
-                    FirstName="Stanimir",
+                    Id = 3,
+                    FirstName = "Stanimir",
                     LastName = "Stanimir",
-                    Field="Marketing",
+                    Field = "Marketing",
                 });
-
     }
 }

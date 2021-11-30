@@ -27,10 +27,10 @@
     using static UpSkill.Common.GlobalConstants.ControllersResponseMessages;
     using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 
-    public class OwnerServiceTest: TestWithData
+    public class OwnerServiceTest : TestWithData
     {
         [Fact]
-        public  void GetAllCoursesAsyncShouldReturnAllCompanyCourses()
+        public void GetAllCoursesAsyncShouldReturnAllCompanyCourses()
         {
             const string DatabaseName = "GetAllCompanyCourses";
             var companyId = 1;
@@ -40,7 +40,7 @@
 
             var repository = new Mock<IRepository<CompanyCourse>>();
 
-            var companyCourses =  this.Database.CompanyCourses
+            var companyCourses = this.Database.CompanyCourses
                 .Where(cc => cc.CompanyId == companyId).ToList();
 
             Assert.NotNull(companyCourses);
@@ -56,7 +56,7 @@
 
             this.InitializeDatabase(DatabaseName);
 
-            var companyCoaches =  this.Database.CompanyCoaches
+            var companyCoaches = this.Database.CompanyCoaches
                 .Where(cc => cc.CompanyId == companyId).ToList();
 
             Assert.NotNull(companyCoaches);
@@ -79,7 +79,7 @@
                 .Users
                 .Find(AdminId);
 
-            var company =  this.Database
+            var company = this.Database
                 .Companies
                 .Find(CompanyId);
             var coach = this.Database
@@ -123,7 +123,7 @@
             var companyCoach = new AddCoachToCompanyModel()
             {
                 CoachId = coach.Id,
-                OwnerEmail = "",
+                OwnerEmail = string.Empty,
             };
 
             //var service = new Mock<IOwnerServices>();
@@ -138,7 +138,7 @@
 
             var result = await service.AddCoachAsync(companyCoach);
 
-            Assert.Equal(UserNotInCompanyOwnerRole,result.Error);
+            Assert.Equal(UserNotInCompanyOwnerRole, result.Error);
             Assert.True(result.Failure);
             Assert.False(result.Succeeded);
         }
