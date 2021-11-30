@@ -38,7 +38,7 @@ export default function Auth(init = initialState, action) {
         user: user(),
         isAdmin: user()?.role === AdministratorRoleName,
         isCompanyOwner: user()?.role === CompanyOwnerRoleName,
-        isEmployee: user()?.role===EmployeeRoleName,
+        isEmployee: user()?.role === EmployeeRoleName,
       };
     case REGISTER_FAIL:
       return {
@@ -57,7 +57,7 @@ export default function Auth(init = initialState, action) {
         user: user(),
         isAdmin: user()?.role === AdministratorRoleName,
         isCompanyOwner: user()?.role === CompanyOwnerRoleName,
-        isEmployee: user()?.role===EmployeeRoleName,
+        isEmployee: user()?.role === EmployeeRoleName,
       }; 
     case LOGIN_FAIL:
       return {
@@ -97,7 +97,7 @@ export default function Auth(init = initialState, action) {
           user: user(),
           isAdmin: user()?.role === AdministratorRoleName,
           isCompanyOwner: user()?.role === CompanyOwnerRoleName,
-          isEmployee: user()?.role===EmployeeRoleName,
+          isEmployee: user()?.role === EmployeeRoleName,
         }; 
     default:
       return init;

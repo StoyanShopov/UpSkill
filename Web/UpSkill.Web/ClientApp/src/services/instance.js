@@ -1,6 +1,8 @@
 import axios from "axios";
 import TokenService from "./tokenService";
+
 import { Base_URL } from "../utils/baseUrlConstant";
+import { logout } from "../actions/auth";
 
 const instance = axios.create({
   baseURL: Base_URL,
@@ -8,6 +10,7 @@ const instance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
 
 instance.interceptors.request.use(
   (config) => {
@@ -28,29 +31,28 @@ instance.interceptors.response.use(
   },
   async (err) => {
     const originalConfig = err.config;
+    
+    if (originalConfig.url !== "Identity/login" && err.response) {
+       // Access Token was expired
+        if (err.response.status === 401 && !originalConfig._retry) {
+            originalConfig._retry = true;
+            try {
+              const rs = await instance.post("Identity/refreshToken", {
+                refreshToken: TokenService.getLocalRefreshToken(),
+              });
 
-    if (originalConfig.url !== "/Identity/login" && err.response) {
-      // Access Token was expired
-      if (err.response.status === 401 && !originalConfig._retry) {
-        originalConfig._retry = true;
+              const { accessToken } = rs.data;
+              TokenService.updateLocalAccessToken(accessToken);
 
-        try {
-          const rs = await instance.post("/Identity/refreshToken", {
-            refreshToken: TokenService.getLocalRefreshToken(),
-          });
-
-          const { accessToken } = rs.data;
-          TokenService.updateLocalAccessToken(accessToken);
-
-          return instance(originalConfig);
-        } catch (_error) {
-          return Promise.reject(_error);
-        }
+              return instance(originalConfig);
+            } 
+            catch (_error) {
+              return Promise.reject(_error);
+            }
+          }
       }
-    }
 
     return Promise.reject(err);
-  }
-);
+  });
 
 export default instance;
