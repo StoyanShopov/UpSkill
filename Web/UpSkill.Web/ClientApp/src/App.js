@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { Route ,useLocation, Switch } from "react-router-dom";
+import { Route, useLocation, Switch } from "react-router-dom";
 import { Provider, useDispatch } from 'react-redux'
 
 import './App.css';
@@ -44,9 +44,7 @@ const AppWrapper = (props) => {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
-
   
-
   useEffect(() => {
     dispatch({
       type: CHECK_CURRENT_STATE
@@ -73,7 +71,6 @@ const AppWrapper = (props) => {
 
 
 function App() {
-
   return (
     <Provider store={store}>
       <AppWrapper>
