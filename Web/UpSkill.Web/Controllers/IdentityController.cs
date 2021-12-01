@@ -26,18 +26,18 @@
         private readonly IIdentityService identity;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailService emailService;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public IdentityController(
             IIdentityService identity,
             UserManager<ApplicationUser> userManager,
             IEmailService emailService,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.identity = identity;
             this.userManager = userManager;
             this.emailService = emailService;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                this.nLog.Error(model, new Exception(this.ModelState.IsValid.ToString()));
+                this.nlog.Error(model, new Exception(this.ModelState.IsValid.ToString()));
 
                 return this.BadRequest(this.ModelState);
             }
@@ -58,7 +58,7 @@
 
             if (isUserRegistered.Failure)
             {
-                this.nLog.Error(model, new Exception(isUserRegistered.Error));
+                this.nlog.Error(model, new Exception(isUserRegistered.Error));
 
                 return this.BadRequest(isUserRegistered.Error);
             }
@@ -81,7 +81,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                this.nLog.Error(model, new Exception(this.ModelState.IsValid.ToString()));
+                this.nlog.Error(model, new Exception(this.ModelState.IsValid.ToString()));
 
                 return this.BadRequest(this.ModelState);
             }
@@ -138,7 +138,7 @@
         {
             this.Response.Cookies.Delete("refreshToken");
 
-            this.nLog.Info("Logged out successfully");
+            this.nlog.Info("Logged out successfully");
 
             return this.Ok(new { message = SuccessMessage });
         }
@@ -160,7 +160,7 @@
                 Role = roles[0] ?? string.Empty,
             };
 
-            this.nLog.Info(result);
+            this.nlog.Info(result);
 
             return result;
         }
@@ -191,8 +191,7 @@
 
             await this.emailService.SendEmailConfirmationAsync(origin, host, user);
 
-            this.nLog.Info("EmailConfirmation action succeeded");
-
+            this.nlog.Info("EmailConfirmation action succeeded");
         }
 
         private async Task ValidateRegisterModel(RegisterRequestModel model)

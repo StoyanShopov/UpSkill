@@ -1,22 +1,22 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
     using System;
+    using System.Collections.Generic;
     using System.Text;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+
     using UpSkill.Data;
     using UpSkill.Data.Common;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Data.Repositories;
-    using UpSkill.Services.Hubs;
     using UpSkill.Services;
     using UpSkill.Services.Account;
     using UpSkill.Services.Blob;
@@ -41,6 +41,7 @@
     using UpSkill.Services.Data.File;
     using UpSkill.Services.Data.Owner;
     using UpSkill.Services.Email;
+    using UpSkill.Services.Hubs;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
@@ -241,6 +242,5 @@
         public static void AddHttpContext(this IServiceCollection services)
             => services
                     .AddHttpContextAccessor();
-
     }
 }
