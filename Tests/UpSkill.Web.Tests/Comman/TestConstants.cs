@@ -43,6 +43,7 @@
             public const string GetAllCoachesExist = "GetAllCoachesExist";
 
             public const string DeleteCoachExist = "DeleteCoachExist";
+
         }
     }
 }

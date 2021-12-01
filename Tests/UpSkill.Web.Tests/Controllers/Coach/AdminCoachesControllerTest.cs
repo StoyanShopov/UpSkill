@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Tests.Controllers.Coach
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
@@ -58,6 +59,53 @@
                 .AndAlso()
                 .ShouldReturn()
                 .Ok(SuccesfullyDeleted);
+        }
+
+        [Fact]
+        public void GetAllShouldBeAllowedOnlyForGetRequestsAndTheCorrectRoute()
+            => MyController<CoachesController>
+                .Instance()
+                .Calling(c => c.GetAll())
+                .ShouldHave()
+                .ActionAttributes(attr => attr.RestrictingForHttpMethod(HttpMethod.Get)
+                    .SpecifyingRoute(GetAll));
+
+        [Fact]
+        public void GetAllShouldReturnTheCorrectDataWithCorrectModel()
+        {
+            this.InitializeDatabase(GetAllCoachesExist);
+
+            MyController<CoachesController>
+                .Instance(instance => instance
+                    .WithData(this.Database.Coaches.ToList()))
+                .Calling(c => c.GetAll())
+                .ShouldReturn()
+                .ResultOfType<IEnumerable<CoachListingModel>>();
+        }
+
+        [Fact]
+        public void GetDetailsByIdShouldBeAllowedForGetRequestsAndTheCorrectRoute()
+            => MyController<CoachesController>
+                .Instance()
+                .Calling(c => c.GetDetails(0))
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes
+                    .RestrictingForHttpMethod(HttpMethod.Get)
+                    .SpecifyingRoute(Details));
+
+        [Theory]
+        [InlineData(1)]
+        public void GetDetailsShouldReturnCorrectDataWithCorrectModel(int id)
+        {
+            this.InitializeDatabase(GetAllCoachesExist);
+
+            MyController<CoachesController>
+                .Instance(instance => instance
+                    .WithData(this.Database.Coaches.ToList()))
+                .Calling(c => c.GetDetails(id))
+                .ShouldReturn()
+                .ResultOfType<CoachDetailsModel>(result => result
+                    .Passing(c => c.Id == id));
         }
     }
 }
