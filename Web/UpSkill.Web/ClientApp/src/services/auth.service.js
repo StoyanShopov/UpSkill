@@ -5,7 +5,7 @@ import jwt from "jwt-decode";
 
 import { Base_URL } from "../utils/baseUrlConstant";
 
-import authHeader from './auth-header';
+
 
 const API_URL = Base_URL + "Identity/";
 const userStorageVarName = "user";

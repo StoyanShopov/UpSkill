@@ -73,13 +73,6 @@ const AppWrapper = (props) => {
 
 
 function App() {
-  const location = useLocation();
-
-  React.useEffect(() => {
-    // TODO: Add interceptors on response here.
-    
-    console.log('Location changed');
-  }, [location]);
 
   return (
     <Provider store={store}>
