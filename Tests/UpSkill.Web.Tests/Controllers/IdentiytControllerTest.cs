@@ -39,7 +39,7 @@
             MyController<IdentityController>
            .Instance(instance => instance
            .WithData(this.Database.Positions.FirstOrDefault(p => p.Name == OwnerRole)))
-           .Calling(c => c.Register(new RegisterRequestModel
+           .Calling(r => r.Register(new RegisterRequestModel
            {
                FirstName = firstName,
                LastName = lastName,
@@ -61,6 +61,90 @@
            .AndAlso()
            .ShouldReturn()
            .StatusCode(201);
+        }
+
+        [Theory]
+        [InlineData(TestFirstName, TestLastName, TestEmail, TestCompanyName, TestPassword, TestConfirmPassword)]
+        public void PostRegisterShouldReturnThisEmailAlreadyExist(string firstName, string lastName, string email, string company, string password, string confirmPassword)
+        {
+            this.InitializeDatabase(IdentityRegisterEmailAlreadyExist);
+
+            MyController<IdentityController>
+                .Instance(instance => instance
+                .WithData(this.Database.Users.ToList()))
+                .Calling(r => r.Register(new RegisterRequestModel
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    CompanyName = company,
+                    Password = password,
+                    ConfirmPassword = confirmPassword,
+                }))
+                .ShouldHave()
+                .Data(data => data
+                .WithSet<ApplicationUser>(set =>
+                {
+                    set.SingleOrDefault(u => u.Email == email).ShouldNotBeNull();
+                }))
+                .AndAlso()
+                .ShouldReturn()
+                .BadRequest(e => e.WithModelStateError());
+        }
+
+        [Fact]
+        public void PostRegisterShouldReturnTheFieldsIsRequiredWhenSomeFromInputDataIsNull()
+            => MyController<IdentityController>
+            .Instance()
+            .Calling(r => r.Register(With.Default<RegisterRequestModel>()))
+            .ShouldHave()
+            .Data(data => data
+            .WithSet<ApplicationUser>(set =>
+            {
+                set.SingleOrDefault(u => u.FirstName == null).ShouldBeNull();
+                set.SingleOrDefault(u => u.LastName == null).ShouldBeNull();
+                set.SingleOrDefault(u => u.Email == null).ShouldBeNull();
+            }))
+            .InvalidModelState()
+            .AndAlso()
+            .ShouldReturn()
+            .BadRequest(e => e.WithModelStateError());
+
+        [Fact]
+        public void PostLoginShouldBeAllowedOnlyForPostRequests()
+            => MyController<IdentityController>
+            .Instance()
+            .Calling(l => l.Login(With.Default<LoginRequestModel>()))
+            .ShouldHave()
+            .ActionAttributes(attributes => attributes
+            .RestrictingForHttpMethod(HttpMethod.Post)
+            .AllowingAnonymousRequests()
+            .SpecifyingRoute(LoginRoute));
+
+        [Theory]
+        [InlineData(TestEmail, TestPassword)]
+        public void PostLoginShouldReturnTokenWhenInputDataIsValid(string email, string password)
+        {
+            MyController<IdentityController>
+                .Instance()
+                .Calling(l => l.Login(new LoginRequestModel
+                {
+                    Email = email,
+                    Password = password,
+                }))
+                .ShouldHave()
+                .ValidModelState()
+                .AndAlso()
+                .ShouldHave()
+                .Data(data => data
+                .WithSet<ApplicationUser>(set =>
+                {
+                    set.ShouldNotBeNull();
+                    set.SingleOrDefault(u => u.Email == email).ShouldNotBeNull();
+                }))
+                .AndAlso()
+                .ShouldReturn()
+                .Ok(r => r.WithModelOfType<LoginResponseModel>());
         }
     }
 }

@@ -38,11 +38,19 @@
                 Email = "user@example.com",
                 CompanyId = 0,
             },
+                new ApplicationUser()
+           {
+                Id = "2",
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+                Email = "testEmail@abv.bg",
+                CompanyId = 1,
+           },
                 new Position()
-                {
-                    Id = 1,
-                    Name = "Owner",
-                },
+           {
+                Id = 1,
+                Name = "Owner",
+           },
                 new Course()
             {
                 Id = 1,

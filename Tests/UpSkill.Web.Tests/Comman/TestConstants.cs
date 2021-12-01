@@ -42,6 +42,10 @@
         {
             public const string IdentityRegisterDatabaseWithValidInputData = "IdentityRegisterDatabase";
 
+            public const string IdentityRegisterEmailAlreadyExist = "IdentityRegisterEmailAlreadyExist";
+
+            public const string LoginReturnToken = "LoginReturnToken";
+
             public const string TestFirstName = "TestFirstName";
 
             public const string TestLastName = "TestLastName";
