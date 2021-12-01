@@ -1,0 +1,12 @@
+{
+    "to_courses_btn": "Към Курсовете",
+    "welcome_to_react": "Добре дошли!",
+    "description": "Описание",
+    "date_time": "Часът е {{current_time}}",
+    "part_of_coach_view": "Част от Coach View-то",
+    "first_instruction": "1. Първо влезнете с  ownerMotionSoftware@test.test в браузъра 1.",
+    "second_instruction": "2. Влезнете отново с employeeMotionSoftware@test.test в браузъра 2",
+    "third_instruction": "3. Изберете стая с id на курса номер 8, в браузъра 1. Останалия текст...",
+    "lorem_ipsum": "Лорем ипсум долор сит амет, цонсул цетеро перципитур еа мел, вел легере цетерос не. Ин перципит лаборамус вис, еам ад неморе продессет цонституам",
+    "start_room_btn": "Заяви стая"
+}

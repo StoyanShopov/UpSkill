@@ -68,7 +68,6 @@ const AppWrapper = (props) => {
   );
 };
 
-
 function App() {
   return (
     <Provider store={store}>

@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom'
 import GA4React from 'ga-4-react'
 
 import i18n, { use } from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
 
@@ -16,6 +16,7 @@ i18n
 use(LanguageDetector)
 use(HttpApi)
   .init({
+    supportedLngs: ['en', 'bg'],
     fallbackLng: "en",
     detection: {
       order: ['cookie', 'querystring', 'localStorage', 'path', 'subdomain'],
@@ -28,10 +29,7 @@ use(HttpApi)
       useSuspense: false
     }
   });
-function App() {
-  const { t } = useTranslation();
-  return <h2>{t('welcome_to_react')}</h2>;
-}
+
 const ga4react = new GA4React('G-P8BE6XL524');
 
 (async _ => {
