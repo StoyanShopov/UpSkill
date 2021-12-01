@@ -108,7 +108,7 @@
         [Route(UserRoute)]
         public async Task<LoginResponseModel> GetCurrentUser()
         {
-            var user = await this.userManager.FindByEmailAsync(this.User.FindFirstValue(ClaimTypes.Email));
+            var user = await this.userManager.FindByEmailAsync(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var roles = await this.userManager.GetRolesAsync(user);
 

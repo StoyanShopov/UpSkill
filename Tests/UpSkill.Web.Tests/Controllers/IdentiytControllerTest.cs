@@ -16,6 +16,7 @@
     using static Comman.TestConstants.Comman;
     using static Comman.TestConstants.Identity;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.IdentityConstants;
     using static Common.GlobalConstants.MessagesConstants;
 
     public class IdentiytControllerTest : TestWithData
@@ -189,8 +190,18 @@
         public void PostLogoutShouldDeleteJWtFromCookies()
             => MyController<IdentityController>
             .Instance()
+            .WithControllerContext(u => u.HttpContext.Response.Cookies.Delete(JWT))
             .Calling(l => l.Logout())
             .ShouldReturn()
             .Ok(new { Message = SuccessMessage });
+
+        // [Fact]
+        // public void GetCurrentUserShouldReturnCurrentUser()
+        //    => MyController<IdentityController>
+        //    .Instance()
+        //    .WithControllerContext(u => u.HttpContext.Response.Cookies.Append("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxOWNhOGZiZC0yMWE5LTQyMjQtYjQxYS00YjUyYzRhY2MxNjYiLCJ1bmlxdWVfbmFtZSI6ImVtcGxveWVlTW90aW9uU29mdHdhcmUiLCJlbWFpbCI6ImVtcGxveWVlTW90aW9uU29mdHdhcmVAdGVzdC50ZXN0Iiwicm9sZSI6IkVtcGxveWVlIiwibmJmIjoxNjM1NDE5NTMwLCJleHAiOjE2MzYwMjQzMzAsImlhdCI6MTYzNTQxOTUzMH0.-oLeCX2ylCeGZtlCh9C7Vzf2kH6AMNBwZzx-VOmBFSU"))
+        //    .Calling(u => u.GetCurrentUser())
+        //    .ShouldReturn()
+        //    .ResultOfType<LoginResponseModel>();
     }
 }
