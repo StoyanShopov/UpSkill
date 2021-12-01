@@ -20,25 +20,25 @@
         private readonly IEmployeeService employeesService;
         private readonly ICurrentUserService currentUser;
         private readonly IPasswordGeneratorService passwordGenerator;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public EmployeeController(
             IEmployeeService employeesService,
             ICurrentUserService currentUser,
             IPasswordGeneratorService passwordGenerator,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.employeesService = employeesService;
             this.currentUser = currentUser;
             this.passwordGenerator = passwordGenerator;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<ListEmployeesViewModel>> GetAll()
         {
-            this.nLog.Info("Entering GetAll");
+            this.nlog.Info("Entering GetAll");
             return await this.employeesService.GetAllAsync<ListEmployeesViewModel>(this.currentUser.GetId());
         }
 
@@ -50,12 +50,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(model, new Exception(result.Error));
+                this.nlog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.Ok(SuccessMessage);
         }
@@ -67,12 +67,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(id, new Exception(result.Failure.ToString()));
+                this.nlog.Error(id, new Exception(result.Failure.ToString()));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(id);
+            this.nlog.Info(id);
 
             return this.Ok(EmployeeSuccesfullyDeleted);
         }

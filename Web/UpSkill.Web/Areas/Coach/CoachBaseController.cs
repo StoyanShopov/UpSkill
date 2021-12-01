@@ -5,7 +5,7 @@
 
     using static Common.GlobalConstants.RolesNamesConstants;
 
-    //[Authorize(Roles = CoachRoleName)]
+    [Authorize(Roles = CoachRoleName)]
     [ApiController]
     [Area("Coach")]
     [Route("Coach/[controller]")]

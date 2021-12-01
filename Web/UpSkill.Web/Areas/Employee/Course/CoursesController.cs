@@ -16,23 +16,23 @@
     {
         private readonly IEmployeeService employeeService;
         private readonly ICurrentUserService currentUser;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public CoursesController(
             IEmployeeService employeeService,
             ICurrentUserService currentUser,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.employeeService = employeeService;
             this.currentUser = currentUser;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoursesListingModel>> GetAll()
         {
-            this.nLog.Info("Entering GetAll action");
+            this.nlog.Info("Entering GetAll action");
 
             return await this.employeeService.GetAllCoursesAsync<CoursesListingModel>(this.currentUser.GetId());
         }
@@ -41,7 +41,7 @@
         [Route(DetailsRoute)]
         public async Task<DetailsViewModel> GetByIdCourse(int courseId)
         {
-            this.nLog.Info("Entering GetByIdCourse");
+            this.nlog.Info("Entering GetByIdCourse");
 
             return await this.employeeService.GetByIdCourseAsync<DetailsViewModel>(this.currentUser.GetId(), courseId);
         }

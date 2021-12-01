@@ -48,8 +48,8 @@
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Field=model.Field,
-                Price=model.Price,
+                Field = model.Field,
+                Price = model.Price,
                 FileId = file,
                 CalendlyUrl = model.CalendlyUrl,
             };
