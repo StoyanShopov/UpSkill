@@ -44,7 +44,12 @@
                 FirstName = "TestFirstName",
                 LastName = "TestLastName",
                 Email = "testEmail@abv.bg",
+                NormalizedEmail = "testEmail@abv.bg".ToUpper(),
                 CompanyId = 1,
+                PasswordHash = "AQAAAAEAACcQAAAAEPApfGLDptLhrGFgXEVwUGu8aXMoxGjrOP8CAjVsjRSnQ3S68UP95bEu4S7yv+EQAw==",
+                EmailConfirmed = true,
+                UserName = "testEmail@abv.bg",
+                NormalizedUserName = "testEmail@abv.bg".ToUpper(),
            },
                 new Position()
            {

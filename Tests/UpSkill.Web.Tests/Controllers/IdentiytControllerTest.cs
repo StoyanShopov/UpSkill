@@ -16,6 +16,7 @@
     using static Comman.TestConstants.Comman;
     using static Comman.TestConstants.Identity;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.MessagesConstants;
 
     public class IdentiytControllerTest : TestWithData
     {
@@ -125,16 +126,16 @@
         [InlineData(TestEmail, TestPassword)]
         public void PostLoginShouldReturnTokenWhenInputDataIsValid(string email, string password)
         {
+            this.InitializeDatabase(LoginReturnToken);
+
             MyController<IdentityController>
-                .Instance()
+                .Instance(instance => instance
+                .WithData(this.Database.Users.ToList()))
                 .Calling(l => l.Login(new LoginRequestModel
                 {
                     Email = email,
                     Password = password,
                 }))
-                .ShouldHave()
-                .ValidModelState()
-                .AndAlso()
                 .ShouldHave()
                 .Data(data => data
                 .WithSet<ApplicationUser>(set =>
@@ -146,5 +147,50 @@
                 .ShouldReturn()
                 .Ok(r => r.WithModelOfType<LoginResponseModel>());
         }
+
+        [Fact]
+        public void PostLoginShouldReturnThereIsNoSuchUserWhenDataInputEmailIsInvalid()
+            => MyController<IdentityController>
+            .Instance()
+            .Calling(l => l.Login(With.Default<LoginRequestModel>()))
+            .ShouldHave()
+            .InvalidModelState()
+            .AndAlso()
+            .ShouldReturn()
+            .BadRequest(e => e.WithModelStateError());
+
+        [Fact]
+        public void PostLoginShouldReturnIncorrectPasswordOrEmail()
+        {
+            this.InitializeDatabase(LoginReturnIncorrectEmailOrPassword);
+
+            MyController<IdentityController>
+                .Instance(instance => instance
+                .WithData(this.Database.Users.ToList()))
+                .Calling(l => l.Login(With.Default<LoginRequestModel>()))
+                .ShouldHave()
+                .InvalidModelState()
+                .AndAlso()
+                .ShouldReturn()
+                .BadRequest(e => e.WithModelStateError());
+        }
+
+        [Fact]
+        public void PostLogoutShouldBeAllowedOnlyForPostRequests()
+            => MyController<IdentityController>
+            .Instance()
+            .Calling(l => l.Logout())
+            .ShouldHave()
+            .ActionAttributes(attributes => attributes
+            .RestrictingForHttpMethod(HttpMethod.Post)
+            .SpecifyingRoute(LogoutRoute));
+
+        [Fact]
+        public void PostLogoutShouldDeleteJWtFromCookies()
+            => MyController<IdentityController>
+            .Instance()
+            .Calling(l => l.Logout())
+            .ShouldReturn()
+            .Ok(new { Message = SuccessMessage });
     }
 }

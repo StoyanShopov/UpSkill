@@ -46,6 +46,8 @@
 
             public const string LoginReturnToken = "LoginReturnToken";
 
+            public const string LoginReturnIncorrectEmailOrPassword = "LoginReturnIncorrectEmailOrPassword";
+
             public const string TestFirstName = "TestFirstName";
 
             public const string TestLastName = "TestLastName";
@@ -54,9 +56,11 @@
 
             public const string TestCompanyName = "TestCompanyName";
 
-            public const string TestPassword = "testPass123";
+            public const string TestPassword = "admin!";
 
-            public const string TestConfirmPassword = "testPass123";
+            public const string TestConfirmPassword = "admin!";
+
+            public const string FakePassword = "123pp";
         }
     }
 }
