@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace UpSkill.Web.Tests.Controllers.Coach
+﻿namespace UpSkill.Web.Tests.Controllers.Coach
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using MyTested.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Tests.Common;

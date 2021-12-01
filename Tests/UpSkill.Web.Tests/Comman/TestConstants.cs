@@ -41,6 +41,8 @@
             public const string GetAllCoaches = "[controller]/getAll";
 
             public const string GetAllCoachesExist = "GetAllCoachesExist";
+
+            public const string DeleteCoachExist = "DeleteCoachExist";
         }
     }
 }
