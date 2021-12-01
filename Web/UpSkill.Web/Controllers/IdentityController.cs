@@ -69,7 +69,7 @@
 
             await this.SetRefreshToken(user);
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.StatusCode(201);
         }
@@ -98,7 +98,7 @@
 
             await this.SetRefreshToken(user);
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.Ok(embededToken);
         }
