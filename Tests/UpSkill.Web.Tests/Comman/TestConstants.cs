@@ -67,17 +67,41 @@
             public const string TestConfirmPassword = "admin!";
 
             public const string FakePassword = "123pp";
+
+            public const string PostRegisterRoute = "/Identity/register";
+
+            public const string PostLoginRoute = "/Identity/login";
+
+            public const string PostLogoutRoute = "/Identity/logout";
+
+            public const string GetCurrentUserRoute = "/Identity/user";
         }
 
         public class Account
         {
             public const string AccountChangesPasswordSuccessguly = "AccountChangesPasswordSuccessguly";
 
+            public const string AccountChangePasswordBadRequestTheUserDoesntExist = "AccountChangePasswordBadRequestTheUserDoesntExist";
+
+            public const string WrongPassword = "WrongPassword";
+
+            public const string FakeConfirmNewPasswordDb = "FakeConfirmNewPasswordDb";
+
+            public const string UserId = "2";
+
+            public const string FakeUserId = "77d";
+
             public const string OldPassword = "admin!";
 
             public const string NewPassword = "newPassword";
 
             public const string ConfirmNewPassword = "newPassword";
+
+            public const string FakeOldPassword = "FakeOldPassword";
+
+            public const string FakeConfirmNewPassword = "FakeConfirmNewPassword";
+
+            public const string AccountChangePasswordRoute = "/Account/changePassword";
         }
     }
 }

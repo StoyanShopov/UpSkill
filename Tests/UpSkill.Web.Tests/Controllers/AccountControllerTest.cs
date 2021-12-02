@@ -6,9 +6,6 @@
     using Microsoft.AspNetCore.Http;
     using MyTested.AspNetCore.Mvc;
 
-    using Shouldly;
-
-    using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Common;
     using UpSkill.Web.Controllers;
     using UpSkill.Web.ViewModels.Account;
@@ -16,15 +13,13 @@
     using Xunit;
 
     using static Comman.TestConstants.Account;
-    using static Comman.TestConstants.Comman;
     using static Comman.TestConstants.Identity;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static UpSkill.Common.GlobalConstants;
+    using static UpSkill.Common.GlobalConstants.AccountConstants;
 
     public class AccountControllerTest : TestWithData
     {
-        private static readonly ApplicationRole Role = new ApplicationRole(OwnerRole);
-        private readonly ApplicationUser user = InitializeFakeUserWithRoles(Role);
-
         [Fact]
         public void PostChangePasswordShouldBeAllowedOnlyForPostRequest()
             => MyController<AccountController>
@@ -44,13 +39,13 @@
             var user = new ClaimsPrincipal(new ClaimsIdentity(
                new Claim[]
                {
-                   new Claim(ClaimTypes.Email, TestEmail),
+                   new Claim(ClaimTypes.NameIdentifier, UserId),
                }, TestAuthentication));
 
             MyController<AccountController>
                 .Instance()
                 .WithHttpContext(new DefaultHttpContext { User = user })
-                .WithData(this.user)
+                .WithData(this.Database.Users.ToList())
                 .Calling(a => a.ChangePassword(new ChangePasswordRequestModel
                 {
                     OldPassword = oldPassword,
@@ -62,6 +57,78 @@
                 .AndAlso()
                 .ShouldReturn()
                 .Ok();
+        }
+
+        [Fact]
+        public void PostChangePasswordShouldShouldReturnBadRequestWhenUserDoesntExist()
+        {
+            this.InitializeDatabase(AccountChangePasswordBadRequestTheUserDoesntExist);
+
+            var user = new ClaimsPrincipal(new ClaimsIdentity(
+               new Claim[]
+               {
+                   new Claim(ClaimTypes.NameIdentifier, FakeUserId),
+               }, TestAuthentication));
+
+            MyController<AccountController>
+               .Instance()
+               .WithHttpContext(new DefaultHttpContext { User = user })
+               .WithData(this.Database.Users.ToList())
+               .Calling(a => a.ChangePassword(With.Default<ChangePasswordRequestModel>()))
+               .ShouldReturn()
+               .BadRequest(Unauthorized);
+        }
+
+        [Theory]
+        [InlineData(FakeOldPassword, NewPassword, ConfirmNewPassword)]
+        public void PostChangePasswordShouldReturnWrongPassword(string oldPassword, string newPassword, string confirmNewPassword)
+        {
+            this.InitializeDatabase(WrongPassword);
+
+            var user = new ClaimsPrincipal(new ClaimsIdentity(
+               new Claim[]
+               {
+                   new Claim(ClaimTypes.NameIdentifier, UserId),
+               }, TestAuthentication));
+
+            MyController<AccountController>
+                .Instance()
+                .WithHttpContext(new DefaultHttpContext { User = user })
+                .WithData(this.Database.Users.ToList())
+                .Calling(a => a.ChangePassword(new ChangePasswordRequestModel
+                {
+                    OldPassword = oldPassword,
+                    NewPassword = newPassword,
+                    ConfirmNewPassword = confirmNewPassword,
+                }))
+                .ShouldReturn()
+                .BadRequest(WrongOldPassword);
+        }
+
+        [Theory]
+        [InlineData(OldPassword, NewPassword, FakeConfirmNewPassword)]
+        public void PostChangePasswordShouldReturnBadRequestWhenNewPasswordDontMatchWithConfirmNewPassword(string oldPassword, string newPassword, string confirmNewPassword)
+        {
+            this.InitializeDatabase(FakeConfirmNewPasswordDb);
+
+            var user = new ClaimsPrincipal(new ClaimsIdentity(
+               new Claim[]
+               {
+                   new Claim(ClaimTypes.NameIdentifier, UserId),
+               }, TestAuthentication));
+
+            MyController<AccountController>
+           .Instance()
+           .WithHttpContext(new DefaultHttpContext { User = user })
+           .WithData(this.Database.Users.ToList())
+           .Calling(a => a.ChangePassword(new ChangePasswordRequestModel
+           {
+               OldPassword = oldPassword,
+               NewPassword = newPassword,
+               ConfirmNewPassword = confirmNewPassword,
+           }))
+           .ShouldReturn()
+           .BadRequest(DifferentPasswords);
         }
     }
 }
