@@ -303,8 +303,7 @@
                 companyOwner,
             };
 
-            //var userManagerMock = MockUserManager<ApplicationUser>(users).Object;
-
+            // var userManagerMock = MockUserManager<ApplicationUser>(users).Object;
             var companyServiceMock = new Mock<ICompanyService>();
             companyServiceMock.Setup(cs => cs.GetByIdAsync<CompanyDetailsModel>(company.Id)).ReturnsAsync(companyViewModelMock);
 

@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace UpSkill.Web.ViewModels.Owner
+﻿namespace UpSkill.Web.ViewModels.Owner
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class RequestCoachModel
     {
         [Required]
