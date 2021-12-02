@@ -77,7 +77,6 @@
                 Email = string.Empty,
                 CompanyId = 0,
             },
-
                 new ApplicationRole
             {
                 Id = "1",

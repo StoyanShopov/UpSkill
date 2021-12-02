@@ -213,7 +213,7 @@
         }
 
         [Theory]
-        [InlineData( 1, "2")]
+        [InlineData(1, "2")]
         public async Task AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany(int coachId, string companyOwnerId)
         {
             const string DatabaseName = "AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany";

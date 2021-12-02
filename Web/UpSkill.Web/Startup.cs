@@ -99,11 +99,11 @@
                 })
                 .ApplyMigrations();
 
-            app.UseAzureSignalR(route =>
-            {
-                route.MapHub<ChatHub>("/chat");
-                route.MapHub<ZoomHub>("/zoom");
-            });
+            //app.UseAzureSignalR(route =>
+            //{
+            //    route.MapHub<ChatHub>("/chat");
+            //    route.MapHub<ZoomHub>("/zoom");
+            //});
 
             app.UseSpa(spa =>
             {

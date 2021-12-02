@@ -1,14 +1,10 @@
-﻿using MyTested.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UpSkill.Web.Areas.Owner.Course;
-using UpSkill.Web.ViewModels.Course;
-using Xunit;
-
-namespace UpSkill.Web.Tests.Routes
+﻿namespace UpSkill.Web.Tests.Routes
 {
+    using MyTested.AspNetCore.Mvc;
+    using UpSkill.Web.Areas.Owner.Course;
+    using UpSkill.Web.ViewModels.Course;
+    using Xunit;
+
     using static Comman.TestConstants.Course;
 
     public class OwnerCoursesRouteTest
