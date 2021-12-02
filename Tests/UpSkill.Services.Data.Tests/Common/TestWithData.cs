@@ -1,8 +1,15 @@
 ﻿namespace UpSkill.Services.Data.Tests.Common
 {
+    using System.Collections.Generic;
+    using System.Security.Claims;
+
+    using Microsoft.AspNetCore.Identity;
+
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
+
+    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 
     public abstract class TestWithData
     {
@@ -16,6 +23,32 @@
         }
 
         protected ApplicationDbContext Database { get; private set; }
+
+        public static ApplicationUser InitializeFakeUserWithRoles(ApplicationRole role)
+        {
+            var claim = new Claim(CompanyOwnerRoleName, CompanyOwnerRoleName);
+            var identityUser = new IdentityUserClaim<string>();
+            var identityUserRole = new IdentityUserRole<string>();
+            identityUser.InitializeFromClaim(claim);
+            identityUserRole.RoleId = role.Id;
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = "testEmail@abv.bg",
+                NormalizedUserName = "testEmail@abv.bg".ToUpper(),
+                Email = "testEmail@abv.bg",
+                NormalizedEmail = "testEmail@abv.bg".ToUpper(),
+                EmailConfirmed = true,
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+                CompanyId = 1,
+                Claims = new List<IdentityUserClaim<string>> { identityUser },
+            };
+
+            identityUserRole.UserId = user.Id;
+            user.Roles = new List<IdentityUserRole<string>> { identityUserRole };
+
+            return user;
+        }
 
         private static void AddFakeData(FakeUpSkillDbContext dbContext)
             => dbContext.AddFakeData(
@@ -37,6 +70,12 @@
                 Id = "1",
                 Email = "user@example.com",
                 CompanyId = 0,
+            },
+                new ApplicationRole
+            {
+                Id = "1",
+                Name = "Admin",
+                NormalizedName = "Admin".ToUpper(),
             },
                 new ApplicationUser()
            {

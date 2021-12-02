@@ -1,7 +1,9 @@
 ﻿namespace UpSkill.Web.Tests.Controllers
 {
     using System.Linq;
+    using System.Security.Claims;
 
+    using Microsoft.AspNetCore.Http;
     using MyTested.AspNetCore.Mvc;
 
     using Shouldly;
@@ -21,6 +23,9 @@
 
     public class IdentiytControllerTest : TestWithData
     {
+        private static readonly ApplicationRole Role = new ApplicationRole(OwnerRole);
+        private readonly ApplicationUser user = InitializeFakeUserWithRoles(Role);
+
         [Fact]
         public void PostRegisterShouldBeAllowedOnlyForPostRequests()
             => MyController<IdentityController>
@@ -195,13 +200,55 @@
             .ShouldReturn()
             .Ok(new { Message = SuccessMessage });
 
-        // [Fact]
-        // public void GetCurrentUserShouldReturnCurrentUser()
-        //    => MyController<IdentityController>
-        //    .Instance()
-        //    .WithControllerContext(u => u.HttpContext.Response.Cookies.Append("jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxOWNhOGZiZC0yMWE5LTQyMjQtYjQxYS00YjUyYzRhY2MxNjYiLCJ1bmlxdWVfbmFtZSI6ImVtcGxveWVlTW90aW9uU29mdHdhcmUiLCJlbWFpbCI6ImVtcGxveWVlTW90aW9uU29mdHdhcmVAdGVzdC50ZXN0Iiwicm9sZSI6IkVtcGxveWVlIiwibmJmIjoxNjM1NDE5NTMwLCJleHAiOjE2MzYwMjQzMzAsImlhdCI6MTYzNTQxOTUzMH0.-oLeCX2ylCeGZtlCh9C7Vzf2kH6AMNBwZzx-VOmBFSU"))
-        //    .Calling(u => u.GetCurrentUser())
-        //    .ShouldReturn()
-        //    .ResultOfType<LoginResponseModel>();
+        [Fact]
+        public void GetCurrentUserShouldBeAllowedOnlyForGetRequests()
+        {
+            this.InitializeDatabase(GetCurrentUserAllowedHttpGet);
+
+            var user = new ClaimsPrincipal(new ClaimsIdentity(
+                new Claim[]
+                {
+                   new Claim(ClaimTypes.Email, TestEmail),
+                }, TestAuthentication));
+
+            MyController<IdentityController>
+            .Instance()
+            .WithHttpContext(new DefaultHttpContext { User = user })
+            .WithData(this.user, Role)
+            .Calling(u => u.GetCurrentUser())
+            .ShouldHave()
+            .ActionAttributes(attributes => attributes
+            .RestrictingForHttpMethod(HttpMethod.Get)
+            .SpecifyingRoute(UserRoute));
+        }
+
+        [Fact]
+        public void GetCurrentUserShouldReturnCurrentUser()
+        {
+            this.InitializeDatabase(GetCurrentUser);
+
+            var user = new ClaimsPrincipal(new ClaimsIdentity(
+                new Claim[]
+                {
+                   new Claim(ClaimTypes.Email, TestEmail),
+                }, TestAuthentication));
+
+            MyController<IdentityController>
+                .Instance()
+                .WithHttpContext(new DefaultHttpContext { User = user })
+                .WithData(this.user, Role)
+                .Calling(u => u.GetCurrentUser())
+                .ShouldReturn()
+                .ResultOfType<LoginResponseModel>();
+        }
+
+        [Fact]
+        public void GetCurrentUserShoulReturnExceptionWhenUserIsNotLogged()
+            => MyController<IdentityController>
+            .Instance()
+            .WithoutUser()
+            .Calling(u => u.GetCurrentUser())
+            .ShouldThrow()
+            .Exception();
     }
 }

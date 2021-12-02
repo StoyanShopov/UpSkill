@@ -48,6 +48,12 @@
 
             public const string LoginReturnIncorrectEmailOrPassword = "LoginReturnIncorrectEmailOrPassword";
 
+            public const string TestAuthentication = "TestAuthentication";
+
+            public const string GetCurrentUser = "GetCurrentUser";
+
+            public const string GetCurrentUserAllowedHttpGet = "GetCurrentUserAllowedHttpGet";
+
             public const string TestFirstName = "TestFirstName";
 
             public const string TestLastName = "TestLastName";
@@ -61,6 +67,17 @@
             public const string TestConfirmPassword = "admin!";
 
             public const string FakePassword = "123pp";
+        }
+
+        public class Account
+        {
+            public const string AccountChangesPasswordSuccessguly = "AccountChangesPasswordSuccessguly";
+
+            public const string OldPassword = "admin!";
+
+            public const string NewPassword = "newPassword";
+
+            public const string ConfirmNewPassword = "newPassword";
         }
     }
 }
