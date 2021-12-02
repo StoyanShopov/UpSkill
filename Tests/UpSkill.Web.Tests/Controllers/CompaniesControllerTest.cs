@@ -59,7 +59,7 @@
 
             MyController<CompaniesController>
                 .Instance(instance => instance
-                .WithData(this.Database.Companies.ToList()))
+                .WithData(this.Database.Companies.FirstOrDefault(c => c.Name == name)))
                 .Calling(c => c.Create(new CreateCompanyRequestModel
                 {
                     Name = name,

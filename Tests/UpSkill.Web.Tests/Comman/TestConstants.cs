@@ -7,6 +7,8 @@
             public const string GetAll = "getAll";
 
             public const string Details = "details";
+
+            public const string OwnerRole = "Owner";
         }
 
         public class Company
@@ -44,6 +46,29 @@
 
             public const string DeleteCoachExist = "DeleteCoachExist";
 
+        public class Identity
+        {
+            public const string IdentityRegisterDatabaseWithValidInputData = "IdentityRegisterDatabase";
+
+            public const string IdentityRegisterEmailAlreadyExist = "IdentityRegisterEmailAlreadyExist";
+
+            public const string LoginReturnToken = "LoginReturnToken";
+
+            public const string LoginReturnIncorrectEmailOrPassword = "LoginReturnIncorrectEmailOrPassword";
+
+            public const string TestFirstName = "TestFirstName";
+
+            public const string TestLastName = "TestLastName";
+
+            public const string TestEmail = "testEmail@abv.bg";
+
+            public const string TestCompanyName = "TestCompanyName";
+
+            public const string TestPassword = "admin!";
+
+            public const string TestConfirmPassword = "admin!";
+
+            public const string FakePassword = "123pp";
         }
     }
 }
