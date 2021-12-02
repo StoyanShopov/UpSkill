@@ -13,20 +13,21 @@
     <link href="~/lib/css/home.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="../Pages/assets/Group 5.svg" id="favicon" media="(prefers-color-scheme:light)">
     <link rel="icon" href="../Pages/assets/footerLOGO-NoBg.png" id="favicon" media="(prefers-color-scheme:dark)">
+    <link rel="icon" href="../ClientApp/src/components/Authentication/Login/Login.js" id="favicon" media="(prefers-color-scheme:dark)">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300" rel="stylesheet" />
-    
+
 </head>
 
 <body>
     <div class="container">
         <div class="header">
             <div class="img-and-text">
-                <img src="~/lib/assets/Group 5.svg" alt="" />
-                <h1 class="upskill-header">upskill</h1>
+                <img src="~/lib/assets/Group 5.svg" onclick="location.href='/'" />
+                <h1 class="upskill-header" onclick="location.href='/'">upskill</h1>
             </div>
             <div class="buttons">
-                <button class="login">Login</button>
-                <button class="register">Request a Demo</button>
+                <button class="login" onclick="location.href='/Login'">Login</button>
+                <button class="register" onclick="location.href='/RequestDemo'">Request a Demo</button>
             </div>
         </div>
         <div class="body">
@@ -46,23 +47,23 @@
                         Upskill gives everyone the opportunity to grow professionally and develop into a specialist in every field.
                     </p>
 
-                    <button class="button-desc login"><a href="">Get Started</a></button>
+                    <button class="button-desc login" onclick="location.href='/Courses'">Get Started</button>
                 </div>
             </section>
             <section class="company">
                 <h1>Company</h1>
                 <div>
-                    <a href="">About us</a>
-                    <a href="">Contact us</a>
-                    <a href="">Privacy Policy</a>
+                    <a href="/About">About us</a>
+                    <a href="/Contact">Contact us</a>
+                    <a href="/Privacy">Privacy Policy</a>
                 </div>
             </section>
             <section class="services">
                 <h1>Services</h1>
                 <div>
-                    <a href="">Courses</a>
-                    <a href="">Coaches</a>
-                    <a href="">Requests</a>
+                    <a href="/Courses">Courses</a>
+                    <a href="/Coaches">Coaches</a>
+                    <a href="/Requests">Requests</a>
                 </div>
             </section>
             <section class="links">

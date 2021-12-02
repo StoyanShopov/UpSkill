@@ -4,7 +4,7 @@ import FooterMenu from './Footer/Footer';
 
 import './Layout.css';
 
-function Layout(props) {
+export default function Layout(props) {
     return (
         <>
             <NavMenu />
@@ -15,6 +15,3 @@ function Layout(props) {
         </>
     );
 }
-
-React.render(<Layout />, document.getElementById("reactdiv"));
-export default function Layout();
