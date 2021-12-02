@@ -68,7 +68,7 @@
                 .Data(data => data
                   .WithSet<Company>(set =>
                   {
-                     set.SingleOrDefault(a => a.Name == name).ShouldNotBeNull();
+                      set.SingleOrDefault(a => a.Name == name).ShouldNotBeNull();
                   }))
                 .AndAlso()
                 .ShouldReturn()
@@ -131,7 +131,7 @@
                 .Calling(c => c.Edit(
                     new UpdateCompanyRequestModel
                     {
-                       Name = $"Edit {name}",
+                        Name = $"Edit {name}",
                     }, id))
                 .ShouldHave()
                 .ValidModelState()

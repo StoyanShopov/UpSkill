@@ -7,6 +7,6 @@
 
     public interface IAccountService
     {
-        Task<Result> ChangePasswordAsync(ChangePasswordRequestModel model);
+        Task<Result> ChangePasswordAsync(ChangePasswordRequestModel model, string userId);
     }
 }
