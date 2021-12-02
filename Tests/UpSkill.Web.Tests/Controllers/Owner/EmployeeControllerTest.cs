@@ -75,7 +75,12 @@
             {
                 Name = positionName,
             },
-            new ApplicationRole(CompanyEmployeeRoleName))
+            new ApplicationRole()
+            {
+                Id = "1",
+                Name = CompanyEmployeeRoleName,
+                NormalizedName = CompanyEmployeeRoleName.ToUpper(),
+            })
             .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName)))
             .Calling(c => c.Create(new CreateEmployeeViewModel
             {
@@ -100,7 +105,12 @@
             {
                 Name = positionName,
             },
-            new ApplicationRole(CompanyEmployeeRoleName))
+            new ApplicationRole()
+            {
+                Id = "1",
+                Name = CompanyEmployeeRoleName,
+                NormalizedName = CompanyEmployeeRoleName.ToUpper(),
+            })
             .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName)))
             .Calling(c => c.Create(new CreateEmployeeViewModel
             {
@@ -140,7 +150,12 @@
             {
                 Name = positionName,
             },
-            new ApplicationRole(CompanyEmployeeRoleName))
+            new ApplicationRole()
+            {
+                Id = "1",
+                Name = CompanyEmployeeRoleName,
+                NormalizedName = CompanyEmployeeRoleName.ToUpper(),
+            })
             .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName)))
             .Calling(c => c.Create(new CreateEmployeeViewModel
             {
@@ -154,7 +169,7 @@
 
         [Theory]
         [InlineData(TestEmployeeInvalidName, TestEmployeeEmail, TestEmployeePosition)]
-        public void CreateShouldReturnBadRequestIfTheNamePatternIsWrong(string fullName, string email, string positionName)
+        public void CreateShouldReturnBadRequestIfTheNamePatternIsWrong(string invalidName, string email, string positionName)
         {
             MyController<EmployeeController>
             .Instance(instance => instance
@@ -164,11 +179,16 @@
             {
                 Name = positionName,
             },
-            new ApplicationRole(CompanyEmployeeRoleName))
+            new ApplicationRole()
+            {
+                Id = "1",
+                Name = CompanyEmployeeRoleName,
+                NormalizedName = CompanyEmployeeRoleName.ToUpper(),
+            })
             .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName)))
             .Calling(c => c.Create(new CreateEmployeeViewModel
             {
-                FullName = fullName,
+                FullName = invalidName,
                 Email = email,
                 Position = positionName,
             }))
@@ -220,7 +240,7 @@
             this.user,
             new ApplicationUser
             {
-                Id=employeeId,
+                Id = employeeId,
                 FirstName = fullName,
                 Email = email,
             },

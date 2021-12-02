@@ -55,6 +55,11 @@
 
             var employeeFullName = model.FullName.Split(" ", 2, StringSplitOptions.RemoveEmptyEntries).ToList();
 
+            if (employeeFullName.Count != 2)
+            {
+                return WrongEmployeeNamePattern;
+            }
+
             var employeeFirstName = employeeFullName[0];
             var employeeLastName = employeeFullName[1];
 
@@ -80,13 +85,7 @@
             };
 
             await this.userManager.CreateAsync(newEmployee, newEmployeePassword);
-            try
-            {
-                await this.userManager.AddToRoleAsync(newEmployee, CompanyEmployeeRoleName);
-            }
-            catch (Exception ex)
-            {
-            }
+            await this.userManager.AddToRoleAsync(newEmployee, CompanyEmployeeRoleName);
 
             return true;
         }
