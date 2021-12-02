@@ -211,20 +211,19 @@
             Assert.False(resultNoSuchCompany.Succeeded);
         }
 
-        [Fact]
-        public async Task AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany()
+        [Theory]
+        [InlineData( 1, "2")]
+        public async Task AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany(int coachId, string companyOwnerId)
         {
-            const int CoachId = 1;
-            const string CompanyOwnerId = "2";
             const string DatabaseName = "AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany";
             this.InitializeDatabase(DatabaseName);
             var companyOwner = await this.Database
                 .Users
-                .FindAsync(CompanyOwnerId);
+                .FindAsync(companyOwnerId);
 
             var companyCoach = new AddCoachToCompanyModel()
             {
-                CoachId = CoachId,
+                CoachId = coachId,
                 OwnerEmail = companyOwner.Email,
             };
 
