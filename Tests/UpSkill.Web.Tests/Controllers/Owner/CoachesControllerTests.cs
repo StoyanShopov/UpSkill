@@ -226,12 +226,12 @@
         public void DeleteCoachFromOwnerShouldRemoveCoachFromCompanyAndShouldReturnRemovedSuccessfully(int coachId, string coachName)
         {
             MyController<CoachesController>
-            .Instance()
+            .Instance(instance => instance
             .WithData(
                 this.user,
                 new Coach
                 {
-                    Id = TestCoachId,
+                    Id = coachId,
                     FirstName = coachName,
                 },
                 new Company
@@ -244,7 +244,7 @@
                     CoachId = coachId,
                     CompanyId = this.user.CompanyId,
                 })
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName)))
             .Calling(c => c.DeleteCoachFromOwner(coachId))
             .ShouldHave()
             .ActionAttributes(atributes => atributes

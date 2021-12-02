@@ -145,7 +145,7 @@
             }
 
             var companyCoach = await this.companyCoaches
-                .AllAsNoTracking()
+                .All()
                 .Where(cc => cc.CoachId == coachId
                 && cc.CompanyId == user.CompanyId)
                 .FirstOrDefaultAsync();

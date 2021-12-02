@@ -41,6 +41,27 @@
             public const string TestAddCoachToOwnerRouteCoach = "Owner/Coaches";
 
             public const string TestGetAllRouteCompanyCoach = "/Owner/Coaches/getAll";
+
+            public const string TestDeleteRouteCompanyCoach = "/Owner/Coaches?id=1";
+
+            public const string TestRequestCoachRouteCompanyCoach = "/Owner/Coaches/newCoach";
+        }
+
+        public class Employee
+        {
+            public const string TestEmployeeInvalidName = "TestEmployee";
+
+            public const string TestEmployeeFullName = "TestEmployee TestEmployee";
+
+            public const string TestEmployeeEmail = "TestEmployee@gmail.com";
+
+            public const string TestEmployeePosition = "TestPosition";
+
+            public const string EmailExists = "An employee with this email already exists.";
+
+            public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
+
+            public const string EmployeeSuccesfullyDeleted = "Employee was successfully removed";
         }
 
         public class RolesNamesConstants

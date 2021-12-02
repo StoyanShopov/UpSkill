@@ -80,14 +80,20 @@
             };
 
             await this.userManager.CreateAsync(newEmployee, newEmployeePassword);
-            await this.userManager.AddToRoleAsync(newEmployee, CompanyEmployeeRoleName);
+            try
+            {
+                await this.userManager.AddToRoleAsync(newEmployee, CompanyEmployeeRoleName);
+            }
+            catch (Exception ex)
+            {
+            }
 
             return true;
         }
 
         public async Task<Result> DeleteAsync(string id)
         {
-            var employee = await this.users.AllAsNoTracking()
+            var employee = await this.users.All()
              .Where(e => e.Id == id)
               .FirstOrDefaultAsync();
             if (employee == null)
