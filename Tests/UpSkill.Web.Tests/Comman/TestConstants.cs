@@ -34,6 +34,8 @@
             public const string TestGetAllRouteCompany = "/Admin/Companies/getAll";
 
             public const string TestGetDetailsRouteCompany = "/Admin/Companies/details?id=1";
+
+            public const int TestCompanyId = 1;
         }
 
         public class Coach
@@ -78,6 +80,39 @@
             public const string TestOwnerUserName = "ownerMotionSoftware";
 
             public const string TestOwnerEmail = "ownerMotionSoftware@test.test";
+        }
+
+        public class AdministratorConstants
+        {
+            public const string AdministratorUserName = "administrator";
+
+            public const string AdministratorEmail = "administrator@test.test";
+        }
+
+        public class AdminCoursesConstants
+        {
+            public const string OwnerEmail = "owner@test.test";
+
+            public const string UserEmail = "user@test.test";
+
+            public const string TestTitle = "Title";
+
+            public const string TestDescription = "testDescription";
+
+            // compilation error when try to use this value
+            public const decimal TestPrice = 10;
+
+            public const int TestCoachId = 1;
+
+            public const int TestCategoryId = 1;
+
+            public const string PostCourseExist = "PostCourseExist";
+
+            public const string DetailsCourseExist = "DetailsCourseExist";
+
+            public const string DeleteCourseExist = "DeleteCourseExist";
+
+            public const string GetAllCourseExist = "GetAllCourseExist";
         }
     }
 }
