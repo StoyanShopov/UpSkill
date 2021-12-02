@@ -118,6 +118,7 @@
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
             mgr.Setup(u => u.GetRolesAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(new List<string>
                 { AdministratorRoleName });
+            mgr.Setup(u => u.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync(companyOwner);
             var service = await this.MockOwnersServices(coachId, companyId, companyOwnerId, adminId, mgr);
 
             var result = await service.AddCoachAsync(companyCoach);
