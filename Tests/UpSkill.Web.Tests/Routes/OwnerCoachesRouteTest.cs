@@ -7,7 +7,7 @@
 
     using static Comman.TestConstants.Coach;
 
-    public class CoachesRouteTest
+    public class OwnerCoachesRouteTest
     {
         [Fact]
         public void PostAddingCoachToOwnerShouldBeRouteCorrectly()

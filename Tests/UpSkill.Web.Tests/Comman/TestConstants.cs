@@ -36,6 +36,8 @@
             public const string TestGetDetailsRouteCompany = "/Admin/Companies/details?id=1";
 
             public const int TestCompanyId = 1;
+
+            public const string ActiveCourses = "getActiveCourses";
         }
 
         public class Coach
@@ -64,6 +66,14 @@
             public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
 
             public const string EmployeeSuccesfullyDeleted = "Employee was successfully removed";
+
+            public const string TestCreateEmployeeRoute = "Owner/Employee";
+
+            public const string TestGetAllRoute = "/Owner/Employee/getAll";
+
+            public const string TestDeleteEmployeeRoute = "/Owner/Employee?id=1";
+
+            public const string TestGetAllCompanyEmployeesRoute = "/Owner/Employee/getAllEmployees";
         }
 
         public class RolesNamesConstants
