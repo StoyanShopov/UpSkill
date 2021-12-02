@@ -34,7 +34,7 @@ body {
 }
 
 .footer {
-    background: transparent url('assets/Path\ 8.svg') 0% 0% no-repeat padding-box;
+    background: transparent url('../assets/Path 8.svg') 0% 0% no-repeat padding-box;
     background-size: cover;
     bottom: 31px;
     position: absolute;
