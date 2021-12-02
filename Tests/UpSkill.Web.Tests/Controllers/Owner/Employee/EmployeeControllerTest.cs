@@ -1,21 +1,14 @@
-﻿namespace UpSkill.Web.Tests.Controllers.Owner
+﻿namespace UpSkill.Web.Tests.Controllers.Owner.Employee
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
-    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Moq;
     using MyTested.AspNetCore.Mvc;
     using Shouldly;
     using UpSkill.Data.Models;
-    using UpSkill.Services.Data.Contracts.Employee;
     using UpSkill.Web.Areas.Owner.Employee;
-    using UpSkill.Web.Infrastructure.Extensions.Contracts;
-    using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Employee;
     using Xunit;
 

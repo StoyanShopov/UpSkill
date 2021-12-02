@@ -6,20 +6,13 @@
     using MyTested.AspNetCore.Mvc;
     using Shouldly;
     using UpSkill.Data.Models;
-    using UpSkill.Services.Data.Tests.Common;
-    using UpSkill.Web.Areas.Owner.Coach;
     using UpSkill.Web.Areas.Owner.Course;
-    using UpSkill.Web.Areas.Owner.Employee;
-    using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Course;
-    using UpSkill.Web.ViewModels.Owner;
     using Xunit;
 
-    using static Comman.TestConstants.Comman;
     using static Comman.TestConstants.Company;
     using static Comman.TestConstants.CompanyOwnerConstants;
     using static Comman.TestConstants.RolesNamesConstants;
-    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CoursesControllerTest
     {
@@ -37,127 +30,6 @@
             LastName = TestOwnerUserName,
             CompanyId = TestCompanyId,
         };
-
-        [Theory]
-        [InlineData(5, TestOwnerEmail)]
-        public void AddCoachAsyncShouldBeAllowedOnlyForPostMethods(int coachId, string email)
-        =>
-            MyController<CoachesController>
-            .Instance()
-            .WithData(this.user)
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
-            .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
-            {
-                CoachId = coachId,
-                OwnerEmail = email,
-            }))
-            .ShouldHave()
-            .ActionAttributes(attributes => attributes
-                       .RestrictingForHttpMethod(HttpMethod.Post));
-
-        [Theory]
-        [InlineData(5, "Sasho", TestOwnerEmail)]
-        public void AddCoachAsyncShouldAddCoachToCompanyAndShouldReturnSucceeded(int coachId, string coachFirstName, string email)
-        =>
-            MyController<CoachesController>
-            .Instance()
-            .WithData(
-                this.user,
-                new Coach
-                {
-                    Id = coachId,
-                    FirstName = coachFirstName,
-                },
-                new Company
-                {
-                    Id = this.user.CompanyId,
-                    Name = TestCompany,
-                })
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
-            .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
-            {
-                CoachId = coachId,
-                OwnerEmail = email,
-            }))
-            .ShouldHave()
-            .ActionAttributes(attributes => attributes
-                       .RestrictingForHttpMethod(HttpMethod.Post))
-            .AndAlso()
-            .ShouldHave()
-            .Data(data => data
-               .WithSet<CompanyCoach>(set =>
-               {
-                   set.ShouldNotBeNull();
-                   set.SingleOrDefault(cc => cc.CoachId == coachId && cc.CompanyId == this.user.CompanyId).ShouldNotBeNull();
-               }))
-            .AndAlso()
-            .ShouldReturn()
-            .Ok();
-
-        [Theory]
-        [InlineData(5, TestOwnerEmail)]
-        public void AddCoachAsyncShouldReturnFailureIfUserEmailIsNotOfAexistingUser(int coachId, string email)
-        =>
-            MyController<CoachesController>
-            .Instance()
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
-            .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
-            {
-                CoachId = coachId,
-                OwnerEmail = email,
-            }))
-            .ShouldHave()
-            .ActionAttributes(attributes => attributes
-                       .RestrictingForHttpMethod(HttpMethod.Post))
-            .AndAlso()
-            .ShouldReturn()
-            .BadRequest(DoesNotExist);
-
-        [Theory]
-        [InlineData(5, TestOwnerEmail)]
-        public void AddCoachAsyncShouldReturnFailureIfCoachDoesNotExistInDB(int coachId, string email)
-        =>
-            MyController<CoachesController>
-            .Instance()
-            .WithData(this.user)
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
-            .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
-            {
-                CoachId = coachId,
-                OwnerEmail = email,
-            }))
-            .ShouldHave()
-            .ActionAttributes(attributes => attributes
-                       .RestrictingForHttpMethod(HttpMethod.Post))
-            .AndAlso()
-            .ShouldReturn()
-            .BadRequest(DoesNotExist);
-
-        [Theory]
-        [InlineData(5, "Christopher", TestOwnerEmail)]
-        public void AddCoachAsyncShouldReturnFailureIfCompanyDoesNotExistInDB(int coachId, string coachFirstName, string email)
-        =>
-            MyController<CoachesController>
-            .Instance()
-            .WithData(
-                this.user,
-                new Coach
-                {
-                    Id = coachId,
-                    FirstName = coachFirstName,
-                })
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
-            .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
-            {
-                CoachId = coachId,
-                OwnerEmail = email,
-            }))
-            .ShouldHave()
-            .ActionAttributes(attributes => attributes
-                       .RestrictingForHttpMethod(HttpMethod.Post))
-            .AndAlso()
-            .ShouldReturn()
-            .BadRequest(DoesNotExist);
 
         [Fact]
         public void GetActiveCoursesShouldReturnResultWithIenumarableOfDetailsViewModel()

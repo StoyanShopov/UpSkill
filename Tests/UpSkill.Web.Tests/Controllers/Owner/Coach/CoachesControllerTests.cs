@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Web.Tests.Controllers.Owner
+﻿namespace UpSkill.Web.Tests.Controllers.Owner.Coach
 {
     using System.Collections.Generic;
     using System.Linq;

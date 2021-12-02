@@ -51,6 +51,15 @@
             public const string TestRequestCoachRouteCompanyCoach = "/Owner/Coaches/newCoach";
         }
 
+        public class Course
+        {
+            public const string TestgetActiveCoursesRoute = "/Owner/Courses/getActiveCourses";
+
+            public const string TestDisableCourseRoute = "/Owner/Courses/disable?id=1";
+
+            public const string TestRequestCourseRoute = "/Owner/Courses/RequestCourse";
+        }
+
         public class Employee
         {
             public const string TestEmployeeInvalidName = "TestEmployee";
