@@ -38,7 +38,7 @@ export default function CompanyOwnerSidebar({ menuItems }) {
         </div>
         <div style={{ textAlign: 'start' }}>
           {menuItems.map((menuItem) => (
-            <NavLink
+            <NavLink 
               to={menuItem.path}
               key={menuItem.path}
               style={{ textDecoration: 'none' }}

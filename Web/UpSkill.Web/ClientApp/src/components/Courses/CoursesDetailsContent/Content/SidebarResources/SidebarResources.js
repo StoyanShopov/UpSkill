@@ -15,25 +15,27 @@ const SidebarResources = (props) => {
 return(
     <CourseDetailsResourcesContext.Provider
     value={[currentLecture, courseFileFilePath, courseCoachFirstName, courseCoachLastName]}>
-        <Details/>
-        <div className="container">
-         <div className="courseResourcesSidebar"></div>
-         <span className="lecturesContent">Lectures</span>
+        <Details />
+        <div className="courseResoursesSidebar">
+         <span style={{ display: 'block', verticalAlign: 'middle' }}>Lectures</span>
             <section>
                 <ul>
-                    <li className="lecturesContentSpan">
+                    <li style={{ textAlign: 'start' }}>
                     {courseLectures.map((lecture) =>(
                         <div key={lecture.id}>
-                          <hr/>
-                          <div value={lecture} onClick={() => setCurrentLecture({lecture})}>{lecture.lectureName}</div>
+                        <div 
+                          value={lecture} 
+                          onClick={() => setCurrentLecture({lecture})}>
+                            <span className='courseNonSelectedMenuStyle'>
+                            {lecture.lectureName}
+                            </span>
+                        </div>
                         </div>
                     ))}
                     </li>
                 </ul>
             </section>
-            <div className="courseButtonViewMore">
-               <span className="courseButtonViewMoreSpan">View More</span>
-            </div>
+               <span className="nav-link viewMore">View More</span>
       </div>
     </CourseDetailsResourcesContext.Provider>
    )

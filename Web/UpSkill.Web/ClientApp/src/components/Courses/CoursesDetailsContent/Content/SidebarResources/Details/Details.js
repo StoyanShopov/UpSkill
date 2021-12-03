@@ -9,7 +9,7 @@ import CourseDetailsResourcesContext from "../../../../../../Context/CourseDetai
 
 import './Details.css';
 
-const Details = () => { 
+const Details = () => {
   const [currentLecture, courseFileFilePath, courseCoachFirstName, courseCoachLastName] = useContext(CourseDetailsResourcesContext);
   const [text, setText] = useState("");
   const { store } = useContext(ReactReduxContext);

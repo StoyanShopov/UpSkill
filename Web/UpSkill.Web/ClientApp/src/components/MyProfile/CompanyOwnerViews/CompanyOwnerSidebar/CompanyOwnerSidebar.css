@@ -1,8 +1,9 @@
-.sidebar-content{    
+.sidebar-content{
+    left: initial;   
     top: 50px;
     width: 30%;
     background-color: #296CFB1A;
-    padding: 5rem;
+    padding: 5rem; 
 }
 
 .selectedMenuStyle{    
