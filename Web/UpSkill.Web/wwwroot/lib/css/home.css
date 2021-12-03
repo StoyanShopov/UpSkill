@@ -6,50 +6,53 @@ body {
     font-family: Montserrat;
 }
 
-    body h1 {
-        font-size: 22px;
-    }
-
-.container {
-    min-height: 100%;
-    position: relative;
+body{
+    background-color: #0B2969!important;
 }
 
-.header {
+
+body h1 {
+    font-size: 22px;
+}
+
+.custom-container{
+    width: 1400px!important;
+    margin: auto;   
+}
+
+.home-header {
     box-shadow: 0px 3px 6px #00000029;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     padding: 10px;
     min-height: 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 10px 50px;
     align-items: center;
 }
 
-.body {
-    display: block;
-    padding: 10px;
-    height: 150vh;
-    max-height: 1000px;
-}
-
-.footer {
+.home-footer {
+    background-color: white!important;
     background: transparent url('../assets/Path 8.svg') 0% 0% no-repeat padding-box;
     background-size: cover;
-    bottom: 31px;
-    position: absolute;
+    position: relative;
     left: 0;
     width: 100%;
-    height: 50vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: end;
-    max-height: 500px;
-    padding-bottom: 70px;
+    height: 70vh;
+    max-height: 1200px;
     overflow: hidden;
 }
 
-.copyright {
+.home-footer-inner{
+    display: flex;
+    bottom: -17rem;
+    position: relative;
+    justify-content: space-between;
+    align-items: end;
+    padding-bottom: 0;
+}
+
+.home-copyright {
     background-color: #0B2969;
     background-size: contain;
     bottom: 0;
@@ -60,45 +63,47 @@ body {
     text-align: center;
     width: 100%;
     height: 30px;
-    font-size: 15px;
-    padding-top: 10px;
+    font-size: 18px;
+    padding-top: 12px;
+    padding-bottom: 33px;
 }
 
-.login {
-    border: 2px solid #296CFB;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    color: #296CFB;
-    font-weight: 900;
-    padding: 10px 25px;
-    text-align: center;
-    letter-spacing: 1.1px;
-    font-size: 11px;
+.home-login {
+    border: 2px solid #296CFB!important;
+    border-radius: 0!important;
+    background: #FFFFFF 0% 0% no-repeat padding-box !important;
+    color: #296CFB !important;
+    font-weight: 900 !important;
+    padding: 10px 25px !important;
+    text-align: center !important;
+    letter-spacing: 1.1px !important;
+    font-size: 13px !important;
 }
 
-.register {
-    background-color: #296CFB;
-    border: 2px solid #296CFB;
-    padding: 10px 25px;
-    font-weight: 900;
-    text-align: center;
-    text-decoration: none;
-    letter-spacing: 1.1px;
-    color: #FFFFFF;
-    font-size: 11px;
+.home-register {
+    border-radius: 0!important;
+    border: 2px solid #296CFB!important;
+    padding: 10px 25px!important;
+    font-weight: 900!important;
+    text-align: center!important;
+    text-decoration: none!important;
+    letter-spacing: 1.1px!important;
+    color: #FFFFFF!important;
+    font-size: 13px!important;
 }
 
-.img-and-text {
-    display: flex;
+.home-upskill-wrapper{
+    margin-bottom: 2rem!important;
 }
 
-.upskill {
+.home-upskill {
     font: normal normal bold 30px/37px Montserrat;
     letter-spacing: 1.5px;
     color: #000000;
     text-transform: lowercase;
 }
 
-.desc-child {
+.home-desc-child {
     display: flex;
     flex-direction: column;
     max-width: 400px;
@@ -106,41 +111,97 @@ body {
     margin-top: -60px;
 }
 
-    .desc-child p {
-        font-size: 20px;
+    .home-desc-child p {
+        font-size: 22px;
         line-height: 2;
     }
 
-.button-desc {
+.home-button-desc {
     width: 200px;
     font-size: 13px;
     padding: 10px;
     font-weight: 900;
+    color: #0B2969!important;
 }
 
-    .button-desc a {
-        text-decoration: none;
-        color: #296CFB;
-    }
-
-    .button-desc:hover {
-        text-decoration: none;
-        color: red;
-    }
-
-.img-text {
-    display: flex;
-    align-items: center;
+.home-button-desc:hover {
+    color: #296CFB!important;
 }
 
-    .img-text img {
+    .home-button-desc a {
+        text-decoration: none;
+        color: #0B2969;
+    }
+
+    .home-img {
         max-height: 50px;
         max-width: 80px;
     }
 
-.upskill {
+.home-upskill {
     color: #FFFFFF;
     letter-spacing: 2.25px;
+}
+
+.upskill-header{
+    margin-left: .7rem;
+    font-weight: 700;
+    font-size: x-large;
+}
+
+.home-content-wrapper{
+    background-color: white!important;
+    padding-top: 3.8rem;
+}
+
+.home-content-getStarted-text-heading{
+    font-size: 3rem;
+    font-weight: bolder;
+    margin-top: 2.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.home-content-getStarted-text-info{
+    font-size: 1.4rem;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.home-content-getStarted-text-btn{
+    border-radius: 0!important;
+    font-weight: bold!important;
+    margin-top: 1.5rem!important;
+}
+
+.home-content-getStarted-img-bg{
+    border-bottom: 55rem solid #E8FBF5;
+	border-left: 30rem solid transparent;
+	border-right: 55rem solid transparent;
+	height: 0;
+	width: 320rem;
+    position: absolute;
+    z-index: 0;
+    right: -275rem;
+    top: -20rem;
+}
+
+.home-content-whatItDoes-img-bg{
+    border-bottom: 55rem solid #EAF1FF;
+	border-left: 25rem solid transparent;
+	border-right: 25rem solid transparent;
+	height: 0;
+	width: 320rem;
+    position: absolute;
+    z-index: 0;
+    left: -260rem;
+    top: 2rem;
+}
+
+.home-content-getStarted-img-inner{
+    position: relative;
+    z-index: 1;
 }
 
 .links {
@@ -151,8 +212,8 @@ body {
 
     .links img {
         padding-top: 10px;
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
     }
 
 .company,
@@ -183,12 +244,28 @@ body {
         text-decoration: none;
         color: white;
         padding-top: 20px;
-        font-size: 14px;
+        font-size: 16px;
     }
 
+@media (min-width: 1200px) {
+        .custom-container{
+          width: 1000px;
+        }
+  }
+      
+@media (min-width: 992px) {
+        .custom-container{
+          width: 800px;
+        }
+  }
+
 @media only screen and (max-width: 768px) {
-    .header {
+    .home-header {
         padding: 10px;
+    }
+
+    .custom-container{
+        width: 650px;
     }
 
     .buttons {
@@ -198,7 +275,7 @@ body {
         align-items: center;
     }
 
-    .login {
+    .home-login {
         color: #296CFB;
         font-weight: 900;
         padding: 5px 0px;
@@ -207,7 +284,7 @@ body {
         width: 10vh;
     }
 
-    .register {
+    .home-register {
         padding: 5px 25px;
         font-weight: 900;
         text-align: center;
@@ -217,24 +294,25 @@ body {
         white-space: nowrap;
     }
 
-    .footer {
+    .home-footer {
         flex-wrap: wrap;
         overflow: scroll;
         height: 80vh;
         bottom: 0px;
     }
 
-        .footer .desc {
+        .home-footer .desc {
             flex-basis: 100%;
         }
 
-    .desc-child {
+    .home-desc-child {
         margin-top: 0px;
         margin-left: 3%;
     }
 
-        .desc-child p {
+        .home-desc-child p {
             font-size: 15px;
             line-height: 2;
         }
 }
+

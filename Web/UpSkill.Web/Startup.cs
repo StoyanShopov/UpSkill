@@ -46,6 +46,8 @@
             services
                  .AddHttpContextAccessor();
 
+            services.AddRazorPages()
+               .AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Home", string.Empty));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
@@ -53,6 +55,7 @@
             // services
             //    .AddSignalR()
             //    .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
+
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
