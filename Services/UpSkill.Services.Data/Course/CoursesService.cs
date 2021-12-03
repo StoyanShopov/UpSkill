@@ -54,12 +54,12 @@
                          .Where(c => c.Title == model.Title)
                          .FirstOrDefaultAsync();
 
-            var file = await this.fileService.CreateAsync(model.File);
-
             if (course != null)
             {
                 return AlreadyExist;
             }
+
+            var file = await this.fileService.CreateAsync(model.File);
 
             var newCourse = new Course()
             {

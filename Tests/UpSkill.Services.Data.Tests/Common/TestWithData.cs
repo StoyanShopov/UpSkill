@@ -71,6 +71,12 @@
                 Email = "user@example.com",
                 CompanyId = 0,
             },
+                new ApplicationUser()
+            {
+                Id = "3",
+                Email = string.Empty,
+                CompanyId = 0,
+            },
                 new ApplicationRole
             {
                 Id = "1",
@@ -112,6 +118,33 @@
                 Price = 122,
                 CoachId = 2,
                 CategoryId = 2,
-            });
+            },
+                new CompanyCourse()
+            {
+                CompanyId = 1,
+                CourseId = 2,
+            },
+                new CompanyCourse()
+             {
+                 CompanyId = 1,
+                 CourseId = 1,
+             },
+                new CompanyCoach()
+             {
+                CompanyId = 1,
+                CoachId = 2,
+             },
+                new CompanyCoach()
+             {
+                CompanyId = 1,
+                CoachId = 1,
+             },
+                new Coach()
+                {
+                    Id = 3,
+                    FirstName = "Stanimir",
+                    LastName = "Stanimir",
+                    Field = "Marketing",
+                });
     }
 }
