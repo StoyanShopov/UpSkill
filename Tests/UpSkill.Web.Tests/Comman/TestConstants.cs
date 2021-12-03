@@ -78,6 +78,8 @@
 
             public const string TestDescription = "testDescription";
 
+            public const string TestContent = "testContent";
+
             // compilation error when try to use this value
             public const decimal TestPrice = 10;
 
@@ -92,6 +94,25 @@
             public const string DeleteCourseExist = "DeleteCourseExist";
 
             public const string GetAllCourseExist = "GetAllCourseExist";
+
+            public const string TestPostCreateRouteAdminCourses = "Admin/Courses";
+
+            public const string TestPostAddCompanyRouteAdminCourses = "/Admin/Courses/addCompanyToCourse";
+
+            public const string TestPutEditRouteShouldAdminCourses = "Admin/Courses";
+
+            public const string TestGetDetailsRouteAdminCourses = "/Admin/Courses/details";
+
+            public const string TestDeleteCourseRouteAdminCourses = "Admin/Courses";
+
+            public const string TestGetAllCourseRouteAdminCourses = "/Admin/Courses/getAll";
+        }
+
+        public class EmployeeCoursesConstants
+        {
+            public const string TestGetAllCourseRouteEmployeeCourses = "getAll";
+
+            public const string DatabaseName = "Database";
         }
     }
 }
