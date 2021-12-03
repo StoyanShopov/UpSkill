@@ -5,6 +5,8 @@
 
     using Microsoft.AspNetCore.Identity;
 
+    using Microsoft.AspNetCore.Http;
+    using Moq;
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
@@ -53,10 +55,10 @@
         private static void AddFakeData(FakeUpSkillDbContext dbContext)
             => dbContext.AddFakeData(
                 new Company()
-            {
-                Id = 1,
-                Name = "TestCompany",
-            },
+                {
+                    Id = 1,
+                    Name = "TestCompany",
+                },
                 new Coach()
                 {
                     Id = 1,
@@ -95,23 +97,65 @@
                 Id = 1,
                 Name = "Owner",
            },
+                
+                new ApplicationUser()
+                {
+                    Id = "3",
+                    Email = string.Empty,
+                    CompanyId = 0,
+                },
+                new ApplicationUser()
+                {
+                    Id = "4",
+                    Email = "user2@example.com",
+                    CompanyId = 1,
+                },
                 new Course()
-            {
-                Id = 1,
-                Title = "Title",
-                Description = "Description",
-                Price = 12,
-                CoachId = 1,
-                CategoryId = 1,
-            },
+                {
+                    Id = 1,
+                    Title = "Title",
+                    Description = "Description",
+                    Price = 12,
+                    CoachId = 1,
+                    CategoryId = 1,
+                    FileId = 1,
+                    File = new File(),
+                },
                 new Course()
-            {
-                Id = 2,
-                Title = "Titl2e",
-                Description = "Descri2ption",
-                Price = 122,
-                CoachId = 2,
-                CategoryId = 2,
-            });
+                {
+                    Id = 2,
+                    Title = "Titl2e",
+                    Description = "Descri2ption",
+                    Price = 122,
+                    CoachId = 2,
+                    CategoryId = 2,
+                },
+                new CompanyCourse()
+                {
+                    CompanyId = 1,
+                    CourseId = 2,
+                },
+                new CompanyCourse()
+                {
+                    CompanyId = 1,
+                    CourseId = 1,
+                },
+                new CompanyCoach()
+                {
+                    CompanyId = 1,
+                    CoachId = 2,
+                },
+                new CompanyCoach()
+                {
+                    CompanyId = 1,
+                    CoachId = 1,
+                },
+                new Coach()
+                {
+                    Id = 3,
+                    FirstName = "Stanimir",
+                    LastName = "Stanimir",
+                    Field = "Marketing",
+                });
     }
 }
