@@ -36,6 +36,8 @@
             public const string TestGetDetailsRouteCompany = "/Admin/Companies/details?id=1";
 
             public const int TestCompanyId = 1;
+
+            public const string ActiveCourses = "getActiveCourses";
         }
 
         public class Coach
@@ -43,6 +45,44 @@
             public const string TestAddCoachToOwnerRouteCoach = "Owner/Coaches";
 
             public const string TestGetAllRouteCompanyCoach = "/Owner/Coaches/getAll";
+
+            public const string TestDeleteRouteCompanyCoach = "/Owner/Coaches?id=1";
+
+            public const string TestRequestCoachRouteCompanyCoach = "/Owner/Coaches/newCoach";
+        }
+
+        public class Course
+        {
+            public const string TestgetActiveCoursesRoute = "/Owner/Courses/getActiveCourses";
+
+            public const string TestDisableCourseRoute = "/Owner/Courses/disable?id=1";
+
+            public const string TestRequestCourseRoute = "/Owner/Courses/RequestCourse";
+        }
+
+        public class Employee
+        {
+            public const string TestEmployeeInvalidName = "TestEmployee";
+
+            public const string TestEmployeeFullName = "TestEmployee TestEmployee";
+
+            public const string TestEmployeeEmail = "TestEmployee@gmail.com";
+
+            public const string TestEmployeePosition = "TestPosition";
+
+            public const string EmailExists = "An employee with this email already exists.";
+
+            public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
+
+            public const string EmployeeSuccesfullyDeleted = "Employee was successfully removed";
+
+            public const string TestCreateEmployeeRoute = "Owner/Employee";
+
+            public const string TestGetAllRoute = "/Owner/Employee/getAll";
+
+            public const string TestDeleteEmployeeRoute = "/Owner/Employee?id=1";
+
+            public const string TestGetAllCompanyEmployeesRoute = "/Owner/Employee/getAllEmployees";
         }
 
         public class RolesNamesConstants

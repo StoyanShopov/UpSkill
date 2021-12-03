@@ -1,8 +1,9 @@
-﻿namespace UpSkill.Web.Tests.Controllers.Owner
+﻿namespace UpSkill.Web.Tests.Controllers.Owner.Coach
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Security.Claims;
+    using Microsoft.AspNetCore.Identity;
     using MyTested.AspNetCore.Mvc;
     using Shouldly;
     using UpSkill.Data.Models;
@@ -22,18 +23,9 @@
     {
         private const int TestCompanyId = 2;
         private const int TestCoachId = 5;
-
-        private readonly ApplicationUser user = new ApplicationUser
-        {
-            UserName = TestOwnerUserName,
-            NormalizedUserName = TestOwnerUserName.ToUpper(),
-            Email = TestOwnerEmail,
-            NormalizedEmail = TestOwnerEmail.ToUpper(),
-            EmailConfirmed = true,
-            FirstName = TestOwnerUserName,
-            LastName = TestOwnerUserName,
-            CompanyId = TestCompanyId,
-        };
+        private static readonly Claim Claim = new Claim(CompanyOwnerRoleName, CompanyOwnerRoleName);
+        private static readonly ApplicationRole Role = new ApplicationRole(CompanyOwnerRoleName);
+        private readonly ApplicationUser user = InitializeUser(Role);
 
         [Theory]
         [InlineData(5, TestOwnerEmail)]
@@ -69,8 +61,14 @@
                 {
                     Id = this.user.CompanyId,
                     Name = TestCompany,
+                },
+                new ApplicationRole
+                {
+                    Id = Role.Id,
+                    Name = Role.Name,
+                    NormalizedName = Role.Name.ToUpper(),
                 })
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName).WithClaim(Claim).WithClaims(new List<Claim> { Claim }))
             .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
             {
                 CoachId = coachId,
@@ -116,8 +114,15 @@
         =>
             MyController<CoachesController>
             .Instance()
-            .WithData(this.user)
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .WithData(
+                this.user,
+                new ApplicationRole
+                {
+                    Id = Role.Id,
+                    Name = Role.Name,
+                    NormalizedName = Role.Name.ToUpper(),
+                })
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName).WithClaim(Claim).WithClaims(new List<Claim> { Claim }))
             .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
             {
                 CoachId = coachId,
@@ -142,8 +147,14 @@
                 {
                     Id = coachId,
                     FirstName = coachFirstName,
+                },
+                new ApplicationRole
+                {
+                     Id = Role.Id,
+                     Name = Role.Name,
+                     NormalizedName = Role.Name.ToUpper(),
                 })
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName).WithClaim(Claim).WithClaims(new List<Claim> { Claim }))
             .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel
             {
                 CoachId = coachId,
@@ -226,12 +237,12 @@
         public void DeleteCoachFromOwnerShouldRemoveCoachFromCompanyAndShouldReturnRemovedSuccessfully(int coachId, string coachName)
         {
             MyController<CoachesController>
-            .Instance()
+            .Instance(instance => instance
             .WithData(
                 this.user,
                 new Coach
                 {
-                    Id = TestCoachId,
+                    Id = coachId,
                     FirstName = coachName,
                 },
                 new Company
@@ -244,7 +255,7 @@
                     CoachId = coachId,
                     CompanyId = this.user.CompanyId,
                 })
-            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName))
+            .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName)))
             .Calling(c => c.DeleteCoachFromOwner(coachId))
             .ShouldHave()
             .ActionAttributes(atributes => atributes
@@ -371,6 +382,32 @@
             .ShouldHave()
             .ActionAttributes(atributes => atributes
             .RestrictingForHttpMethod(HttpMethod.Post));
+        }
+
+        private static ApplicationUser InitializeUser(ApplicationRole role)
+        {
+            var claim = new Claim(CompanyOwnerRoleName, CompanyOwnerRoleName);
+            var identityUser = new IdentityUserClaim<string>();
+            var identityUserRole = new IdentityUserRole<string>();
+            identityUser.InitializeFromClaim(claim);
+            identityUserRole.RoleId = role.Id;
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = TestOwnerUserName,
+                NormalizedUserName = TestOwnerUserName.ToUpper(),
+                Email = TestOwnerEmail,
+                NormalizedEmail = TestOwnerEmail.ToUpper(),
+                EmailConfirmed = true,
+                FirstName = TestOwnerUserName,
+                LastName = TestOwnerUserName,
+                CompanyId = TestCompanyId,
+                Claims = new List<IdentityUserClaim<string>> { identityUser },
+            };
+
+            identityUserRole.UserId = user.Id;
+            user.Roles = new List<IdentityUserRole<string>> { identityUserRole };
+
+            return user;
         }
     }
 }

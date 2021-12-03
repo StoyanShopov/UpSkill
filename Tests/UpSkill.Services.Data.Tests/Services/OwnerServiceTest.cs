@@ -1,15 +1,11 @@
 ﻿namespace UpSkill.Services.Data.Tests.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using Moq;
-    using UpSkill.Data.Common.Models;
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Coach;
@@ -29,12 +25,11 @@
 
     public class OwnerServiceTest : TestWithData
     {
-        [Fact]
-        public void GetAllCoursesAsyncShouldReturnAllCompanyCourses()
+        [Theory]
+        [InlineData(1, 2)]
+        public void GetAllCoursesAsyncShouldReturnAllCompanyCourses(int companyId, int companyCoursesCount)
         {
-            const string DatabaseName = "GetAllCompanyCourses";
-            var companyId = 1;
-            var companyCoursesCount = 2;
+            const string DatabaseName = "GetAllCoursesAsyncShouldReturnAllCompanyCourses";
 
             this.InitializeDatabase(DatabaseName);
 
@@ -47,12 +42,11 @@
             Assert.Equal(companyCoursesCount, companyCourses.Count);
         }
 
-        [Fact]
-        public void GetAllCoachesAsyncShouldReturnAllCompanyCoaches()
+        [Theory]
+        [InlineData(1, 2)]
+        public void GetAllCoachesAsyncShouldReturnAllCompanyCoaches(int companyId, int companyCoachesCount)
         {
-            const string DatabaseName = "GetAllCompanyCoaches";
-            var companyId = 1;
-            var companyCoachesCount = 2;
+            const string DatabaseName = "GetAllCoachesAsyncShouldReturnAllCompanyCoaches";
 
             this.InitializeDatabase(DatabaseName);
 
@@ -63,28 +57,25 @@
             Assert.Equal(companyCoachesCount, companyCoaches.Count);
         }
 
-        [Fact]
-        public async Task AddCoachAsyncShouldAddNewCoachToComapany()
+        [Theory]
+        [InlineData(3, 1, "2", "1")]
+        public async Task AddCoachAsyncShouldAddNewCoachToComapany(int coachId, int companyId, string companyOwnerId, string adminId)
         {
-            const int CoachId = 3;
-            const int CompanyId = 1;
-            const string CompanyOwnerId = "2";
-            const string AdminId = "1";
-            const string DatabaseName = "AddCoachToCompany";
+            const string DatabaseName = "AddCoachAsyncShouldAddNewCoachToComapany";
             this.InitializeDatabase(DatabaseName);
             var companyOwner = this.Database
                 .Users
-                .Find(CompanyOwnerId);
+                .Find(companyOwnerId);
             var admin = this.Database
                 .Users
-                .Find(AdminId);
+                .Find(adminId);
 
             var company = this.Database
                 .Companies
-                .Find(CompanyId);
+                .Find(companyId);
             var coach = this.Database
                .Coaches
-               .Find(CoachId);
+               .Find(coachId);
 
             var companyCoach = new AddCoachToCompanyModel()
             {
@@ -98,43 +89,36 @@
                 companyOwner,
             };
 
-            var service = await this.MockOwnersServices(CoachId, CompanyId, CompanyOwnerId, AdminId, MockUserManager(users));
+            var service = await this.MockOwnersServices(coachId, companyId, companyOwnerId, adminId, MockUserManager(users));
 
             var result = await service.AddCoachAsync(companyCoach);
 
             Assert.True(result.Succeeded);
         }
 
-        [Fact]
-        public async Task AddCoachAsyncShouldReturnNotACompanyOwner()
+        [Theory]
+        [InlineData(3, 1, "3", "1")]
+        public async Task AddCoachAsyncShouldReturnNotACompanyOwner(int coachId, int companyId, string companyOwnerId, string adminId)
         {
-            const int CoachId = 3;
-            const string CompanyOwnerId = "3";
-            const int CompanyId = 1;
-            const string AdminId = "1";
-            const string DatabaseName = "AddCoachToCompany";
+            const string DatabaseName = "AddCoachAsyncShouldReturnNotACompanyOwner";
             this.InitializeDatabase(DatabaseName);
             var companyOwner = this.Database
                 .Users
-                .Find(CompanyOwnerId);
+                .Find(companyOwnerId);
             var coach = this.Database
                .Coaches
-               .Find(CoachId);
+               .Find(coachId);
             var companyCoach = new AddCoachToCompanyModel()
             {
                 CoachId = coach.Id,
                 OwnerEmail = string.Empty,
             };
 
-            //var service = new Mock<IOwnerServices>();
-            //service.Setup(o => o.AddCoachAsync(companyCoach)).ReturnsAsync(UserNotInCompanyOwnerRole);
-
-            //var result = await service.Object.AddCoachAsync(companyCoach);
             var store = new Mock<IUserStore<ApplicationUser>>();
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
             mgr.Setup(u => u.GetRolesAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(new List<string>
                 { AdministratorRoleName });
-            var service = await this.MockOwnersServices(CoachId, CompanyId, CompanyOwnerId, AdminId, mgr);
+            var service = await this.MockOwnersServices(coachId, companyId, companyOwnerId, adminId, mgr);
 
             var result = await service.AddCoachAsync(companyCoach);
 
@@ -143,24 +127,21 @@
             Assert.False(result.Succeeded);
         }
 
-        [Fact]
-        public async Task AddCoachAsyncShouldReturnDoesNotExist()
+        [Theory]
+        [InlineData(3, 1, "2", "1")]
+        public async Task AddCoachAsyncShouldReturnDoesNotExist(int coachId, int invalidCoachId, string companyOwnerId1, string companyOwnerId2)
         {
-            const int CoachId = 3;
-            const int InvalidCoachId = 1;
-            const string CompanyOwnerId1 = "2";
-            const string CompanyOwnerId2 = "1";
-            const string DatabaseName = "AddCoachToCompany";
+            const string DatabaseName = "AddCoachAsyncShouldReturnDoesNotExist";
             this.InitializeDatabase(DatabaseName);
             var companyOwner = this.Database
                 .Users
-                .Find(CompanyOwnerId1);
+                .Find(companyOwnerId1);
             var companyOwner2 = this.Database
                 .Users
-                .Find(CompanyOwnerId2);
+                .Find(companyOwnerId2);
             var coach = this.Database
                 .Coaches
-                .Find(CoachId);
+                .Find(coachId);
             var company = this.Database
                 .Companies
                 .Find(companyOwner.CompanyId);
@@ -169,7 +150,7 @@
                 .Find("1");
             var companyCoachNoSuchCoach = new AddCoachToCompanyModel()
             {
-                CoachId = InvalidCoachId,
+                CoachId = invalidCoachId,
                 OwnerEmail = companyOwner.Email,
             };
 
@@ -191,7 +172,7 @@
                 LastName = coach.LastName,
             };
             var coachesServiceMock = new Mock<ICoachServices>();
-            coachesServiceMock.Setup(cs => cs.GetByIdAsync<CoachDetailsModel>(InvalidCoachId)).ReturnsAsync(value: null);
+            coachesServiceMock.Setup(cs => cs.GetByIdAsync<CoachDetailsModel>(invalidCoachId)).ReturnsAsync(value: null);
             coachesServiceMock.Setup(cs => cs.GetByIdAsync<CoachDetailsModel>(coach.Id)).ReturnsAsync(coachViewModelMock);
             var companyServiceMock = new Mock<ICompanyService>();
             companyServiceMock.Setup(cs => cs.GetByIdAsync<CompanyDetailsModel>(company.Id)).ReturnsAsync(value: null);
@@ -218,8 +199,6 @@
                             coachesServiceMock.Object,
                             companyServiceMock.Object,
                             emailSenderMock.Object);
-            //service.Setup(o => o.AddCoachAsync(companyCoachNoSuchCoach)).ReturnsAsync(DoesNotExist);
-            //service.Setup(o => o.AddCoachAsync(companyCoachNoSuchCompany)).ReturnsAsync(DoesNotExist);
 
             var result = await service.AddCoachAsync(companyCoachNoSuchCoach);
             var resultNoSuchCompany = await service.AddCoachAsync(companyCoachNoSuchCompany);
@@ -232,20 +211,19 @@
             Assert.False(resultNoSuchCompany.Succeeded);
         }
 
-        [Fact]
-        public async Task AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany()
+        [Theory]
+        [InlineData( 1, "2")]
+        public async Task AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany(int coachId, string companyOwnerId)
         {
-            const int CoachId = 1;
-            const string CompanyOwnerId = "2";
-            const string DatabaseName = "AddCoachToCompany";
+            const string DatabaseName = "AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany";
             this.InitializeDatabase(DatabaseName);
             var companyOwner = await this.Database
                 .Users
-                .FindAsync(CompanyOwnerId);
+                .FindAsync(companyOwnerId);
 
             var companyCoach = new AddCoachToCompanyModel()
             {
-                CoachId = CoachId,
+                CoachId = coachId,
                 OwnerEmail = companyOwner.Email,
             };
 
