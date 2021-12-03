@@ -44,7 +44,16 @@
 
             public const string GetAllCoachesExist = "GetAllCoachesExist";
 
+            public const string GetDetailsCoaches = "GetDetailsCoaches";
+
             public const string DeleteCoachExist = "DeleteCoachExist";
+
+            public const string GetCoachesForAll = "GetCoachesForAll";
+
+            public const string CoachFirstName = "CoachFirstName";
+
+            public const string CoachLastName = "CoachLastName";
+
         }
 
         public class Identity

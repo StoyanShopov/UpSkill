@@ -1,6 +1,7 @@
 ﻿namespace UpSkill.Web.Tests.Controllers.Coach
 {
     using System.Collections.Generic;
+    //using System.IO;
     using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,40 @@
         public void PostCreateShouldBeAllowedOnlyForPostRequests()
             => MyController<CoachesController>
                 .Instance()
+                .WithData(
+                    new Coach { File = new File() { FilePath = "File Path" } })
                 .Calling(c => c.Create(With.Default<CreateCoachRequestModel>()))
                 .ShouldHave()
                 .ActionAttributes(attr => attr.RestrictingForHttpMethod(HttpMethod.Post));
+
+
+        [Theory]
+        [InlineData(CoachFirstName, CoachLastName)]
+        public void PostCreateShouldReturnSuccessfullyWhenDataIsValid1(string firstName, string lastName)
+            => MyController<CoachesController>
+                .Instance()
+                .WithData(
+                    new Coach { File = new File() { FilePath = "File Path" }, FirstName = firstName, LastName = lastName })
+                .Calling(c => c.Create(new CreateCoachRequestModel
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                }))
+                .ShouldHave()
+                .ValidModelState()
+                .AndAlso()
+                .ShouldHave()
+                .Data(data => data
+                    .WithSet<Coach>(set =>
+                    {
+                        set.ShouldNotBeNull();
+                        set.SingleOrDefault(a => a.FirstName == firstName && a.LastName == lastName).ShouldNotBeNull();
+                    }))
+                .AndAlso()
+                .ShouldReturn()
+                .StatusCode(201, SuccesfullyCreated);
+
+
 
         [Fact]
         public void DeleteShouldBeAllowedOnlyForDeleteRequests()
@@ -97,7 +129,7 @@
         [InlineData(1)]
         public void GetDetailsShouldReturnCorrectDataWithCorrectModel(int id)
         {
-            this.InitializeDatabase(GetAllCoachesExist);
+            this.InitializeDatabase(GetDetailsCoaches);
 
             MyController<CoachesController>
                 .Instance(instance => instance
@@ -107,5 +139,46 @@
                 .ResultOfType<CoachDetailsModel>(result => result
                     .Passing(c => c.Id == id));
         }
+
+
+
+        //[Theory]
+        //[InlineData(TestCoach)]
+        //public void PostCreateShouldReturnSuccessfullyWhenDataIsValid(string name)
+        //{
+        //    // Setup mock file using a memory stream
+        //    SetupMockfile();
+
+        //    MyController<CoachesController>
+        //        .Instance()
+        //        .Calling(c => c.Create(CreateCoachRequestModel(name)))
+        //        .ShouldHave()
+        //        .ValidModelState()
+        //        .AndAlso()
+        //        .ShouldHave()
+        //        .Data(data => data
+        //            .WithSet<Course>(set =>
+        //            {
+        //                set.ShouldNotBeNull();
+        //                set.SingleOrDefault(c => c.Title == title && c.Description == description
+        //                                                          && c.Price == price && c.CoachId == coachId && c.CategoryId == categoryId).ShouldNotBeNull();
+        //            }))
+        //        .AndAlso()
+        //        .ShouldReturn()
+        //        .Ok();
+        //}
+
+        //private static void SetupMockfile()
+        //{
+        //    var content = "TestContent";
+        //    var ms = new MemoryStream();
+        //    var writer = new StreamWriter(ms);
+        //    writer.Write(content);
+        //    writer.Flush();
+        //    ms.Position = 0;
+        //    FileMock.Setup(_ => _.OpenReadStream()).Returns(ms);
+        //}
+
+
     }
 }

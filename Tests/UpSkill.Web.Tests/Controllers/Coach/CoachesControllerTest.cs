@@ -26,7 +26,7 @@
         [Fact]
         public void GetShouldReturnTheCorrectDataWithCorrectModel()
         {
-            this.InitializeDatabase(GetAllCoachesExist);
+            this.InitializeDatabase(GetCoachesForAll);
 
             MyController<CoachesController>
                 .Instance()
