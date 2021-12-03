@@ -18,13 +18,17 @@
 
         public const string BlobStorage = "BlobStorage";
 
+        public const string SignalR = "SignalR";
+
         public const string ApplicationSettings = "ApplicationSettings";
 
         public const string Unauthorized = "Unauthorized";
 
         public const string UserNotFound = "User not found!";
 
-        public const string PriceFormat = "decimal(6, 2)";
+        public const string NewCourseRequest = "RequestCourse";
+
+        public const string NewCoachRequest = "New Coach Request";
 
         public class AdminConstants
         {
@@ -108,6 +112,10 @@
 
             public const string GetAllRoute = "getAll";
 
+            public const string GetAllEmployeesRoute = "getAllEmployees";
+
+            public const string GetAllCoaches = "Coaches/getAll";
+
             public const string AddOwnerCompany = "addOwnerToCompany";
 
             public const string Promote = "promote";
@@ -126,7 +134,13 @@
 
             public const string AddCompanyOwnerToCourseRoute = "addCompanyToCourse";
 
+            public const string Disable = "disable";
+
+            public const string ActiveCourses = "getActiveCourses";
+
             public const string GetCountRoute = "count";
+
+            public const string NewCoach = "newCoach";
         }
 
         public class MessagesConstants
@@ -156,6 +170,8 @@
             public const string CompanyOwnerRoleName = "Owner";
 
             public const string CompanyEmployeeRoleName = "Employee";
+
+            public const string CoachRoleName = "Coach";
 
             public const string WritePolicy = "writepolicy";
 
@@ -203,6 +219,8 @@
             public const string SuccesfullyAddedOwnerToGivenCompany = "You have successfully added an owner to this company.";
 
             public const string SuccesfullyAddedCompanyOwnerToGivenCourse = "You have successfully added a company to this course.";
+
+            public const string SuccesfullyAddedCoachToGivenCompany = "You have successfully added a coach to this company.";
         }
 
         public class CategoriesNamesConstants
@@ -237,6 +255,22 @@
             public const string OwnerOnly = "OwnerOnly";
 
             public const string EmployeeOnly = "EmployeeOnly";
+        }
+
+        public class RequestCourseConstants
+        {
+            public const string HtmlContent = "<p>Requester Email: {0}</p>" +
+                                              "<p>Requester Full Name: {1}</p>" +
+                                              "<p>Description: {2}</p>" +
+                                              "<p>Category: {3}</p>";
+        }
+
+        public class RequestCoachConstants
+        {
+            public const string HtmlContent = "<p>Requester Full Name: {0}</p>" +
+                                              "<p>Requester Email: {1}</p>" +
+                                              "<p>Description: {2}</p>" +
+                                              "<p>Field: {3}</p>";
         }
 
         public class EmployeeConstants

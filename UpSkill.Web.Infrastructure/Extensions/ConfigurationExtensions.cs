@@ -8,5 +8,8 @@
     {
         public static string GetDefaultConnectionString(this IConfiguration configuration)
             => configuration.GetConnectionString(DefaultConnection);
+
+        public static string GetSignalRConnectionString(this IConfiguration configuration)
+            => configuration.GetSection(SignalR).GetSection("ConnectionString").Value;
     }
 }

@@ -20,6 +20,7 @@
             await SeedRoleAsync(roleManager, AdministratorRoleName);
             await SeedRoleAsync(roleManager, CompanyOwnerRoleName);
             await SeedRoleAsync(roleManager, CompanyEmployeeRoleName);
+            await SeedRoleAsync(roleManager, CoachRoleName);
         }
 
         private static async Task SeedRoleAsync(RoleManager<ApplicationRole> roleManager, string roleName)

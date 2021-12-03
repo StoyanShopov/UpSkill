@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
+    using System.Collections.Generic;
     using System.Text;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,6 +10,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+
     using UpSkill.Data;
     using UpSkill.Data.Common;
     using UpSkill.Data.Common.Repositories;
@@ -38,11 +40,16 @@
     using UpSkill.Services.Data.File;
     using UpSkill.Services.Data.Owner;
     using UpSkill.Services.Email;
+    using UpSkill.Services.Hubs;
     using UpSkill.Services.Identity;
     using UpSkill.Services.Messaging;
     using UpSkill.Web.Filters;
+    using UpSkill.Web.Infrastructure.Extensions;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.Infrastructure.Web.Extensions;
+    using UpSkill.Web.ViewModels.Chat;
+    using UpSkill.Web.ViewModels.Zoom;
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.EmailSenderConstants;
@@ -162,13 +169,20 @@
                 .AddTransient<IDashboardService, DashboardService>()
                 .AddTransient<ICompanyService, CompaniesService>()
                 .AddTransient<ICoachServices, CoachesService>()
+                .AddTransient<IEmployeeService, EmployeesService>()
+                .AddTransient<IOwnerCoursesService, OwnerCoursesService>()
+                .AddTransient<IFileService, FilesService>()
                 .AddTransient<IOwnerServices, OwnersServices>()
-        .AddTransient<IFileService, FilesService>()
-.AddTransient<IEmployeeService, EmployeesService>()
+                .AddTransient<IFileService, FilesService>()
+                .AddTransient<IEmployeeService, EmployeesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()
-                .AddTransient<IBlobService, BlobService>();
+                .AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>())
+                .AddTransient<IBlobService, BlobService>()
+                .AddTransient<ZoomHub>()
+                .AddTransient<IDictionary<string, ZoomCourseConnection>>(opts => new Dictionary<string, ZoomCourseConnection>())
+                .AddSingleton<INLogger, NLogExtensions>();
 
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
             => services
@@ -221,5 +235,9 @@
                 .AddControllers(options => options
                     .Filters
                     .Add<ModelOrNotFoundActionFilter>());
+
+        public static void AddHttpContext(this IServiceCollection services)
+            => services
+                    .AddHttpContextAccessor();
     }
 }

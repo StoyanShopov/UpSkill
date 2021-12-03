@@ -9,10 +9,11 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
+    using UpSkill.Services.Hubs;
     using UpSkill.Services.Mapping;
+
     using UpSkill.Web.Infrastructure.Web.Extensions;
     using UpSkill.Web.ViewModels;
     using UpSkill.Web.Web.Extensions;
@@ -42,12 +43,16 @@
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddRazorPages()
-                .AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Home", string.Empty));
+            services
+                 .AddHttpContextAccessor();
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
 
+            // services
+            //    .AddSignalR()
+            //    .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
@@ -90,6 +95,7 @@
             app
                 .UseSwaggerUI()
                 .UseRouting()
+                .UseFileServer()
                 .UseCors(options => options
                     .AllowAnyOrigin()
                     .AllowAnyHeader()
@@ -104,6 +110,12 @@
                     endpoints.MapRazorPages();
                 })
                 .ApplyMigrations();
+
+            // app.UseAzureSignalR(route =>
+            // {
+            //     route.MapHub<ChatHub>("/chat");
+            //     route.MapHub<ZoomHub>("/zoom");
+            // });
 
             app.UseSpa(spa =>
             {

@@ -1,11 +1,13 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Coach
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Contracts.Coach;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Coach;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -14,9 +16,15 @@
     public class CoachesController : AdministrationBaseController
     {
         private readonly ICoachServices coachServices;
+        private readonly INLogger nlog;
 
-        public CoachesController(ICoachServices coachServices)
-            => this.coachServices = coachServices;
+        public CoachesController(
+            ICoachServices coachServices,
+            INLogger nlog)
+        {
+            this.coachServices = coachServices;
+            this.nlog = nlog;
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateCoachRequestModel model)
@@ -25,8 +33,12 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(model, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nlog.Info(model);
 
             return this.StatusCode(201, SuccesfullyCreated);
         }
@@ -38,8 +50,12 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(model, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -51,8 +67,12 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(id, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nlog.Info(id);
 
             return this.Ok(SuccesfullyDeleted);
         }
@@ -60,11 +80,19 @@
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CoachListingModel>> GetAll()
-            => await this.coachServices.GetAllAsync<CoachListingModel>();
+        {
+            this.nlog.Info("Entering GetAllaction");
+
+            return await this.coachServices.GetAllAsync<CoachListingModel>();
+        }
 
         [HttpGet]
         [Route(DetailsRoute)]
         public async Task<CoachDetailsModel> GetDetails(int id)
-            => await this.coachServices.GetByIdAsync<CoachDetailsModel>(id);
+        {
+            this.nlog.Info("Entering GetDetails action");
+
+            return await this.coachServices.GetByIdAsync<CoachDetailsModel>(id);
+        }
     }
 }
