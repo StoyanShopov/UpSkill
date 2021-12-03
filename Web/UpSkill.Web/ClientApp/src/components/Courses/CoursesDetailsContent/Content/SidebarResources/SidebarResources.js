@@ -9,12 +9,13 @@ const SidebarResources = (props) => {
     const {
         courseResources: { courseFileFilePath, courseCoachFirstName, courseCoachLastName, courseLectures }
     }=props
-
+    
+    const [initialLecture, setInitialLecture] = useState(courseLectures[0])
     const [currentLecture, setCurrentLecture] = useState({});
 
 return(
     <CourseDetailsResourcesContext.Provider
-    value={[currentLecture, courseFileFilePath, courseCoachFirstName, courseCoachLastName]}>
+    value={[initialLecture, currentLecture, courseFileFilePath, courseCoachFirstName, courseCoachLastName]}>
         <Details />
         <div className="courseResoursesSidebar">
          <span style={{ display: 'block', verticalAlign: 'middle' }}>Lectures</span>
