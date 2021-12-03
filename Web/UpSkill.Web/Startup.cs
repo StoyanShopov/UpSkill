@@ -51,10 +51,9 @@
 
             services.AddSingleton(this.configuration);
 
-            services
-                .AddSignalR()
-                .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
-
+            // services
+            //    .AddSignalR()
+            //    .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
