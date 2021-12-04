@@ -59,7 +59,7 @@
 
             MyController<CompaniesController>
                 .Instance(instance => instance
-                .WithData(this.Database.Companies.ToList()))
+                .WithData(this.Database.Companies.FirstOrDefault(c => c.Name == name)))
                 .Calling(c => c.Create(new CreateCompanyRequestModel
                 {
                     Name = name,
@@ -68,7 +68,7 @@
                 .Data(data => data
                   .WithSet<Company>(set =>
                   {
-                     set.SingleOrDefault(a => a.Name == name).ShouldNotBeNull();
+                      set.SingleOrDefault(a => a.Name == name).ShouldNotBeNull();
                   }))
                 .AndAlso()
                 .ShouldReturn()
@@ -131,7 +131,7 @@
                 .Calling(c => c.Edit(
                     new UpdateCompanyRequestModel
                     {
-                       Name = $"Edit {name}",
+                        Name = $"Edit {name}",
                     }, id))
                 .ShouldHave()
                 .ValidModelState()

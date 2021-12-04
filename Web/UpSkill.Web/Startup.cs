@@ -51,10 +51,9 @@
 
             services.AddSingleton(this.configuration);
 
-            services
-                .AddSignalR()
-                .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
-
+            // services
+            //    .AddSignalR()
+            //    .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
@@ -100,12 +99,11 @@
                 })
                 .ApplyMigrations();
 
-            app.UseAzureSignalR(route =>
-            {
-                route.MapHub<ChatHub>("/chat");
-                route.MapHub<ZoomHub>("/zoom");
-            });
-
+            // app.UseAzureSignalR(route =>
+            // {
+            //    route.MapHub<ChatHub>("/chat");
+            //    route.MapHub<ZoomHub>("/zoom");
+            // });
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
