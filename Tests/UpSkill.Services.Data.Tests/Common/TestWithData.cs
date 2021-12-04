@@ -5,7 +5,9 @@
     using System.Collections.Generic;
     using System.Security.Claims;
 
-    using Microsoft.AspNetCore.Identity;    using UpSkill.Data;
+    using Microsoft.AspNetCore.Identity; 
+    
+    using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
 
