@@ -3,9 +3,8 @@
     using System.Collections.Generic;
     using System.Security.Claims;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
-    using Moq;
+
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
@@ -79,29 +78,29 @@
                     CompanyId = 0,
                 },
                 new ApplicationRole
-            {
-                Id = "1",
-                Name = "Admin",
-                NormalizedName = "Admin".ToUpper(),
-            },
+                {
+                    Id = "1",
+                    Name = "Admin",
+                    NormalizedName = "Admin".ToUpper(),
+                },
                 new ApplicationUser()
-           {
-                Id = "2",
-                FirstName = "TestFirstName",
-                LastName = "TestLastName",
-                Email = "testEmail@abv.bg",
-                NormalizedEmail = "testEmail@abv.bg".ToUpper(),
-                CompanyId = 1,
-                PasswordHash = "AQAAAAEAACcQAAAAEPApfGLDptLhrGFgXEVwUGu8aXMoxGjrOP8CAjVsjRSnQ3S68UP95bEu4S7yv+EQAw==",
-                EmailConfirmed = true,
-                UserName = "testEmail@abv.bg",
-                NormalizedUserName = "testEmail@abv.bg".ToUpper(),
-           },
+                {
+                    Id = "2",
+                    FirstName = "TestFirstName",
+                    LastName = "TestLastName",
+                    Email = "testEmail@abv.bg",
+                    NormalizedEmail = "testEmail@abv.bg".ToUpper(),
+                    CompanyId = 1,
+                    PasswordHash = "AQAAAAEAACcQAAAAEPApfGLDptLhrGFgXEVwUGu8aXMoxGjrOP8CAjVsjRSnQ3S68UP95bEu4S7yv+EQAw==",
+                    EmailConfirmed = true,
+                    UserName = "testEmail@abv.bg",
+                    NormalizedUserName = "testEmail@abv.bg".ToUpper(),
+                },
                 new Position()
-           {
-                Id = 1,
-                Name = "Owner",
-           },
+                {
+                    Id = 1,
+                    Name = "Owner",
+                },
                 new Course()
                 {
                     Id = 1,
