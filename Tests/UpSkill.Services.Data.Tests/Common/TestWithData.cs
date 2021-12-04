@@ -98,6 +98,11 @@
                     FirstName = "Stanimir",
                     LastName = "Stanimir",
                     Field = "Marketing",
+                },
+                new UserInCourse()
+                {
+                    ApplicationUserId = "1",
+                    CourseId = 1,
                 });
     }
 }

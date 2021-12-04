@@ -150,7 +150,13 @@
 
         public class EmployeeCoursesConstants
         {
-            public const string TestGetAllCourseRouteEmployeeCourses = "getAll";
+            public const string TestGetAllRoute = "getAll";
+
+            public const string TestGetAllCourseRouteEmployeeCourses = "/Employee/Courses/getAll";
+
+            public const string TestGetByIdCourseRouteEmployeeCourses = "/Employee/Courses/details";
+
+            public const string TestGetByIdRoute = "details";
 
             public const string DatabaseName = "Database";
         }
