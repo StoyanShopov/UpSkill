@@ -1,12 +1,11 @@
 ﻿namespace UpSkill.Services.Data.Tests.Common
 {
-    using Microsoft.AspNetCore.Http;
-    using Moq;
     using System.Collections.Generic;
     using System.Security.Claims;
 
-    using Microsoft.AspNetCore.Identity; 
-    
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Moq;
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
