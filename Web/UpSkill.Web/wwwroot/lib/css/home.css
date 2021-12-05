@@ -3,13 +3,13 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: Montserrat;
+    font-family: Montserrat!important;
 }
 
 body{
     background-color: #0B2969!important;
+    overflow-x: hidden;
 }
-
 
 body h1 {
     font-size: 22px;
@@ -77,7 +77,12 @@ body h1 {
     padding: 10px 25px !important;
     text-align: center !important;
     letter-spacing: 1.1px !important;
-    font-size: 13px !important;
+    font-size: 14px !important;
+    margin-right: .5rem;
+}
+
+.home-login:hover{
+    background-color: #ebf0fc!important;
 }
 
 .home-register {
@@ -89,7 +94,7 @@ body h1 {
     text-decoration: none!important;
     letter-spacing: 1.1px!important;
     color: #FFFFFF!important;
-    font-size: 13px!important;
+    font-size: 14px!important;
 }
 
 .home-upskill-wrapper{
@@ -97,10 +102,11 @@ body h1 {
 }
 
 .home-upskill {
-    font: normal normal bold 30px/37px Montserrat;
+    font: normal normal bolder 30px/37px Montserrat;
     letter-spacing: 1.5px;
     color: #000000;
     text-transform: lowercase;
+    margin-left: .2rem;
 }
 
 .home-desc-child {
@@ -145,8 +151,9 @@ body h1 {
 
 .upskill-header{
     margin-left: .7rem;
+    margin-top: .1rem;
     font-weight: 700;
-    font-size: x-large;
+    font-size: 1.7rem;
 }
 
 .home-content-wrapper{
@@ -154,17 +161,22 @@ body h1 {
     padding-top: 3.8rem;
 }
 
-.home-content-getStarted-text-heading{
-    font-size: 3rem;
-    font-weight: bolder;
-    margin-top: 2.4rem;
+.home-heading{
     position: relative;
     z-index: 1;
+    margin-top: 2rem;
+    font: normal normal bolder 3.2rem Montserrat;
+    letter-spacing: 0px;
+}
+
+.home-content-getStarted-text-heading{    
+    margin-top: 2.5rem;    
 }
 
 .home-content-getStarted-text-info{
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     margin-top: 1rem;
+    font-weight: 600;
     position: relative;
     z-index: 1;
 }
@@ -173,11 +185,12 @@ body h1 {
     border-radius: 0!important;
     font-weight: bold!important;
     margin-top: 1.5rem!important;
+    margin-right: 1.5rem!important;
 }
 
 .home-content-getStarted-img-bg{
-    border-bottom: 55rem solid #E8FBF5;
-	border-left: 30rem solid transparent;
+    border-bottom: 59rem solid #E8FBF5;
+	border-left: 25rem solid transparent;
 	border-right: 55rem solid transparent;
 	height: 0;
 	width: 320rem;
@@ -187,21 +200,82 @@ body h1 {
     top: -20rem;
 }
 
+.home-content-whatItDoes-text-heading{
+    margin-top: 8rem;
+}
+
+.home-content-whatItDoes-text-heading-logo{
+    color: #296CFB;
+}
+
 .home-content-whatItDoes-img-bg{
-    border-bottom: 55rem solid #EAF1FF;
+    border-bottom: 32rem solid #EAF1FF;
 	border-left: 25rem solid transparent;
-	border-right: 25rem solid transparent;
+	border-right: 28rem solid transparent;
 	height: 0;
 	width: 320rem;
     position: absolute;
     z-index: 0;
-    left: -260rem;
-    top: 2rem;
+    left: -265rem;
+    top: 1rem;
 }
 
 .home-content-getStarted-img-inner{
     position: relative;
     z-index: 1;
+}
+
+.home-content-requestDemo-img-inner{
+    position: relative;
+    z-index: 1;
+    top: 2rem;
+    left: 2rem;
+}
+
+.home-content-requestDemo-img-bg{
+    border-bottom: 37rem solid #16D696;
+	border-left: 21rem solid transparent;
+	border-right: 50rem solid transparent;
+	height: 0;
+	width: 320rem;
+    position: absolute;
+    z-index: 0;
+    top: 5rem;
+    right: -275rem;
+}
+
+.home-content-requestDemo-form{
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 20rem 20rem;
+}
+
+.home-content-requestDemo-form-input{
+    border-radius: 0;
+    border: 2px solid #296CFB;
+    padding: .6rem 1.5rem;
+    font-size: 1.2rem;
+}
+
+.home-content-requestDemo-form-input::placeholder{
+    color: #296CFB;
+    font-weight: bold;
+}
+
+
+.home-content-requestDemo-text-btn{
+    border-radius: 0!important;
+    font-weight: bold!important;
+    margin-top: 1.5rem!important;
+    margin-right: 1.5rem!important;
+    position: relative;
+    left: 23.5rem;
+    font-size: 1.2rem!important;
+}
+
+.home-content-requestDemo-text-btn::placeholder{
+    color: white;
+    font-weight: 900;
 }
 
 .links {
@@ -315,4 +389,3 @@ body h1 {
             line-height: 2;
         }
 }
-
