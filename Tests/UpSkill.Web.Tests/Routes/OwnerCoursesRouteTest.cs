@@ -1,6 +1,5 @@
 ﻿namespace UpSkill.Web.Tests.Routes
 {
-
     using MyTested.AspNetCore.Mvc;
     using UpSkill.Web.Areas.Owner.Course;
     using UpSkill.Web.ViewModels.Course;

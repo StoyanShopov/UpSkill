@@ -1,4 +1,6 @@
-﻿namespace UpSkill.Services.Data.Tests.Common
+﻿using UpSkill.Data.Models;
+
+namespace UpSkill.Services.Data.Tests.Common
 {
     using System.Collections.Generic;
     using System.Security.Claims;
@@ -94,6 +96,18 @@
                 },
                 new ApplicationUser()
                 {
+                Id = "3",
+                Email = string.Empty,
+                CompanyId = 0,
+                },
+                new ApplicationRole
+                {
+                Id = "1",
+                Name = "Admin",
+                NormalizedName = "Admin".ToUpper(),
+                },
+                new ApplicationUser()
+                {
                 Id = "2",
                 FirstName = "TestFirstName",
                 LastName = "TestLastName",
@@ -121,6 +135,11 @@
                 {
                     Id = 1,
                     Name = "Owner",
+                },
+                new Position()
+                {
+                Id = 1,
+                Name = "Owner",
                 },
                 new Course()
                 {

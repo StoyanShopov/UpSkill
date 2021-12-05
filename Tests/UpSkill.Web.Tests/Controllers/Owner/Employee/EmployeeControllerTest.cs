@@ -224,8 +224,8 @@
         }
 
         [Theory]
-        [InlineData("2", TestEmployeeInvalidName, TestEmployeeEmail, TestEmployeePosition)]
-        public void DeleteShouldReturnOkIfTheUserWasSuccessfullyDeleted(string employeeId, string fullName, string email, string positionName)
+        [InlineData("2", TestEmployeeInvalidName, TestEmployeeEmail)]
+        public void DeleteShouldReturnOkIfTheUserWasSuccessfullyDeleted(string employeeId, string fullName, string email)
         {
             MyController<EmployeeController>
             .Instance(instance => instance

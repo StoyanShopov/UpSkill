@@ -118,6 +118,7 @@
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
             mgr.Setup(u => u.GetRolesAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(new List<string>
                 { AdministratorRoleName });
+            mgr.Setup(u => u.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync(companyOwner);
             var service = await this.MockOwnersServices(coachId, companyId, companyOwnerId, adminId, mgr);
 
             var result = await service.AddCoachAsync(companyCoach);
@@ -212,7 +213,7 @@
         }
 
         [Theory]
-        [InlineData( 1, "2")]
+        [InlineData(1, "2")]
         public async Task AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany(int coachId, string companyOwnerId)
         {
             const string DatabaseName = "AddCoachAsyncShouldReturnAlreadyExistsIfACoachIsAlreadyAddedToGivenCompany";
@@ -302,8 +303,7 @@
                 companyOwner,
             };
 
-            //var userManagerMock = MockUserManager<ApplicationUser>(users).Object;
-
+            // var userManagerMock = MockUserManager<ApplicationUser>(users).Object;
             var companyServiceMock = new Mock<ICompanyService>();
             companyServiceMock.Setup(cs => cs.GetByIdAsync<CompanyDetailsModel>(company.Id)).ReturnsAsync(companyViewModelMock);
 
