@@ -27,17 +27,17 @@ function FooterMenu() {
                         <div className="col-md-3 mt-5 ml-auto footer-companyList">
                             <ul className="nav flex-column">
                                 <h5 className="nav-brand px-3 m-1">Company</h5>
-                                <li className="nav-item m-1"><NavLink to="" className="nav-link text-white">About us</NavLink></li>
-                                <li className="nav-item m-1"><NavLink to="" className="nav-link text-white">Contact us</NavLink></li>
-                                <li className="nav-item m-1"><NavLink to="" className="nav-link text-white">Privacy Policy</NavLink></li>
+                                <li className="nav-item m-1"><NavLink to="/About" className="nav-link text-white">About us</NavLink></li>
+                                <li className="nav-item m-1"><NavLink to="/Contact" className="nav-link text-white">Contact us</NavLink></li>
+                                <li className="nav-item m-1"><NavLink to="/Privacy" className="nav-link text-white">Privacy Policy</NavLink></li>
                                 </ul>
                             </div>
                         <div className="col-md-3 mt-5 footer-serviceList">
                             <ul className="nav flex-column">
                                 <h5 className="nav-brand px-3 m-1">Services</h5>
-                                <li className="nav-item m-1"><NavLink to="" className="nav-link text-white">Courses</NavLink></li>
-                                <li className="nav-item m-1"><NavLink to="" className="nav-link text-white">Coaches</NavLink></li>
-                                <li className="nav-item m-1"><NavLink to="" className="nav-link text-white">Requests</NavLink></li>
+                                <li className="nav-item m-1"><NavLink to="/Courses" className="nav-link text-white">Courses</NavLink></li>
+                                <li className="nav-item m-1"><NavLink to="/Coaches" className="nav-link text-white">Coaches</NavLink></li>
+                                <li className="nav-item m-1"><NavLink to="/Requests" className="nav-link text-white">Requests</NavLink></li>
                             </ul>
                         </div>
                         <div className="col-md-1 mt-5 footer-socials">
