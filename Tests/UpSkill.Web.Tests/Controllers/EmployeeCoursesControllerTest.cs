@@ -1,10 +1,10 @@
 ﻿namespace UpSkill.Web.Tests.Controllers
 {
-    using MyTested.AspNetCore.Mvc;
     using System.Linq;
+
+    using MyTested.AspNetCore.Mvc;
     using UpSkill.Services.Data.Tests.Common;
     using UpSkill.Web.Areas.Employee.Course;
-
     using Xunit;
 
     using static UpSkill.Web.Tests.Comman.TestConstants.EmployeeCoursesConstants;

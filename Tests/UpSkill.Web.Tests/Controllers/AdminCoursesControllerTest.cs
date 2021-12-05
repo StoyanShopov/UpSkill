@@ -48,7 +48,7 @@
 
             MyController<CoursesController>
             .Instance()
-            .Calling(c => c.Create(InitializeCreateViewModel(title,description, 10, coachId, categoryId)))
+            .Calling(c => c.Create(InitializeCreateViewModel(title, description, 10, coachId, categoryId)))
             .ShouldHave()
             .ValidModelState()
             .AndAlso()

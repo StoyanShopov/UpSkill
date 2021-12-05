@@ -3,9 +3,8 @@
     using System.Collections.Generic;
     using System.Security.Claims;
 
-    using Microsoft.AspNetCore.Identity;
-
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Moq;
     using UpSkill.Data;
     using UpSkill.Data.Models;
@@ -66,21 +65,35 @@
                     LastName = "TestLastName",
                     Field = "1",
                     Price = 100,
+                    FileId = 1,
+                    File = new File(),
+                    CalendlyUrl = "TestUrl",
+                },
+                new Coach()
+                {
+                    Id = 4,
+                    FirstName = "CoachFirstName",
+                    LastName = "CoachLastName",
+                    Field = "Test field",
+                    Price = 50m,
+                    FileId = 3,
+                    File = new File(),
+                    CalendlyUrl = "TestCalendlyUrl",
+                },
+                new ApplicationRole
+                {
+                    Id = "1",
+                    Name = "Admin",
+                    NormalizedName = "Admin".ToUpper(),
                 },
                 new ApplicationUser()
-            {
+                {
                 Id = "1",
                 Email = "user@example.com",
                 CompanyId = 0,
-            },
-                new ApplicationRole
-            {
-                Id = "1",
-                Name = "Admin",
-                NormalizedName = "Admin".ToUpper(),
-            },
+                },
                 new ApplicationUser()
-           {
+                {
                 Id = "2",
                 FirstName = "TestFirstName",
                 LastName = "TestLastName",
@@ -91,13 +104,7 @@
                 EmailConfirmed = true,
                 UserName = "testEmail@abv.bg",
                 NormalizedUserName = "testEmail@abv.bg".ToUpper(),
-           },
-                new Position()
-           {
-                Id = 1,
-                Name = "Owner",
-           },
-                
+                },
                 new ApplicationUser()
                 {
                     Id = "3",
@@ -109,6 +116,11 @@
                     Id = "4",
                     Email = "user2@example.com",
                     CompanyId = 1,
+                },
+                new Position()
+                {
+                    Id = 1,
+                    Name = "Owner",
                 },
                 new Course()
                 {
@@ -156,6 +168,10 @@
                     FirstName = "Stanimir",
                     LastName = "Stanimir",
                     Field = "Marketing",
+                    Price = 50,
+                    FileId = 2,
+                    File = new File(),
+                    CalendlyUrl = "TestUrl",
                 });
     }
 }

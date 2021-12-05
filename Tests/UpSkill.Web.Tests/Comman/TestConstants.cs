@@ -42,17 +42,6 @@
             public const string ActiveCourses = "getActiveCourses";
         }
 
-        public class Coach
-        {
-            public const string TestAddCoachToOwnerRouteCoach = "Owner/Coaches";
-
-            public const string TestGetAllRouteCompanyCoach = "/Owner/Coaches/getAll";
-
-            public const string TestDeleteRouteCompanyCoach = "/Owner/Coaches?id=1";
-
-            public const string TestRequestCoachRouteCompanyCoach = "/Owner/Coaches/newCoach";
-        }
-
         public class Course
         {
             public const string TestgetActiveCoursesRoute = "/Owner/Courses/getActiveCourses";
@@ -167,12 +156,29 @@
 
             public const string DeleteCoachExist = "DeleteCoachExist";
 
+            public const string PostCoachExist = "PostCoachExistYet";
+
+            public const string PutCoachExist = "PutCoachExist";
+
             public const string GetCoachesForAll = "GetCoachesForAll";
 
             public const string CoachFirstName = "CoachFirstName";
 
             public const string CoachLastName = "CoachLastName";
 
+            public const string TestAddCoachToOwnerRouteCoach = "Owner/Coaches";
+
+            public const string TestGetAllRouteCompanyCoach = "/Owner/Coaches/getAll";
+
+            public const string TestDeleteRouteCompanyCoach = "/Owner/Coaches?id=1";
+
+            public const string TestRequestCoachRouteCompanyCoach = "/Owner/Coaches/newCoach";
+
+            public const decimal TestCoachPrice = 50m;
+
+            public const string TestCalendlyUrl = "TestCalendlyUrl";
+
+            public const string TestCoachField = "Test field";
         }
 
         public class Identity
