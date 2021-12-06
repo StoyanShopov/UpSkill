@@ -18,6 +18,7 @@
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.ChildUsers = new HashSet<ApplicationUser>();
             this.Courses = new HashSet<UserInCourse>();
+            this.RefreshTokens = new HashSet<RefreshToken>();
         }
 
         [Required]
@@ -57,5 +58,7 @@
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<UserInCourse> Courses { get; set; }
+
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }
