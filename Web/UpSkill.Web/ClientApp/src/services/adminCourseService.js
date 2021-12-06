@@ -1,13 +1,15 @@
 import { getCoachesNames } from "./coachService";
 import { getCategoriesForCourses } from "./categoryService";
 
-import { Base_URL } from '../utils/baseUrlConstant';
+import { Base_URL } from "../utils/baseUrlConstant";
 
 const numberCoursesToShow = 6;
 
 const axios = require("axios");
 
 const API_URL = Base_URL + "Admin/Courses";
+
+const token = localStorage.getItem("token");
 
 const initialCourses = [
   {
@@ -65,19 +67,35 @@ const initialCourses = [
     categoryName: "Art",
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
   },
- 
 ];
+
+// export const getCourses = async (currentPage) => {
+//   let arr = [];
+//   arr.push(
+//     ...initialCourses.slice(
+//       0,
+//       currentPage * numberCoursesToShow + numberCoursesToShow
+//     )
+//   );
+
+//   return initialCourses;
+// };
 
 export const getCourses = async (currentPage) => {
   let arr = [];
+  const resp = await axios.get(API_URL + "/getAll", {
+    headers: { "Authorization": `Bearer ${token}` },
+  });
+  let respData = resp.data;
+  console.log(respData);
   arr.push(
-    ...initialCourses.slice(
+    ...respData.slice(
       0,
       currentPage * numberCoursesToShow + numberCoursesToShow
     )
   );
 
-  return initialCourses;
+  return respData;
 };
 
 //Get the real data from Db

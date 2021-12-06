@@ -70,7 +70,7 @@
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
-  width: 15rem;
+  width: fit-content;
   margin-bottom: 1rem;
 }
 

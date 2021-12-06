@@ -59,7 +59,7 @@ export default function AdminCourses() {
     setOpenModal(true);
   };
 
-  const getUpdateData = (course) => {
+  const getUpdateData = (course) => {    
     setData(course);
     setOpenUpdateCourse(true);
   };
@@ -92,23 +92,24 @@ export default function AdminCourses() {
         </div>
         <div className="row list-unstyled admin-courses-list">
           {courses.map((course) => (
-            <div className="col-6 text-align-center ">
+            <div className="col-md-4 text-align-center ">
               <AdminCoursesCard
                 key={course.id}
                 id={course.id}
                 getClickedValue={getValue}
                 courseDetails={course}
                 displayPrice={true}
+                openEdit = {getUpdateData}
               >
-                <button
+                {/* <button
                   className="btn btn-secondary m-2"
                   exact={true}
                   onClick={() => getUpdateData(course)}
                 >
                   Edit
-                </button>
+                </button> */}
                 <button
-                  className="btn btn-primary ml-2"
+                  className="btn admin-course-delete-button btn-primary"
                   onClick={() => setOpenDelete(true)}
                 >
                   Delete
