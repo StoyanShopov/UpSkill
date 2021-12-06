@@ -28,6 +28,17 @@
   padding-left: 0 !important;
 }
 
+.add-course-wrapper{
+  margin-top: 30px;
+  margin-left: 25px;
+  width: 430px;
+  height: 430px;
+  /* background-color: lightblue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media screen and (max-width: 1400px) {
   .admin-courses-list {
     flex-direction: column;

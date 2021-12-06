@@ -59,7 +59,7 @@ export default function AdminCourses() {
     setOpenModal(true);
   };
 
-  const getUpdateData = (course) => {    
+  const getUpdateData = (course) => {
     setData(course);
     setOpenUpdateCourse(true);
   };
@@ -79,7 +79,7 @@ export default function AdminCourses() {
   return (
     <div>
       <div className="container">
-        <div className="create-button-wrapper">
+        {/* <div className="create-button-wrapper">
           <button
             className="btn btn-primary"
             type="button"
@@ -89,7 +89,7 @@ export default function AdminCourses() {
           >
             Add
           </button>
-        </div>
+        </div> */}
         <div className="row list-unstyled admin-courses-list">
           {courses.map((course) => (
             <div className="col-md-4 text-align-center ">
@@ -99,7 +99,7 @@ export default function AdminCourses() {
                 getClickedValue={getValue}
                 courseDetails={course}
                 displayPrice={true}
-                openEdit = {getUpdateData}
+                openEdit={getUpdateData}
               >
                 {/* <button
                   className="btn btn-secondary m-2"
@@ -125,6 +125,9 @@ export default function AdminCourses() {
               )}
             </div>
           ))}
+          <div className="add-course-wrapper">
+            <div className="addImage" onClick={(e => setOpenCreateCourse(true))}></div>
+          </div>
         </div>
       </div>
       {checkPopUp()}
