@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSkill.Web.ViewModels", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpSkill.Web.Infrastructure", "UpSkill.Web.Infrastructure\UpSkill.Web.Infrastructure.csproj", "{6D60D24B-0A7C-48AB-B634-C93EC6EE791D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandBox", "SandBox\SandBox.csproj", "{0EEC9EEC-5268-4591-BFFE-6F35462F511C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SandBox", "SandBox\SandBox.csproj", "{0EEC9EEC-5268-4591-BFFE-6F35462F511C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

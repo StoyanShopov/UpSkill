@@ -8,7 +8,9 @@
 
     public interface IIdentityService
     {
-        Task<string> GenerateJwtToken(ApplicationUser user, string secret);
+        Task<string> GenerateJwtToken(ApplicationUser user);
+
+        RefreshToken GenerateRefreshToken();
 
         Task<Result> RegisterAsync(RegisterRequestModel model);
 
