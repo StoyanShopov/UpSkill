@@ -1,14 +1,19 @@
 ﻿namespace UpSkill.Web
 {
+    using System.Collections.Generic;
+    using System.Globalization;
     using System.Reflection;
     using JavaScriptEngineSwitcher.V8;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Localization;
+    using Microsoft.AspNetCore.Mvc.Razor;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Options;
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
     using UpSkill.Services.Hubs;
@@ -26,6 +31,28 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
+
+            services.AddControllersWithViews();
+
+            services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(opt =>
+            {
+                var supportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("bg"),
+                };
+                opt.DefaultRequestCulture = new RequestCulture("en");
+                opt.SupportedCultures = supportedCultures;
+                opt.SupportedUICultures = supportedCultures;
+            });
+
             services
                  .AddDatabase(this.configuration)
                  .AddBlobStorage(this.configuration)
@@ -43,12 +70,7 @@
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services
-                 .AddHttpContextAccessor();
-
-            services.AddRazorPages()
-               .AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Home", string.Empty));
-            services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddHttpContextAccessor();
 
             services.AddSingleton(this.configuration);
 
@@ -59,7 +81,6 @@
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
-
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -78,18 +99,16 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
-            JavaScriptEngineSwitcher.Core
-                                    .JsEngineSwitcher
-                                    .Current
-                                    .DefaultEngineName = V8JsEngine.EngineName;
-
-            JavaScriptEngineSwitcher.Core.JsEngineSwitcher.Current.EngineFactories.AddV8();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
+
+            app
+                .UseRequestLocalization(
+                app.ApplicationServices
+                .GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
             app
                 .UseStaticFiles()
@@ -108,9 +127,9 @@
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
-                    endpoints.MapControllers();
-                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                    endpoints.MapRazorPages();
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
                 })
                 .ApplyMigrations();
 

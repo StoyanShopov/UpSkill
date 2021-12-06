@@ -1,0 +1,21 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+@inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locO
+
+@{
+    var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
+    var cultureList = locO
+                     .Value
+                     .SupportedCultures
+                     .Select(c => new SelectListItem
+                     {
+                         Value = c.Name,
+                         Text = c.Name
+                     })
+                     .ToList();
+}
+
+<div>
+    <form>
+        <select name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="cutureList"></select>
+    </form>
+</div>
