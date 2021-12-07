@@ -31,8 +31,6 @@ export default function CreateCourse({ closeModal }) {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("");
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
   const [success, setSuccess] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [coaches, setCoaches] = useState({});
@@ -133,14 +131,17 @@ export default function CreateCourse({ closeModal }) {
         categoryId: category,
         file,
       };
-      addCourses(courseReturn).then(() => {
-        setIsSuccess(true);
-        setSuccess("Submitted successfully");
-        setTitle("");
-        setCoachName("");
-        setDescription("");
-        setPrice(0);
-        setCategory("");
+      addCourses(courseReturn).then(resp => {
+        if (resp.data === "Successfully created.")
+        {
+          setIsSuccess(true);
+          setSuccess("Submitted successfully");
+          setTitle("");
+          setCoachName("");
+          setDescription("");
+          setPrice(0);
+          setCategory("");
+        }
       });
     } else {
       setSuccess("Form has errors.");
@@ -164,7 +165,7 @@ export default function CreateCourse({ closeModal }) {
       <div className="form-container">
         <div className="create-form-header">
           <div className="CreateCloseBtn">
-            <button className="the-xbtn" onClick={() => closeModal(false)}>
+            <button className="create-course-the-xbtn" onClick={() => closeModal(false)}>
               <i className="fas fa-times"></i>
             </button>
           </div>

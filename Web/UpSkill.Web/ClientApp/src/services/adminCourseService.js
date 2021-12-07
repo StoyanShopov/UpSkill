@@ -84,7 +84,7 @@ const initialCourses = [
 export const getCourses = async (currentPage) => {
   let arr = [];
   const resp = await axios.get(API_URL + "/getAll", {
-    headers: { "Authorization": `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
   let respData = resp.data;
   console.log(respData);
@@ -98,6 +98,16 @@ export const getCourses = async (currentPage) => {
   return respData;
 };
 
+export const getCourseDetails = async (id) => {
+  try {
+    const resp = await axios.get(API_URL + "/details?id=" + id, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    let respData = resp.data;
+    console.log(respData);
+    return respData;
+  } catch (error) {}
+};
 //Get the real data from Db
 
 // export const getCoursesDb = async () => {
@@ -149,8 +159,18 @@ export const getCourses = async (currentPage) => {
 // };
 
 export const addCourses = async (course) => {
+  let fd = new FormData();
+  fd.append("Title", course.title);
+  fd.append("Description", course.description);
+  fd.append("Price", course.price);
+  fd.append("CoachId", course.coachId);
+  fd.append("CategoryId", course.categoryId);
+  fd.append("File", course.file);
+  console.log(course.file);
   try {
-    const resp = await axios.post(API_URL, course);
+    const resp = await axios.post(API_URL, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return resp;
   } catch (err) {}
 };

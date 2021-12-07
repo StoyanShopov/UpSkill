@@ -15,6 +15,10 @@
 
         public string CategoryName { get; set; }
 
+        public int CategoryId { get; set; }
+
+        public int CoachId { get; set; }
+
         public string CoachFirstName { get; set; }
 
         public string CoachLastName { get; set; }
