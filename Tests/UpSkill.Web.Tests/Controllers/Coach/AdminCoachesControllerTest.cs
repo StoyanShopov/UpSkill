@@ -39,8 +39,7 @@
 
         [Theory]
         [InlineData(CoachFirstName, CoachLastName, 50, TestCalendlyUrl, TestCoachField)]
-        public void PostCreateShouldReturnSuccessfullyWhenDataIsValid(string firstName, string lastName, decimal price,
-            string calendlyUrl, string field)
+        public void PostCreateShouldReturnSuccessfullyWhenDataIsValid(string firstName, string lastName, decimal price, string calendlyUrl, string field)
         {
             SetupMockfile();
 

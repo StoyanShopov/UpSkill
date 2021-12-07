@@ -63,5 +63,4 @@
          .WithMethod(HttpMethod.Get))
          .To<CoursesController>(c => c.GetAll());
     }
-
 }

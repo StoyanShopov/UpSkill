@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Security.Claims;
+
     using Microsoft.AspNetCore.Identity;
     using UpSkill.Data;
     using UpSkill.Data.Models;
@@ -50,17 +51,17 @@
 
         private static void AddFakeData(FakeUpSkillDbContext dbContext)
             => dbContext.AddFakeData(
-                new Company()//na vsichki
+                new Company()
                 {
                     Id = 1,
                     Name = "TestCompany",
                 },
-                new Company()//na vsichki
+                new Company()
                 {
                     Id = 2,
                     Name = "Test2Company",
                 },
-                new Coach()//na vsichki
+                new Coach()
                 {
                     Id = 1,
                     FirstName = "TestFirstName",
@@ -68,7 +69,7 @@
                     Field = "1",
                     Price = 100,
                 },
-                new Coach()//az
+                new Coach()
                 {
                     Id = 2,
                     FirstName = "TestFirstName",
@@ -79,14 +80,14 @@
                     File = new File(),
                     CalendlyUrl = "TestUrl",
                 },
-                new Coach()//na stoyan
+                new Coach()
                 {
                     Id = 3,
                     FirstName = "Stanimir",
                     LastName = "Stanimir",
                     Field = "Marketing",
                 },
-                new Coach()//az
+                new Coach()
                 {
                     Id = 4,
                     FirstName = "Stanimir",
@@ -97,9 +98,9 @@
                     File = new File(),
                     CalendlyUrl = "TestUrl",
                 },
-                new Coach()//az
+                new Coach()
                 {
-                    Id = 5,//was 4
+                    Id = 5,
                     FirstName = "CoachFirstName",
                     LastName = "CoachLastName",
                     Field = "Test field",
@@ -108,18 +109,18 @@
                     File = new File(),
                     CalendlyUrl = "TestCalendlyUrl",
                 },
-                new ApplicationRole//na vsichki
+                new ApplicationRole()
                 {
                     Id = "1",
                     Name = "Admin",
                     NormalizedName = "Admin".ToUpper(),
                 },
-                new Position()//na vsichki
+                new Position()
                 {
                     Id = 1,
                     Name = "Owner",
                 },
-                new Course()//na vsichki
+                new Course()
                 {
                     Id = 1,
                     Title = "Title",
@@ -127,10 +128,10 @@
                     Price = 12,
                     CoachId = 1,
                     CategoryId = 1,
-                    FileId = 1,//izmenen pri kiro
+                    FileId = 1,
                     File = new File(),
                 },
-                new Course()//na vsichki
+                new Course()
                 {
                     Id = 2,
                     Title = "Titl2e",
@@ -139,39 +140,39 @@
                     CoachId = 2,
                     CategoryId = 2,
                 },
-                new CompanyCourse()//na vsichki
+                new CompanyCourse()
                 {
                     CompanyId = 1,
                     CourseId = 2,
                 },
-                new CompanyCourse()//na vsichki
+                new CompanyCourse()
                 {
                     CompanyId = 1,
                     CourseId = 1,
                 },
-                new CompanyCoach()//na vsichki
+                new CompanyCoach()
                 {
                     CompanyId = 1,
                     CoachId = 2,
                 },
-                new CompanyCoach()//na vsichki
+                new CompanyCoach()
                 {
                     CompanyId = 1,
                     CoachId = 1,
                 },
-                new ApplicationUser()//na vsichki
+                new ApplicationUser()
                 {
                     Id = "1",
                     Email = "user@example.com",
                     CompanyId = 0,
                 },
-                new ApplicationUser()//na vsichki
+                new ApplicationUser()
                 {
                     Id = "3",
                     Email = string.Empty,
                     CompanyId = 0,
                 },
-                new ApplicationUser()//na vsichki
+                new ApplicationUser()
                 {
                     Id = "2",
                     FirstName = "TestFirstName",
@@ -184,16 +185,7 @@
                     UserName = "testEmail@abv.bg",
                     NormalizedUserName = "testEmail@abv.bg".ToUpper(),
                 },
-
-                //new ApplicationUser()//za nikogo
-                //{
-                //    Id = "4",
-                //    Email = "user2@example.com",
-                //    CompanyId = 1,
-                //},
-
-
-                new UserInCourse()//na kiro
+                new UserInCourse()
                 {
                     ApplicationUserId = "1",
                     CourseId = 1,
