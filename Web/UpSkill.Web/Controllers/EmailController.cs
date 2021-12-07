@@ -15,14 +15,14 @@
     public class EmailController : ApiController
     {
         private readonly IEmailService emailService;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public EmailController(
             IEmailService emailService,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.emailService = emailService;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpGet]
@@ -34,12 +34,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(" ", new Exception(email + token));
+                this.nlog.Error(" ", new Exception(email + token));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(string.Concat(email, token));
+            this.nlog.Info(string.Concat(email, token));
 
             return this.Ok(EmailConfirmed);
         }
@@ -56,12 +56,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(email, new Exception(result.Failure.ToString()));
+                this.nlog.Error(email, new Exception(result.Failure.ToString()));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(email);
+            this.nlog.Info(email);
 
             return this.Ok();
         }

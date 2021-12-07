@@ -6,14 +6,15 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.SignalR;
+
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Web.ViewModels.Chat;
 
     public class ChatHub : Hub
     {
+        private const string Room = "devs";
         private readonly string bot;
-        private const string room = "devs";
 
         private readonly IRepository<Message> messages;
 
@@ -31,13 +32,13 @@
         public async Task JoinRoom(UserConnection userConnection)
         {
             await this.Groups
-                .AddToGroupAsync(this.Context.ConnectionId, room);
+                .AddToGroupAsync(this.Context.ConnectionId, Room);
 
             this.connections[this.Context.ConnectionId] = userConnection;
 
             await this.Clients
-                .Group(room)
-                .SendAsync("ReceiveMessage", this.bot, $"{userConnection.Name} has joined the {room} room!", DateTime.UtcNow.ToString(), userConnection.Name);
+                .Group(Room)
+                .SendAsync("ReceiveMessage", this.bot, $"{userConnection.Name} has joined the {Room} room!", DateTime.UtcNow.ToString(), userConnection.Name);
         }
 
         public async Task Send(string message, string user)
@@ -55,7 +56,7 @@
                 await this.messages.AddAsync(messageDb);
                 await this.messages.SaveChangesAsync();
 
-                await this.Clients.Group(room)
+                await this.Clients.Group(Room)
                     .SendAsync("ReceiveMessage", userConnection.Name, message, currentTime.ToString("H:mm"), user);
             }
         }
@@ -82,7 +83,7 @@
             {
                 this.connections.Remove(this.Context.ConnectionId);
 
-                await this.Clients.Group(room)
+                await this.Clients.Group(Room)
                        .SendAsync("ReceiveMessage", this.bot, $"{userConnection.Name} has left!", DateTime.UtcNow.ToString(), this.bot);
             }
 

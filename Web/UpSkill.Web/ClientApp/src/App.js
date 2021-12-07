@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Route, useLocation, Switch } from "react-router-dom";
 import { Provider, useDispatch } from 'react-redux'
 
 import './App.css';
@@ -25,6 +25,7 @@ import IdentityContext from "./Context/IdentityContext";
 import SignalRHubClient from "./components/Chat/SignalRHubClient";
 import ZoomHubClient from "./components/Zoom/ZoomHubClient";
 import Auth from "./reducers/auth";
+import instance from "./services/instance";
 
 import UpdateEmployee from './components/MyProfile/Employee/UpdateEmployee/UpdateEmployee'
 
@@ -45,7 +46,7 @@ const AppWrapper = (props) => {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch({
       type: CHECK_CURRENT_STATE
@@ -76,6 +77,7 @@ function App() {
   return (
     <Provider store={store}>
       <AppWrapper>
+        <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/Admin' component={Admin} />
         <Route exact path='/Admin/Courses' component={AdminCourses} />
@@ -90,6 +92,8 @@ function App() {
         <Route exact path='/Admin/Company/:id' component={CompanyDetails} />
         <Route exact path="/Admin/Companies/edit" component={EditCompany} />
         <Route exact path="/Admin/PromoteDemote" component={PromoteDemote} />
+        <Route exact path="/refreshToken/" />
+        </Switch>
       </AppWrapper>
     </Provider>
   );

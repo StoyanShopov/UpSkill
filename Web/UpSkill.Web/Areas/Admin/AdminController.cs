@@ -20,16 +20,16 @@
     {
         private readonly IAdminService adminService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly INLogger nLog;
+        private readonly INLogger nlog;
 
         public AdminController(
             IAdminService adminService,
             UserManager<ApplicationUser> userManager,
-            INLogger nLog)
+            INLogger nlog)
         {
             this.adminService = adminService;
             this.userManager = userManager;
-            this.nLog = nLog;
+            this.nlog = nlog;
         }
 
         [HttpPost]
@@ -40,12 +40,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(model, new Exception(result.Error));
+                this.nlog.Error(model, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(model);
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyAddedOwnerToGivenCompany);
         }
@@ -58,12 +58,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(email, new Exception(result.Error));
+                this.nlog.Error(email, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(email);
+            this.nlog.Info(email);
 
             return this.Ok(AssignedSuccessfully);
         }
@@ -76,12 +76,12 @@
 
             if (result.Failure)
             {
-                this.nLog.Error(email, new Exception(result.Error));
+                this.nlog.Error(email, new Exception(result.Error));
 
                 return this.BadRequest(result.Error);
             }
 
-            this.nLog.Info(email);
+            this.nlog.Info(email);
 
             return this.Ok(UnassignedSuccessfully);
         }
@@ -94,7 +94,7 @@
 
             if (user == null)
             {
-                this.nLog.Error(email, new Exception(UserDoNotExist));
+                this.nlog.Error(email, new Exception(UserDoNotExist));
 
                 return null;
             }
@@ -106,7 +106,7 @@
                 Role = roles,
             };
 
-            this.nLog.Info(result);
+            this.nlog.Info(result);
 
             return result;
         }

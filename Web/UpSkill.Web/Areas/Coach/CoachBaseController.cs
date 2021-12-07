@@ -2,7 +2,9 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    // [Authorize(Roles = CoachRoleName)]
+    using static Common.GlobalConstants.RolesNamesConstants;
+
+    [Authorize(Roles = CoachRoleName)]
     [ApiController]
     [Area("Coach")]
     [Route("Coach/[controller]")]

@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
 
@@ -10,6 +11,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+
     using UpSkill.Data;
     using UpSkill.Data.Common;
     using UpSkill.Data.Common.Repositories;
@@ -152,6 +154,8 @@
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
                         ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
                     };
                 });
 
@@ -172,8 +176,8 @@
                 .AddTransient<IOwnerCoursesService, OwnerCoursesService>()
                 .AddTransient<IFileService, FilesService>()
                 .AddTransient<IOwnerServices, OwnersServices>()
-        .AddTransient<IFileService, FilesService>()
-.AddTransient<IEmployeeService, EmployeesService>()
+                .AddTransient<IFileService, FilesService>()
+                .AddTransient<IEmployeeService, EmployeesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                 .AddScoped<IDbQueryRunner, DbQueryRunner>()

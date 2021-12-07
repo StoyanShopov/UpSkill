@@ -5,11 +5,9 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.Areas.Owner;
 
-    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Owner;
@@ -20,18 +18,14 @@
     public class CoachesController : OwnerBaseController
     {
         private readonly IOwnerServices ownerService;
-        private readonly ICoachServices coachServices;
         private readonly ICurrentUserService currentUser;
-        private readonly INLogger nLog;
 
         public CoachesController(
-            IOwnerServices ownerService,
             ICurrentUserService currentUser,
-            ICoachServices coachService)
+            IOwnerServices ownerService)
         {
             this.ownerService = ownerService;
             this.currentUser = currentUser;
-            this.coachServices = coachService;
         }
 
         [HttpGet]

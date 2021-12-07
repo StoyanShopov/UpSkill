@@ -51,10 +51,9 @@
 
             services.AddSingleton(this.configuration);
 
-            services
-                .AddSignalR()
-                .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
-
+            // services
+            //    .AddSignalR()
+            //    .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
@@ -88,7 +87,8 @@
                 .UseCors(options => options
                     .AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod())
+                    .AllowAnyMethod()
+                    .WithExposedHeaders("WWW-Authenticate"))
                 .UseHttpsRedirection()
                 .UseAuthentication()
                 .UseAuthorization()
@@ -100,12 +100,11 @@
                 })
                 .ApplyMigrations();
 
-            app.UseAzureSignalR(route =>
-            {
-                route.MapHub<ChatHub>("/chat");
-                route.MapHub<ZoomHub>("/zoom");
-            });
-
+            // app.UseAzureSignalR(route =>
+            // {
+            //    route.MapHub<ChatHub>("/chat");
+            //    route.MapHub<ZoomHub>("/zoom");
+            // });
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";

@@ -55,6 +55,11 @@
 
             var employeeFullName = model.FullName.Split(" ", 2, StringSplitOptions.RemoveEmptyEntries).ToList();
 
+            if (employeeFullName.Count != 2)
+            {
+                return WrongEmployeeNamePattern;
+            }
+
             var employeeFirstName = employeeFullName[0];
             var employeeLastName = employeeFullName[1];
 
@@ -87,7 +92,7 @@
 
         public async Task<Result> DeleteAsync(string id)
         {
-            var employee = await this.users.AllAsNoTracking()
+            var employee = await this.users.All()
              .Where(e => e.Id == id)
               .FirstOrDefaultAsync();
             if (employee == null)
