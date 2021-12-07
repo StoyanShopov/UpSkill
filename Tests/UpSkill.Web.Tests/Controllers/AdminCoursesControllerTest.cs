@@ -18,6 +18,7 @@
     using static Comman.TestConstants.AdminCoursesConstants;
     using static Comman.TestConstants.Comman;
     using static Comman.TestConstants.Company;
+    using static Comman.TestConstants.Course;
     using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class AdminCoursesControllerTest : TestWithData
@@ -113,12 +114,12 @@
 
         [Theory]
         [InlineData(TestContent, 1)]
-        public void PutCompanyShouldReturnSuccessfullyEdited(string title, int id)
+        public void PutCourseShouldReturnSuccessfullyEdited(string title, int id)
         {
             // Setup mock file using a memory stream
             SetupMockfile();
 
-            this.InitializeDatabase(PutCompanyExist);
+            this.InitializeDatabase(PutCourseExist);
 
             MyController<CoursesController>
                 .Instance(instance => instance

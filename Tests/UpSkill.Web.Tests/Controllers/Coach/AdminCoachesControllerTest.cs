@@ -109,8 +109,8 @@
                 .BadRequest(DoesNotExist);
 
         [Theory]
-        [InlineData(CoachFirstName, 1)]
-        public void PutCompanyShouldReturnSuccessfullyEdited(string firstName, int id)
+        [InlineData(CoachFirstName, 5)]
+        public void PutCoachShouldReturnSuccessfullyEdited(string firstName, int id)
         {
             SetupMockfile();
 

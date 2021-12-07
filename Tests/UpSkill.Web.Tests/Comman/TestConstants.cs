@@ -25,6 +25,8 @@
 
             public const string TestCompany = "TestCompany";
 
+            public const string Test2Company = "Test2Company";
+
             public const string EditedCompany = "EditedCompany";
 
             public const string TestPostRouteCompany = "Admin/Companies";
@@ -49,6 +51,8 @@
             public const string TestDisableCourseRoute = "/Owner/Courses/disable?id=1";
 
             public const string TestRequestCourseRoute = "/Owner/Courses/RequestCourse";
+
+            public const string PutCourseExist = "PutCourseExist";
         }
 
         public class Employee

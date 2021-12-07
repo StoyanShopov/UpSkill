@@ -1,13 +1,8 @@
-﻿using UpSkill.Data.Models;
-
-namespace UpSkill.Services.Data.Tests.Common
+﻿namespace UpSkill.Services.Data.Tests.Common
 {
     using System.Collections.Generic;
     using System.Security.Claims;
-
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
-    using Moq;
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
@@ -55,14 +50,27 @@ namespace UpSkill.Services.Data.Tests.Common
 
         private static void AddFakeData(FakeUpSkillDbContext dbContext)
             => dbContext.AddFakeData(
-                new Company()
+                new Company()//na vsichki
                 {
                     Id = 1,
                     Name = "TestCompany",
                 },
-                new Coach()
+                new Company()//na vsichki
+                {
+                    Id = 2,
+                    Name = "Test2Company",
+                },
+                new Coach()//na vsichki
                 {
                     Id = 1,
+                    FirstName = "TestFirstName",
+                    LastName = "TestLastName",
+                    Field = "1",
+                    Price = 100,
+                },
+                new Coach()//az
+                {
+                    Id = 2,
                     FirstName = "TestFirstName",
                     LastName = "TestLastName",
                     Field = "1",
@@ -71,9 +79,27 @@ namespace UpSkill.Services.Data.Tests.Common
                     File = new File(),
                     CalendlyUrl = "TestUrl",
                 },
-                new Coach()
+                new Coach()//na stoyan
+                {
+                    Id = 3,
+                    FirstName = "Stanimir",
+                    LastName = "Stanimir",
+                    Field = "Marketing",
+                },
+                new Coach()//az
                 {
                     Id = 4,
+                    FirstName = "Stanimir",
+                    LastName = "Stanimir",
+                    Field = "Marketing",
+                    Price = 50,
+                    FileId = 2,
+                    File = new File(),
+                    CalendlyUrl = "TestUrl",
+                },
+                new Coach()//az
+                {
+                    Id = 5,//was 4
                     FirstName = "CoachFirstName",
                     LastName = "CoachLastName",
                     Field = "Test field",
@@ -82,66 +108,18 @@ namespace UpSkill.Services.Data.Tests.Common
                     File = new File(),
                     CalendlyUrl = "TestCalendlyUrl",
                 },
-                new ApplicationRole
+                new ApplicationRole//na vsichki
                 {
                     Id = "1",
                     Name = "Admin",
                     NormalizedName = "Admin".ToUpper(),
                 },
-                new ApplicationUser()
-                {
-                Id = "1",
-                Email = "user@example.com",
-                CompanyId = 0,
-                },
-                new ApplicationUser()
-                {
-                Id = "3",
-                Email = string.Empty,
-                CompanyId = 0,
-                },
-                new ApplicationRole
-                {
-                Id = "1",
-                Name = "Admin",
-                NormalizedName = "Admin".ToUpper(),
-                },
-                new ApplicationUser()
-                {
-                Id = "2",
-                FirstName = "TestFirstName",
-                LastName = "TestLastName",
-                Email = "testEmail@abv.bg",
-                NormalizedEmail = "testEmail@abv.bg".ToUpper(),
-                CompanyId = 1,
-                PasswordHash = "AQAAAAEAACcQAAAAEPApfGLDptLhrGFgXEVwUGu8aXMoxGjrOP8CAjVsjRSnQ3S68UP95bEu4S7yv+EQAw==",
-                EmailConfirmed = true,
-                UserName = "testEmail@abv.bg",
-                NormalizedUserName = "testEmail@abv.bg".ToUpper(),
-                },
-                new ApplicationUser()
-                {
-                    Id = "3",
-                    Email = string.Empty,
-                    CompanyId = 0,
-                },
-                new ApplicationUser()
-                {
-                    Id = "4",
-                    Email = "user2@example.com",
-                    CompanyId = 1,
-                },
-                new Position()
+                new Position()//na vsichki
                 {
                     Id = 1,
                     Name = "Owner",
                 },
-                new Position()
-                {
-                Id = 1,
-                Name = "Owner",
-                },
-                new Course()
+                new Course()//na vsichki
                 {
                     Id = 1,
                     Title = "Title",
@@ -149,10 +127,10 @@ namespace UpSkill.Services.Data.Tests.Common
                     Price = 12,
                     CoachId = 1,
                     CategoryId = 1,
-                    FileId = 1,
+                    FileId = 1,//izmenen pri kiro
                     File = new File(),
                 },
-                new Course()
+                new Course()//na vsichki
                 {
                     Id = 2,
                     Title = "Titl2e",
@@ -161,36 +139,64 @@ namespace UpSkill.Services.Data.Tests.Common
                     CoachId = 2,
                     CategoryId = 2,
                 },
-                new CompanyCourse()
+                new CompanyCourse()//na vsichki
                 {
                     CompanyId = 1,
                     CourseId = 2,
                 },
-                new CompanyCourse()
+                new CompanyCourse()//na vsichki
                 {
                     CompanyId = 1,
                     CourseId = 1,
                 },
-                new CompanyCoach()
+                new CompanyCoach()//na vsichki
                 {
                     CompanyId = 1,
                     CoachId = 2,
                 },
-                new CompanyCoach()
+                new CompanyCoach()//na vsichki
                 {
                     CompanyId = 1,
                     CoachId = 1,
                 },
-                new Coach()
+                new ApplicationUser()//na vsichki
                 {
-                    Id = 3,
-                    FirstName = "Stanimir",
-                    LastName = "Stanimir",
-                    Field = "Marketing",
-                    Price = 50,
-                    FileId = 2,
-                    File = new File(),
-                    CalendlyUrl = "TestUrl",
+                    Id = "1",
+                    Email = "user@example.com",
+                    CompanyId = 0,
+                },
+                new ApplicationUser()//na vsichki
+                {
+                    Id = "3",
+                    Email = string.Empty,
+                    CompanyId = 0,
+                },
+                new ApplicationUser()//na vsichki
+                {
+                    Id = "2",
+                    FirstName = "TestFirstName",
+                    LastName = "TestLastName",
+                    Email = "testEmail@abv.bg",
+                    NormalizedEmail = "testEmail@abv.bg".ToUpper(),
+                    CompanyId = 1,
+                    PasswordHash = "AQAAAAEAACcQAAAAEPApfGLDptLhrGFgXEVwUGu8aXMoxGjrOP8CAjVsjRSnQ3S68UP95bEu4S7yv+EQAw==",
+                    EmailConfirmed = true,
+                    UserName = "testEmail@abv.bg",
+                    NormalizedUserName = "testEmail@abv.bg".ToUpper(),
+                },
+
+                //new ApplicationUser()//za nikogo
+                //{
+                //    Id = "4",
+                //    Email = "user2@example.com",
+                //    CompanyId = 1,
+                //},
+
+
+                new UserInCourse()//na kiro
+                {
+                    ApplicationUserId = "1",
+                    CourseId = 1,
                 });
     }
 }
