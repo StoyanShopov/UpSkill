@@ -27,7 +27,7 @@ function AddCoachModal({ closeModal, setOpenRequest }) {
           <div className="deleteHeader-els-container">
             <div className="deleteModal-title">
               <p>
-                Choose a caoch from our list
+                Choose a coach from our list
                 <br />
                 or request one
               </p>

@@ -19,13 +19,13 @@ export default function CompanyOwnerCourses() {
 
   return (
     <>
-      <div>
-        <div id='btn'>
-          <Button href='/Courses'>Manage</Button>
-        </div>
-        <div className="wrapper">
-          <CoursesCatalog courses={courses} />
-        </div>
+      <div id="buttonContainer">
+          <Button variant="outline-primary" id="btn" href="/Courses">
+            <p id="manageButtonText">Manage</p>
+          </Button>
+      </div>
+      <div className="wrapper">
+        <CoursesCatalog courses={courses} />
       </div>
     </>
   );

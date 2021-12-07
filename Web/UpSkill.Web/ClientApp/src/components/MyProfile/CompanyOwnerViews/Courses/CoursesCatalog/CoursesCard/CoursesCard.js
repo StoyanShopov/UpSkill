@@ -21,7 +21,7 @@ export default function CoursesCard(props) {
                     <span className="courses-courseField">{courseTitle}</span>
                     <span className="price">{coursePrice}$ per person</span>
                     <div>
-                        <img src={googleImg} alt="Google" className="bage-position" />
+                        <img src={googleImg} alt="Google" className="badge-position" />
                     </div>
                     <span className="courses-fullName">{fullName}</span>
                 </div>
