@@ -162,14 +162,32 @@ export const getAllCoaches = async (currentPage) => {
   } catch (err) {}
 };
 
-export const getCoachesNames = async (currentPage) => {
-  let arr = [];
-  initialCoachesMock.map((c) => {
-    let objectReturn = { label: c.fullName, value: c.id };
-    arr.push(objectReturn);
-  });
-  // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
-  return arr;
+export const getCoachesNames = async (currentPage) => {  
+  try {
+    let arr = [];
+    coaches=[];
+    const resp = await axios.get(Base_URL + "Coaches/getAll", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    let transformedResp = resp.data.map((c) => {
+      return {
+          label: c.firstName + " " + c.lastName,
+          value: c.id,
+      };
+    });
+    // console.log(transformedResp);
+    arr.push(...transformedResp);
+    coaches = [];
+    coaches.push(...transformedResp);
+    //arr= arr.slice(0, currentPage * numberCoachesToShow + numberCoachesToShow);
+    return arr;
+  } catch (err) {}
+  // initialCoachesMock.map((c) => {
+  //   let objectReturn = { label: c.fullName, value: c.id };
+  //   arr.push(objectReturn);
+  // });
+  // // .slice(0, currentPage * numberCoachesToShow + numberCoachesToShow));
+  // return arr;
 };
 
 export const getActiveCoachesCompanyOwner = async (uId) => {

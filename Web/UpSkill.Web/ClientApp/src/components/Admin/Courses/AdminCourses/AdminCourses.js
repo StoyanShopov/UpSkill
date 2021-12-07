@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import AdminCoursesCard from "../AdminCourseCard/AdminCourseCard";
 import {
-  getCourses,
-  getCoursesDb,
+  getCourses,  
   deleteCourses,
 } from "../../../../services/adminCourseService";
 import "./AdminCourses.css";

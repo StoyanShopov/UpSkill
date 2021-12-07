@@ -16,6 +16,7 @@ const customStyles = {
     opacity: "1",
     margin: "0.5rem",
     borderRadius: "5px",
+    font: "blue",
   }),
   menu: (provided, state) => ({
     ...provided,
@@ -38,6 +39,7 @@ export default function CreateCourse({ closeModal }) {
   const [coachId, setCoachId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [errors, setErrors] = useState({});
+  const [file, setFile] = useState({});
 
   let handleValidation = () => {
     let fields = {
@@ -46,6 +48,7 @@ export default function CreateCourse({ closeModal }) {
       description,
       price,
       category,
+      file,
     };
     let errorsValidation = {};
     let formIsValid = true;
@@ -78,8 +81,21 @@ export default function CreateCourse({ closeModal }) {
       errorsValidation["price"] = "Cannot be negative number";
     }
 
+    if (!fields["file"]) {
+      formIsValid = false;
+      errorsValidation["file"] = "Cannot be empty";
+    }
+
     setErrors(errorsValidation);
     return formIsValid;
+  };
+
+  const onChangeFile = (e) => {
+    console.log(e.target.files[0]);
+    // let inputFile={
+
+    // }
+    setFile(e.target.files[0]);
   };
 
   let onchangeTitle = (el) => {
@@ -109,17 +125,17 @@ export default function CreateCourse({ closeModal }) {
     event.preventDefault();
 
     if (handleValidation()) {
-      setIsSuccess(true);
-      setSuccess("Submitted successfully");
       let courseReturn = {
         title,
         description,
         price,
         coachId,
         categoryId: category,
-        // imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
+        file,
       };
       addCourses(courseReturn).then(() => {
+        setIsSuccess(true);
+        setSuccess("Submitted successfully");
         setTitle("");
         setCoachName("");
         setDescription("");
@@ -145,13 +161,20 @@ export default function CreateCourse({ closeModal }) {
 
   return (
     <div className="create-course-container">
-      <div className="CreateCloseBtn">
-        <button className="the-xbtn" onClick={() => closeModal(false)}>
-          X
-        </button>
-      </div>
       <div className="form-container">
-        <h1 style={{ marginBottom: "2rem" }}>Add Course</h1>
+        <div className="create-form-header">
+          <div className="CreateCloseBtn">
+            <button className="the-xbtn" onClick={() => closeModal(false)}>
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
+          <h1
+            className="create-form-header-title"
+            style={{ marginBottom: "1rem" }}
+          >
+            Create Course
+          </h1>
+        </div>
         {isSuccess ? (
           <span style={{ color: "green", marginBottom: "0px" }}>{success}</span>
         ) : (
@@ -170,7 +193,9 @@ export default function CreateCourse({ closeModal }) {
                 onChange={onchangeTitle}
               />
             </div>
-            <p style={{ color: "red", marginLeft: "15px" }}>
+            <p
+              style={{ color: "red", marginLeft: "15px", marginTop: "-0.5rem" }}
+            >
               {errors["title"]}
             </p>
             <div className="form-group" style={{ marginBottom: "-0.5rem" }}>
@@ -187,7 +212,13 @@ export default function CreateCourse({ closeModal }) {
                   placeholder="CoachName"
                   onChange={onChangeNameSelect}
                 />
-                <p style={{ color: "red", marginLeft: "15px" }}>
+                <p
+                  style={{
+                    color: "red",
+                    marginLeft: "15px",
+                    marginTop: "-0.5rem",
+                  }}
+                >
                   {errors["coachName"]}
                 </p>
               </div>
@@ -203,7 +234,13 @@ export default function CreateCourse({ closeModal }) {
                 value={description}
                 onChange={onchangeDescription}
               />
-              <p style={{ color: "red", marginLeft: "15px" }}>
+              <p
+                style={{
+                  color: "red",
+                  marginLeft: "15px",
+                  marginTop: "-0.5rem",
+                }}
+              >
                 {errors["description"]}
               </p>
             </div>
@@ -218,7 +255,13 @@ export default function CreateCourse({ closeModal }) {
                 value={price}
                 onChange={onchangePrice}
               />
-              <p style={{ color: "red", marginLeft: "15px" }}>
+              <p
+                style={{
+                  color: "red",
+                  marginLeft: "15px",
+                  marginTop: "-0.5rem",
+                }}
+              >
                 {errors["price"]}
               </p>
             </div>
@@ -237,12 +280,36 @@ export default function CreateCourse({ closeModal }) {
                   placeholder="Category"
                   onChange={onchangeCategory}
                 />
-                <p style={{ color: "red", marginLeft: "15px" }}>
+                <p
+                  style={{
+                    color: "red",
+                    marginLeft: "15px",
+                    marginTop: "-0.5rem",
+                    marginBottom: "-1rem",
+                  }}
+                >
                   {errors["category"]}
                 </p>
               </div>
             </div>
-
+            <div className="form-group">
+              <label htmlFor="File"></label>
+              <input
+                type="file"
+                placeholder="File*"
+                className="w-100 p-2"
+                onChange={onChangeFile}
+              />
+              <p
+                style={{
+                  color: "red",
+                  marginLeft: "15px",
+                  marginTop: "-0.5rem",
+                }}
+              >
+                {errors["file"]}
+              </p>
+            </div>
             <div className="btn-createcourse-container">
               <input
                 className="btn-custom"

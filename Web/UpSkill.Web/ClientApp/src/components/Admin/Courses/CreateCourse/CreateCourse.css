@@ -3,10 +3,9 @@
   /* margin-left: 30%; */
   /* height:650px; */
   width: 40rem;
-  height: 40rem;
+  height: fit-content;
   display: inline-block;
   background: white 0% 0% no-repeat padding-box;
-  border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   opacity: 1;
   display: flex;
@@ -20,7 +19,7 @@
   /* top: 185px;
   margin-left: 30%; */
   width: 40rem;
-  height: 35rem;
+  height: fit-content;
   background: white 0% 0% no-repeat padding-box;
   display: flex;
   align-items: center;
@@ -28,10 +27,22 @@
   flex-direction: column;
 }
 
+.create-form-header {
+  width: 100%;
+  height: 100px;
+  background: #296cfb 0% 0% no-repeat padding-box;
+  margin-bottom: 30px;
+}
+
+.create-form-header-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;  
+}
+
 .CreateCloseBtn {
-  margin-top: -3rem;
-  border-radius: 12px;
-  background-color: white;
+  position: relative;
   width: 100%;
   height: 3rem;
   display: flex;
@@ -39,12 +50,14 @@
 }
 
 .the-xbtn {
-  margin-right: 0.5rem;
-  color: black;
-  font-size: 2rem;
+  margin-right: 20px;
+  margin-bottom: -20px;
+  color: white;
+  font-size: 30px;
   background: transparent;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
 /* .form-container {
@@ -75,11 +88,19 @@
   height: 50px;
   background: #296cfb 0% 0% no-repeat padding-box;
   opacity: 1;
-  border-radius: 5px;
+  border: none;  
+}
+
+.create-course-form-errors{
+  color: "red";
+  margin-left: "15px";
+  margin-top: "-0.5rem";
 }
 
 .btn-createcourse-container {
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
