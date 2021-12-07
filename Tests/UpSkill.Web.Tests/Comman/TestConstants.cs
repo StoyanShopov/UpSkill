@@ -148,6 +148,18 @@
             public const string TestGetAllCourseRouteEmployeeCourses = "getAll";
 
             public const string DatabaseName = "Database";
+
+            public const string Database1Name = "Database1";
+
+            public const string Database2Name = "Database2";
+
+            public const string Database3Name = "Database3";
+
+            public const string TestGetAllRoute = "getAll";
+
+            public const string TestGetByIdCourseRouteEmployeeCourses = "/Employee/Courses/details";
+
+            public const string TestGetByIdRoute = "details";
         }
 
         public class Coach
