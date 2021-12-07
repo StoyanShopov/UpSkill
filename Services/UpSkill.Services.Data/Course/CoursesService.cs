@@ -91,12 +91,12 @@
                              .Where(c => c.Id == id)
                              .FirstOrDefaultAsync();
 
-            var file = await this.fileService.EditAsync(course.FileId, model.File);
-
             if (course == null)
             {
                 return DoesNotExist;
             }
+
+            var file = await this.fileService.EditAsync(course.FileId, model.File);
 
             course.Title = model.Title;
             course.CoachId = model.CoachId;

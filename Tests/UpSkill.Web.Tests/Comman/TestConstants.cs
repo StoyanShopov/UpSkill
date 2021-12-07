@@ -25,6 +25,8 @@
 
             public const string TestCompany = "TestCompany";
 
+            public const string Test2Company = "Test2Company";
+
             public const string EditedCompany = "EditedCompany";
 
             public const string TestPostRouteCompany = "Admin/Companies";
@@ -42,17 +44,6 @@
             public const string ActiveCourses = "getActiveCourses";
         }
 
-        public class Coach
-        {
-            public const string TestAddCoachToOwnerRouteCoach = "Owner/Coaches";
-
-            public const string TestGetAllRouteCompanyCoach = "/Owner/Coaches/getAll";
-
-            public const string TestDeleteRouteCompanyCoach = "/Owner/Coaches?id=1";
-
-            public const string TestRequestCoachRouteCompanyCoach = "/Owner/Coaches/newCoach";
-        }
-
         public class Course
         {
             public const string TestgetActiveCoursesRoute = "/Owner/Courses/getActiveCourses";
@@ -60,6 +51,8 @@
             public const string TestDisableCourseRoute = "/Owner/Courses/disable?id=1";
 
             public const string TestRequestCourseRoute = "/Owner/Courses/RequestCourse";
+
+            public const string PutCourseExist = "PutCourseExist";
         }
 
         public class Employee
@@ -120,6 +113,8 @@
 
             public const string TestDescription = "testDescription";
 
+            public const string TestContent = "testContent";
+
             // compilation error when try to use this value
             public const decimal TestPrice = 10;
 
@@ -134,6 +129,72 @@
             public const string DeleteCourseExist = "DeleteCourseExist";
 
             public const string GetAllCourseExist = "GetAllCourseExist";
+
+            public const string TestPostCreateRouteAdminCourses = "Admin/Courses";
+
+            public const string TestPostAddCompanyRouteAdminCourses = "/Admin/Courses/addCompanyToCourse";
+
+            public const string TestPutEditRouteShouldAdminCourses = "Admin/Courses";
+
+            public const string TestGetDetailsRouteAdminCourses = "/Admin/Courses/details";
+
+            public const string TestDeleteCourseRouteAdminCourses = "Admin/Courses";
+
+            public const string TestGetAllCourseRouteAdminCourses = "/Admin/Courses/getAll";
+        }
+
+        public class EmployeeCoursesConstants
+        {
+            public const string TestGetAllCourseRouteEmployeeCourses = "getAll";
+
+            public const string DatabaseName = "Database";
+
+            public const string Database1Name = "Database1";
+
+            public const string Database2Name = "Database2";
+
+            public const string Database3Name = "Database3";
+
+            public const string TestGetAllRoute = "getAll";
+
+            public const string TestGetByIdCourseRouteEmployeeCourses = "/Employee/Courses/details";
+
+            public const string TestGetByIdRoute = "details";
+        }
+
+        public class Coach
+        {
+            public const string GetAllCoaches = "[controller]/getAll";
+
+            public const string GetAllCoachesExist = "GetAllCoachesExist";
+
+            public const string GetDetailsCoaches = "GetDetailsCoaches";
+
+            public const string DeleteCoachExist = "DeleteCoachExist";
+
+            public const string PostCoachExist = "PostCoachExistYet";
+
+            public const string PutCoachExist = "PutCoachExist";
+
+            public const string GetCoachesForAll = "GetCoachesForAll";
+
+            public const string CoachFirstName = "CoachFirstName";
+
+            public const string CoachLastName = "CoachLastName";
+
+            public const string TestAddCoachToOwnerRouteCoach = "Owner/Coaches";
+
+            public const string TestGetAllRouteCompanyCoach = "/Owner/Coaches/getAll";
+
+            public const string TestDeleteRouteCompanyCoach = "/Owner/Coaches?id=1";
+
+            public const string TestRequestCoachRouteCompanyCoach = "/Owner/Coaches/newCoach";
+
+            public const decimal TestCoachPrice = 50m;
+
+            public const string TestCalendlyUrl = "TestCalendlyUrl";
+
+            public const string TestCoachField = "Test field";
         }
 
         public class Identity
