@@ -23,7 +23,7 @@ function MyProfile() {
   if (isCompanyOwner) {
     return <CompanyOwner />;
   } else if (isEmployee) return <Employee />;
-  //Probably the admin will acces his area from here too
+  //Probably the admin will access his area from here too
   else if (isAdmin)
     return (
       <div className="container p-5 text-center">
