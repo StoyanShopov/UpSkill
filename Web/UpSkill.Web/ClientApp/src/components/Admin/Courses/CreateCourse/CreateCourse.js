@@ -131,9 +131,8 @@ export default function CreateCourse({ closeModal }) {
         categoryId: category,
         file,
       };
-      addCourses(courseReturn).then(resp => {
-        if (resp.data === "Successfully created.")
-        {
+      addCourses(courseReturn).then((resp) => {
+        if (resp.data === "Successfully created.") {
           setIsSuccess(true);
           setSuccess("Submitted successfully");
           setTitle("");
@@ -165,7 +164,10 @@ export default function CreateCourse({ closeModal }) {
       <div className="form-container">
         <div className="create-form-header">
           <div className="CreateCloseBtn">
-            <button className="create-course-the-xbtn" onClick={() => closeModal(false)}>
+            <button
+              className="create-course-the-xbtn"
+              onClick={() => closeModal(false)}
+            >
               <i className="fas fa-times"></i>
             </button>
           </div>

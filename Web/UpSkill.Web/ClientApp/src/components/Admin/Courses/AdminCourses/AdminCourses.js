@@ -73,9 +73,21 @@ export default function AdminCourses() {
     getCourses().then(() => getData());
   };
 
+  const onCloseUpdateCourse = (close) => {
+    setOpenUpdateCourse(close);
+    localStorage.removeItem("ID");
+    localStorage.removeItem("FullName");
+    localStorage.removeItem("CategoryName");
+    localStorage.removeItem("Title");
+    localStorage.removeItem("CategoryId");
+    localStorage.removeItem("CoachId");
+    localStorage.removeItem("Price");
+    localStorage.removeItem("Description");
+    getCourses().then(() => getData());
+  };
+
   useEffect(() => {
-    getCourses().then((courses) => {
-      console.log(courses);
+    getCourses().then((courses) => {      
       setCourses(courses);
     });
   }, []);
@@ -128,7 +140,7 @@ export default function AdminCourses() {
       )}
       {openUpdateCourse && (
         <UpdateCourseModal
-          closeUpdateCourseModal={setOpenUpdateCourse}
+          closeUpdateCourseModal={onCloseUpdateCourse}
         ></UpdateCourseModal>
       )}
     </div>

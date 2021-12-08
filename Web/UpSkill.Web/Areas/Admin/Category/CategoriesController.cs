@@ -9,10 +9,9 @@
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
 
-
     public class CategoriesController : AdministrationBaseController
     {
-        private ICategoriesService categoriesService;
+        private readonly ICategoriesService categoriesService;
 
         public CategoriesController(ICategoriesService categoriesService)
         {

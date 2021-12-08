@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import "../CreateCourse/CreateCourse.css";
 import "./UpdateCourse.css";
-import { updateCourses, getCourseDetails } from "../../../../services/adminCourseService";
+import {
+  updateCourses,
+  getCourseDetails,
+} from "../../../../services/adminCourseService";
 import { getCoachesNames } from "../../../../services/coachService";
 import { getCategoriesForCourses } from "../../../../services/categoryService";
 import Select from "react-select";
@@ -111,10 +114,6 @@ export default function UpdateCourse({ closeModal }) {
   };
 
   const onChangeFile = (e) => {
-    console.log(e.target.files[0]);
-    // let inputFile={
-
-    // }
     setFile(e.target.files[0]);
   };
 
@@ -126,18 +125,16 @@ export default function UpdateCourse({ closeModal }) {
     // setTitle(localStorage.getItem("Title"));
     // setCategoryId(localStorage.getItem("CategoryId"));
     // setCategoryName(localStorage.getItem("CategoryName"));
-    // setCoachName(localStorage.getItem("FullName"));   
-    getCourseDetails(localStorage.getItem("ID")).then(course => {
-    console.log(course)    
-
-    setCoachId(course.coachId);
-    setPrice(course.price);
-    setDescription(course.description);
-    setTitle(course.title);
-    setCategoryId(course.categoryId);
-    setCategoryName(course.categoryName);
-    setCoachName(course.coachFirstName + " " +course.coachLastName);  
-    }) 
+    // setCoachName(localStorage.getItem("FullName"));
+    getCourseDetails(localStorage.getItem("ID")).then((course) => {     
+      setCoachId(course.coachId);
+      setPrice(course.price);
+      setDescription(course.description);
+      setTitle(course.title);
+      setCategoryId(course.categoryId);
+      setCategoryName(course.categoryName);
+      setCoachName(course.coachFirstName + " " + course.coachLastName);
+    });
   }, []);
 
   let onchangeTitle = (el) => {
@@ -167,8 +164,6 @@ export default function UpdateCourse({ closeModal }) {
     event.preventDefault();
 
     if (handleValidation()) {
-      setIsSuccess(true);
-      setSuccess("Submitted successfully");
       let courseReturn = {
         id,
         title,
@@ -178,8 +173,13 @@ export default function UpdateCourse({ closeModal }) {
         categoryId,
         file,
       };
-      console.log(courseReturn);
-      updateCourses(courseReturn);
+      updateCourses(courseReturn).then((resp) => {        
+        if (resp.data === "Successfully edited.") {
+          setIsSuccess(true);
+          setSuccess("Submitted successfully");
+          closeModal(false);
+        }
+      });
     } else {
       setSuccess("Form has errors.");
     }
@@ -202,10 +202,7 @@ export default function UpdateCourse({ closeModal }) {
       <div className="update-form-container">
         <div className="create-form-header">
           <div className="UpdateCloseBtn">
-            <button
-              className="update-x-btn"
-              onClick={() => closeModal(false)}
-            >
+            <button className="update-x-btn" onClick={() => closeModal(false)}>
               <i className="fas fa-times"></i>
             </button>
           </div>
@@ -313,7 +310,7 @@ export default function UpdateCourse({ closeModal }) {
                 {errors["category"]}
               </span>
             </div>
-            <div className="form-group" style={{marginTop: "-30px"}}>
+            <div className="form-group" style={{ marginTop: "-30px" }}>
               <label htmlFor="File"></label>
               <input
                 type="file"

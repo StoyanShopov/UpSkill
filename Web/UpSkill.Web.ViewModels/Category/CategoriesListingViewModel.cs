@@ -3,7 +3,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Mapping;
 
-    public class CategoriesListingViewModel: IMapFrom<Category>
+    public class CategoriesListingViewModel : IMapFrom<Category>
     {
         public int Id { get; set; }
 

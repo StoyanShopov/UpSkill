@@ -69,25 +69,12 @@ const initialCourses = [
   },
 ];
 
-// export const getCourses = async (currentPage) => {
-//   let arr = [];
-//   arr.push(
-//     ...initialCourses.slice(
-//       0,
-//       currentPage * numberCoursesToShow + numberCoursesToShow
-//     )
-//   );
-
-//   return initialCourses;
-// };
-
 export const getCourses = async (currentPage) => {
   let arr = [];
   const resp = await axios.get(API_URL + "/getAll", {
     headers: { Authorization: `Bearer ${token}` },
   });
   let respData = resp.data;
-  console.log(respData);
   arr.push(
     ...respData.slice(
       0,
@@ -104,10 +91,10 @@ export const getCourseDetails = async (id) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     let respData = resp.data;
-    console.log(respData);
     return respData;
   } catch (error) {}
 };
+
 //Get the real data from Db
 
 // export const getCoursesDb = async () => {
@@ -166,7 +153,7 @@ export const addCourses = async (course) => {
   fd.append("CoachId", course.coachId);
   fd.append("CategoryId", course.categoryId);
   fd.append("File", course.file);
-  console.log(course.file);
+
   try {
     const resp = await axios.post(API_URL, fd, {
       headers: { Authorization: `Bearer ${token}` },
@@ -176,13 +163,27 @@ export const addCourses = async (course) => {
 };
 
 export const updateCourses = async (course) => {
+  let fd = new FormData();
+  fd.append("Title", course.title);
+  fd.append("Description", course.description);
+  fd.append("Price", course.price);
+  fd.append("CoachId", course.coachId);
+  fd.append("CategoryId", course.categoryId);
+  fd.append("File", course.file);
+
   try {
-    const resp = await axios.put(API_URL + "?id=" + course.id, course);
+    const resp = await axios.put(API_URL + "?id=" + course.id, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return resp;
   } catch (err) {}
 };
 
 export const deleteCourses = async (id) => {
   try {
-    const resp = await axios.delete(API_URL + "?id=" + id);
+    const resp = await axios.delete(API_URL + "?id=" + id, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return resp;
   } catch (err) {}
 };

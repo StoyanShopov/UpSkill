@@ -1,8 +1,8 @@
 .update-course-container {
   width: 40rem;
-  height:fit-content;
+  height: fit-content;
   display: inline-block;
-  background: white 0% 0% no-repeat padding-box;  
+  background: white 0% 0% no-repeat padding-box;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   opacity: 1;
   display: flex;
@@ -76,13 +76,13 @@
 
 .cancel-button {
   margin-right: 10px;
-  width:120px;
+  width: 120px;
   border-radius: 0px;
 }
 
 .submit-button {
   margin-left: 10px;
-  width:120px;
+  width: 120px;
   border-radius: 0px;
 }
 

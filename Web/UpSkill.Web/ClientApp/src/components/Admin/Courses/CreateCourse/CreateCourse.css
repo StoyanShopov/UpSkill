@@ -38,7 +38,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  color: white;  
+  color: white;
 }
 
 .CreateCloseBtn {
@@ -88,10 +88,10 @@
   height: 50px;
   background: #296cfb 0% 0% no-repeat padding-box;
   opacity: 1;
-  border: none;  
+  border: none;
 }
 
-.create-course-form-errors{
+.create-course-form-errors {
   color: "red";
   margin-left: "15px";
   margin-top: "-0.5rem";
