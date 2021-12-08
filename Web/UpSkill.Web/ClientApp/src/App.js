@@ -57,7 +57,7 @@ const AppWrapper = (props) => {
   return (
     <NotificationContext.Provider value={[notification, setNotification]} >
       <IdentityContext.Provider value={[loading, setLoading]} >
-      <UpdateEmployee />{/* For test purpose => Delete */}
+      {/*<UpdateEmployee /> For test purpose => Delete */}
         <ZoomHubClient>
           <SignalRHubClient>
             <Layout>

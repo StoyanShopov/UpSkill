@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Areas.Coach
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using static Common.GlobalConstants.RolesNamesConstants;

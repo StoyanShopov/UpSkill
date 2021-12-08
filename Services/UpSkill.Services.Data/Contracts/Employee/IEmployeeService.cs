@@ -22,5 +22,7 @@
         Task<IEnumerable<TModel>> GetCompanyEmployeesAsync<TModel>(string userId);
 
         Task<TModel> GetEmployeeInfo<TModel>(string userId);
+
+        Task<Result> EditAsync(UpdateEmployeeRequestModel model, string userId);
     }
 }

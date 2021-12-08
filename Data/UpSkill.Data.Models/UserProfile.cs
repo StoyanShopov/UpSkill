@@ -11,7 +11,9 @@
 
         public ApplicationUser ApplicationUser { get; set; }
 
-        public string PhotoFilePath { get; set; }
+        public int? FileId { get; set; }
+
+        public File File { get; set; }
 
         public string ProfileSummary { get; set; }
     }

@@ -52,5 +52,22 @@
 
             return employee;
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromForm] UpdateEmployeeRequestModel model, string id)
+        {
+            var result = await this.employeeService.EditAsync(model, id);
+
+            if (result.Failure)
+            {
+                this.nLog.Error(model, new Exception(result.Error));
+
+                return this.BadRequest(result.Error);
+            }
+
+            this.nLog.Info(model);
+
+            return this.Ok(SuccesfullyEdited);
+        }
     }
 }

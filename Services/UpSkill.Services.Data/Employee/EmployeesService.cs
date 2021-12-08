@@ -21,6 +21,7 @@
     public class EmployeesService : IEmployeeService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> users;
+        private readonly IDeletableEntityRepository<UserProfile> userProfiles;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
         private readonly IRepository<CompanyCourse> companyCourses;
@@ -28,12 +29,14 @@
 
         public EmployeesService(
             IDeletableEntityRepository<ApplicationUser> users,
+            IDeletableEntityRepository<UserProfile> userProfiles,
             IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Position> positions,
             IRepository<CompanyCourse> companyCourses,
             UserManager<ApplicationUser> userManager)
         {
             this.users = users;
+            this.userProfiles = userProfiles;
             this.companies = companies;
             this.companyCourses = companyCourses;
             this.companies = companies;
@@ -173,6 +176,36 @@
                 .Where(u => u.Id == userId)
                 .To<TModel>()
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<Result> EditAsync(UpdateEmployeeRequestModel model, string userId)
+        {
+            var user = await this.users
+                .All()
+                .Where(c => c.Id == userId)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return DoesNotExist;
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            var userProfile = await this.userProfiles
+                .All()
+                .Where(x => x.ApplicationUserId == userId)
+                .FirstOrDefaultAsync();
+
+            //var file = await this.fileService.EditAsync(user.FileId, model.File);
+
+            userProfile.ProfileSummary = model.Description;
+            //userProfile.PhotoFilePath = file;
+
+            await this.users.SaveChangesAsync();
+
+            return true;
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)
