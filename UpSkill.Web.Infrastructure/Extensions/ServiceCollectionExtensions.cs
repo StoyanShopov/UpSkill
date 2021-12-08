@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
 
@@ -155,6 +156,8 @@
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
                         ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
                     };
                 });
 

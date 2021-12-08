@@ -4,7 +4,6 @@
     using System.Security.Claims;
 
     using Microsoft.AspNetCore.Identity;
-
     using UpSkill.Data;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Fakes;
@@ -53,10 +52,15 @@
         private static void AddFakeData(FakeUpSkillDbContext dbContext)
             => dbContext.AddFakeData(
                 new Company()
-            {
-                Id = 1,
-                Name = "TestCompany",
-            },
+                {
+                    Id = 1,
+                    Name = "TestCompany",
+                },
+                new Company()
+                {
+                    Id = 2,
+                    Name = "Test2Company",
+                },
                 new Coach()
                 {
                     Id = 1,
@@ -65,53 +69,126 @@
                     Field = "1",
                     Price = 100,
                 },
-                new ApplicationUser()
-            {
-                Id = "1",
-                Email = "user@example.com",
-                CompanyId = 0,
-            },
-                new ApplicationRole
-            {
-                Id = "1",
-                Name = "Admin",
-                NormalizedName = "Admin".ToUpper(),
-            },
-                new ApplicationUser()
-           {
-                Id = "2",
-                FirstName = "TestFirstName",
-                LastName = "TestLastName",
-                Email = "testEmail@abv.bg",
-                NormalizedEmail = "testEmail@abv.bg".ToUpper(),
-                CompanyId = 1,
-                PasswordHash = "AQAAAAEAACcQAAAAEPApfGLDptLhrGFgXEVwUGu8aXMoxGjrOP8CAjVsjRSnQ3S68UP95bEu4S7yv+EQAw==",
-                EmailConfirmed = true,
-                UserName = "testEmail@abv.bg",
-                NormalizedUserName = "testEmail@abv.bg".ToUpper(),
-           },
+                new Coach()
+                {
+                    Id = 2,
+                    FirstName = "TestFirstName",
+                    LastName = "TestLastName",
+                    Field = "1",
+                    Price = 100,
+                    FileId = 1,
+                    File = new File(),
+                    CalendlyUrl = "TestUrl",
+                },
+                new Coach()
+                {
+                    Id = 3,
+                    FirstName = "Stanimir",
+                    LastName = "Stanimir",
+                    Field = "Marketing",
+                },
+                new Coach()
+                {
+                    Id = 4,
+                    FirstName = "Stanimir",
+                    LastName = "Stanimir",
+                    Field = "Marketing",
+                    Price = 50,
+                    FileId = 2,
+                    File = new File(),
+                    CalendlyUrl = "TestUrl",
+                },
+                new Coach()
+                {
+                    Id = 5,
+                    FirstName = "CoachFirstName",
+                    LastName = "CoachLastName",
+                    Field = "Test field",
+                    Price = 50m,
+                    FileId = 3,
+                    File = new File(),
+                    CalendlyUrl = "TestCalendlyUrl",
+                },
+                new ApplicationRole()
+                {
+                    Id = "1",
+                    Name = "Admin",
+                    NormalizedName = "Admin".ToUpper(),
+                },
                 new Position()
-           {
-                Id = 1,
-                Name = "Owner",
-           },
+                {
+                    Id = 1,
+                    Name = "Owner",
+                },
                 new Course()
-            {
-                Id = 1,
-                Title = "Title",
-                Description = "Description",
-                Price = 12,
-                CoachId = 1,
-                CategoryId = 1,
-            },
+                {
+                    Id = 1,
+                    Title = "Title",
+                    Description = "Description",
+                    Price = 12,
+                    CoachId = 1,
+                    CategoryId = 1,
+                    FileId = 1,
+                    File = new File(),
+                },
                 new Course()
-            {
-                Id = 2,
-                Title = "Titl2e",
-                Description = "Descri2ption",
-                Price = 122,
-                CoachId = 2,
-                CategoryId = 2,
-            });
+                {
+                    Id = 2,
+                    Title = "Titl2e",
+                    Description = "Descri2ption",
+                    Price = 122,
+                    CoachId = 2,
+                    CategoryId = 2,
+                },
+                new CompanyCourse()
+                {
+                    CompanyId = 1,
+                    CourseId = 2,
+                },
+                new CompanyCourse()
+                {
+                    CompanyId = 1,
+                    CourseId = 1,
+                },
+                new CompanyCoach()
+                {
+                    CompanyId = 1,
+                    CoachId = 2,
+                },
+                new CompanyCoach()
+                {
+                    CompanyId = 1,
+                    CoachId = 1,
+                },
+                new ApplicationUser()
+                {
+                    Id = "1",
+                    Email = "user@example.com",
+                    CompanyId = 0,
+                },
+                new ApplicationUser()
+                {
+                    Id = "3",
+                    Email = string.Empty,
+                    CompanyId = 0,
+                },
+                new ApplicationUser()
+                {
+                    Id = "2",
+                    FirstName = "TestFirstName",
+                    LastName = "TestLastName",
+                    Email = "testEmail@abv.bg",
+                    NormalizedEmail = "testEmail@abv.bg".ToUpper(),
+                    CompanyId = 1,
+                    PasswordHash = "AQAAAAEAACcQAAAAEPApfGLDptLhrGFgXEVwUGu8aXMoxGjrOP8CAjVsjRSnQ3S68UP95bEu4S7yv+EQAw==",
+                    EmailConfirmed = true,
+                    UserName = "testEmail@abv.bg",
+                    NormalizedUserName = "testEmail@abv.bg".ToUpper(),
+                },
+                new UserInCourse()
+                {
+                    ApplicationUserId = "1",
+                    CourseId = 1,
+                });
     }
 }

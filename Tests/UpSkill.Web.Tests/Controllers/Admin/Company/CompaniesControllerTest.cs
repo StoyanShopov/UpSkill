@@ -120,7 +120,7 @@
             .InvalidModelState();
 
         [Theory]
-        [InlineData(TestCompany, 1)]
+        [InlineData(Test2Company, 2)]
         public void PutCompanyShouldReturnSuccessfullyEdited(string name, int id)
         {
             this.InitializeDatabase(PutCompanyExist);

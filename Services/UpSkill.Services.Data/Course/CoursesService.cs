@@ -54,12 +54,12 @@
                          .Where(c => c.Title == model.Title)
                          .FirstOrDefaultAsync();
 
-            var file = await this.fileService.CreateAsync(model.File);
-
             if (course != null)
             {
                 return AlreadyExist;
             }
+
+            var file = await this.fileService.CreateAsync(model.File);
 
             var newCourse = new Course()
             {
@@ -91,12 +91,12 @@
                              .Where(c => c.Id == id)
                              .FirstOrDefaultAsync();
 
-            var file = await this.fileService.EditAsync(course.FileId, model.File);
-
             if (course == null)
             {
                 return DoesNotExist;
             }
+
+            var file = await this.fileService.EditAsync(course.FileId, model.File);
 
             course.Title = model.Title;
             course.CoachId = model.CoachId;
