@@ -42,7 +42,7 @@ export default function CoachList() {
     getCoaches(initialPageCoaches).then((coaches) => {
       if (coaches) {
         setCoaches(coaches);
-      }      
+      }
     });
   }, []);
 
@@ -108,7 +108,7 @@ export default function CoachList() {
             <RequestCoach trigger={openRequest} closeModal={setOpenRequest} />
           </CoachesCard>
         ))}
-              {areCoachesOdd() && (
+        {areCoachesOdd() && (
           <div className="alignCompanyCoachesContentBox">
             {console.log("hi")}
           </div>

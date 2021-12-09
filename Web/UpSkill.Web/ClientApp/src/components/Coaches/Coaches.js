@@ -69,10 +69,10 @@ export default function Coaches() {
     });
   }, [companyCoaches]);
 
-  useEffect(() => {    
-      companyCoachesInput(0).then((companyCoaches) => {
-        setCompanyCoaches(companyCoaches);
-      });    
+  useEffect(() => {
+    companyCoachesInput(0).then((companyCoaches) => {
+      setCompanyCoaches(companyCoaches);
+    });
   }, []);
 
   return (

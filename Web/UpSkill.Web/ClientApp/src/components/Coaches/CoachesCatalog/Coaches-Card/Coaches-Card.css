@@ -70,8 +70,8 @@
 }
 
 .edit-coach-img-wrp {
-  margin-top: -260px;  
-  width: 400px;  
+  margin-top: -260px;
+  width: 400px;
   position: absolute;
   padding: 20px;
   display: flex;
@@ -87,6 +87,6 @@
   cursor: pointer;
 }
 
-.white-background{
+.white-background {
   background-color: white;
 }

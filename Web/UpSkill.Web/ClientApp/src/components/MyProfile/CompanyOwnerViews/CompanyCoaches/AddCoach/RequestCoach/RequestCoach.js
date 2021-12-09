@@ -98,7 +98,6 @@ export default function RequestCoach({ closeModal, trigger }) {
                   Cancel
                 </button>
               </div>
-
               <div className="requestCoach-actions-save-wrapper px-3">
                 <input
                   type="submit"

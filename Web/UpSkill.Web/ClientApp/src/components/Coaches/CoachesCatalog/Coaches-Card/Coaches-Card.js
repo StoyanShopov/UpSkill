@@ -9,7 +9,7 @@ export default function CoachesCard(props) {
     isLoggedIn,
     isCompanyOwner,
     isEmployee,
-    isAdmin,    
+    isAdmin,
   } = store.getState().auth;
 
   const {
@@ -27,13 +27,13 @@ export default function CoachesCard(props) {
     },
   } = props;
 
-  const decideCardBackgroundColor= () => {
+  const decideCardBackgroundColor = () => {
     if (isInCompany) {
-     return "coaches-Card white-background"
+      return "coaches-Card white-background";
     }
 
-    return "coaches-Card"
-  }
+    return "coaches-Card";
+  };
 
   function isImageNull() {
     if (!coachFileFilePath) {
@@ -41,35 +41,39 @@ export default function CoachesCard(props) {
         <div className="coaches-image-wrapper-bg">
           {isAdmin && (
             <div className="edit-coach-img-wrp mt-0">
-              <div className="edit-coach-img" onClick={(e) => props.openEdit(props.coachDetails)}></div>
+              <div
+                className="edit-coach-img"
+                onClick={(e) => props.openEdit(props.coachDetails)}
+              ></div>
             </div>
           )}
           <img
             src={coachFileFilePath}
             className="coaches-image"
             alt="text"
-          ></img>          
+          ></img>
         </div>
       );
     }
 
     return (
-      <div className={"coaches-image-wrapper-bg"}>       
+      <div className={"coaches-image-wrapper-bg"}>
         <img src={coachFileFilePath} className="coaches-image" alt="text"></img>
         {isAdmin && (
           <div className="edit-coach-img-wrp">
-            <div className="edit-coach-img" onClick={(e) => props.openEdit(props.coachDetails)}></div>
+            <div
+              className="edit-coach-img"
+              onClick={(e) => props.openEdit(props.coachDetails)}
+            ></div>
           </div>
         )}
       </div>
     );
   }
-  
+
   return (
     <div className={decideCardBackgroundColor()}>
-      <div className="coaches-image-wrapper">
-        {isImageNull()}
-      </div>
+      <div className="coaches-image-wrapper">{isImageNull()}</div>
       <div className="coaches-content w-75">
         <div className="coachInfo d-flex justify-content-between mt-3">
           <span className="coaches-coachField">{coachField}</span>
@@ -88,7 +92,7 @@ export default function CoachesCard(props) {
           )}
 
           <h6>
-          <img src={GoogleLogo} alt="logo"></img>
+            <img src={GoogleLogo} alt="logo"></img>
           </h6>
         </div>
       </div>
