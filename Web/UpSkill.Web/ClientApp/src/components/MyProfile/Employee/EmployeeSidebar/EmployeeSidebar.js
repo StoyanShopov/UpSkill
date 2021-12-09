@@ -8,7 +8,8 @@ import { getEmployee } from '../../../../services/employeeService';
 
 import './EmployeeSidebar.css';
 
-import UserProfilePic from '../../../../assets/userProfilePic.png';
+import StaticUserProfilePic from '../../../../assets/userProfilePic.png';
+//const UserProfilePic = 'https://titanscob.blob.core.windows.net/titanscontainer/ef501650-33f8-4f92-ad50-6a768f9191bc';
 
 export default function EmployeeSidebar({ menuItems }) {
   const [user, setUser] = useState({});
@@ -21,12 +22,19 @@ export default function EmployeeSidebar({ menuItems }) {
     history.location.pathname.length
   );
 
-  useEffect(() => { 
-    getEmployee()
-    .then((u) => {
-      setUser(u);  
+  useEffect(() => {
+    getEmployee().then((u) => {
+      setUser(u);
     });
   }, []);
+  console.log(`User file path: ${user.filePath}`);
+
+  const userPic = () => {
+    if (!user.filePath) {
+      return StaticUserProfilePic;
+    }
+    return user.filePath;
+  };
 
   const onClickHandler = () => {
     console.log('Clicked');
@@ -38,7 +46,7 @@ export default function EmployeeSidebar({ menuItems }) {
         <Image
           style={{ width: '4.5rem', height: '4.5rem', display: 'inline-flex' }}
           roundedCircle={true}
-          src={UserProfilePic}
+          src={!user.filePath ? StaticUserProfilePic : user.filePath}
           onClick={onClickHandler}
         />
         <div

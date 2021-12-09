@@ -1,5 +1,7 @@
 ﻿namespace UpSkill.Web.ViewModels.Employee
 {
+    using System;
+
     using UpSkill.Data.Models;
     using UpSkill.Services.Mapping;
 
@@ -12,5 +14,7 @@
         public string LastName { get; set; }
 
         public string CompanyName { get; set; }
+
+        public string FilePath { get; set; } = string.Empty;
     }
 }

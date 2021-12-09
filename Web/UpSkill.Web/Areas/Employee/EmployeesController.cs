@@ -47,6 +47,12 @@
             }
 
             var employee = await this.employeeService.GetEmployeeInfo<EmployeeProfileEditViewModel>(userId);
+            var filePath = await this.employeeService.GetEmployeeFilePath<EmployeeFilePathViewModel>(employee.Id);
+
+            if (filePath != null)
+            {
+                employee.FilePath = filePath.FileFilePath;
+            }
 
             this.nLog.Info(employee);
 

@@ -11,6 +11,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Employee;
 
@@ -26,6 +27,7 @@
         private readonly IDeletableEntityRepository<Position> positions;
         private readonly IRepository<CompanyCourse> companyCourses;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IFileService fileService;
 
         public EmployeesService(
             IDeletableEntityRepository<ApplicationUser> users,
@@ -33,7 +35,8 @@
             IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Position> positions,
             IRepository<CompanyCourse> companyCourses,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IFileService fileService)
         {
             this.users = users;
             this.userProfiles = userProfiles;
@@ -42,6 +45,7 @@
             this.companies = companies;
             this.userManager = userManager;
             this.positions = positions;
+            this.fileService = fileService;
         }
 
         public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId, string newEmployeePassword)
@@ -178,6 +182,15 @@
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<TModel> GetEmployeeFilePath<TModel>(string userId)
+        {
+            return await this.userProfiles
+                .All()
+                .Where(u => u.ApplicationUserId == userId)
+                .To<TModel>()
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Result> EditAsync(UpdateEmployeeRequestModel model, string userId)
         {
             var user = await this.users
@@ -198,12 +211,13 @@
                 .Where(x => x.ApplicationUserId == userId)
                 .FirstOrDefaultAsync();
 
-            //var file = await this.fileService.EditAsync(user.FileId, model.File);
+            var fileId = await this.fileService.EditAsync(userProfile.FileId, model.File);
 
             userProfile.ProfileSummary = model.Description;
-            //userProfile.PhotoFilePath = file;
+            userProfile.FileId = fileId;
 
             await this.users.SaveChangesAsync();
+            await this.userProfiles.SaveChangesAsync();
 
             return true;
         }
