@@ -1,93 +1,118 @@
-.coursesCard{
-    margin-top: 10rem;
-    margin-bottom: 7rem;
+.ownerCardContainer {
+    margin-top: 2rem;
+    margin-bottom: 6rem;
     display: inline-block;
     box-shadow: 0px 3px 10px #00000029;
     opacity: 1;
-    background-color: #FFFFFF 0% 0% no-repeat padding-box; 
-    width: 22rem;
-    height: 21rem;
+    background-color: #ffffff00 0% 0% no-repeat padding-box;
+    width: 450px; 
+    height: 450px;
     text-align: center;
-    align-items: center;
+    align-items: left;
     display: flex;
     flex-direction: column;
-}
+  } 
 
-.courses-file{
-    background: transparent  0% 0% no-repeat padding-box;  
-    width: 352px;
-    height: 200px;
-    position: relative;
-    top: -4rem; 
-    opacity: 5;
-}
-
-.courses-file-wrapper{ 
-    position: relative;
-    width: 100%;
-    height: 75%;    
-} 
-
-.title-position-on-file {
-    position: absolute; 
+  .courseTitle{
     text-transform: uppercase;
-    bottom: 80px;  
-    right: -25px;
-    left: 0; 
+    text-align: center;
     font: normal normal 800 40px/152px Montserrat;
     letter-spacing: 0px;
     color: #FFFFFF;
     opacity: 1;
-    padding: 1px; 
-}
+    position: absolute;
+  }
 
-.courses-wrapper{
-    margin-bottom: 1rem;
-}
-
-.courses-button{
-    display: block;
-    margin: auto;
-    color: white;
-    position: relative; 
-    border: none;
-    top: 615px;
-    left: 1470px;
-    width: 100px;
-    height: 30px;
-    background: #296CFB 0% 0% no-repeat padding-box;
+  .cardTextContainer{
+    width: 10px;
+    position: relative;
+  }
+  
+  .ownerCardBody {
+    padding-top: 48px;
+  }
+  
+  .button {
+    border-radius: 0px;
+    background-color: #296cfb;
+    color: #ffffff;
+    width: 150px;
+    height: 50px;
+  }
+  
+  .image {
+    background: transparent 0% 0% no-repeat padding-box;
     opacity: 1;
-}
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .logo {
+    padding-left: 50px;
+  }
+  
+  .cardText {
+    justify-content: space-between;
+    font: normal normal normal 18px Montserrat;
+    letter-spacing: 0.9px;
+    padding-left: 50px;
+    margin-top: 0px;
+  }
 
-.courses-courseField{
-    font: normal normal bold 1.1rem/2rem Arial; 
-    position: relative; 
-    right: 10px;
-    bottom: 50px;
-}
-
-.courses-fullName{
-    display: block;
-    font: normal normal 1rem/2rem Montserrat;
-    letter-spacing: 0.5px; 
-    position: relative; 
-    left: 85px;
-    bottom: 55px;
-} 
-
-.courses-courseType{
-    margin-top: 10px;
-    display: block;
-    font: normal normal medium 22px/30px Montserrat;
-    letter-spacing: 1.1px;
+  .cardButtonText {
+    font: normal normal bold 22px Montserrat;
+    margin-bottom: 2px;
+  }
+  
+  #course {
+    font-weight: bold;
+    text-align: left;
+    padding-right: 50px;
+  }
+  
+  #name {
+    font: normal normal medium 18px/22px Montserrat;
+    letter-spacing: 0.9px;
     color: #000000;
+    text-align: right;
+    opacity: 1;
+  }
+  
+  #price {
+    color: #296CFB;
+    margin-right: 7px;
+  }
+  
+  .courses-image-wrapper {
+    width: 100%;
+    height: 233px;
+    /* background: transparent
+      url("../../../../assets/img/courses/Rectangle 1221.png") 100% 100% no-repeat
+      padding-box; */
+    background-size: cover;
+    display: flex;
+    font: normal normal medium 22px/30px Montserrat;
+    justify-content: center;
+    align-items: center;
+    /* cursor: pointer; */
+    /* opacity: 0.9;    */
+  }
+
+  .courses-image-title {
+  position: absolute;
+  text-transform: uppercase;
+  font-size: xx-large;
+  color: white;
+  /* text-shadow: 0 0 2px black; */
+  text-align: right;
+  font: normal normal 800 3rem/10rem Montserrat;
+  letter-spacing: 0px;
+  opacity: 1;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-align: center;
 }
 
-.badge-position{ 
-    position: relative;  
-    left: 7px; 
-    bottom: 28px;
-    width: 49px;
-    height: 29px; 
-    opacity: 1;
-}   
+.courses-image{
+  position: relative;  
+}

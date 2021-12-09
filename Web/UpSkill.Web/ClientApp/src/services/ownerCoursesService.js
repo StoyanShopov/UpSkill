@@ -14,6 +14,7 @@ const getCourses = async (courseId, courseTitle, courseCoachFirstName, courseCoa
     })
         .then((response) => {
             data = response.data
+            console.log(data);
             return data;
         });
 };

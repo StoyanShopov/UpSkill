@@ -18,19 +18,25 @@
     padding: 16px 32px;
     display: inline-block;
     margin: 4px 2px;
-    margin-left: 81.3%;
-    margin-top: 9%;
+    margin-left: 98.6%;
+    margin-top: 12%;
     margin-bottom: 9%;
+    transition-duration: 0.4s;
+    cursor: pointer;
   }
 
   #manageButtonText{
     font: normal normal bold 18px Montserrat;
     letter-spacing: 1.1px;
-    margin-top: 13px;
+    margin-top: 8px;
     text-align: center;
-    color: #296CFB;
+    color: #white;
     opacity: 1;
-    margin-bottom: 10px;
+  }
+
+  #buttonContainer hover{
+    background-color: #296CFB;
+    color: white;
   }
 
 @media screen and (max-width: 600px){

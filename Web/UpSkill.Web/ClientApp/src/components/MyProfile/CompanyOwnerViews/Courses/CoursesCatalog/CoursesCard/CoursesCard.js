@@ -1,34 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 
-import './OwnerCoursesCard.css';
-import googleImg from '../../../../../../assets/img/courses/google.png';
+import "./OwnerCoursesCard.css";
+import GoogleLogo from "../../../../../../assets/img/courses/Image 2.png";
 
-export default function CoursesCard(props) {
-    const {
-        coursesDetails: { courseTitle, courseCoachFirstName, courseCoachLastName, courseFileFilePath, coursePrice },
-    } = props;
-
-    const fullName = courseCoachFirstName + ' ' + courseCoachLastName;
-
-    return (
-        <div className="coursesCard">
-            <div className="courses-file-wrapper">
-                <img src={courseFileFilePath} className="courses-file" alt=""></img>
-                <h2 className="title-position-on-file">{courseTitle}</h2>
-            </div>
-            <div className="courses-content w-75">
-                <div className="coursesInfo d-flex justify-content-between mt-3">
-                    <span className="courses-courseField">{courseTitle}</span>
-                    <span className="price">{coursePrice}$ per person</span>
-                    <div>
-                        <img src={googleImg} alt="Google" className="badge-position" />
+function CourseCard(props) {
+    const { id, courseTitle, courseCoachFirstName, courseCoachLastName, courseFileFilePath, coursePrice, companyLogo, isDetailsOpen, getDetails  } = 
+    props.coursesDetails;
+  
+        return (
+            <div className="ownerCardContainer">
+                <div className="courses-image-wrapper">
+                    <div className="courses-image" onClick = {() => {
+                        isDetailsOpen(true);
+                        getDetails({ id, courseTitle });
+                    }}>
+                        <img src={ courseFileFilePath } alt="courses" style={{ width: 450, height: 248 }} />
+                        <h3 className="courses-image-title">{ courseTitle }</h3>
                     </div>
-                    <span className="courses-fullName">{fullName}</span>
                 </div>
+                <div className="ownerCardBody row">
+                    <div className="cardText col-md-5">
+                        <p id="course">{ courseTitle }</p>
+                    </div>
+                    
+                    <div className="col-md-5">
+                        <p id="name">{ courseCoachFirstName } { courseCoachLastName }</p>
+                    </div>
+            
+                    <div className="row">
+                        <div className="cardText col-md-6">
+                            <p id="price">{ coursePrice }€ per person</p>
+                        </div>
+                
+                        <div className="logo col-md-6">
+                            <img src={ GoogleLogo } alt="logo" />
+                        </div>
+                    </div>
+                </div>
+                <Button className="button row col-md-4">
+                    <p className="cardButtonText">Enroll</p>
+                </Button>
             </div>
-            <div className="btn-wrapper">
-                {props.children}
-            </div>
-        </div>
-    );
-}
+        );
+    }
+
+export default CourseCard;
