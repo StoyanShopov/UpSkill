@@ -43,6 +43,10 @@
   margin-top: 0px;
 }
 
+.course-price
+{
+  width: 160px;
+}
 .cardButtonText {
   font: normal normal bold 22px Montserrat;
   margin-bottom: 2px;

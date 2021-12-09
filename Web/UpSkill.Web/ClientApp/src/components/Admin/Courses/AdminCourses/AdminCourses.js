@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import AdminCoursesCard from "../AdminCourseCard/AdminCourseCard";
 import {
   getCourses,
-  getCoursesDb,
   deleteCourses,
 } from "../../../../services/adminCourseService";
 import "./AdminCourses.css";
@@ -69,9 +68,26 @@ export default function AdminCourses() {
     setOpenDelete(false);
   };
 
+  const onCloseCreateCourse = (close) => {
+    setOpenCreateCourse(close);
+    getCourses().then(() => getData());
+  };
+
+  const onCloseUpdateCourse = (close) => {
+    setOpenUpdateCourse(close);
+    localStorage.removeItem("ID");
+    localStorage.removeItem("FullName");
+    localStorage.removeItem("CategoryName");
+    localStorage.removeItem("Title");
+    localStorage.removeItem("CategoryId");
+    localStorage.removeItem("CoachId");
+    localStorage.removeItem("Price");
+    localStorage.removeItem("Description");
+    getCourses().then(() => getData());
+  };
+
   useEffect(() => {
-    getCourses().then((courses) => {
-      console.log(courses);
+    getCourses().then((courses) => {      
       setCourses(courses);
     });
   }, []);
@@ -79,36 +95,19 @@ export default function AdminCourses() {
   return (
     <div>
       <div className="container">
-        <div className="create-button-wrapper">
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={() => {
-              setOpenCreateCourse(true);
-            }}
-          >
-            Add
-          </button>
-        </div>
         <div className="row list-unstyled admin-courses-list">
           {courses.map((course) => (
-            <div className="col-6 text-align-center ">
+            <div className="col-md-4 text-align-center ">
               <AdminCoursesCard
                 key={course.id}
                 id={course.id}
                 getClickedValue={getValue}
                 courseDetails={course}
                 displayPrice={true}
+                openEdit={getUpdateData}
               >
                 <button
-                  className="btn btn-secondary m-2"
-                  exact={true}
-                  onClick={() => getUpdateData(course)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="btn btn-primary ml-2"
+                  className="btn admin-course-delete-button btn-primary"
                   onClick={() => setOpenDelete(true)}
                 >
                   Delete
@@ -124,18 +123,24 @@ export default function AdminCourses() {
               )}
             </div>
           ))}
+          <div className="add-course-wrapper">
+            <div
+              className="addImage"
+              onClick={(e) => setOpenCreateCourse(true)}
+            ></div>
+          </div>
         </div>
       </div>
       {checkPopUp()}
       {openModal && <DetailsModal closeModal={setOpenModal} />}
       {openCreateCourse && (
         <CreateCourseModal
-          closeCreateCourseModal={setOpenCreateCourse}
+          closeCreateCourseModal={onCloseCreateCourse}
         ></CreateCourseModal>
       )}
       {openUpdateCourse && (
         <UpdateCourseModal
-          closeUpdateCourseModal={setOpenUpdateCourse}
+          closeUpdateCourseModal={onCloseUpdateCourse}
         ></UpdateCourseModal>
       )}
     </div>

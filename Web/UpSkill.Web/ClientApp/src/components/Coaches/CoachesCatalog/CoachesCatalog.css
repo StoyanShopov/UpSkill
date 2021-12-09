@@ -1,23 +1,26 @@
-.coaches-list{
-    column-count: 3;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 4rem;
-    --bs-gutter-x: 3.5rem;
-    padding-left: 0!important;
+.coaches-list {
+  column-count: 3;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4rem;
+  --bs-gutter-x: 3.5rem;
+  padding-left: 0 !important;
 }
 
-.coaches-cardButton{
-    margin:1rem 2rem;
-    padding: .5rem 2rem;
-    font-weight: bolder;
+.coaches-cardButton {
+  margin: 1rem 2rem;
+  padding: 0.5rem 2rem;
+  font-weight: bolder;
+  border-radius: 0px;
+  width: 130px;
+  height: 50px;
 }
 
 @media screen and (max-width: 1500px) {
-    .coaches-list{
-        flex-direction: column; 
-        display: flex;
-        justify-content: center;
-        --bs-gutter-x: 0rem;
-    }
+  .coaches-list {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    --bs-gutter-x: 0rem;
+  }
 }

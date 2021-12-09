@@ -79,12 +79,12 @@
 
         [HttpGet]
         [Route(DetailsRoute)]
-        public async Task<DetailsViewModel> Details(int id)
+        public async Task<AdminCoursesDetailsViewModel> Details(int id)
         {
             this.nlog.Info("Entering Details action (admin)");
 
             return await this.coursesService
-                       .GetByIdAsync<DetailsViewModel>(id);
+                       .GetByIdAsync<AdminCoursesDetailsViewModel>(id);
         }
 
         [HttpDelete]
@@ -106,7 +106,7 @@
 
         [HttpGet]
         [Route(GetAllRoute)]
-        public async Task<IEnumerable<DetailsViewModel>> GetAll()
-        => await this.coursesService.GetAllAsync<DetailsViewModel>();
+        public async Task<IEnumerable<AdminCoursesDetailsViewModel>> GetAll()
+        => await this.coursesService.GetAllAsync<AdminCoursesDetailsViewModel>();
     }
 }

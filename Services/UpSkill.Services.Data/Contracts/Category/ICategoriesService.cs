@@ -1,9 +1,10 @@
 ﻿namespace UpSkill.Services.Data.Contracts.Category
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface ICategoriesService
     {
-        Task GetAll();
+        Task<IEnumerable<TModel>> GetAllAsync<TModel>();
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace UpSkill.Services.Data.Category
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Category;
+    using UpSkill.Services.Mapping;
 
     public class CategoriesService : ICategoriesService
     {
@@ -17,9 +19,10 @@
             this.categories = categories;
         }
 
-        public async Task GetAll()
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
        => await this.categories
-                    .All()
-                    .ToListAsync();
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
     }
 }
