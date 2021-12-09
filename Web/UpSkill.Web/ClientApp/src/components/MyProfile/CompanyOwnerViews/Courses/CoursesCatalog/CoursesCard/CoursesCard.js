@@ -10,14 +10,17 @@ function CourseCard(props) {
   
         return (
             <div className="ownerCardContainer">
-                <div className="courses-image-wrapper">
-                    <div className="courses-image" onClick = {() => {
-                        isDetailsOpen(true);
-                        getDetails({ id, courseTitle });
-                    }}>
+                <div className="coursesImageWrapper1">
+                    <div className="coursesImage" 
+                    /* onClick = {() => {
+                         isDetailsOpen(true);
+                         getDetails({ id, courseTitle });
+                        }} 
+                    */ 
+                    >
                         <img src={ courseFileFilePath } alt="courses" style={{ width: 450, height: 248 }} />
-                        <h3 className="courses-image-title">{ courseTitle }</h3>
                     </div>
+                        <span className="courseImageTitle">{ courseTitle }</span>
                 </div>
                 <div className="ownerCardBody row">
                     <div className="cardText col-md-5">
