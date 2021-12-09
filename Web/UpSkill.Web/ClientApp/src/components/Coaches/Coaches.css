@@ -1,17 +1,16 @@
 .wrapper {
-    display: flex;
-    align-items: stretch;
+  display: flex;
+  align-items: stretch;
 }
 
 #sidebar {
-    min-width: 380px;
-    max-width: 380px;
+  min-width: 380px;
+  max-width: 380px;
 }
 
 #sidebar.active {
-    margin-left: -250px;
+  margin-left: -250px;
 }
 
-@media screen  and (max-width: 600px){
-    
+@media screen and (max-width: 600px) {
 }
