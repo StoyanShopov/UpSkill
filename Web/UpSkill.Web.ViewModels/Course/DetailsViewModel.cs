@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Web.ViewModels.Employee.Course
+﻿namespace UpSkill.Web.ViewModels.Course
 {
     using AutoMapper;
 

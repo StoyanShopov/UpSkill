@@ -26,10 +26,12 @@
     using UpSkill.Services.Contracts.Identity;
     using UpSkill.Services.Data.Admin;
     using UpSkill.Services.Data.Admin.Dashboard;
+    using UpSkill.Services.Data.Category;
     using UpSkill.Services.Data.Coach;
     using UpSkill.Services.Data.Company;
     using UpSkill.Services.Data.Contracts.Admin;
     using UpSkill.Services.Data.Contracts.Admin.Dashboard;
+    using UpSkill.Services.Data.Contracts.Category;
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Services.Data.Contracts.Company;
     using UpSkill.Services.Data.Contracts.Course;
@@ -177,6 +179,7 @@
                 .AddTransient<IFileService, FilesService>()
                 .AddTransient<IOwnerServices, OwnersServices>()
                 .AddTransient<IFileService, FilesService>()
+                .AddTransient<ICategoriesService, CategoriesService>()
                 .AddTransient<IEmployeeService, EmployeesService>()
                 .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
                 .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))

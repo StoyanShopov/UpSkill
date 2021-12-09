@@ -21,7 +21,7 @@ export const createCoach = async (firstName, lastName, field, price,file, calend
   fd.append("Price", price);
   fd.append("File",  file,)
   fd.append("CalendlyUrl", calendlyUrl)
-  console.log(fd);
+  
   try {
     const resp = await axios.post(
       Base_URL + "Admin/Coaches",
@@ -42,7 +42,7 @@ export const updateCoach = async (id,firstName, lastName, field, price, file, ca
   fd.append("Price", price);
   fd.append("File",  file,)
   fd.append("CalendlyUrl", calendlyUrl)
-  console.log(fd);
+  
   try {
     const resp = await axios.put(
       Base_URL + `Admin/Coaches?id=${id}`,

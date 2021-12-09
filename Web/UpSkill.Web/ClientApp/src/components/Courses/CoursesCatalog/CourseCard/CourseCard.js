@@ -38,7 +38,7 @@ function CourseCard(props) {
 
         <div className="row">
           <div className="cardText col-md-6">
-            <p id="price">{price}€ per person</p>
+            <p className="course-price" id="price">{price}€ per person</p>
           </div>
 
           <div className="logo col-md-6">

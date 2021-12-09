@@ -1,13 +1,15 @@
 import { getCoachesNames } from "./coachService";
 import { getCategoriesForCourses } from "./categoryService";
 
-import { Base_URL } from '../utils/baseUrlConstant';
+import { Base_URL } from "../utils/baseUrlConstant";
 
 const numberCoursesToShow = 6;
 
 const axios = require("axios");
 
 const API_URL = Base_URL + "Admin/Courses";
+
+const token = localStorage.getItem("token");
 
 const initialCourses = [
   {
@@ -65,19 +67,32 @@ const initialCourses = [
     categoryName: "Art",
     imageUrl: "https://i.ibb.co/9Twgqz8/Rectangle-1221.png",
   },
- 
 ];
 
 export const getCourses = async (currentPage) => {
   let arr = [];
+  const resp = await axios.get(API_URL + "/getAll", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  let respData = resp.data;
   arr.push(
-    ...initialCourses.slice(
+    ...respData.slice(
       0,
       currentPage * numberCoursesToShow + numberCoursesToShow
     )
   );
 
-  return initialCourses;
+  return respData;
+};
+
+export const getCourseDetails = async (id) => {
+  try {
+    const resp = await axios.get(API_URL + "/details?id=" + id, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    let respData = resp.data;
+    return respData;
+  } catch (error) {}
 };
 
 //Get the real data from Db
@@ -131,20 +146,44 @@ export const getCourses = async (currentPage) => {
 // };
 
 export const addCourses = async (course) => {
+  let fd = new FormData();
+  fd.append("Title", course.title);
+  fd.append("Description", course.description);
+  fd.append("Price", course.price);
+  fd.append("CoachId", course.coachId);
+  fd.append("CategoryId", course.categoryId);
+  fd.append("File", course.file);
+
   try {
-    const resp = await axios.post(API_URL, course);
+    const resp = await axios.post(API_URL, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return resp;
   } catch (err) {}
 };
 
 export const updateCourses = async (course) => {
+  let fd = new FormData();
+  fd.append("Title", course.title);
+  fd.append("Description", course.description);
+  fd.append("Price", course.price);
+  fd.append("CoachId", course.coachId);
+  fd.append("CategoryId", course.categoryId);
+  fd.append("File", course.file);
+
   try {
-    const resp = await axios.put(API_URL + "?id=" + course.id, course);
+    const resp = await axios.put(API_URL + "?id=" + course.id, fd, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return resp;
   } catch (err) {}
 };
 
 export const deleteCourses = async (id) => {
   try {
-    const resp = await axios.delete(API_URL + "?id=" + id);
+    const resp = await axios.delete(API_URL + "?id=" + id, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return resp;
   } catch (err) {}
 };

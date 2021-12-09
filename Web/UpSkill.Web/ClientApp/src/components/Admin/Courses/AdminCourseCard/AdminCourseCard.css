@@ -1,20 +1,21 @@
 .courses-Card {
   margin-top: 2rem;
-  margin-bottom: 6rem;
-  display: inline-block;
+  margin-bottom: 3rem;
+  /* display: inline-block; */
   box-shadow: 0px 3px 10px #00000029;
   opacity: 1;
-  background-color: #ffffff 0% 0% no-repeat padding-box;
-  width: 23rem;
-  height: 22rem;
-  /* text-align: center; */
-  align-items: center;
+  background-color: #ffffff00 0% 0% no-repeat padding-box;
+  width: 430px; 
+  height: 430px;
+  text-align: center;
+  align-items: left;
   display: flex;
   flex-direction: column;
 }
 
 .courses-image-wrapper {
   width: 100%;
+  height: 233px;
   background: transparent
     url("../../../../assets/img/courses/Rectangle 1221.png") 100% 100% no-repeat
     padding-box;
@@ -23,7 +24,7 @@
   font: normal normal medium 22px/30px Montserrat;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  /* cursor: pointer; */
   /* opacity: 0.9;    */
 }
 
@@ -42,8 +43,11 @@
 }
 
 .courses-content {
-  height: 6rem;
-  width: 20rem;
+  display: flex;
+  padding: 35px;
+  justify-content: space-between;
+  /* height: 6rem; */
+  width: 450px;
 }
 
 .courses-cardButton {
@@ -57,12 +61,14 @@
 
 .courses-Field {
   font: normal normal bold 18px/22px Arial;
-  display: block;
+  display: flex;
+  justify-content: start;
+  cursor: pointer;
 }
 
 .coursesfullName {
   display: flex;
-  position: relative;
+  /* position: relative; */
   text-align: end;
   margin-left: 2rem;
   font: normal normal 18px/22px Montserrat;
@@ -76,6 +82,8 @@
   color: #000000;
 }
 .courses-coachPrice {
+  display:flex;
+  justify-content: start;
   color: #296cfb;
   letter-spacing: 1.1px;
   font: normal normal medium 22px/27px Montserrat;
@@ -89,13 +97,43 @@
 }
 
 .courses-image-title {
-  /* text-transform: uppercase;
+  position: absolute;
+  text-transform: uppercase;
   font-size: xx-large;
   color: white; 
-  text-shadow: 0 0 2px black; */
+  /* text-shadow: 0 0 2px black; */
   text-align: right;
   font: normal normal 800 3rem/10rem Montserrat;
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
+  cursor: pointer;
+}
+
+.admin-course-btn-wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+.courses-image{
+  width: 100%;
+  height: 233px;
+  position: relative;  
+}
+
+.edit-course-img-wrp {
+  width: 430px;  
+  height: 233px;
+  position: absolute;
+  padding: 20px;
+  display: flex;
+  justify-content: end;
+}
+
+.edit-course-img {
+  width: 50px;
+  height: 50px;
+  background: transparent url("../../../../assets/Group\ 88.png") 0% 0%
+    no-repeat padding-box;
+  cursor: pointer;
 }
