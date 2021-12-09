@@ -38,13 +38,13 @@ function AddCoachModal({ closeModal, setOpenRequest }) {
           <div className="btn-update-course-container">
             <div>
               <button
-                className="btn btn-outline-primary cdelete-button"
+                className="btn btn-outline-primary cdelete-button square-button"
                 onClick={() => requestCoach()}
               >
                 Request
               </button>
               <button
-                className="btn btn-primary cdelete-button"
+                className="btn btn-primary cdelete-button square-button"
                 // Until CompanyOwner Refresh problem is fixed
                 onClick={() => (window.location.href = "/Coaches")}
                 //When is fixed we should use this instead

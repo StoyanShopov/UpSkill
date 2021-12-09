@@ -11,6 +11,9 @@
     margin:1rem 2rem;
     padding: .5rem 2rem;
     font-weight: bolder;
+    border-radius: 0px;
+    width: 130px;
+    height: 50px;
 }
 
 @media screen and (max-width: 1500px) {

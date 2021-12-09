@@ -86,3 +86,7 @@
     no-repeat padding-box;
   cursor: pointer;
 }
+
+.white-background{
+  background-color: white;
+}

@@ -2,22 +2,45 @@ import React, { useEffect, useState, useContext } from "react";
 import CategoriesAndLanguageMenu from "../CategoriesAndLanguageMenu/categoryAndLanguageMenu";
 import CoachesCatalog from "../Coaches/CoachesCatalog/CoachesCatalog";
 import OwnerCoachesCatalog from "../Coaches/CoachesCatalog/OwnerCoachesCatalog/OwnerCoachesCatalog";
-import { ReactReduxContext } from "react-redux";
+import { ReactReduxContext, useDispatch } from "react-redux";
+import { CHECK_CURRENT_STATE } from "../../actions/types";
 
 import "./Coaches.css";
 
 import { getAllCoaches } from "../../services/coachService";
-import {getCoaches as companyCoachesInput} from "../../services/companyOwnerCoachesService";
+import { getCoaches as companyCoachesInput } from "../../services/companyOwnerCoachesService";
 import AdminCoachesCatalog from "./CoachesCatalog/AdminCoachesCatalog/AdminCoachesCatalog";
 
 export default function Coaches() {
   const { store } = useContext(ReactReduxContext);
-  var {
-    isLoggedIn,
-    isCompanyOwner,
-    isEmployee,
-    isAdmin,
-  } = store.getState().auth;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCompanyOwner, setIsCompanyOwner] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: CHECK_CURRENT_STATE,
+    });
+
+    var {
+      isLoggedIn,
+      isCompanyOwner,
+      isEmployee,
+      isAdmin,
+    } = store.getState().auth;
+
+    setIsLoggedIn(isLoggedIn);
+    setIsCompanyOwner(isCompanyOwner);
+    setIsEmployee(isEmployee);
+    setIsAdmin(isAdmin);
+
+    console.log(isLoggedIn);
+    console.log("isCompanyOwner: " + isCompanyOwner);
+    console.log("isAdmin: " + isAdmin);
+  }, []);
 
   const [coaches, setCoaches] = useState([]);
   const [companyCoaches, setCompanyCoaches] = useState([]);
@@ -46,12 +69,10 @@ export default function Coaches() {
     });
   }, [companyCoaches]);
 
-  useEffect(() => {
-    if (isCompanyOwner) {
+  useEffect(() => {    
       companyCoachesInput(0).then((companyCoaches) => {
         setCompanyCoaches(companyCoaches);
-      });
-    }
+      });    
   }, []);
 
   return (

@@ -15,6 +15,7 @@ export default function CoachesCard(props) {
   const {
     displaySession,
     displayPrice,
+    isInCompany,
     coachDetails: {
       coachFirstName,
       coachLastName,
@@ -25,6 +26,14 @@ export default function CoachesCard(props) {
       calendlyUrl,
     },
   } = props;
+
+  const decideCardBackgroundColor= () => {
+    if (isInCompany) {
+     return "coaches-Card white-background"
+    }
+
+    return "coaches-Card"
+  }
 
   function isImageNull() {
     if (!coachFileFilePath) {
@@ -45,7 +54,7 @@ export default function CoachesCard(props) {
     }
 
     return (
-      <div className="coaches-image-wrapper-bg">       
+      <div className={"coaches-image-wrapper-bg"}>       
         <img src={coachFileFilePath} className="coaches-image" alt="text"></img>
         {isAdmin && (
           <div className="edit-coach-img-wrp">
@@ -57,7 +66,7 @@ export default function CoachesCard(props) {
   }
   
   return (
-    <div className="coaches-Card">
+    <div className={decideCardBackgroundColor()}>
       <div className="coaches-image-wrapper">
         {isImageNull()}
       </div>
