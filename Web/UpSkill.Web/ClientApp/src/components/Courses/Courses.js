@@ -1,19 +1,54 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from "react";
+import { ReactReduxContext, useDispatch } from "react-redux";
+import CategoriesAndLanguageMenu from "../CategoriesAndLanguageMenu/categoryAndLanguageMenu";
+import CoursesCatalog from "./CoursesCatalog/CoursesCatalog";
+import AdminCourses from "../Admin/Courses/AdminCourses/AdminCourses";
+import { CHECK_CURRENT_STATE } from "../../actions/types";
 
-import CategoriesAndLanguageMenu from '../CategoriesAndLanguageMenu/categoryAndLanguageMenu';
-import CoursesCatalog from './CoursesCatalog/CoursesCatalog';
-
-import './Courses.css';
+import "./Courses.css";
 
 export default function Courses() {
+  const { store } = useContext(ReactReduxContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCompanyOwner, setIsCompanyOwner] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: CHECK_CURRENT_STATE,
+    });
+
+    var {
+      isLoggedIn,
+      isCompanyOwner,
+      isEmployee,
+      isAdmin,
+    } = store.getState().auth;
+
+    setIsLoggedIn(isLoggedIn);
+    setIsCompanyOwner(isCompanyOwner);
+    setIsEmployee(isEmployee);
+    setIsAdmin(isAdmin);
+
+    console.log(isLoggedIn);
+    console.log("isCompanyOwner: " + isCompanyOwner);
+    console.log("isAdmin: " + isAdmin);
+  }, []);
+
+  const returnCatalog = () => {
+    if (isAdmin) {
+      return <AdminCourses />;
+    }
+    return <CoursesCatalog />;
+  };
+
   return (
     <div className="content">
       <CategoriesAndLanguageMenu atPage="Courses" />
-      <div className="wrapper row">
-
-        <CoursesCatalog />
-      
-      </div>
+      <div className="wrapper row">{returnCatalog()}</div>
     </div>
   );
 }

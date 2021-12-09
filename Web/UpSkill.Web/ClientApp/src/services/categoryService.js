@@ -1,3 +1,8 @@
+import axios from "axios";
+import { Base_URL } from "../utils/baseUrlConstant";
+
+const token = localStorage.getItem("token");
+
 const categoriesMock = [
   "Art",
   "Design",
@@ -25,9 +30,18 @@ export const getCategories = async () => {
 };
 
 export const getCategoriesForCourses = async () => {
-  //      let res = await request(``, 'Get');
-  let arr = [];
-  categoriesMockForCourse.map((c) => arr.push(c));
+  try {
+    const resp = await axios.get(Base_URL + "Admin/Categories/getAll", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-  return arr;
+    let transformedResp = resp.data.map((c) => {
+      return {
+        label: c.name,
+        value: c.id,
+      };
+    });
+
+    return transformedResp;
+  } catch (error) {}
 };

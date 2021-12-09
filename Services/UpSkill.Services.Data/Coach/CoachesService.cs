@@ -83,14 +83,15 @@
         {
             var coach = await this.coaches
                 .All()
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            var file = await this.fileService.EditAsync(coach.FileId, model.File);
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync();
 
             if (coach == null)
             {
                 return DoesNotExist;
             }
+
+            var file = await this.fileService.EditAsync(coach.FileId, model.File);
 
             coach.FirstName = model.FirstName;
             coach.LastName = model.LastName;

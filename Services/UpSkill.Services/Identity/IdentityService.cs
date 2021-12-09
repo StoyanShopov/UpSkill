@@ -60,7 +60,7 @@
                     { ClaimTypes.Name, user.UserName },
                     { ClaimTypes.Email, user.Email },
                 },
-                Expires = DateTime.UtcNow.AddMinutes(3),
+                Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
 

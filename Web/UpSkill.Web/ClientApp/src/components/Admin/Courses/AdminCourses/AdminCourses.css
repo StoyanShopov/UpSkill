@@ -1,12 +1,21 @@
 .admin-courses-list {
-  width: 80%;
-  margin-left: 15%;
-  column-count: 2;
+  /* width: 100%; */
+  /* margin-left: 15%; */
+  column-count: 3;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between 75px;
   margin-top: 2rem;
   --bs-gutter-x: 3.5rem;
   padding-left: 0 !important;
+}
+
+.admin-course-delete-button {
+  margin-top: -20px;
+  width: 150px;
+  height: 50px;
+  background: #296cfb 0% 0% no-repeat padding-box;
+  border-radius: 0px;
+  font: normal normal bold 22px/27px Montserrat;
 }
 
 .create-button-wrapper {
@@ -19,8 +28,19 @@
   padding-left: 0 !important;
 }
 
-@media screen and (max-width: 1000px) {
-  .courses-list {
+.add-course-wrapper {
+  margin-top: 30px;
+  margin-left: 25px;
+  width: 430px;
+  height: 430px;
+  /* background-color: lightblue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1400px) {
+  .admin-courses-list {
     flex-direction: column;
     display: flex;
     justify-content: center;

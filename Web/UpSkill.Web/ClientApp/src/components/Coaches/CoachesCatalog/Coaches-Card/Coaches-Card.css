@@ -70,8 +70,8 @@
 }
 
 .edit-coach-img-wrp {
-  margin-top: -260px;  
-  width: 400px;  
+  margin-top: -260px;
+  width: 400px;
   position: absolute;
   padding: 20px;
   display: flex;
@@ -85,4 +85,8 @@
   background: transparent url("../../../../assets/Group\ 88.png") 0% 0%
     no-repeat padding-box;
   cursor: pointer;
+}
+
+.white-background {
+  background-color: white;
 }
