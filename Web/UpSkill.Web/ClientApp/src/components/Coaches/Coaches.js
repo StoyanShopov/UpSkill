@@ -4,6 +4,7 @@ import CoachesCatalog from "../Coaches/CoachesCatalog/CoachesCatalog";
 import OwnerCoachesCatalog from "../Coaches/CoachesCatalog/OwnerCoachesCatalog/OwnerCoachesCatalog";
 import { ReactReduxContext, useDispatch } from "react-redux";
 import { CHECK_CURRENT_STATE } from "../../actions/types";
+import CoachesIntroBar from "../Admin/Coaches/CoachesIntroBar";
 
 import "./Coaches.css";
 
@@ -46,11 +47,6 @@ export default function Coaches() {
   const [companyCoaches, setCompanyCoaches] = useState([]);
 
   const returnCatalog = () => {
-    if (isAdmin) {
-      return (
-        <AdminCoachesCatalog coaches={coaches} setCoaches={setCompanyCoaches} />
-      );
-    }
     if (isCompanyOwner) {
       return (
         <OwnerCoachesCatalog
@@ -75,6 +71,14 @@ export default function Coaches() {
     });
   }, []);
 
+  if (isAdmin) {
+    return (
+      <div className="content">
+      <CoachesIntroBar/>
+      <div className="wrapper row "> <AdminCoachesCatalog coaches={coaches} setCoaches={setCompanyCoaches} /></div>
+    </div>   
+    );
+  }
   return (
     <div className="content">
       <CategoriesAndLanguageMenu atPage="Coaches" />
@@ -82,3 +86,4 @@ export default function Coaches() {
     </div>
   );
 }
+

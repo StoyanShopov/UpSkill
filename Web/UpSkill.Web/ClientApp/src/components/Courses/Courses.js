@@ -4,6 +4,7 @@ import CategoriesAndLanguageMenu from "../CategoriesAndLanguageMenu/categoryAndL
 import CoursesCatalog from "./CoursesCatalog/CoursesCatalog";
 import AdminCourses from "../Admin/Courses/AdminCourses/AdminCourses";
 import { CHECK_CURRENT_STATE } from "../../actions/types";
+import CoursesIntroBar from "../Admin/Courses/AdminCourses/CoursesIntroBar/CoursesIntroBar";
 
 import "./Courses.css";
 
@@ -38,17 +39,32 @@ export default function Courses() {
     console.log("isAdmin: " + isAdmin);
   }, []);
 
-  const returnCatalog = () => {
-    if (isAdmin) {
-      return <AdminCourses />;
-    }
-    return <CoursesCatalog />;
-  };
+  // const returnCatalog = () => {
+  //   if (isAdmin) {
+  //     return <AdminCourses />;
+  //   }
+  //   return <CoursesCatalog />;
+  // };
 
-  return (
-    <div className="content">
-      <CategoriesAndLanguageMenu atPage="Courses" />
-      <div className="wrapper row">{returnCatalog()}</div>
-    </div>
-  );
+  if (isAdmin) {
+    return (
+      <div className="content">
+        <CoursesIntroBar/>
+        <div className="wrapper row">
+          {" "}
+          <AdminCourses />
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="content">
+        <CategoriesAndLanguageMenu atPage="Courses" />
+        <div className="wrapper row">
+          {" "}
+          <CoursesCatalog />
+        </div>
+      </div>
+    );
+  }
 }
