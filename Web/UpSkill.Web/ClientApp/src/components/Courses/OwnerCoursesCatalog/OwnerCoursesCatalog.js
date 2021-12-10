@@ -2,23 +2,38 @@ import { useState, useEffect } from "react";
 import DetailsModal from "../../Shared/CourseDetails/DetailsModal";
 import { getCourses } from "../../../services/courseService";
 import { enableBodyScroll, disableBodyScroll } from "../../../utils/utils";
-import CourseCard from '../CoursesCatalog/CourseCard/CourseCard';
-import serviceActions from '../../../services/ownerCoursesService';
-
+import CourseCard from "../CoursesCatalog/CourseCard/CourseCard";
+import serviceActions from "../../../services/ownerCoursesService";
+import { Button } from "react-bootstrap";
 
 const descriptionMock =
   " Ilee Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
 
 export default function OwnerCoursesCatalog() {
   const [courses, setCourses] = useState([]);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false); 
+  const [allCourses, setAllCourses] = useState([]);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   const setData = (data) => {
     let { id, fullName, courseTitle, description } = data;
     localStorage.setItem("ID", id);
     localStorage.setItem("FullName", fullName);
-    localStorage.setItem("Title", courseTitle);   
+    localStorage.setItem("Title", courseTitle);
     localStorage.setItem("Description", description);
+  };
+
+  const checkCompanyHasCourse = (course) => {
+    if (courses) {
+      let contains = false;
+      courses.map((c) => {
+        if (c.id == course.id) {
+          contains = true;
+        }
+      });
+      return contains;
+    } else {
+      return false;
+    }
   };
 
   const checkPopUp = () => {
@@ -39,39 +54,73 @@ export default function OwnerCoursesCatalog() {
     });
   }, []);
 
+  useEffect(() => {
+    getCourses(1).then((courses) => {
+      setAllCourses(courses);
+    });
+  }, []);
+
   const defineCoursesCount = () => {
-    let coursesCount = courses.length % 3;
+    let coursesCount = allCourses.length % 3;
 
     if (coursesCount !== 0) {
       return true;
     }
-    
+
     return false;
-  }
+  };
+
+  const buttonToShow = (checkCompanyHasCourse, courseId) => {
+    if (checkCompanyHasCourse) {
+      return (
+        <Button
+          className="button row col-md-4"
+          // onClick={(e) => setOnRemoveInternal(coachId)}
+        >
+          <p className="cardButtonText">Remove</p>
+        </Button>
+      );
+    } else {
+      return (
+        <Button
+          className="button row col-md-4"
+          // onClick={(e) => addCoachToCompany(coachId)}
+        >
+          <p className="cardButtonText">Add</p>
+        </Button>
+      );
+    }
+  };
 
   return (
     <>
       <div className="container courseCatalogContainer">
         <div className="row courses-list">
-          {courses.map((course) => (
-            <div className="col-md-3 text-align-center" style={{ marginLeft: 1}}
-               key={course.id}>
-              <CourseCard 
+          {allCourses.map((course) => (
+            <div
+              className="col-md-3 text-align-center"
+              style={{ marginLeft: 1 }}
+              key={course.id}
+            >
+              <CourseCard
                 key={course.id}
                 id={course.id}
-                courseTitle={course.courseTitle}
-                coachFirstName={course.courseCoachFirstName}
-                coachLastName={course.courseCoachLastName}
-                filePath={course.courseFileFilePath}
-                description={course.courseDescription}
+                courseTitle={course.title}
+                coachFirstName={course.coachFirstName}
+                coachLastName={course.coachLastName}
+                filePath={course.fileFilePath}
+                description={course.description}
                 isDetailsOpen={setIsDetailsOpen}
+                categoryName={course.categoryName}
                 getDetails={getValue}
-                price={course.coursePrice}
-              ></CourseCard>
-
+                price={course.price}
+                isInCompany={checkCompanyHasCourse(course)}
+              >
+                {buttonToShow(checkCompanyHasCourse(course), course.id)}
+              </CourseCard>
             </div>
           ))}
-          { defineCoursesCount() && (<div className="alignContentBox"></div>) }
+          {defineCoursesCount() && <div className="alignContentBox"></div>}
         </div>
       </div>
       {checkPopUp()}

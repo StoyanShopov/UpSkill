@@ -5,19 +5,19 @@
   box-shadow: 0px 3px 10px #00000029;
   opacity: 1;
   background-color: #ffffff00 0% 0% no-repeat padding-box;
-  width: 450px; 
+  width: 450px;
   height: 450px;
   text-align: center;
   align-items: left;
   display: flex;
   flex-direction: column;
-} 
+}
 
-.coursescatalog-image-title{
+.coursescatalog-image-title {
   position: absolute;
   text-transform: uppercase;
   font-size: xx-large;
-  color: white; 
+  color: white;
   /* text-shadow: 0 0 2px black; */
   text-align: right;
   font: normal normal 800 3rem/10rem Montserrat;
@@ -60,16 +60,17 @@
   margin-top: 0px;
 }
 
-.course-price
-{
+.course-price {
   width: 180px;
   height: 30px;
   display: flex;
   align-items: flex-start;
 }
 
-.coursecatalog-title{
-  width: 180px; 
+.coursecatalog-title {
+  width: 200px;
+  height: 40px;
+  /* margin-bottom: 10px; */
   display: flex;
   align-items: flex-start;
 }
@@ -79,11 +80,14 @@
   margin-bottom: 2px;
 }
 
-#course {
+.blueCard {
+  background: #eaf0ff 0% 0% no-repeat padding-box;
+}
+/* #course {
   font-weight: bold;
   text-align: left;
-  padding-right: 50px;
-}
+  margin-right: 50vh;
+} */
 
 #name {
   font: normal normal medium 18px/22px Montserrat;
@@ -94,6 +98,6 @@
 }
 
 #price {
-  color: #296CFB;
- margin-right: 50vh;
+  color: #296cfb;
+  margin-right: 50vh;
 }

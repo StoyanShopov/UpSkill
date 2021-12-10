@@ -13,8 +13,7 @@ const getCourses = async (courseId, courseTitle, courseCoachFirstName, courseCoa
         courseFileFilePath,
     })
         .then((response) => {
-            data = response.data
-            console.log(data);
+            data = response.data            
             return data;
         });
 };
