@@ -18,7 +18,7 @@ export const getCourses = (
   return axios
     .get(
       EMP_API_URL + 'getAll',
-      { headers: { Authorization: `Bearer ${token}` } },
+      { headers: { Authorization: `Bearer ${token}` }},
       {
         courseId,
         courseTitle,
@@ -59,7 +59,7 @@ export const getAllEmployees = async (employee) => {
   return axios
     .get(
       OWN_API_URL + 'getAllEmployees',
-      { headers: { Authorization: `Bearer ${token}` } },
+      { headers: { Authorization: `Bearer ${ token }` } },
       { employee }
     )
     .then((response) => {
@@ -70,6 +70,12 @@ export const getAllEmployees = async (employee) => {
 };
 
 export const removeEmployeeHandler = async (id) => {
-  console.log(id);
-  return await axios.delete(Base_URL + `Owner/Employee?id=${id}`);
+  console.log( id );
+  return await axios.delete(Base_URL + `Owner/Employee?id=${ id }`);
 };
+
+export const ownerEmployeesMock = [
+  { id: 1, firstName: 'Joe', lastName: 'Peshi', email: 'joe@joe.com' },
+  { id: 2, firstName: 'Brat', lastName: 'Pitt', email: 'bratPitt@abv.bg' },
+  { id: 3, firstName: 'Ceca', lastName: 'Pevicata', email: 'peiaPesen@sanemoa.com' }
+];

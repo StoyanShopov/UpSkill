@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { getEmployeeWithEmail } from '../../../../../services/employeeService';
-import { removeEmployeeHandler } from '../../../../../services/employeeService';
+import { removeEmployeeHandler, ownerEmployeesMock } from '../../../../../services/employeeService';
 import { disableBodyScroll } from '../../../../../utils/utils';
 
 import './EmployeeEmailInfo.css';
@@ -38,7 +38,9 @@ const EmployeeEmailInfo = ({ onAddEmployee }) => {
     <div className="wrap-table100 mt-5 shadow mb-5 bg-body rounded">
       <div className="ourTable">
         <div className="table-row header-EmployeeCourse">
-          <div className="cell cell-Employees-Courses">Employees</div>
+          <div className="cell cell-Employees-Courses">
+            Employees ({ allEmployees.length })
+          </div>
           <div className="cell cell-Employees-Courses">Email</div>
 
           <div
@@ -54,14 +56,14 @@ const EmployeeEmailInfo = ({ onAddEmployee }) => {
               return (
                 <div
                   className="table-row px-3"
-                  key={employee.firstName + employee.email + employee.id}
+                  key={ employee.firstName + employee.email + employee.id }
                 >
                   <div
                     className="cell cell-data-Employees-Courses name-cell-data"
                     data-title="Employee"
-                    href={employee.email}
+                    href={ employee.email }
                   >
-                    {employee.firstName + ' ' + employee.lastName}
+                    { employee.firstName + ' ' + employee.lastName }
 
                     <div>
                       <button

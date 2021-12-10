@@ -40,7 +40,7 @@ export default function EmployeeSidebar({ menuItems }) {
               className={splitLocation[2] === `${menuItem.name}` ? `active` : ''}
               exact={menuItem.exact}
             >
-              <span className={menuItem.name==='Log Out'? 'logOut' : 'nonSelectedMenuStyle'}>
+              <span className={menuItem.name==='Log Out' ? 'logOut' : 'nonSelectedMenuStyle'}>
                 {menuItem.name}
               </span>
             </NavLink>
