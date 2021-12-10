@@ -5,6 +5,7 @@ import { enableBodyScroll, disableBodyScroll } from "../../../utils/utils";
 import CourseCard from "../CoursesCatalog/CourseCard/CourseCard";
 import serviceActions from "../../../services/ownerCoursesService";
 import { Button } from "react-bootstrap";
+import ConfirmDelete from "../../Shared/ConfirmDelete/ConfirmDelete";
 
 const descriptionMock =
   " Ilee Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
@@ -13,7 +14,17 @@ export default function OwnerCoursesCatalog() {
   const [courses, setCourses] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [courseId, setCourseId] = useState(false);
 
+  const onDelete = (id) => {
+    serviceActions
+      .disableCourse(id)
+      .then(() =>
+        serviceActions.getCourses().then((courses) => setCourses(courses))
+      );
+    setOpenDelete(false);
+  };
   const setData = (data) => {
     let { id, fullName, courseTitle, description } = data;
     localStorage.setItem("ID", id);
@@ -58,7 +69,7 @@ export default function OwnerCoursesCatalog() {
     getCourses(1).then((courses) => {
       setAllCourses(courses);
     });
-  }, []);
+  }, [courses]);
 
   const defineCoursesCount = () => {
     let coursesCount = allCourses.length % 3;
@@ -70,12 +81,18 @@ export default function OwnerCoursesCatalog() {
     return false;
   };
 
+  function setOnRemoveInternal(id) {
+    setCourseId(id);
+    setOpenDelete(true);
+    disableBodyScroll();
+  }
+
   const buttonToShow = (checkCompanyHasCourse, courseId) => {
     if (checkCompanyHasCourse) {
       return (
         <Button
           className="button row col-md-4"
-          // onClick={(e) => setOnRemoveInternal(coachId)}
+          onClick={() => setOnRemoveInternal(courseId)}
         >
           <p className="cardButtonText">Remove</p>
         </Button>
@@ -118,6 +135,14 @@ export default function OwnerCoursesCatalog() {
               >
                 {buttonToShow(checkCompanyHasCourse(course), course.id)}
               </CourseCard>
+              {openDelete && (
+                <ConfirmDelete
+                  deleteItem={onDelete}
+                  closeModal={setOpenDelete}
+                  itemName="course"
+                  id={courseId}
+                ></ConfirmDelete>
+              )}
             </div>
           ))}
           {defineCoursesCount() && <div className="alignContentBox"></div>}
