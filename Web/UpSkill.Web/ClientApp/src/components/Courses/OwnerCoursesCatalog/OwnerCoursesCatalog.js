@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
 import DetailsModal from "../../Shared/CourseDetails/DetailsModal";
-import "./CoursesCatalog.css";
 import { getCourses } from "../../../services/courseService";
 import { enableBodyScroll, disableBodyScroll } from "../../../utils/utils";
-import CourseCard from './CourseCard/CourseCard';
+import CourseCard from '../CoursesCatalog/CourseCard/CourseCard';
+import serviceActions from '../../../services/ownerCoursesService';
 
 
 const descriptionMock =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
+  " Ilee Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
 
-export default function CoursesCatalog() {
+export default function OwnerCoursesCatalog() {
   const [courses, setCourses] = useState([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false); 
 
   const setData = (data) => {
-    let { id, coachName, courseName } = data;
+    let { id, fullName, courseTitle, description } = data;
     localStorage.setItem("ID", id);
-    localStorage.setItem("FullName", coachName);
-    localStorage.setItem("Title", courseName);   
-    localStorage.setItem("Description", descriptionMock);
+    localStorage.setItem("FullName", fullName);
+    localStorage.setItem("Title", courseTitle);   
+    localStorage.setItem("Description", description);
   };
 
   const checkPopUp = () => {
@@ -34,7 +34,7 @@ export default function CoursesCatalog() {
   };
 
   useEffect(() => {
-    getCourses(1).then((courses) => {
+    serviceActions.getCourses().then((courses) => {
       setCourses(courses);
     });
   }, []);
@@ -59,15 +59,14 @@ export default function CoursesCatalog() {
               <CourseCard 
                 key={course.id}
                 id={course.id}
-                courseTitle={course.title}
-                coachFirstName={course.coachFirstName}
-                coachLastName={course.coachLastName}
-                filePath={course.fileFilePath}
-                description={course.description}
+                courseTitle={course.courseTitle}
+                coachFirstName={course.courseCoachFirstName}
+                coachLastName={course.courseCoachLastName}
+                filePath={course.courseFileFilePath}
+                description={course.courseDescription}
                 isDetailsOpen={setIsDetailsOpen}
-                categoryName={course.categoryName}
                 getDetails={getValue}
-                price={course.price}
+                price={course.coursePrice}
               ></CourseCard>
 
             </div>

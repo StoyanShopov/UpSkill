@@ -1,3 +1,5 @@
+import { Base_URL } from "../utils/baseUrlConstant";
+
 const numberCoursesToShow = 5;
 const API_URL = "https://localhost:44319/Admin/Courses";
 const axios = require("axios");
@@ -43,13 +45,18 @@ const initialCourses = [
 export const getCourses = async (currentPage) => {
   //      let res = await request(``, 'Get');
   let arr = [];
-  arr.push(
-    ...initialCourses.slice(
-      0,
-      currentPage * numberCoursesToShow + numberCoursesToShow
-    )
-  );
+  // arr.push(
+  //   ...initialCourses.slice(
+  //     0,
+  //     currentPage * numberCoursesToShow + numberCoursesToShow
+  //   )
+  // );
 
+  try {
+    const resp = await axios.get(Base_URL + "Courses/getAll" );
+    console.log(resp.data)
+    arr.push(...resp.data)
+  } catch (err) {}
   return arr;
 };
 

@@ -5,35 +5,44 @@ import "./CourseCard.css";
 import GoogleLogo from "../../../../assets/img/courses/Image 2.png";
 
 function CourseCard(props) {
-  const { id,courseName, coachName, imageName, price, companyLogo, isDetailsOpen, getDetails  } = props;
+  const { id,courseTitle, coachFirstName, coachLastName,filePath, price, isDetailsOpen, getDetails, description, categoryName } = props;
 
-  const [image, setImage] = useState("");
+  const fullName=coachFirstName + " " + coachLastName;
+  // const [image, setImage] = useState("");
 
-  function loadImage(imgName) {
-    import(`../../../../assets/img/courses/${imageName}`).then((img) =>
-      setImage(img.default)
-    );
+  // function loadImage(imgName) {
+  //   import(`../../../../assets/img/courses/${imageName}`).then((img) =>
+  //     setImage(img.default)
+  //   );
+  // }
+
+  // useEffect(() => {
+  //   loadImage(imageName);
+  // }, []);
+  const sliceCourseTitle =(title) =>{
+    if (title.toString().lenght >= 20) {
+      var shortTitle = title.slice(0, 20)+ "...";
+      return shortTitle;
+    }
+    return title
   }
-
-  useEffect(() => {
-    loadImage(imageName);
-  }, []);
 
   return (
     <div className="cardContainer">
       <div className="image" onClick = {() => {
         isDetailsOpen(true);
-        getDetails({id, courseName, coachName});
+        getDetails({id, courseTitle, fullName, description});
       }}>
-        <img src={image} alt="courses" style={{ width: 450, height: 248 }} />
+        <img src={filePath} alt="courses" style={{ width: 450, height: 248 }} />
+    <span className="coursescatalog-image-title">{categoryName}</span>
       </div>
       <div className="cardBody row">
-        <div className="cardText col-md-5">
-          <p id="course">{courseName}</p>
+        <div className="coursecatalog-title cardText col-md-5">
+          <p id="course">{sliceCourseTitle(courseTitle)}</p>
         </div>
         
         <div className="col-md-5">
-          <p id="name">{coachName}</p>
+          <p id="name">{fullName}</p>
         </div>
 
         <div className="row">

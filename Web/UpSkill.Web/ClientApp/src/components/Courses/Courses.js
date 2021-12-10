@@ -3,6 +3,7 @@ import { ReactReduxContext, useDispatch } from "react-redux";
 import CategoriesAndLanguageMenu from "../CategoriesAndLanguageMenu/categoryAndLanguageMenu";
 import CoursesCatalog from "./CoursesCatalog/CoursesCatalog";
 import AdminCourses from "../Admin/Courses/AdminCourses/AdminCourses";
+import OwnerCoursesCatalog from "./OwnerCoursesCatalog/OwnerCoursesCatalog"
 import { CHECK_CURRENT_STATE } from "../../actions/types";
 
 import "./Courses.css";
@@ -42,6 +43,9 @@ export default function Courses() {
     if (isAdmin) {
       return <AdminCourses />;
     }
+    // if (isCompanyOwner) {
+    //   return <OwnerCoursesCatalog />;
+    // }
     return <CoursesCatalog />;
   };
 

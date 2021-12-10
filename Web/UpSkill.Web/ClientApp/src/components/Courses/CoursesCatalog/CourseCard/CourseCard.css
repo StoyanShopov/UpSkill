@@ -13,6 +13,20 @@
   flex-direction: column;
 } 
 
+.coursescatalog-image-title{
+  position: absolute;
+  text-transform: uppercase;
+  font-size: xx-large;
+  color: white; 
+  /* text-shadow: 0 0 2px black; */
+  text-align: right;
+  font: normal normal 800 3rem/10rem Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  cursor: pointer;
+}
+
 .cardBody {
   padding-top: 38px;
 }
@@ -29,6 +43,9 @@
   background: transparent 0% 0% no-repeat padding-box;
   opacity: 1;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
@@ -45,8 +62,18 @@
 
 .course-price
 {
-  width: 160px;
+  width: 180px;
+  height: 30px;
+  display: flex;
+  align-items: flex-start;
 }
+
+.coursecatalog-title{
+  width: 180px; 
+  display: flex;
+  align-items: flex-start;
+}
+
 .cardButtonText {
   font: normal normal bold 22px Montserrat;
   margin-bottom: 2px;
