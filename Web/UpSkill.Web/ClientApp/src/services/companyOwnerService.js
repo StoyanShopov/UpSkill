@@ -3,7 +3,7 @@ import axios from "axios";
 
 const token = localStorage.getItem("token");
 const invoiceStatus = "Pending";
-const dueDate = "30.09.21";
+const dueDate = "30.09.2021";
 
 const coursesCompanyOwnerMock = [
     { id:'8', name: 'August', courses: [

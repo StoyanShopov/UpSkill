@@ -26,6 +26,32 @@
     padding-right: 5rem!important;
 }
 
+#table-contents-font{
+    font-size: "22px";
+    font-family: "Montserrat";
+    font-size: medium;
+}
+
+#table-contents-price-font{
+    font-size: "22px";
+    font-family: "Montserrat";
+    font-size: medium;
+    opacity: 70%;
+}
+
+#total-price-tag{
+    font-size: "22px";
+    font-family: "Montserrat";
+    font-weight: bold;
+}
+
+#total-price{
+    font-size: "22px";
+    font-family: "Montserrat";
+    font-weight: bold;
+    opacity: 70%;
+}
+
 @media (max-width: 780px) {
     .cell-header-price{
         padding-left: 5rem!important;
