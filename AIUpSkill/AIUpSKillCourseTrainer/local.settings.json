@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=titanscob;AccountKey=JBmBrsXAmF1+jQ3/lAzuCywbuPvxylQS4p4prWBrTiJAq60ARsAvU7+ocjmDeKRFXqzfUi7zfQ/MPLug8begQQ==;BlobEndpoint=https://titanscob.blob.core.windows.net/;TableEndpoint=https://titanscob.table.core.windows.net/;QueueEndpoint=https://titanscob.queue.core.windows.net/;FileEndpoint=https://titanscob.file.core.windows.net/",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=tcp:ourupskill.database.windows.net,1433;Initial Catalog=upskill;Persist Security Info=False;User ID=mamkamu;Password=OgiELud123*;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  },
+  "BlobStorage": {
+    "BlobKey": "DefaultEndpointsProtocol=https;AccountName=titanscob;AccountKey=JBmBrsXAmF1+jQ3/lAzuCywbuPvxylQS4p4prWBrTiJAq60ARsAvU7+ocjmDeKRFXqzfUi7zfQ/MPLug8begQQ==;EndpointSuffix=core.windows.net",
+    "BlobContainer": "azure-webjobs-secrets"
+  }
+}
