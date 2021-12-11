@@ -47,7 +47,8 @@
                  .AddHttpContextAccessor();
 
             services.AddRazorPages()
-               .AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Home", string.Empty));
+               .AddRazorPagesOptions(options => options.Conventions
+               .AddPageRoute("/Home", string.Empty));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);

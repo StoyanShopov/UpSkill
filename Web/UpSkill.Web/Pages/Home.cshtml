@@ -1,8 +1,10 @@
 ﻿@page
-@model UpSkill.Web.Pages.HomeModel
+@model UpSkill.Web.Pages.Home
 @{
     ViewData["Title"] = "Home";
 }
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,14 +33,14 @@
                 </div>
                 <div class="buttons">
                     <button class="home-login btn btn-outline-primary" onclick="location.href='/Login'">Login</button>
-                    <button class="home-register btn btn-primary" onclick="location.href='/RequestDemo'">Request a
+                    <button class="home-register btn btn-primary" onclick="location.href='./#RequestDemo'">Request a
                         Demo</button>
                 </div>
             </div>
         </div>
         <div class="home-content-wrapper">
             <section class="content custom-container">
-                <article class="home-content-getStarted d-flex justify-content-between">
+                <article class="home-content-article d-flex justify-content-between">
                     <div class="home-content-getStarted-text col-md-5">
                         <h1 class="home-heading home-content-getStarted-text-heading">Do you want to level up the knowledge of your
                             team?</h1>
@@ -50,18 +52,18 @@
                         <button class="btn btn-primary home-content-getStarted-text-btn px-5 py-2">Get Started</button>
                     </div>
 
-                    <div class="home-content-getStarted-img col-md-6 d-flex justify-content-end">
+                    <div class="home-content-getStarted-img col-md-6 d-flex">
                         <div class="home-content-getStarted-img-bg"></div>
                         <img src="~/lib/assets/home-GetStarted-img.png"
-                            class="align-self-end home-content-getStarted-img-inner" />
+                            class="home-content-getStarted-img-inner" />
                     </div>
                 </article>
 
-                <article class="home-content-getStarted d-flex justify-content-between">
-                    <div class="home-content-getStarted-img col-md-6 d-flex">
+                <article class="home-content-article home-content-whatItDoes d-flex justify-content-between">
+                    <div class="home-content-whatItDoes-img col-md-6 d-flex">
                         <div class="home-content-whatItDoes-img-bg mt-3"></div>
                         <img src="~/lib/assets/home-whatUpSkillDoes-img.png"
-                            class="align-self-end home-content-getStarted-img-inner"/>
+                            class="align-self-end home-content-whatItDoes-img-inner"/>
                     </div>
 
                     <div class="home-content-getStarted-text col-md-5">
@@ -76,17 +78,17 @@
                     </div>
                 </article>
 
-                <article class="home-content-getStarted d-flex justify-content-between mt-5">
+                <article id="RequestDemo" class="home-content-article d-flex justify-content-between mt-5">
                     <div class="home-content-getStarted-text col-md-6 mt-5">
                         <h1 class="home-heading home-content-getStarted-text-heading mt-5">Request a Demo</h1>
                         <p class="home-content-getStarted-text-info">Don't find what you are looking for? We would be more than happy to help you and assist you in everything you needt Let us know about your personal requirements by filling our request form:</p>
-                        <form action="" class="home-content-requestDemo-form mt-5">
-                            <input type="text" placeholder="Name" class="home-content-requestDemo-form-input">
+                        <form method="post" asp-page="Home" class="home-content-requestDemo-form mt-5">
+                            <input type="text" placeholder="Name" asp-for="Name" class="home-content-requestDemo-form-input">
                             <input type="text" placeholder="Company Name" class="home-content-requestDemo-form-input">
                             <input type="text" placeholder="Email Address" class="home-content-requestDemo-form-input">
                             <input type="text" placeholder="Phone number" class="home-content-requestDemo-form-input">
 
-                            <input type="submit" class="btn btn-primary home-content-requestDemo-text-btn px-5 py-2" placeholder="Submit"/>
+                            <input type="submit" class="btn btn-primary home-content-requestDemo-text-btn" placeholder="Submit"/>
                         </form>
                     </div>
 

@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.Areas.Owner;
 
@@ -61,6 +61,7 @@
 
         [HttpPost]
         [Route(NewCoach)]
+        [AllowAnonymous]
         public async Task<IActionResult> RequestCoach(RequestCoachModel model)
         {
             try
