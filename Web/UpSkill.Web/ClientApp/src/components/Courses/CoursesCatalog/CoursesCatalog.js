@@ -5,20 +5,23 @@ import { getCourses } from "../../../services/courseService";
 import { enableBodyScroll, disableBodyScroll } from "../../../utils/utils";
 import CourseCard from "./CourseCard/CourseCard";
 import { Button } from "react-bootstrap";
-
-const descriptionMock =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
+import ViewMoreButton from "../../Shared/ViewMoreCoursesCoachesButton/ViewMoreButton";
 
 export default function CoursesCatalog() {
   const [courses, setCourses] = useState([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  function viewMoreCourses() {
+    setCurrentPage(currentPage + 1);
+  }
 
   const setData = (data) => {
-    let { id, coachName, courseName } = data;
+    let { id, coachName, courseName, description } = data;
     localStorage.setItem("ID", id);
     localStorage.setItem("FullName", coachName);
     localStorage.setItem("Title", courseName);
-    localStorage.setItem("Description", descriptionMock);
+    localStorage.setItem("Description", description);
   };
 
   const checkPopUp = () => {
@@ -34,10 +37,10 @@ export default function CoursesCatalog() {
   };
 
   useEffect(() => {
-    getCourses(1).then((courses) => {
+    getCourses(currentPage).then((courses) => {
       setCourses(courses);
     });
-  }, []);
+  }, [currentPage]);
 
   const defineCoursesCount = () => {
     let coursesCount = courses.length % 3;
@@ -73,7 +76,7 @@ export default function CoursesCatalog() {
                 price={course.price}
               >
                 <Button
-                  className="button row col-md-4"  
+                  className="button row col-md-4"
                   // onClick={(e) => addCoachToCompany(coachId)}
                 >
                   <p className="cardButtonText">Add</p>
@@ -83,6 +86,10 @@ export default function CoursesCatalog() {
           ))}
           {defineCoursesCount() && <div className="alignContentBox"></div>}
         </div>
+        <ViewMoreButton
+          thisPage={currentPage}
+          setThisPage={setCurrentPage}
+        ></ViewMoreButton>
       </div>
       {checkPopUp()}
       {isDetailsOpen && (
