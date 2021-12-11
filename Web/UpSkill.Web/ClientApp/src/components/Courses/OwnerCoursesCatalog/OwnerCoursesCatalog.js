@@ -6,6 +6,7 @@ import CourseCard from "../CoursesCatalog/CourseCard/CourseCard";
 import serviceActions from "../../../services/ownerCoursesService";
 import { Button } from "react-bootstrap";
 import ConfirmDelete from "../../Shared/ConfirmDelete/ConfirmDelete";
+import "./OwnerCoursesCatalog.css";
 
 const descriptionMock =
   " Ilee Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
@@ -15,7 +16,8 @@ export default function OwnerCoursesCatalog() {
   const [allCourses, setAllCourses] = useState([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [courseId, setCourseId] = useState(false);
+  const [courseId, setCourseId] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const onDelete = (id) => {
     serviceActions
@@ -66,10 +68,10 @@ export default function OwnerCoursesCatalog() {
   }, []);
 
   useEffect(() => {
-    getCourses(1).then((courses) => {
+    getCourses(currentPage).then((courses) => {
       setAllCourses(courses);
     });
-  }, [courses]);
+  }, [courses, currentPage]);
 
   const defineCoursesCount = () => {
     let coursesCount = allCourses.length % 3;
@@ -85,6 +87,10 @@ export default function OwnerCoursesCatalog() {
     setCourseId(id);
     setOpenDelete(true);
     disableBodyScroll();
+  }
+
+  function viewMoreCourses() {
+    setCurrentPage(currentPage + 1);
   }
 
   const buttonToShow = (checkCompanyHasCourse, courseId) => {
@@ -146,6 +152,14 @@ export default function OwnerCoursesCatalog() {
             </div>
           ))}
           {defineCoursesCount() && <div className="alignContentBox"></div>}
+        </div>
+        <div className="viewmore-wrapper">
+          <div
+            className="btn btn-outline-primary viewmore-button"
+            onClick={() => viewMoreCourses()}
+          >
+            <p className="cardButtonText">View More</p>
+          </div>
         </div>
       </div>
       {checkPopUp()}
