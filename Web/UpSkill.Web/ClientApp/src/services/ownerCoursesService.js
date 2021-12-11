@@ -31,9 +31,16 @@ const getAvailableCourses = async (courseId, courseTitle, courseCoachFirstName, 
             return data;
         });
 };
+
 const enableCourse = async (courseId) => {
-    await axios.put(API_URL + "enable?id=" + courseId, { headers: { "Authorization": `Bearer ${token}` } });
+    const user = JSON.parse(localStorage.getItem("user"));
+    let requestData={
+        courseId,        
+        companyOwnerEmail: user.email,
+        }
+    await axios.post(API_URL + "addCompanyToCourse", requestData,{ headers: { "Authorization": `Bearer ${token}` } });
 };
+
 const disableCourse = async (courseId) => {
     await axios.delete(API_URL + "disable?id=" + courseId, { headers: { "Authorization": `Bearer ${token}` } });
 };

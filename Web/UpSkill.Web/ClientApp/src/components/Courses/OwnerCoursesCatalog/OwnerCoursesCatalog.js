@@ -89,6 +89,12 @@ export default function OwnerCoursesCatalog() {
     disableBodyScroll();
   }
 
+  function addCourseToCompany(courseId) {
+    serviceActions.enableCourse(courseId).then(() => {
+      serviceActions.getCourses().then((courses) => setCourses(courses));
+    });
+  }
+
   function viewMoreCourses() {
     setCurrentPage(currentPage + 1);
   }
@@ -107,7 +113,7 @@ export default function OwnerCoursesCatalog() {
       return (
         <Button
           className="button row col-md-4"
-          // onClick={(e) => addCoachToCompany(coachId)}
+          onClick={(e) => addCourseToCompany(courseId)}
         >
           <p className="cardButtonText">Add</p>
         </Button>

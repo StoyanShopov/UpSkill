@@ -43,24 +43,6 @@
             return this.Ok(SuccesfullyCreated);
         }
 
-        [HttpPost]
-        [Route(AddCompanyOwnerToCourseRoute)]
-        public async Task<IActionResult> AddCompany(AddCompanyToCourseViewModel model)
-        {
-            var result = await this.coursesService.AddCompanyAsync(model);
-
-            if (result.Failure)
-            {
-                this.nlog.Error(model, new Exception(result.Error));
-
-                return this.BadRequest(result.Error);
-            }
-
-            this.nlog.Info(model);
-
-            return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
-        }
-
         [HttpPut]
         public async Task<IActionResult> Edit([FromForm] EditCourseViewModel model, int id)
         {
