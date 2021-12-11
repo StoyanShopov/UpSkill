@@ -45,7 +45,7 @@
             this.companiesService = companiesService;
             this.companyCourses = companyCourses;
             this.usersInCourses = usersInCourses;
-            this.courseLectures = courseLectures
+            this.courseLectures = courseLectures;
             this.userManager = userManager;
             this.fileService = fileService;
         }
