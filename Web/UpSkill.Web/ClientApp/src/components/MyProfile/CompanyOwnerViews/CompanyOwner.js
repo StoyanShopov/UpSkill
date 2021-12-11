@@ -2,12 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
-import CompanyOwnerSidebar from "./CompanyOwnerSidebar/CompanyOwnerSidebar";
+import CompanyOwnerSidebar from "../../Shared/AdminCompanyOwnerSidebar/AdminCompanyOwnerSidebar";
 import CompanyCoaches from "./CompanyCoaches/CompanyCoaches";
 import Employees from "./Employees/Employees";
 import Invoice from "./Invoice/Invoice";
 import Dashboard from "./Dashboard/Dashboard";
-import Logout from "../../Authentication/Logout/Logout";
 
 import "./CompanyOwner.css";
 

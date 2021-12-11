@@ -1,11 +1,11 @@
 ﻿namespace UpSkill.Services.Data.Course
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-
     using UpSkill.Common;
     using UpSkill.Data.Common.Models;
     using UpSkill.Data.Common.Repositories;
@@ -25,7 +25,8 @@
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
-        private readonly IRepository<CourseLecture> courseLectures;
+        private readonly IRepository<UserInCourse> usersInCourses; 
+        private readonly IRepository<CourseLecture> courseLectures; 
         private readonly IDeletableEntityRepository<Course> courses;
         private readonly IFileService fileService;
 
@@ -35,6 +36,7 @@
             UserManager<ApplicationUser> userManager,
             ICompanyService companiesService,
             IRepository<CompanyCourse> companyCourses,
+            IRepository<UserInCourse> usersInCourses,
             IRepository<CourseLecture> courseLectures,
             IDeletableEntityRepository<Course> courses,
             IFileService fileService)
@@ -42,7 +44,8 @@
             this.courses = courses;
             this.companiesService = companiesService;
             this.companyCourses = companyCourses;
-            this.courseLectures = courseLectures;
+            this.usersInCourses = usersInCourses;
+            this.courseLectures = courseLectures
             this.userManager = userManager;
             this.fileService = fileService;
         }
@@ -54,12 +57,12 @@
                          .Where(c => c.Title == model.Title)
                          .FirstOrDefaultAsync();
 
-            var file = await this.fileService.CreateAsync(model.File);
-
             if (course != null)
             {
                 return AlreadyExist;
             }
+
+            var file = await this.fileService.CreateAsync(model.File);
 
             var newCourse = new Course()
             {
@@ -91,12 +94,12 @@
                              .Where(c => c.Id == id)
                              .FirstOrDefaultAsync();
 
-            var file = await this.fileService.EditAsync(course.FileId, model.File);
-
             if (course == null)
             {
                 return DoesNotExist;
             }
+
+            var file = await this.fileService.EditAsync(course.FileId, model.File);
 
             course.Title = model.Title;
             course.CoachId = model.CoachId;
@@ -186,13 +189,21 @@
             .AllAsNoTracking()
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
+        public async Task<ICollection<UserInCourse>> GetAllUsersInCourse(int id) => await this.usersInCourses
+              .AllAsNoTracking()
+              .Where(uc => uc.CourseId == id)
+              .ToListAsync();
 
-        public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
+        public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+        => await this.courses
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
+public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
             => await this.courseLectures
                          .All()
                          .Where(c => c.CourseId == id)
                          .Include(c => c.Lecture.Lessons)
                          .To<TModel>()
-                         .FirstOrDefaultAsync();
-    }
+                         .FirstOrDefaultAsync();    }
 }

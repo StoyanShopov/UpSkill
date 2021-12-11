@@ -40,6 +40,10 @@
 
         public DbSet<File> Files { get; set; }
 
+        public DbSet<Message> Messages { get; init; }
+
+        public DbSet<Log> Logs { get; set; }
+
         public DbSet<UserInCourse> UserInCourses { get; set; }
 
         public DbSet<Lecture> Lectures { get; set; }

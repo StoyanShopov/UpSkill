@@ -4,7 +4,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  SET_WARNING_MESSAGE,
   CLEAR_MESSAGE,
+  CHECK_CURRENT_STATE,
 } from "../actions/types";
 
 import {
@@ -15,15 +17,17 @@ import {
 
 const user = () => JSON.parse(localStorage.getItem("user"));
 
-const initialState = { 
+const initialState =  { 
       isLoggedIn: false,
       user: null,
       isAdmin: false,
       isCompanyOwner: false,
-      isEmployee: false};
+      isEmployee: false
+    };
 
 export default function Auth(init = initialState, action) {
   const { type, payload } = action;
+
   switch (type) {
     case REGISTER_SUCCESS:
       return {
@@ -71,11 +75,29 @@ export default function Auth(init = initialState, action) {
         isLoggedIn: false,
         user: null,
       };
+      case SET_WARNING_MESSAGE:
+        return {
+          state: 'opened', 
+          type: 'warning' ,
+          message: payload.message,
+          link: payload.link,
+        };
     case CLEAR_MESSAGE:
         return {
           state: 'closed',
           type: '' ,
           message: '',
+        }; 
+    case CHECK_CURRENT_STATE:
+        return {
+          state: 'closed',
+          type: '' ,
+          message: '',
+          isLoggedIn: user() ? true : false,
+          user: user(),
+          isAdmin: user()?.role === AdministratorRoleName,
+          isCompanyOwner: user()?.role === CompanyOwnerRoleName,
+          isEmployee: user()?.role===EmployeeRoleName,
         }; 
     default:
       return init;

@@ -1,4 +1,4 @@
-﻿namespace UpSkill.Web.ViewModels.Course
+﻿namespace UpSkill.Web.ViewModels.Employee.Course
 {
     using AutoMapper;
 
@@ -17,7 +17,9 @@
 
         public int CourseCategoryId { get; set; }
 
-        public int CourseCoachId { get; set; }
+        public string CourseCoachFirstName { get; set; }
+
+        public string CourseCoachLastName { get; set; }
 
         public string CourseFileFilePath { get; set; }
 

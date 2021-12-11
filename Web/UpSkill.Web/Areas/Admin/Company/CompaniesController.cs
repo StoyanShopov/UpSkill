@@ -1,11 +1,13 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Company
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Contracts.Company;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Company;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -14,19 +16,29 @@
     public class CompaniesController : AdministrationBaseController
     {
         private readonly ICompanyService companyService;
+        private readonly INLogger nlog;
 
-        public CompaniesController(ICompanyService companyService)
-            => this.companyService = companyService;
+        public CompaniesController(
+            ICompanyService companyService,
+            INLogger nlog)
+        {
+            this.companyService = companyService;
+            this.nlog = nlog;
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyRequestModel model)
         {
-            var reuslt = await this.companyService.CreateAsync(model);
+            var result = await this.companyService.CreateAsync(model);
 
-            if (reuslt.Failure)
+            if (result.Failure)
             {
-                return this.BadRequest(reuslt.Error);
+                this.nlog.Error(model, new Exception(result.Error));
+
+                return this.BadRequest(result.Error);
             }
+
+            this.nlog.Info(model);
 
             return this.StatusCode(201, SuccesfullyCreated);
         }
@@ -38,8 +50,12 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(model, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyEdited);
         }
@@ -51,8 +67,12 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(id, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nlog.Info(id);
 
             return this.Ok(SuccesfullyDeleted);
         }
@@ -60,11 +80,19 @@
         [HttpGet]
         [Route(GetAllRoute)]
         public async Task<IEnumerable<CompanyListingModel>> GetAll()
-            => await this.companyService.GetAllAsync<CompanyListingModel>();
+        {
+            this.nlog.Info("Entering getAll action");
+
+            return await this.companyService.GetAllAsync<CompanyListingModel>();
+        }
 
         [HttpGet]
         [Route(DetailsRoute)]
         public async Task<CompanyDetailsModel> GetDetails(int id)
-            => await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
+        {
+            this.nlog.Info("Entering GetDetails action");
+
+            return await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
+        }
     }
 }

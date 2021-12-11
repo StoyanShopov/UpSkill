@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 import React from 'react';
 import { Image } from 'react-bootstrap';
 
-import './CompanyOwnerSidebar.css';
+import './AdminCompanyOwnerSidebar.css';
 
-import companyOwnerBadgePic from '../../../../assets/companyOwnerBadge-Pic.png';
+import companyOwnerBadgePic from '../../../assets/companyOwnerBadge-Pic.png';
 
 const SCREEN_HEIGHT = window.innerHeight;
 
@@ -33,7 +33,7 @@ export default function CompanyOwnerSidebar({ menuItems }) {
           />
           <div style={{ display: 'inline-block', marginLeft: '15px', marginTop: '.5rem' }}>
             <span style={{ display: 'block', verticalAlign: 'middle' }}>Company Owner</span>
-            <span style={{ display: 'block' }}>Motion Software</span>
+            <span style={{ display: 'block', color: 'blue' }}>Motion Software</span>
           </div>
         </div>
         <div style={{ textAlign: 'start' }}>

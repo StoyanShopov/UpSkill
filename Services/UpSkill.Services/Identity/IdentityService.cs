@@ -5,6 +5,7 @@
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
+    using System.Security.Cryptography;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -27,24 +28,27 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
+        private readonly IDeletableEntityRepository<ApplicationUser> users;
         private readonly AppSettings appSettings;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IOptions<AppSettings> appSettings,
             IDeletableEntityRepository<Company> companies,
-            IDeletableEntityRepository<Position> positions)
+            IDeletableEntityRepository<Position> positions,
+            IDeletableEntityRepository<ApplicationUser> users)
         {
             this.userManager = userManager;
             this.companies = companies;
             this.appSettings = appSettings.Value;
             this.positions = positions;
+            this.users = users;
         }
 
-        public async Task<string> GenerateJwtToken(ApplicationUser user, string secret)
+        public async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(secret);
+            var key = Encoding.ASCII.GetBytes(this.appSettings.Secret);
 
             List<string> roles = (await this.userManager.GetRolesAsync(user)).ToList();
 
@@ -56,7 +60,6 @@
                     { ClaimTypes.Name, user.UserName },
                     { ClaimTypes.Email, user.Email },
                 },
-
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
@@ -70,6 +73,19 @@
             var encryptedToken = tokenHandler.WriteToken(token);
 
             return encryptedToken;
+        }
+
+        public RefreshToken GenerateRefreshToken()
+        {
+            using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            var randomBytes = new byte[64];
+            rngCryptoServiceProvider.GetBytes(randomBytes);
+
+            return new RefreshToken
+            {
+                Token = Convert.ToBase64String(randomBytes),
+                Expires = DateTime.UtcNow.AddMinutes(5),
+            };
         }
 
         public async Task<Result> RegisterAsync(RegisterRequestModel model)
@@ -123,7 +139,10 @@
                 throw new ArgumentException(IncorrectEmailOrPassword);
             }
 
-            var token = await this.GenerateJwtToken(user, this.appSettings.Secret);
+            var token = await this.GenerateJwtToken(user);
+
+            this.users.Update(user);
+            await this.users.SaveChangesAsync();
 
             return new LoginResponseModel()
             {

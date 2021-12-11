@@ -54,7 +54,7 @@
             const int Id = 1;
             const string DatabaseName = "DeleteCourse";
 
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
 
             var repository = new Mock<IDeletableEntityRepository<Course>>();
 
@@ -80,7 +80,7 @@
 
             const string DatabaseName = "EditCourse";
 
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
 
             var repository = new Mock<IDeletableEntityRepository<Course>>();
 
@@ -113,7 +113,7 @@
 
             const int Id = 1;
 
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
 
             var repository = new Mock<IDeletableEntityRepository<Course>>();
 
@@ -131,7 +131,7 @@
             const string DatabaseName = "GetAllCourses";
             const int DatabaseRecordsCount = 2;
 
-            await this.InitializeDatabase(DatabaseName);
+            this.InitializeDatabase(DatabaseName);
 
             var repository = new Mock<IDeletableEntityRepository<Course>>();
 

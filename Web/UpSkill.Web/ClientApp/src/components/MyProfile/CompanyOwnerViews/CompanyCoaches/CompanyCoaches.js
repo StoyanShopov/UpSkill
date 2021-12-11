@@ -10,7 +10,10 @@ import RequestCoach from "./AddCoach/RequestCoach/RequestCoach";
 
 import "./CompanyCoaches.css";
 
-import { getCoaches, removeCoach } from "../../../../services/companyOwnerCoachesService";
+import {
+  getCoaches,
+  removeCoach,
+} from "../../../../services/companyOwnerCoachesService";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
 
 export default function CoachList() {
@@ -28,10 +31,18 @@ export default function CoachList() {
   //   let path = `/coaches`;
   //   history.push(path);
   // }
+  const areCoachesOdd = () => {
+    if (coaches.length % 2 !== 0) {
+      return true;
+    }
+    return false;
+  };
 
   useEffect(() => {
     getCoaches(initialPageCoaches).then((coaches) => {
-      setCoaches(coaches);
+      if (coaches) {
+        setCoaches(coaches);
+      }
     });
   }, []);
 
@@ -61,8 +72,8 @@ export default function CoachList() {
         <input
           type="button"
           onClick={(e) => setOpenRequestModal(true)}
-          className="btn btn-outline-primary px-4 m-4"
-          value="Add"
+          className="btn btn-outline-primary px-4 m-4 owner-manage-btn"
+          value="Manage"
         />
       </div>
       <div className="coachesContainer">
@@ -72,6 +83,7 @@ export default function CoachList() {
             coachDetails={coach}
             displaySession={false}
             displayPrice={true}
+            isInCompany={true}
           >
             <Button
               className="cardButton companyOwner-cardBtn"
@@ -96,6 +108,11 @@ export default function CoachList() {
             <RequestCoach trigger={openRequest} closeModal={setOpenRequest} />
           </CoachesCard>
         ))}
+        {areCoachesOdd() && (
+          <div className="alignCompanyCoachesContentBox">
+            {console.log("hi")}
+          </div>
+        )}
       </div>
     </div>
   );

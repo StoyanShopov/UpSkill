@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UpSkill.Web.ViewModels.Owner
+﻿namespace UpSkill.Web.ViewModels.Owner
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class RequestCoachModel
     {
+        [Required]
         public string RequesterEmail { get; set; }
 
         public string RequesterName { get; set; }

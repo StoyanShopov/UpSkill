@@ -1,23 +1,44 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactReduxContext } from "react-redux";
 
-import { history } from "../../helpers/history";
+import { useDispatch } from 'react-redux'
 
 import CompanyOwner from "./CompanyOwnerViews/CompanyOwner";
 import Employee from "./Employee/Employee";
+import Admin from "../Admin/Admin";
+
+import { CHECK_CURRENT_STATE } from "../../actions/types";
 
 function MyProfile() {
   const { store } = useContext(ReactReduxContext);
-  var {
-    isLoggedIn,
-    isCompanyOwner,
-    isEmployee,
-    isAdmin,
-  } = store.getState().auth;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCompanyOwner, setIsCompanyOwner] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isLoggedIn) history.push("/");
+    dispatch({
+      type: CHECK_CURRENT_STATE
+    });
+
+    var {
+      isLoggedIn,
+      isCompanyOwner,
+      isEmployee,
+      isAdmin,
+    } = store.getState().auth;
+
+    setIsLoggedIn(isLoggedIn);
+    setIsCompanyOwner(isCompanyOwner);
+    setIsEmployee(isEmployee);
+    setIsAdmin(isAdmin);
+
+    console.log(isLoggedIn);
+    console.log("isCompanyOwner: "+isCompanyOwner);
+    console.log("isAdmin: "+isAdmin);
   }, []);
 
   if (isCompanyOwner) {
@@ -25,12 +46,8 @@ function MyProfile() {
   } else if (isEmployee) return <Employee />;
   //Probably the admin will access his area from here too
   else if (isAdmin)
-    return (
-      <div className="container p-5 text-center">
-        <h2>Admin Dashboard here?</h2>
-      </div>
-    );
-  //     return <Admin />;
+    return  <Admin />;
+       
   else
     return (
       <div className="container p-5 text-center vh-70">

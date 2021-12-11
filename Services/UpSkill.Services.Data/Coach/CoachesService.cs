@@ -48,6 +48,8 @@
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                Field = model.Field,
+                Price = model.Price,
                 FileId = file,
                 CalendlyUrl = model.CalendlyUrl,
             };
@@ -81,17 +83,20 @@
         {
             var coach = await this.coaches
                 .All()
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            var file = await this.fileService.EditAsync(coach.FileId, model.File);
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync();
 
             if (coach == null)
             {
                 return DoesNotExist;
             }
 
+            var file = await this.fileService.EditAsync(coach.FileId, model.File);
+
             coach.FirstName = model.FirstName;
             coach.LastName = model.LastName;
+            coach.Field = model.Field;
+            coach.Price = model.Price;
             coach.FileId = file;
 
             await this.coaches.SaveChangesAsync();

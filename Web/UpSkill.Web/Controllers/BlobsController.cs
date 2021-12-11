@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Contracts.Blob;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
 
     using static UpSkill.Common.GlobalConstants.BlobConstants;
     using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
@@ -16,10 +17,14 @@
     public class BlobsController : ApiController
     {
         private readonly IBlobService blobService;
+        private readonly INLogger nlog;
 
-        public BlobsController(IBlobService blobService)
+        public BlobsController(
+            IBlobService blobService,
+            INLogger nlog)
         {
             this.blobService = blobService;
+            this.nlog = nlog;
         }
 
         [HttpPost(Upload)]
@@ -30,8 +35,12 @@
 
             if (!this.ModelState.IsValid)
             {
+                this.nlog.Error(file, new Exception(this.ModelState.IsValid.ToString()));
+
                 return this.BadRequest();
             }
+
+            this.nlog.Info(this.StatusCode(201).StatusCode.ToString());
 
             return this.StatusCode(201);
         }
@@ -39,6 +48,8 @@
         [HttpGet(GetAllBlobs)]
         public async Task<IActionResult> GetAsync()
         {
+            this.nlog.Info("Entering GetAsync action ");
+
             var blobs = await this.blobService.GetAllBlobs();
 
             return this.Ok(blobs);
@@ -51,10 +62,14 @@
 
             if (!await blob.ExistsAsync())
             {
+                this.nlog.Error(name, new Exception(blob.Exists().ToString()));
+
                 return this.BadRequest();
             }
 
             var response = await blob.DownloadAsync();
+
+            this.nlog.Info("DownloadAsync succeeded ");
 
             return this.File(response.Value.Content, response.Value.ContentType, name);
         }
@@ -66,8 +81,12 @@
 
             if (result)
             {
+                this.nlog.Info(name);
+
                 return this.Ok(SuccessfullyDeleted);
             }
+
+            this.nlog.Error(name, new Exception(UnsuccessfullyDeleted));
 
             return this.NotFound(UnsuccessfullyDeleted);
         }

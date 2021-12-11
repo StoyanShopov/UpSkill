@@ -19,9 +19,9 @@
 
         public AccountService(UserManager<ApplicationUser> userManager) => this.userManager = userManager;
 
-        public async Task<Result> ChangePasswordAsync(ChangePasswordRequestModel model)
+        public async Task<Result> ChangePasswordAsync(ChangePasswordRequestModel model, string userId)
         {
-            var user = await this.userManager.FindByEmailAsync(ClaimTypes.Email);
+            var user = await this.userManager.FindByIdAsync(userId);
 
             if (user == null)
             {

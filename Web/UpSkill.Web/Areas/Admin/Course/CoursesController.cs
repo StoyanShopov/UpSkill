@@ -1,10 +1,13 @@
 ﻿namespace UpSkill.Web.Areas.Admin.Course
 {
+    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
     using UpSkill.Services.Data.Contracts.Course;
+    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Course;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
@@ -13,17 +16,15 @@
     public class CoursesController : AdministrationBaseController
     {
         private readonly ICourseService coursesService;
+        private readonly INLogger nlog;
 
-        public CoursesController(ICourseService coursesService)
+        public CoursesController(
+            ICourseService coursesService,
+            INLogger nlog)
         {
             this.coursesService = coursesService;
+            this.nlog = nlog;
         }
-
-        [HttpGet]
-        [Route(DetailsRoute)]
-        public async Task<DetailsViewModel> Details(int id)
-        => await this.coursesService
-                     .GetByIdAsync<DetailsViewModel>(id);
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateCourseViewModel model)
@@ -32,8 +33,12 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(model, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyCreated);
         }
@@ -46,8 +51,12 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(model, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
+
+            this.nlog.Info(model);
 
             return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
         }
@@ -59,10 +68,24 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(model, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
 
+            this.nlog.Info(model);
+
             return this.Ok(SuccesfullyEdited);
+        }
+
+        [HttpGet]
+        [Route(DetailsRoute)]
+        public async Task<AdminCoursesDetailsViewModel> Details(int id)
+        {
+            this.nlog.Info("Entering Details action (admin)");
+
+            return await this.coursesService
+                       .GetByIdAsync<AdminCoursesDetailsViewModel>(id);
         }
 
         [HttpDelete]
@@ -72,10 +95,19 @@
 
             if (result.Failure)
             {
+                this.nlog.Error(id, new Exception(result.Error));
+
                 return this.BadRequest(result.Error);
             }
 
+            this.nlog.Info(SuccesfullyDeleted);
+
             return this.Ok(SuccesfullyDeleted);
         }
+
+        [HttpGet]
+        [Route(GetAllRoute)]
+        public async Task<IEnumerable<AdminCoursesDetailsViewModel>> GetAll()
+        => await this.coursesService.GetAllAsync<AdminCoursesDetailsViewModel>();
     }
 }

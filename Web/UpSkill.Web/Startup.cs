@@ -9,10 +9,11 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
     using UpSkill.Data;
     using UpSkill.Data.Seeding;
+    using UpSkill.Services.Hubs;
     using UpSkill.Services.Mapping;
+
     using UpSkill.Web.Infrastructure.Web.Extensions;
     using UpSkill.Web.ViewModels;
     using UpSkill.Web.Web.Extensions;
@@ -42,11 +43,17 @@
                 configuration.RootPath = "ClientApp/build";
             });
 
+            services
+                 .AddHttpContextAccessor();
+
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
 
+            // services
+            //    .AddSignalR()
+            //    .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
             services.AddEmailSender(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
@@ -76,10 +83,12 @@
             app
                 .UseSwaggerUI()
                 .UseRouting()
+                .UseFileServer()
                 .UseCors(options => options
                     .AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod())
+                    .AllowAnyMethod()
+                    .WithExposedHeaders("WWW-Authenticate"))
                 .UseHttpsRedirection()
                 .UseAuthentication()
                 .UseAuthorization()
@@ -91,6 +100,11 @@
                 })
                 .ApplyMigrations();
 
+            // app.UseAzureSignalR(route =>
+            // {
+            //    route.MapHub<ChatHub>("/chat");
+            //    route.MapHub<ZoomHub>("/zoom");
+            // });
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
