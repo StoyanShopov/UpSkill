@@ -23,7 +23,7 @@
 
         Task<TModel> GetEmployeeInfo<TModel>(string userId);
 
-        Task<TModel> GetEmployeeFilePath<TModel>(string userId);
+        Task<TModel> GetEmployeeProfile<TModel>(string userId);
 
         Task<Result> EditAsync(UpdateEmployeeRequestModel model, string userId);
     }

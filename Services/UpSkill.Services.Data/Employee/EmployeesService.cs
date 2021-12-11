@@ -182,7 +182,7 @@
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<TModel> GetEmployeeFilePath<TModel>(string userId)
+        public async Task<TModel> GetEmployeeProfile<TModel>(string userId)
         {
             return await this.userProfiles
                 .All()
@@ -211,10 +211,14 @@
                 .Where(x => x.ApplicationUserId == userId)
                 .FirstOrDefaultAsync();
 
-            var fileId = await this.fileService.EditAsync(userProfile.FileId, model.File);
+            userProfile.ProfileSummary = model.ProfileSummary;
 
-            userProfile.ProfileSummary = model.Description;
-            userProfile.FileId = fileId;
+            if (model.File != null)
+            {
+                var fileId = await this.fileService.EditAsync(userProfile.FileId, model.File);
+
+                userProfile.FileId = fileId;
+            }
 
             await this.users.SaveChangesAsync();
             await this.userProfiles.SaveChangesAsync();

@@ -6,5 +6,7 @@
     public class EmployeeFilePathViewModel : IMapFrom<UserProfile>
     {
         public string FileFilePath { get; set; }
+
+        public string ProfileSummary { get; set; }
     }
 }

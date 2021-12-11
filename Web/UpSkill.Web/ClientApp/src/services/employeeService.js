@@ -79,9 +79,8 @@ export const updateEmployee = async (id, firstName, lastName, file, description)
   let fd = new FormData(); 
   fd.append("FirstName", firstName);
   fd.append("LastName", lastName);
-  fd.append("Description", description);
-  fd.append("File",  file,)
-  console.log(fd);
+  fd.append("ProfileSummary", description);
+  fd.append("File",  file,);
   try {
     const resp = await axios.put(
       Base_URL + `Employee/Employees?id=${id}`,

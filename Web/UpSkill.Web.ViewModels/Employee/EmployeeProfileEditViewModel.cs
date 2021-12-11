@@ -13,8 +13,12 @@
 
         public string LastName { get; set; }
 
+        public string Email { get; set; }
+
         public string CompanyName { get; set; }
 
         public string FilePath { get; set; } = string.Empty;
+
+        public string ProfileSummary { get; set; }
     }
 }

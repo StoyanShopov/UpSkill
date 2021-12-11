@@ -8,7 +8,7 @@
 
         public string LastName { get; set; }
 
-        public string Description { get; set; }
+        public string ProfileSummary { get; set; }
 
         public IFormFile File { get; set; }
     }

@@ -4,15 +4,18 @@ import { NavLink } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-bootstrap';
 
+import UpdateEmployeeModal from '../UpdateEmployee/UpdateEmployeeModal/UpdateEmployeeModal'
+
+import { enableBodyScroll, disableBodyScroll } from '../../../../utils/utils'
 import { getEmployee } from '../../../../services/employeeService';
 
 import './EmployeeSidebar.css';
 
 import StaticUserProfilePic from '../../../../assets/userProfilePic.png';
-//const UserProfilePic = 'https://titanscob.blob.core.windows.net/titanscontainer/ef501650-33f8-4f92-ad50-6a768f9191bc';
 
 export default function EmployeeSidebar({ menuItems }) {
   const [user, setUser] = useState({});
+  const [openUpdateEmployee, setOpenUpdateEmployee] = useState(false);
   let history = useHistory();
   const location = useLocation();
   const { pathname } = location;
@@ -27,17 +30,13 @@ export default function EmployeeSidebar({ menuItems }) {
       setUser(u);
     });
   }, []);
-  console.log(`User file path: ${user.filePath}`);
-
-  const userPic = () => {
-    if (!user.filePath) {
-      return StaticUserProfilePic;
-    }
-    return user.filePath;
-  };
 
   const onClickHandler = () => {
-    console.log('Clicked');
+    setOpenUpdateEmployee(true)
+  };
+
+  const onCloseUpdateEmployee = (close) => {
+    setOpenUpdateEmployee(close);
   };
 
   return (
@@ -62,7 +61,10 @@ export default function EmployeeSidebar({ menuItems }) {
           >
             {`${user.firstName} ${user.lastName}`}
           </span>
-          <span style={{ display: 'block' }} onClick={onClickHandler}>
+          <span
+            style={{ display: 'block', color: 'blue' }}
+            onClick={onClickHandler}
+          >
             {user.companyName}
           </span>
         </div>
@@ -89,6 +91,11 @@ export default function EmployeeSidebar({ menuItems }) {
           Log Out
         </NavLink>
       </div>
+      {openUpdateEmployee && (
+        <UpdateEmployeeModal
+          closeUpdateEmployeeModal={onCloseUpdateEmployee}
+        ></UpdateEmployeeModal>
+      )}
     </div>
   );
 }

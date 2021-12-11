@@ -1,48 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import { Image } from 'react-bootstrap';
 
-import { updateEmployee } from '../../../../services/employeeService';
+import {
+  updateEmployee,
+  getEmployee,
+} from '../../../../services/employeeService';
 import { enableBodyScroll } from '../../../../utils/utils';
 
 import UserProfilePic from '../../../../assets/userProfilePic.png';
 
 import './UpdateEmployee.css';
-// id, firstName, lastName, file, description,email
-export default function UpdateEmployee({
-  closeModal,
-  trigger,
-  employeeDetails,
-}) {
+
+export default function UpdateEmployee({ closeModal }) {
   const [description, setDescription] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [filePath, setFilePath] = useState('');
   const [id, setId] = useState('');
   const [file, setFile] = useState({});
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const test = localStorage.getItem('ID');
-
   let handleValidation = () => {
     let fields = {
-      description,
       firstName,
       lastName,
-      file,
-      id,
     };
     let errorsValidation = {};
     let formIsValid = true;
-
-    if (!fields['description']) {
-      formIsValid = false;
-      errorsValidation['description'] = 'Cannot be empty';
-    }
-
-    if (!fields['file']) {
-      formIsValid = false;
-      errorsValidation['file'] = 'Cannot be empty';
-    }
 
     if (!fields['firstName']) {
       formIsValid = false;
@@ -71,33 +57,27 @@ export default function UpdateEmployee({
   };
 
   const onChangeFile = (e) => {
-    console.log(e.target.files[0]);
     setFile(e.target.files[0]);
   };
 
   useEffect(() => {
-    setId(localStorage.getItem('ID'));
-    setFirstName(localStorage.getItem('firstName')); //FirstName?
-    setLastName(localStorage.getItem('lastName'));
-    setEmail(localStorage.getItem('email'));
-    setDescription(localStorage.getItem('description'));
-  }, [test]);
+    getEmployee().then((employee) => {
+      setId(employee.id);
+      setFirstName(employee.firstName);
+      setLastName(employee.lastName);
+      setEmail(employee.email);
+      setDescription(employee.profileSummary);
+      setFilePath(employee.filePath);
+    });
+  }, []);
 
-  function submitEditCoach(e) {
+  function submitEditEmployee(e) {
     e.preventDefault();
     if (handleValidation()) {
-      updateEmployee(employeeDetails.id, firstName, lastName, description, file)
+      updateEmployee(id, firstName, lastName, file, description)
         .then((resp) => {
-          console.log(resp);
           if (resp.status === 200) {
             setSuccess(true);
-            setFirstName('');
-            setLastName('');
-            setDescription('');
-            localStorage.removeItem('ID');
-            localStorage.removeItem('firstName');
-            localStorage.removeItem('lastName');
-            localStorage.removeItem('description');
           }
         })
         .catch(() => setSuccess(false));
@@ -112,7 +92,7 @@ export default function UpdateEmployee({
     setSuccess(false);
   }
 
-  return true ? ( // change 'true' with 'trigger'
+  return (
     <div className="deleteModal-background">
       <div className="updateCoach-popup">
         <div className="updateCoach-popup-createCoach-inner">
@@ -127,7 +107,7 @@ export default function UpdateEmployee({
             </div>
           </div>
 
-          <form onSubmit={(e) => submitEditCoach(e)}>
+          <form onSubmit={(e) => submitEditEmployee(e)}>
             <div className="updateCoach-Content px-5 m-5">
               <div className="updateCoach-Content-fullname px-5 m-3">
                 {success && (
@@ -142,7 +122,7 @@ export default function UpdateEmployee({
                   value={firstName}
                   onChange={onChangeFirstName}
                 />
-                <p style={{ color: 'red' }}>{errors['coachFirstName']}</p>
+                <p style={{ color: 'red' }}>{errors['firstName']}</p>
               </div>
 
               <div className="updateCoach-Content-fullname px-5 m-3">
@@ -153,33 +133,38 @@ export default function UpdateEmployee({
                   value={lastName}
                   onChange={onChangeLastName}
                 />
-                <p style={{ color: 'red' }}>{errors['coachLastName']}</p>
+                <p style={{ color: 'red' }}>{errors['lastName']}</p>
               </div>
 
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
                   disabled
                   type="text"
-                  placeholder="Email*" //{email}
+                  placeholder="Email*"
                   className="updateCoach-Content-input w-100 p-2"
                   value={email}
-                  onChange={onChangeLastName}
                 />
-                <p style={{ color: 'red' }}>{errors['email']}</p>
               </div>
 
               <div className="updateCoach-Content-fullname px-5 m-3">
-                <input
+                <textarea
                   type="text"
-                  placeholder="Profile Summary*"
+                  placeholder="Profile Summary"
                   className="updateCoach-Content-input w-100 p-2"
                   value={description}
                   onChange={onChangeDescription}
                 />
-                <p style={{ color: 'red' }}>{errors['coachField']}</p>
               </div>
 
-              <img src={UserProfilePic} alt="..." className="img-thumbnail" width="120" height="120"/>
+              <Image
+                style={{
+                  width: '8rem',
+                  height: '8rem',
+                  display: 'inline-flex',
+                }}
+                roundedCircle={false}
+                src={!filePath ? UserProfilePic : filePath}
+              />
 
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <label
@@ -220,7 +205,5 @@ export default function UpdateEmployee({
         </div>
       </div>
     </div>
-  ) : (
-    ''
   );
 }
