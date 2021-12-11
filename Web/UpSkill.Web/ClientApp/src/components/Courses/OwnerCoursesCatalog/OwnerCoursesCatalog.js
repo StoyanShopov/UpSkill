@@ -6,10 +6,7 @@ import CourseCard from "../CoursesCatalog/CourseCard/CourseCard";
 import serviceActions from "../../../services/ownerCoursesService";
 import { Button } from "react-bootstrap";
 import ConfirmDelete from "../../Shared/ConfirmDelete/ConfirmDelete";
-import "./OwnerCoursesCatalog.css";
-
-const descriptionMock =
-  " Ilee Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
+import ViewMoreButton from "../../Shared/ViewMoreCoursesCoachesButton/ViewMoreButton";
 
 export default function OwnerCoursesCatalog() {
   const [courses, setCourses] = useState([]);
@@ -53,6 +50,10 @@ export default function OwnerCoursesCatalog() {
     if (isDetailsOpen) {
       disableBodyScroll();
     } else {
+      localStorage.removeItem("ID");
+      localStorage.removeItem("FullName");
+      localStorage.removeItem("Title");
+      localStorage.removeItem("Description");
       enableBodyScroll();
     }
   };
@@ -93,10 +94,6 @@ export default function OwnerCoursesCatalog() {
     serviceActions.enableCourse(courseId).then(() => {
       serviceActions.getCourses().then((courses) => setCourses(courses));
     });
-  }
-
-  function viewMoreCourses() {
-    setCurrentPage(currentPage + 1);
   }
 
   const buttonToShow = (checkCompanyHasCourse, courseId) => {
@@ -159,14 +156,10 @@ export default function OwnerCoursesCatalog() {
           ))}
           {defineCoursesCount() && <div className="alignContentBox"></div>}
         </div>
-        <div className="viewmore-wrapper">
-          <div
-            className="btn btn-outline-primary viewmore-button"
-            onClick={() => viewMoreCourses()}
-          >
-            <p className="cardButtonText">View More</p>
-          </div>
-        </div>
+        <ViewMoreButton
+          thisPage={currentPage}
+          setThisPage={setCurrentPage}
+        ></ViewMoreButton>
       </div>
       {checkPopUp()}
       {isDetailsOpen && (
