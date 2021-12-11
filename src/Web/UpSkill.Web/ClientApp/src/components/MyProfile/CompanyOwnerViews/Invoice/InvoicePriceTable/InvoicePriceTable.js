@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import './InvoicePriceTable.css';
 
 import { getSubscriptionsForCompanyOwner } from "../../../../../services/companyOwnerService";
+import LeftArrow from "../../../../../assets/LeftArrow.png";
+import RightArrow from "../../../../../assets/RightArrow.png";
 
 function InvoicePriceTable() {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -30,9 +32,13 @@ function InvoicePriceTable() {
         <div className="ourTable">
             <div className="table-row table-monthHeading-wrapper header-EmployeeCourse align-content-center">
                 <div className="cell px-2 table-monthHeading">
-                <button className="fw-bolder" onClick={e => changeMount(-1)}>{'<'}</button>
-                <span>{currentMountName}</span>
-                <button className="fw-bolder" onClick={e => changeMount(1)}>{'>'}</button>
+                <button className="fw-bolder" onClick={e => changeMount(-1)}>
+                    <img src={ LeftArrow } alt='<' style={{marginRight: "20.3px"}} />
+                </button>
+                <span style={{fontFamily: "Montserrat"}}>{ currentMountName }</span>
+                <button className="fw-bolder" onClick={e => changeMount(1)}> 
+                    <img src={ RightArrow } alt='>' style={{marginLeft: "20.3px"}} />
+                </button>
                 </div>
             </div>
             <div className="table-row header-CoursesEnrolled header-invoice">
@@ -46,17 +52,17 @@ function InvoicePriceTable() {
                     Price
                 </div>
             </div>
-            <div className="table-content d-flex ">
-
+            <div className="table-content d-flex">
                 <div className="table-content-names w-50">
-                    {subscriptions.map(subscription => {
+                    { subscriptions.map(subscription => {
                         return (
-                            <div className="table-row px-3" key={subscription.name}>
-                                <div className="cell name-cell-data" data-title="Course / Coach" href={subscription.price} date={subscription.date}>
-                                    {subscription.name}
+                            <div className="table-row px-3" key={ subscription.name }>
+                                <div className="cell name-cell-data" id="table-contents-font" data-title="Course / Coach" href={subscription.price} date={subscription.date}>
+                                    { subscription.name }
                                 </div>
                             </div>);
-                    })}
+                        })
+                    }
                 </div>
 
                 <div className="table-content-emails w-25">
@@ -64,31 +70,34 @@ function InvoicePriceTable() {
                     {subscriptions.map(subscription => {
                         return (
                             <div className="table-row px-3" key={subscription.name}>
-                                <div className="cell courses-cell-data" data-title="SubscriptionDate">
+                                <div className="cell courses-cell-data" id="table-contents-font" data-title="SubscriptionDate">
                                     {subscription.date}
                                 </div>
                             </div>);
-                    })}
+                        })
+                    }
                 </div>
 
                 <div className="table-content-emails w-25">
-
                     {subscriptions.map(subscription => {
                         return (
-                            <div className="table-row px-3" key={subscription.name}>
-                                <div className="cell courses-cell-price" data-title="SubscriptionPrice">
-                                    {subscription.price}
+                            <div className="table-row px-3" key={ subscription.name }>
+                                <div className="cell courses-cell-price" id="table-contents-price-font" data-title="SubscriptionPrice">
+                                    { subscription.price }€
                                 </div>
                             </div>);
                     })}
                 </div>
-
             </div>
 
             <div className="table-row px-3">
                 <div className="table-totalForMonth d-flex" data-mdb-ripple-color="dark">
-                    <div className="totalForMonth-heading w-50 cell border-0"><h5 className="fw-bold">Total</h5></div>
-                    <div className="totalForMonth-content w-50 text-align-end cell border-0"><h5 className="fw-bold text-right">{totalForMonth}</h5></div> 
+                    <div className="totalForMonth-heading w-50 cell border-0">
+                        <h5 id="total-price-tag">Total</h5>
+                    </div>
+                    <div className="totalForMonth-content w-50 text-align-end cell border-0">
+                        <h5 className="text-right" id="total-price">{totalForMonth}€</h5>
+                    </div> 
                 </div>
             </div>
         </div>
