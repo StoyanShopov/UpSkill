@@ -49,7 +49,10 @@
 }
 
 .logo {
-  padding-left: 50px;
+  width: 50%;
+  height: 30px;
+  display: flex;
+  justify-content: end;
 }
 
 .cardText {
@@ -68,11 +71,11 @@
 }
 
 .coursecatalog-title {
-  width: 200px;
+  width: 225px;
   height: 40px;
   /* margin-bottom: 10px; */
   display: flex;
-  align-items: flex-start;
+  justify-content: start;
 }
 
 .cardButtonText {

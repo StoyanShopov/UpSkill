@@ -50,23 +50,22 @@ function CourseCard(props) {
         <span className="coursescatalog-image-title">{categoryName}</span>
       </div>
       <div className="cardBody row">
-        <div className="coursecatalog-title cardText col-md-5">
-          <p id="course" alt={courseTitle}>
-            {sliceCourseTitle(courseTitle)}
-          </p>
+        <div className="row">
+          <div className="coursecatalog-title cardText col-md-5">
+            <p id="course" alt={courseTitle}>
+              {sliceCourseTitle(courseTitle)}
+            </p>
+          </div>
+          <div className="logo col-md-5">
+            <p id="name">{fullName}</p>
+          </div>
         </div>
-
-        <div className="col-md-5">
-          <p id="name">{fullName}</p>
-        </div>
-
         <div className="row">
           <div className="cardText col-md-6">
             <p className="course-price" id="price">
               {price}€ per person
             </p>
           </div>
-
           <div className="logo col-md-6">
             <img src={GoogleLogo} alt="logo" />
           </div>
