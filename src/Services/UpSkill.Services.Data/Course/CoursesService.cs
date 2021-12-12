@@ -130,13 +130,6 @@
 
         public async Task<Result> AddCompanyAsync(AddCompanyToCourseViewModel model)
         {
-            //var user = await this.userManager.FindByEmailAsync(model.CurrentUserEmail);
-
-            //if (user == null || !await this.userManager.IsInRoleAsync(user, AdministratorRoleName))
-            //{
-            //    return UserNotAnAdmin;
-            //}
-
             var companyOwner = await this.userManager.FindByEmailAsync(model.CompanyOwnerEmail);
 
             if (companyOwner == null)

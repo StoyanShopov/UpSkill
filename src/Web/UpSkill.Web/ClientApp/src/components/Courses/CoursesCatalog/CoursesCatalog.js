@@ -13,10 +13,10 @@ export default function CoursesCatalog() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const setData = (data) => {
-    let { id, coachName, courseName, description } = data;
+    let { id, fullName, courseTitle, description } = data;
     localStorage.setItem("ID", id);
-    localStorage.setItem("FullName", coachName);
-    localStorage.setItem("Title", courseName);
+    localStorage.setItem("FullName", fullName);
+    localStorage.setItem("Title", courseTitle);
     localStorage.setItem("Description", description);
   };
 
@@ -24,6 +24,10 @@ export default function CoursesCatalog() {
     if (isDetailsOpen) {
       disableBodyScroll();
     } else {
+      localStorage.removeItem("ID");
+      localStorage.removeItem("FullName");
+      localStorage.removeItem("Title");
+      localStorage.removeItem("Description");
       enableBodyScroll();
     }
   };
