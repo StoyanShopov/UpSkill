@@ -3,22 +3,21 @@ import DetailsModal from "../../Shared/CourseDetails/DetailsModal";
 import "./CoursesCatalog.css";
 import { getCourses } from "../../../services/courseService";
 import { enableBodyScroll, disableBodyScroll } from "../../../utils/utils";
-import CourseCard from './CourseCard/CourseCard';
-
-
-const descriptionMock =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. ";
+import CourseCard from "./CourseCard/CourseCard";
+import { Button } from "react-bootstrap";
+import ViewMoreButton from "../../Shared/ViewMoreCoursesCoachesButton/ViewMoreButton";
 
 export default function CoursesCatalog() {
   const [courses, setCourses] = useState([]);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false); 
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const setData = (data) => {
-    let { id, coachName, courseName } = data;
+    let { id, coachName, courseName, description } = data;
     localStorage.setItem("ID", id);
     localStorage.setItem("FullName", coachName);
-    localStorage.setItem("Title", courseName);   
-    localStorage.setItem("Description", descriptionMock);
+    localStorage.setItem("Title", courseName);
+    localStorage.setItem("Description", description);
   };
 
   const checkPopUp = () => {
@@ -34,10 +33,10 @@ export default function CoursesCatalog() {
   };
 
   useEffect(() => {
-    getCourses(1).then((courses) => {
+    getCourses(currentPage).then((courses) => {
       setCourses(courses);
     });
-  }, []);
+  }, [currentPage]);
 
   const defineCoursesCount = () => {
     let coursesCount = courses.length % 3;
@@ -45,32 +44,48 @@ export default function CoursesCatalog() {
     if (coursesCount !== 0) {
       return true;
     }
-    
+
     return false;
-  }
+  };
 
   return (
     <>
       <div className="container courseCatalogContainer">
         <div className="row courses-list">
           {courses.map((course) => (
-            <div className="col-md-3 text-align-center" style={{ marginLeft: 1}}
-               key={course.id}>
-              <CourseCard 
+            <div
+              className="col-md-3 text-align-center"
+              style={{ marginLeft: 1 }}
+              key={course.id}
+            >
+              <CourseCard
                 key={course.id}
                 id={course.id}
-                courseName={course.courseName}
-                coachName={course.coachName}
-                imageName={course.imageName}
+                courseTitle={course.title}
+                coachFirstName={course.coachFirstName}
+                coachLastName={course.coachLastName}
+                filePath={course.fileFilePath}
+                description={course.description}
                 isDetailsOpen={setIsDetailsOpen}
+                categoryName={course.categoryName}
                 getDetails={getValue}
                 price={course.price}
-              ></CourseCard>
-
+              >
+                <Button
+                  className="button row col-md-4"
+                  // onClick={(e) => addCoachToCompany(coachId)}
+                >
+                  <p className="cardButtonText">Add</p>
+                </Button>
+              </CourseCard>
             </div>
           ))}
-          { defineCoursesCount() && (<div className="alignContentBox"></div>) }
+          {defineCoursesCount() && <div className="alignContentBox"></div>}
         </div>
+        <ViewMoreButton
+          thisPage={currentPage}
+          setThisPage={setCurrentPage}
+        ></ViewMoreButton>
       </div>
       {checkPopUp()}
       {isDetailsOpen && (

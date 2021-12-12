@@ -51,7 +51,6 @@ export default function Courses() {
       <div className="content">
         <CoursesIntroBar />
         <div className="wrapper row">
-          {" "}
           <AdminCourses />
         </div>
       </div>
