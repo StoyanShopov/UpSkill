@@ -158,8 +158,8 @@ export default function UpdateEmployee({ closeModal }) {
 
               <Image
                 style={{
-                  width: '8rem',
-                  height: '8rem',
+                  width: '6rem',
+                  height: '6rem',
                   display: 'inline-flex',
                 }}
                 roundedCircle={false}

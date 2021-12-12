@@ -211,6 +211,16 @@
                 .Where(x => x.ApplicationUserId == userId)
                 .FirstOrDefaultAsync();
 
+            if (userProfile == null)
+            {
+                userProfile = new UserProfile()
+                {
+                    ApplicationUserId = userId,
+                };
+
+                await this.userProfiles.AddAsync(userProfile);
+            }
+
             userProfile.ProfileSummary = model.ProfileSummary;
 
             if (model.File != null)
