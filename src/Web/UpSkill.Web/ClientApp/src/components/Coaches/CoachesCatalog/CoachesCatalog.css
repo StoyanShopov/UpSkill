@@ -16,7 +16,7 @@
   height: 50px;
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1200px) {
   .coaches-list {
     flex-direction: column;
     display: flex;
