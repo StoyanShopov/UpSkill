@@ -53,7 +53,7 @@
         </div>
         <div class="home-content-wrapper">
             <section class="content custom-container">
-                <article class="home-content-getStarted d-flex justify-content-between">
+                <article class="home-content-article d-flex justify-content-between">
                     <div class="home-content-getStarted-text col-md-5">
                         <h1 class="home-heading home-content-getStarted-text-heading">
                             @localizer["Get-Started-Header-Text"]
@@ -64,18 +64,18 @@
                         <button class="btn btn-primary home-content-getStarted-text-btn px-5 py-2">@localizer["Get-Started-Button"]</button>
                     </div>
 
-                    <div class="home-content-getStarted-img col-md-6 d-flex justify-content-end">
+                    <div class="home-content-getStarted-img col-md-6 d-flex">
                         <div class="home-content-getStarted-img-bg"></div>
                         <img src="~/lib/assets/home-GetStarted-img.png"
-                             class="align-self-end home-content-getStarted-img-inner" />
+                            class="home-content-getStarted-img-inner" />
                     </div>
                 </article>
 
-                <article class="home-content-getStarted d-flex justify-content-between">
-                    <div class="home-content-getStarted-img col-md-6 d-flex">
+                <article class="home-content-article home-content-whatItDoes d-flex justify-content-between">
+                    <div class="home-content-whatItDoes-img col-md-6 d-flex">
                         <div class="home-content-whatItDoes-img-bg mt-3"></div>
                         <img src="~/lib/assets/home-whatUpSkillDoes-img.png"
-                             class="align-self-end home-content-getStarted-img-inner" />
+                            class="align-self-end home-content-whatItDoes-img-inner"/>
                     </div>
 
                     <div class="home-content-getStarted-text col-md-5">
@@ -92,7 +92,7 @@
                     </div>
                 </article>
 
-                <article class="home-content-getStarted d-flex justify-content-between mt-5">
+                <article id="RequestDemo" class="home-content-article d-flex justify-content-between mt-5">
                     <div class="home-content-getStarted-text col-md-6 mt-5">
                         <h1 class="home-heading home-content-getStarted-text-heading mt-5">@localizer["Request-Demo-Header"]</h1>
                         <p class="home-content-getStarted-text-info">@localizer["Request-Demo-Text"]</p>
