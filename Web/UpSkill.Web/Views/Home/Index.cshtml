@@ -1,21 +1,12 @@
-﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+﻿
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locO
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
-    var cultureList = locO
-                     .Value
-                     .SupportedCultures
-                     .Select(c => new SelectListItem
-                     {
-                         Value = c.Name,
-                         Text = c.Name
-                     })
-                     .ToList();
-
-    var x = 0;
+    var cultureList = locO.Value.SupportedCultures.Select(x => new SelectListItem { Value = x.Name, Text = x.Name }).ToList();
 }
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,10 +34,14 @@
                     <img src="~/lib/assets/Group 5.svg" onclick="location.href='/'" />
                     <h1 class="upskill-header" onclick="location.href='/'">upskill</h1>
                 </div>
-                <div class="buttons">
+                <form asp-action="CultureManagement" asp-controller="Home" method="post">
+                    <select name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="cultureList" onchange="this.form.submit();">
+                    </select>
+                </form>
+                <div class="buttons"> 
                     <button class="home-login btn btn-outline-primary" onclick="location.href='/Login'">@localizer["Header-Login-Button"]</button>
                     <button class="home-register btn btn-primary" onclick="location.href='/RequestDemo'">
-                     @localizer["Header-RequestDemo-Button"]
+                        @localizer["Header-RequestDemo-Button"]
                     </button>
                 </div>
             </div>
@@ -67,7 +62,7 @@
                     <div class="home-content-getStarted-img col-md-6 d-flex">
                         <div class="home-content-getStarted-img-bg"></div>
                         <img src="~/lib/assets/home-GetStarted-img.png"
-                            class="home-content-getStarted-img-inner" />
+                             class="home-content-getStarted-img-inner" />
                     </div>
                 </article>
 
@@ -75,7 +70,7 @@
                     <div class="home-content-whatItDoes-img col-md-6 d-flex">
                         <div class="home-content-whatItDoes-img-bg mt-3"></div>
                         <img src="~/lib/assets/home-whatUpSkillDoes-img.png"
-                            class="align-self-end home-content-whatItDoes-img-inner"/>
+                             class="align-self-end home-content-whatItDoes-img-inner" />
                     </div>
 
                     <div class="home-content-getStarted-text col-md-5">
