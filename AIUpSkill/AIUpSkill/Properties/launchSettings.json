@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AIUpSkill": {
+      "commandName": "Project",
+      "commandLineArgs": "start --verbose"
+    }
+  }
+}

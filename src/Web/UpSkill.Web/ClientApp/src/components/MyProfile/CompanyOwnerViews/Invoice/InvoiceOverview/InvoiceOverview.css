@@ -1,0 +1,36 @@
+.invoice-status{
+    color: #296CFB;
+    font-size: 22px;
+    margin-top: 10px;
+    font-family: Montserrat;
+}
+
+.invoice-date-wrapper h4:nth-child(2){
+    color: #296CFB;    
+    margin-top: 10px;
+    font-family: Montserrat;
+}
+
+.btn-download{
+    display: flow-root;
+    position: relative;
+    top: 2rem;
+    font-family: Montserrat;
+    height: 50px;
+    width: 150px;
+    border-radius: 0px;
+    margin-top: -5px;
+    margin-left: 24px;
+}
+
+
+@media (max-width:780px) {
+    .Overview{
+        padding-left: 2rem!important;
+        padding-right: 2rem!important;
+    }
+
+    .invoice-status{
+        font-size: small;
+    }
+}
