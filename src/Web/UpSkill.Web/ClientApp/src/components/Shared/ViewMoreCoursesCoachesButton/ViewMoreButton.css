@@ -1,0 +1,13 @@
+.viewmore-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.viewmore-button {
+  width: 150px;
+  height: 50px;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+}

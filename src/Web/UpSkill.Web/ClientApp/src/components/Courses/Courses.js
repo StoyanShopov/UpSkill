@@ -3,6 +3,7 @@ import { ReactReduxContext, useDispatch } from "react-redux";
 import CategoriesAndLanguageMenu from "../CategoriesAndLanguageMenu/categoryAndLanguageMenu";
 import CoursesCatalog from "./CoursesCatalog/CoursesCatalog";
 import AdminCourses from "../Admin/Courses/AdminCourses/AdminCourses";
+import OwnerCoursesCatalog from "./OwnerCoursesCatalog/OwnerCoursesCatalog";
 import { CHECK_CURRENT_STATE } from "../../actions/types";
 import CoursesIntroBar from "../Admin/Courses/AdminCourses/CoursesIntroBar/CoursesIntroBar";
 
@@ -39,19 +40,17 @@ export default function Courses() {
     console.log("isAdmin: " + isAdmin);
   }, []);
 
-  // const returnCatalog = () => {
-  //   if (isAdmin) {
-  //     return <AdminCourses />;
-  //   }
-  //   return <CoursesCatalog />;
-  // };
-
+  const returnCatalog = () => {
+    if (isCompanyOwner) {
+      return <OwnerCoursesCatalog />;
+    }
+    return <CoursesCatalog />;
+  };
   if (isAdmin) {
     return (
       <div className="content">
-        <CoursesIntroBar/>
+        <CoursesIntroBar />
         <div className="wrapper row">
-          {" "}
           <AdminCourses />
         </div>
       </div>
@@ -60,10 +59,7 @@ export default function Courses() {
     return (
       <div className="content">
         <CategoriesAndLanguageMenu atPage="Courses" />
-        <div className="wrapper row">
-          {" "}
-          <CoursesCatalog />
-        </div>
+        <div className="wrapper row">{returnCatalog()}</div>
       </div>
     );
   }
