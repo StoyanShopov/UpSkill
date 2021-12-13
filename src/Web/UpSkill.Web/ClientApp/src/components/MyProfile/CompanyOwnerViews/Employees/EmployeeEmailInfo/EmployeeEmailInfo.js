@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { getEmployeeWithEmail } from '../../../../../services/employeeService';
-import { removeEmployeeHandler, ownerEmployeesMock } from '../../../../../services/employeeService';
+import { removeEmployeeHandler, 
+        ownerEmployeesMock, 
+        getEmployeesTotalCountCompanyOwner } 
+            from '../../../../../services/employeeService';
 import { disableBodyScroll } from '../../../../../utils/utils';
 
 import './EmployeeEmailInfo.css';
@@ -10,6 +13,7 @@ const EmployeeEmailInfo = ({ onAddEmployee }) => {
   let [allEmployees, setallEmployees] = useState([]);
   let [currentPage, setCurrentPage] = useState(0);
   let [popupInner, setPopupInner] = useState(0);
+  let [employeeCount, setEmployeeCount] = useState(0);
 
   useEffect(() => {
     getEmployeeWithEmail(currentPage).then((employees) => {
@@ -34,12 +38,17 @@ const EmployeeEmailInfo = ({ onAddEmployee }) => {
     onAddEmployee(clicked);
   }
 
+  useEffect(() => {
+    getEmployeesTotalCountCompanyOwner().then((count) => 
+    setEmployeeCount(count));
+    }, [])
+
   return (
     <div className="wrap-table100 mt-5 shadow mb-5 bg-body rounded">
       <div className="ourTable">
         <div className="table-row header-EmployeeCourse">
           <div className="cell cell-Employees-Courses">
-            Employees ({ allEmployees.length })
+            Employees ({ employeeCount })
           </div>
           <div className="cell cell-Employees-Courses">Email</div>
 
@@ -59,7 +68,8 @@ const EmployeeEmailInfo = ({ onAddEmployee }) => {
                   key={ employee.firstName + employee.email + employee.id }
                 >
                   <div
-                    className="cell cell-data-Employees-Courses name-cell-data"
+                    className="cell cell-data-Employees-Courses name-cell-data" 
+                    style={{ fontFamily: "Montserrat", fontSize: "22px" }}
                     data-title="Employee"
                     href={ employee.email }
                   >
@@ -101,9 +111,10 @@ const EmployeeEmailInfo = ({ onAddEmployee }) => {
                   >
                     <div
                       style={{
-                        color: 'blue',
                         marginTop: '45px',
                         marginLeft: '10px',
+                        fontSize: "22px",
+                        fontFamily: "Montserrat"
                       }}
                     >
                       {' '}
