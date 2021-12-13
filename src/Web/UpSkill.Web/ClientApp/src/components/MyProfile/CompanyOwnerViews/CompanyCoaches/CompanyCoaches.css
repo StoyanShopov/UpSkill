@@ -5,12 +5,14 @@
     flex-direction :row;
      justify-content:space-between;
     margin-top:20px;
+    margin-left: -40px;
 }
 .buttonContainer{
     margin-top:50px;
     position:relative;
     justify-content: end;
     float: right;
+    margin-right: -80px;
 }
 .cardButton{
     display: block;
@@ -40,3 +42,13 @@
 .square-button{
     border-radius: 0px;
 }
+
+@media screen and (max-width: 1000px) {
+    .coachesContainer {
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      --bs-gutter-x: 0rem;
+    }
+  }
+  
