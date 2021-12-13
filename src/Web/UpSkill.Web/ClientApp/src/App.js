@@ -32,7 +32,9 @@ import PromoteDemote from "./components/Admin/AdminPromoteDemote";
 import CourseDetailsContent from "./components/Courses/CoursesDetailsContent/CoursesDetailsContent";
 
 import { CHECK_CURRENT_STATE } from "./actions/types";
-import { useState } from "react";const AppWrapper = (props) => {
+import { useState } from "react";
+
+const AppWrapper = (props) => {
   const [notification, setNotification] = useReducer(Auth, {
     type: '',
     state: 'none',

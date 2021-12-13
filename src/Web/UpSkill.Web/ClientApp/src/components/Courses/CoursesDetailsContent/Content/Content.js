@@ -17,4 +17,5 @@ function Content ({course}) {
     );
 }
 
-export default Content;         
+export default Content;  
+       
