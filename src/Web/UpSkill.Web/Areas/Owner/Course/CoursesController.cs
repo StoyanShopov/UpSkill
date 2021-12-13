@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
+    using UpSkill.Services.Data.Contracts.Course;
     using UpSkill.Services.Data.Contracts.Owner;
     using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
@@ -14,17 +14,21 @@
 
     using static Common.GlobalConstants;
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CoursesController : OwnerBaseController
     {
-        private readonly IOwnerCoursesService coursesService;
+        private readonly ICourseService coursesService;
+        private readonly IOwnerCoursesService ownerCoursesService;
         private readonly ICurrentUserService currentUserService;
 
         public CoursesController(
-            IOwnerCoursesService coursesService,
+            ICourseService coursesService,
+            IOwnerCoursesService ownerCoursesService,
             ICurrentUserService currentUserService)
         {
             this.coursesService = coursesService;
+            this.ownerCoursesService = ownerCoursesService;
             this.currentUserService = currentUserService;
         }
 
@@ -34,7 +38,7 @@
         {
             try
             {
-                await this.coursesService.RequestCourseAsync(model);
+                await this.ownerCoursesService.RequestCourseAsync(model);
             }
             catch (Exception ex)
             {
@@ -49,7 +53,7 @@
         public async Task<IActionResult> DisableCourse(int id)
         {
             var currentUser = this.currentUserService.GetId();
-            var result = await this.coursesService.DisableCourseAsync(id, currentUser);
+            var result = await this.ownerCoursesService.DisableCourseAsync(id, currentUser);
 
             if (result.Failure)
             {
@@ -59,11 +63,25 @@
             return this.Ok(result.Succeeded);
         }
 
+        [HttpPost]
+        [Route(AddCompanyOwnerToCourseRoute)]
+        public async Task<IActionResult> AddCompany(AddCompanyToCourseViewModel model)
+        {
+            var result = await this.coursesService.AddCompanyAsync(model);
+
+            if (result.Failure)
+            {
+                return this.BadRequest(result.Error);
+            }
+
+            return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
+        }
+
         [HttpGet]
         [Route(ActiveCourses)]
         public async Task<IEnumerable<DetailsViewModel>> GetActiveCourses()
         {
-            return await this.coursesService
+            return await this.ownerCoursesService
                              .GetActiveCoursesAsync<DetailsViewModel>(this.currentUserService.GetId());
         }
     }
