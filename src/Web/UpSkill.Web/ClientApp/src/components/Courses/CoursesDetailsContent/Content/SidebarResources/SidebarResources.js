@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import CourseDetailsResourcesContext from "../../../../../Context/CourseDetailsResourcesContext";
 import Details from "./Details/Details";
 import Accordion from "react-bootstrap/Accordion";
-import CountUp from "react-countup";
 
 import "./SidebarResources.css";
 
@@ -28,7 +27,6 @@ const SidebarResources = (props) => {
   const loopWithSlice = (start, end) => {
     const slicedLectures = courseLectures.slice(start, end);
     arrayForHoldingLectures = [...arrayForHoldingLectures, ...slicedLectures];
-    console.log(arrayForHoldingLectures);
     if(arrayForHoldingLectures.length > 0) {
         setLecturesToView(arrayForHoldingLectures);
     }   
