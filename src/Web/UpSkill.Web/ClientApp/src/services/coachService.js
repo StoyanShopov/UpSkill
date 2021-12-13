@@ -3,8 +3,6 @@ import { Base_URL } from "../utils/baseUrlConstant";
 
 const OWN_API_URL = Base_URL + "Owner/Coaches/";
 
-const token = localStorage.getItem("token");
-
 const numberCoachesSessionsToShow = 3;
 
 const initialCoachesMock = [
@@ -135,6 +133,7 @@ export const getCoaches = async (currentPage) => {
 };
 
 export const getAllCoaches = async (currentPage) => {
+  let token = localStorage.getItem("token");
   try {
     let arr = [];
     coaches = [];
@@ -162,6 +161,7 @@ export const getAllCoaches = async (currentPage) => {
 };
 
 export const getCoachesNames = async (currentPage) => {
+  let token = localStorage.getItem("token");
   try {
     let arr = [];
     coaches = [];

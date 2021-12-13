@@ -4,8 +4,6 @@ import { Base_URL } from '../utils/baseUrlConstant';
 const EMP_API_URL = Base_URL + 'Employee/Courses/';
 const OWN_API_URL = Base_URL + 'Owner/Employee/';
 
-const token = localStorage.getItem('token');
-
 let data = [];
 
 export const getCourses = (
@@ -15,6 +13,7 @@ export const getCourses = (
   courseCoachLastName,
   courseFileFilePath
 ) => {
+  let token = localStorage.getItem("token");
   return axios
     .get(
       EMP_API_URL + 'getAll',
@@ -56,6 +55,7 @@ export const getEmployeesTotalCountCompanyOwner = async (uId) => {
 };
 
 export const getAllEmployees = async (employee) => {
+  let token = localStorage.getItem("token");
   return axios
     .get(
       OWN_API_URL + 'getAllEmployees',

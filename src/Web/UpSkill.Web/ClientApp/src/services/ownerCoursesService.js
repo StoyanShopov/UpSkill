@@ -1,11 +1,11 @@
 import axios from "axios"
 import { Base_URL } from '../utils/baseUrlConstant';
 const API_URL = Base_URL + "Owner/Courses/";
-const token = localStorage.getItem('token');
 let data = [];
 
 const getCourses = async (courseId, courseTitle, courseCoachFirstName, courseCoachLastName, courseFileFilePath) => {
-    return await axios.get(API_URL + "getactivecourses", { headers: { "Authorization": `Bearer ${token}` } }, {
+  let token = localStorage.getItem("token");
+  return await axios.get(API_URL + "getactivecourses", { headers: { "Authorization": `Bearer ${token}` } }, {
         courseId,
         courseTitle,
         courseCoachFirstName,
@@ -19,7 +19,8 @@ const getCourses = async (courseId, courseTitle, courseCoachFirstName, courseCoa
 };
 
 const getAvailableCourses = async (courseId, courseTitle, courseCoachFirstName, courseCoachLastName, courseFileFilePath) => {
-    return await axios.get(API_URL + "getavailablecourses", { headers: { "Authorization": `Bearer ${token}` } }, {
+  let token = localStorage.getItem("token");
+  return await axios.get(API_URL + "getavailablecourses", { headers: { "Authorization": `Bearer ${token}` } }, {
         courseId,
         courseTitle,
         courseCoachFirstName,
@@ -32,10 +33,12 @@ const getAvailableCourses = async (courseId, courseTitle, courseCoachFirstName, 
         });
 };
 const enableCourse = async (courseId) => {
-    await axios.put(API_URL + "enable?id=" + courseId, { headers: { "Authorization": `Bearer ${token}` } });
+  let token = localStorage.getItem("token");
+  await axios.put(API_URL + "enable?id=" + courseId, { headers: { "Authorization": `Bearer ${token}` } });
 };
 const disableCourse = async (courseId) => {
-    await axios.delete(API_URL + "disable?id=" + courseId, { headers: { "Authorization": `Bearer ${token}` } });
+  let token = localStorage.getItem("token");
+  await axios.delete(API_URL + "disable?id=" + courseId, { headers: { "Authorization": `Bearer ${token}` } });
 };
 
 const serviceActions = {
