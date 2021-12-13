@@ -295,31 +295,15 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("UpSkill.Data.Models.Chat.Message", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("OwnerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Time")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("UpSkill.Data.Models.Coach", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CalendlyUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -505,6 +489,88 @@ namespace UpSkill.Data.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("UpSkill.Data.Models.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Action")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClientIP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Controller")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Exception")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ISSName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAuthenticated")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MachineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RequestMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestPostData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestQueryString")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserAuthType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserClaim")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("UpSkill.Data.Models.Message", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("OwnerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Time")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("UpSkill.Data.Models.Position", b =>
                 {
                     b.Property<int>("Id")
@@ -548,6 +614,46 @@ namespace UpSkill.Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("UserInCourses");
+                });
+
+            modelBuilder.Entity("UpSkill.Data.Models.UserProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FileId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProfileSummary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -772,6 +878,23 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("UpSkill.Data.Models.UserProfile", b =>
+                {
+                    b.HasOne("UpSkill.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("UpSkill.Data.Models.File", "File")
+                        .WithMany("UserProfiles")
+                        .HasForeignKey("FileId");
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("File");
+                });
+
             modelBuilder.Entity("UpSkill.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("ChildUsers");
@@ -813,6 +936,8 @@ namespace UpSkill.Data.Migrations
                     b.Navigation("Coaches");
 
                     b.Navigation("Courses");
+
+                    b.Navigation("UserProfiles");
                 });
 
             modelBuilder.Entity("UpSkill.Data.Models.Position", b =>

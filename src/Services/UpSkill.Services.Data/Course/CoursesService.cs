@@ -133,14 +133,13 @@
 
         public async Task<Result> AddCompanyAsync(AddCompanyToCourseViewModel model)
         {
-            var user = await this.userManager.FindByEmailAsync(model.CurrentUserEmail);
+            var companyOwner = await this.userManager.FindByEmailAsync(model.CompanyOwnerEmail);
 
-            if (user == null || !await this.userManager.IsInRoleAsync(user, AdministratorRoleName))
+            if (companyOwner == null)
             {
-                return UserNotAnAdmin;
+                return UserNotInCompanyOwnerRole;
             }
 
-            var companyOwner = await this.userManager.FindByEmailAsync(model.CompanyOwnerEmail);
             var companyOwnerRoles = await this.userManager.GetRolesAsync(companyOwner);
 
             if (!companyOwnerRoles.Contains(CompanyOwnerRoleName))
@@ -148,7 +147,7 @@
                 return UserNotInCompanyOwnerRole;
             }
 
-            var company = await this.companiesService.GetDbModelByIdAsync(model.CompanyId);
+            var company = await this.companiesService.GetDbModelByIdAsync(companyOwner.CompanyId);
             if (company == null)
             {
                 return DoesNotExist;
@@ -162,14 +161,14 @@
 
             var companyCourse = new CompanyCourse
             {
-                CompanyId = model.CompanyId,
+                CompanyId = companyOwner.CompanyId,
                 CourseId = model.CourseId,
             };
 
             var companyCourseExist = await this.companyCourses
                 .AllAsNoTracking()
                 .Where(cc => cc.CourseId == model.CourseId
-                && cc.CompanyId == model.CompanyId)
+                && cc.CompanyId == companyOwner.CompanyId)
                 .FirstOrDefaultAsync() != null;
 
             if (companyCourseExist)

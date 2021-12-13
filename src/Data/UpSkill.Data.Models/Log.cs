@@ -1,7 +1,5 @@
 ﻿namespace UpSkill.Data.Models
 {
-    using System;
-
     using UpSkill.Data.Common.Models;
 
     public class Log : BaseModel<int>
