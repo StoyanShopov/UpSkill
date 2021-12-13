@@ -16,7 +16,6 @@
     using UpSkill.Services.Messaging;
     using UpSkill.Web.ViewModels.Coach;
     using UpSkill.Web.ViewModels.Company;
-    using UpSkill.Web.ViewModels.Course;
     using UpSkill.Web.ViewModels.Owner;
 
     using static UpSkill.Common.GlobalConstants;

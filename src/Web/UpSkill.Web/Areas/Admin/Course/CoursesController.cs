@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
     using UpSkill.Services.Data.Contracts.Course;
     using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.ViewModels.Course;
@@ -41,24 +40,6 @@
             this.nlog.Info(model);
 
             return this.Ok(SuccesfullyCreated);
-        }
-
-        [HttpPost]
-        [Route(AddCompanyOwnerToCourseRoute)]
-        public async Task<IActionResult> AddCompany(AddCompanyToCourseViewModel model)
-        {
-            var result = await this.coursesService.AddCompanyAsync(model);
-
-            if (result.Failure)
-            {
-                this.nlog.Error(model, new Exception(result.Error));
-
-                return this.BadRequest(result.Error);
-            }
-
-            this.nlog.Info(model);
-
-            return this.Ok(SuccesfullyAddedCompanyOwnerToGivenCourse);
         }
 
         [HttpPut]

@@ -58,9 +58,12 @@
                 .Where(f => f.Id == id)
                 .FirstOrDefaultAsync();
 
-            await this.blobService.DeleteBlobAsync(fileObj.FilePath);
+            if (fileObj != null)
+            {
+                await this.blobService.DeleteBlobAsync(fileObj.FilePath);
 
-            this.files.HardDelete(fileObj);
+                this.files.HardDelete(fileObj);
+            }
 
             var file = await this.CreateAsync(fileModel);
 

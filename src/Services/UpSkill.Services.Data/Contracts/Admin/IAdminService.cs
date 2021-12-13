@@ -3,7 +3,6 @@
     using System.Threading.Tasks;
 
     using UpSkill.Common;
-    using UpSkill.Data.Models;
     using UpSkill.Web.ViewModels.Administration.Company;
 
     public interface IAdminService
