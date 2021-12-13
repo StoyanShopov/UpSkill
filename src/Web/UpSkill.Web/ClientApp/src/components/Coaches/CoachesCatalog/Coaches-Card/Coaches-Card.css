@@ -24,6 +24,10 @@
   height: 284px;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .coaches-image-wrapper-bg {
   background-color: #1cc18a;
   height: 212px;
