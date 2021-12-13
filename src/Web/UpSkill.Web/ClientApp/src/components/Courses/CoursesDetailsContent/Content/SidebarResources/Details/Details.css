@@ -1,0 +1,54 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css');
+
+.courseTitleContent{
+    top: 341px;
+    left: 110px;
+    width: 258px;
+    height: 80px;
+    text-align: right;
+    font: normal normal 35px/100px Montserrat;
+    letter-spacing: -1px;
+    color: #000000;
+}
+
+.courseVideoContent{
+    width: 670px;
+    height: 370px;
+    background: transparent 0% 0% no-repeat padding-box;
+}
+
+.lectureDescriptionContent{
+    top: 923px;
+    left: 156px;
+    width: 248px;
+    height: 30px;
+    text-align: left;
+    font: normal normal bold 22px/27px Montserrat;
+    letter-spacing: 1.1px;
+    color: #000000;
+    opacity: 1;
+}
+
+.descriptionContent{
+    top: 975px;
+    left: 156px;
+    width: 750px;
+    height: 57px;
+    text-align: left;
+    font: normal normal medium 22px/30px Montserrat;
+    letter-spacing: 1.1px;
+    color: #000000;
+    opacity: 1;
+}
+
+.instructorContent{
+    top: 1082px;
+    left: 156px;
+    width: 124px;
+    height: 27px;
+    text-align: left;
+    font: normal normal bold 22px/27px Montserrat;
+    letter-spacing: 1.1px;
+    color: #000000;
+    opacity: 1;
+}
