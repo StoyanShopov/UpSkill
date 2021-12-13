@@ -1,0 +1,15 @@
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\bin\Debug\net5.0\UpSkill.Services.Mapping.deps.json
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\bin\Debug\net5.0\UpSkill.Services.Mapping.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\bin\Debug\net5.0\ref\UpSkill.Services.Mapping.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\bin\Debug\net5.0\UpSkill.Services.Mapping.pdb
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\bin\Debug\net5.0\UpSkill.Common.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\bin\Debug\net5.0\UpSkill.Common.pdb
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\UpSkill.Services.Mapping.csproj.AssemblyReference.cache
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\UpSkill.Services.Mapping.GeneratedMSBuildEditorConfig.editorconfig
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\UpSkill.Services.Mapping.AssemblyInfoInputs.cache
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\UpSkill.Services.Mapping.AssemblyInfo.cs
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\UpSkill.Services.Mapping.csproj.CoreCompileInputs.cache
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\UpSkill.Services.Mapping.csproj.CopyComplete
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\UpSkill.Services.Mapping.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\ref\UpSkill.Services.Mapping.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Mapping\obj\Debug\net5.0\UpSkill.Services.Mapping.pdb

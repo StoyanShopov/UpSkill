@@ -1,0 +1,64 @@
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'Coach' has a global query filter defined and is the required end of a relationship with the entity 'CompanyCoach'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'Company' has a global query filter defined and is the required end of a relationship with the entity 'CompanyCourse'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[10622]
+      Entity 'ApplicationUser' has a global query filter defined and is the required end of a relationship with the entity 'UserInCourse'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+warn: Microsoft.EntityFrameworkCore.Model.Validation[30000]
+      No type was specified for the decimal property 'Price' on entity type 'Course'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+info: UpSkill.Data.Seeding.ApplicationDbContextSeeder[0]
+      Seeder RolesSeeder done.
+info: UpSkill.Data.Seeding.ApplicationDbContextSeeder[0]
+      Seeder CompaniesSeeder done.
+info: UpSkill.Data.Seeding.ApplicationDbContextSeeder[0]
+      Seeder CategoriesSeeder done.
+info: UpSkill.Data.Seeding.ApplicationDbContextSeeder[0]
+      Seeder CoachesSeeder done.
+info: UpSkill.Data.Seeding.ApplicationDbContextSeeder[0]
+      Seeder CoursesSeeder done.
+info: UpSkill.Data.Seeding.ApplicationDbContextSeeder[0]
+      Seeder PositionsSeeder done.
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (85ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT [t].[Id], [t].[AccessFailedCount], [t].[CompanyId], [t].[ConcurrencyStamp], [t].[CreatedOn], [t].[DeletedOn], [t].[Email], [t].[EmailConfirmed], [t].[FirstName], [t].[IsDeleted], [t].[LastName], [t].[LockoutEnabled], [t].[LockoutEnd], [t].[ManagerId], [t].[ModifiedOn], [t].[NormalizedEmail], [t].[NormalizedUserName], [t].[PasswordHash], [t].[PhoneNumber], [t].[PhoneNumberConfirmed], [t].[PositionId], [t].[SecurityStamp], [t].[TwoFactorEnabled], [t].[UserName], [r].[Id], [r].[ApplicationUserId], [r].[CreatedByIp], [r].[CreatedOn], [r].[Expires], [r].[ReplacedByToken], [r].[Revoked], [r].[RevokedByIp], [r].[Token]
+      FROM (
+          SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[CompanyId], [a].[ConcurrencyStamp], [a].[CreatedOn], [a].[DeletedOn], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[IsDeleted], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[ManagerId], [a].[ModifiedOn], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[PositionId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+          FROM [AspNetUsers] AS [a]
+          WHERE ([a].[IsDeleted] <> CAST(1 AS bit)) AND ([a].[NormalizedEmail] = @__normalizedEmail_0)
+      ) AS [t]
+      LEFT JOIN [RefreshToken] AS [r] ON [t].[Id] = [r].[ApplicationUserId]
+      ORDER BY [t].[Id], [r].[Id]
+fail: Microsoft.EntityFrameworkCore.Query[10100]
+      An exception occurred while iterating over the results of a query for context type 'UpSkill.Data.ApplicationDbContext'.
+      Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'RefreshToken'.
+         at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__169_0(Task`1 result)
+         at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+         at System.Threading.Tasks.Task.<>c.<.cctor>b__277_0(Object obj)
+         at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+      --- End of stack trace from previous location ---
+         at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+         at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+      --- End of stack trace from previous location ---
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(DbContext _, Boolean result, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+      ClientConnectionId:44966f40-dada-4779-a8c8-e9a2f33b419a
+      Error Number:208,State:1,Class:16
+      Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'RefreshToken'.
+         at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__169_0(Task`1 result)
+         at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+         at System.Threading.Tasks.Task.<>c.<.cctor>b__277_0(Object obj)
+         at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+      --- End of stack trace from previous location ---
+         at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+         at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+      --- End of stack trace from previous location ---
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(DbContext _, Boolean result, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+      ClientConnectionId:44966f40-dada-4779-a8c8-e9a2f33b419a
+      Error Number:208,State:1,Class:16

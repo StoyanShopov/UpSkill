@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "0E8UBf3kMMAT1U/ksog4H19ozgMsgDU5Uesdqo2PpsqJxSciv9O/KeYpgRNlZDxdy3vXvwltJ0MPpQXW9oGWYQ==",
+  "success": true,
+  "projectFilePath": "H:\\Programming Repositories\\Titans\\Services\\UpSkill.Services.Mapping\\UpSkill.Services.Mapping.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\krist\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\krist\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\krist\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512",
+    "C:\\Users\\krist\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

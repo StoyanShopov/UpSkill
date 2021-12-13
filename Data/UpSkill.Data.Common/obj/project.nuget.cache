@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "yt8EDavtCyaK8i3RMAUmP/OC4KH3Tc/lYTz3VWlV+wPm19ErSyZFSdyyGVFaYsu1kDV0XwE1nPDJe0Yy5gGL7Q==",
+  "success": true,
+  "projectFilePath": "H:\\Programming Repositories\\Titans\\Data\\UpSkill.Data.Common\\UpSkill.Data.Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\krist\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512",
+    "C:\\Users\\krist\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

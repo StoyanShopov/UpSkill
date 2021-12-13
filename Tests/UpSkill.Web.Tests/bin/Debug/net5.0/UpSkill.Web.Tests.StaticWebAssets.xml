@@ -1,0 +1,4 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/Identity" Path="C:\Users\krist\.nuget\packages\microsoft.aspnetcore.identity.ui\5.0.6\staticwebassets\V4\" />
+  <ContentRoot BasePath="_content/UpSkill.Web" Path="H:\Programming Repositories\Titans\Web\UpSkill.Web\wwwroot\" />
+</StaticWebAssets>

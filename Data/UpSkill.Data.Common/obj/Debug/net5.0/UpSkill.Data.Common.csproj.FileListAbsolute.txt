@@ -1,0 +1,12 @@
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\bin\Debug\net5.0\UpSkill.Data.Common.deps.json
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\bin\Debug\net5.0\UpSkill.Data.Common.dll
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\bin\Debug\net5.0\ref\UpSkill.Data.Common.dll
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\bin\Debug\net5.0\UpSkill.Data.Common.pdb
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\obj\Debug\net5.0\UpSkill.Data.Common.csproj.AssemblyReference.cache
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\obj\Debug\net5.0\UpSkill.Data.Common.GeneratedMSBuildEditorConfig.editorconfig
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\obj\Debug\net5.0\UpSkill.Data.Common.AssemblyInfoInputs.cache
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\obj\Debug\net5.0\UpSkill.Data.Common.AssemblyInfo.cs
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\obj\Debug\net5.0\UpSkill.Data.Common.csproj.CoreCompileInputs.cache
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\obj\Debug\net5.0\UpSkill.Data.Common.dll
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\obj\Debug\net5.0\ref\UpSkill.Data.Common.dll
+H:\Programming Repositories\Titans\Data\UpSkill.Data.Common\obj\Debug\net5.0\UpSkill.Data.Common.pdb

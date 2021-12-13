@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "kkHLUfWg04twZara8gd5NTP4eVKA9bq9Rai0TZgdAz9GJ46f9z7016agsTlsOBS1BC/YantirebXM3r6NLKtig==",
+  "success": true,
+  "projectFilePath": "H:\\Programming Repositories\\Titans\\UpSkill.Common\\UpSkill.Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\krist\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512"
+  ],
+  "logs": []
+}

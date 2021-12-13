@@ -1,0 +1,12 @@
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\bin\Debug\net5.0\UpSkill.Services.Messaging.deps.json
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\bin\Debug\net5.0\UpSkill.Services.Messaging.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\bin\Debug\net5.0\ref\UpSkill.Services.Messaging.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\bin\Debug\net5.0\UpSkill.Services.Messaging.pdb
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\obj\Debug\net5.0\UpSkill.Services.Messaging.csproj.AssemblyReference.cache
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\obj\Debug\net5.0\UpSkill.Services.Messaging.GeneratedMSBuildEditorConfig.editorconfig
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\obj\Debug\net5.0\UpSkill.Services.Messaging.AssemblyInfoInputs.cache
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\obj\Debug\net5.0\UpSkill.Services.Messaging.AssemblyInfo.cs
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\obj\Debug\net5.0\UpSkill.Services.Messaging.csproj.CoreCompileInputs.cache
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\obj\Debug\net5.0\UpSkill.Services.Messaging.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\obj\Debug\net5.0\ref\UpSkill.Services.Messaging.dll
+H:\Programming Repositories\Titans\Services\UpSkill.Services.Messaging\obj\Debug\net5.0\UpSkill.Services.Messaging.pdb
