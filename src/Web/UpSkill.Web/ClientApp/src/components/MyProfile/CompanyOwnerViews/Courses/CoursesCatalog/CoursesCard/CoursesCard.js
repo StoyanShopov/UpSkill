@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 
 import "./OwnerCoursesCard.css";
 import GoogleLogo from "../../../../../../assets/img/courses/Image 2.png";
-import Rectangle from "../../../../../../assets/img/courses/Rectangle 1238.png";
 
 function CourseCard(props) {
     const { id, courseTitle, courseCoachFirstName, courseCoachLastName, courseFileFilePath, coursePrice, companyLogo, isDetailsOpen, getDetails  } = 
