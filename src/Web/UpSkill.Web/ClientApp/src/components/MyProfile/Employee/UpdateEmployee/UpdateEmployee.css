@@ -1,0 +1,79 @@
+.updateCoach-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  margin-top: 40px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.updateCoach-popup-createCoach-inner {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  padding-bottom: 2em;
+  overflow: hidden;
+  max-width: 640px;
+  background-color: white;
+}
+
+.updateCoach-popup-inner .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.updateCoach-popup-Header {
+  background-color: #296cfb;
+}
+
+.closebtn i {
+  color: #fff;
+  font-size: x-large;
+}
+
+.updateCoach-popup-Title h4 {
+  color: #fff;
+  text-align: center;
+}
+
+.updateCoach-Content-input {
+  border: 2px solid #296cfb;
+}
+
+.updateCoach-Content-anotherEmployee-btn {
+  color: #296cfb;
+}
+
+.updateCoach-actions {
+  margin-top: -30px;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #296cfb;
+  font-weight: 600;
+  opacity: 1; /* Firefox */
+}
+
+@media (max-width: 780px) {
+  .updateCoach-popup-inner {
+    height: 100vh !important;
+  }
+
+  .updateCoach-Content-fullname,
+  .updateCoach-Content-anotherEmployee,
+  .updateCoach-Content-email,
+  .updateCoach-Content {
+    padding: 0 !important;
+    text-align: center;
+  }
+}
+
+input[type='file'] {
+  display: none;
+}

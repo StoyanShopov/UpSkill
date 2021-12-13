@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
-import CoachesCard from "../Coaches-Card/Coaches-Card";
-import "./AdminCoachesCatalog.css";
-import { getAllCoaches } from "../../../../services/coachService";
-import { removeCoach } from "../../../../services/adminCoachesService";
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import CoachesCard from '../Coaches-Card/Coaches-Card';
+import './AdminCoachesCatalog.css';
+import { getAllCoaches } from '../../../../services/coachService';
+import { removeCoach } from '../../../../services/adminCoachesService';
 
-import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
-import CreateCoach from "./CreateCoach/CreateCoach";
-import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
-import UpdateCoach from "./UpdateCoach/UpdateCoach";
+import ConfirmDelete from '../../../Shared/ConfirmDelete/ConfirmDelete';
+import CreateCoach from './CreateCoach/CreateCoach';
+import { disableBodyScroll, enableBodyScroll } from '../../../../utils/utils';
+import UpdateCoach from './UpdateCoach/UpdateCoach';
 
 export default function AdminCoachesCatalog({ coaches, setCoaches }) {
   const [onRemove, setOnRemove] = useState(false);
@@ -39,13 +39,13 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
       coachFileFilePath,
       calendlyUrl,
     } = coach;
-    localStorage.setItem("ID", id);
-    localStorage.setItem("FirstName", coachFirstName);
-    localStorage.setItem("LastName", coachLastName);
-    localStorage.setItem("Field", coachField);
-    localStorage.setItem("Price", coachPrice);
-    localStorage.setItem("FilePath", coachFileFilePath);
-    localStorage.setItem("CalendlyUrl", calendlyUrl);
+    localStorage.setItem('ID', id);
+    localStorage.setItem('FirstName', coachFirstName);
+    localStorage.setItem('LastName', coachLastName);
+    localStorage.setItem('Field', coachField);
+    localStorage.setItem('Price', coachPrice);
+    localStorage.setItem('FilePath', coachFileFilePath);
+    localStorage.setItem('CalendlyUrl', calendlyUrl);
   };
 
   const getValue = (coach) => {
@@ -55,7 +55,7 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
   };
 
   const onOpenEditCoachModal = () => {
-    console.log("hi");
+    console.log('hi');
     setOpenEditCoachModal(true);
     disableBodyScroll();
   };

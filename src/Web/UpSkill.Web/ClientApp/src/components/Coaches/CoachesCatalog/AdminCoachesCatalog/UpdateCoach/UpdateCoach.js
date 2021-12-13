@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { updateCoach } from "../../../../../services/adminCoachesService";
-import { enableBodyScroll } from "../../../../../utils/utils";
-import "./UpdateCoach.css";
+import { updateCoach } from '../../../../../services/adminCoachesService';
+import { enableBodyScroll } from '../../../../../utils/utils';
+import './UpdateCoach.css';
 
 export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
-  const [coachField, setCoachField] = useState("");
+  const [coachField, setCoachField] = useState('');
   const [coachPrice, setCoachPrice] = useState(0);
-  const [coachFirstName, setCoachFirstName] = useState("");
-  const [coachLastName, setCoachLastName] = useState("");
-  const [coachId, setCoachId] = useState("");
+  const [coachFirstName, setCoachFirstName] = useState('');
+  const [coachLastName, setCoachLastName] = useState('');
+  const [coachId, setCoachId] = useState('');
   const [file, setFile] = useState({});
-  const [calendlyUrl, setCalendlyUrl] = useState("");
+  const [calendlyUrl, setCalendlyUrl] = useState('');
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const test = localStorage.getItem("ID");
+  const test = localStorage.getItem('ID');
 
   let handleValidation = () => {
     let fields = {
@@ -29,34 +29,34 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
     let errorsValidation = {};
     let formIsValid = true;
 
-    if (!fields["coachField"]) {
+    if (!fields['coachField']) {
       formIsValid = false;
-      errorsValidation["coachField"] = "Cannot be empty";
+      errorsValidation['coachField'] = 'Cannot be empty';
     }
 
-    if (!fields["file"]) {
+    if (!fields['file']) {
       formIsValid = false;
-      errorsValidation["file"] = "Cannot be empty";
+      errorsValidation['file'] = 'Cannot be empty';
     }
 
-    if (!fields["coachFirstName"]) {
+    if (!fields['coachFirstName']) {
       formIsValid = false;
-      errorsValidation["coachFirstName"] = "Cannot be empty";
+      errorsValidation['coachFirstName'] = 'Cannot be empty';
     }
 
-    if (!fields["coachLastName"]) {
+    if (!fields['coachLastName']) {
       formIsValid = false;
-      errorsValidation["coachLastName"] = "Cannot be empty";
+      errorsValidation['coachLastName'] = 'Cannot be empty';
     }
 
-    if (!fields["calendlyUrl"]) {
+    if (!fields['calendlyUrl']) {
       formIsValid = false;
-      errorsValidation["calendlyUrl"] = "Cannot be empty";
+      errorsValidation['calendlyUrl'] = 'Cannot be empty';
     }
 
-    if (fields["coachPrice"] < 0  || !fields["coachPrice"]) {
+    if (fields['coachPrice'] < 0 || !fields['coachPrice']) {
       formIsValid = false;
-      errorsValidation["coachPrice"] = "Cannot be negative number";
+      errorsValidation['coachPrice'] = 'Cannot be negative number';
     }
 
     setErrors(errorsValidation);
@@ -89,12 +89,12 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
   };
 
   useEffect(() => {
-    setCoachId(localStorage.getItem("ID"));
-    setCoachFirstName(localStorage.getItem("FirstName"));
-    setCoachLastName(localStorage.getItem("LastName"));
-    setCoachField(localStorage.getItem("Field"));
-    setCoachPrice(localStorage.getItem("Price"));
-    setCalendlyUrl(localStorage.getItem("CalendlyUrl"))
+    setCoachId(localStorage.getItem('ID'));
+    setCoachFirstName(localStorage.getItem('FirstName'));
+    setCoachLastName(localStorage.getItem('LastName'));
+    setCoachField(localStorage.getItem('Field'));
+    setCoachPrice(localStorage.getItem('Price'));
+    setCalendlyUrl(localStorage.getItem('CalendlyUrl'));
   }, [test]);
 
   function submitEditCoach(e) {
@@ -107,23 +107,23 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
         coachField,
         coachPrice,
         file,
-        calendlyUrl,
+        calendlyUrl
       )
         .then((resp) => {
           console.log(resp);
           if (resp.status === 200) {
             setSuccess(true);
-            setCoachFirstName("");
-            setCoachLastName("");
-            setCoachField("");
+            setCoachFirstName('');
+            setCoachLastName('');
+            setCoachField('');
             setCoachPrice(0);
-            setCalendlyUrl("")
-            localStorage.removeItem("ID");
-            localStorage.removeItem("FirstName");
-            localStorage.removeItem("LastName");
-            localStorage.removeItem("Field");
-            localStorage.removeItem("Price");
-            localStorage.removeItem("CalendlyUrl");
+            setCalendlyUrl('');
+            localStorage.removeItem('ID');
+            localStorage.removeItem('FirstName');
+            localStorage.removeItem('LastName');
+            localStorage.removeItem('Field');
+            localStorage.removeItem('Price');
+            localStorage.removeItem('CalendlyUrl');
           }
         })
         .catch(() => setSuccess(false));
@@ -156,7 +156,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
             <div className="updateCoach-Content px-5 m-5">
               <div className="updateCoach-Content-fullname px-5 m-3">
                 {success && (
-                  <span style={{ color: "green", marginBottom: "0px" }}>
+                  <span style={{ color: 'green', marginBottom: '0px' }}>
                     Successfully updated
                   </span>
                 )}
@@ -166,8 +166,8 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   className="updateCoach-Content-input w-100 p-2"
                   value={coachFirstName}
                   onChange={onChangeFirstName}
-                />                
-                <p style={{ color: "red" }}>{errors["coachFirstName"]}</p>
+                />
+                <p style={{ color: 'red' }}>{errors['coachFirstName']}</p>
               </div>
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
@@ -177,7 +177,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   value={coachLastName}
                   onChange={onChangeLastName}
                 />
-                <p style={{ color: "red" }}>{errors["coachLastName"]}</p>
+                <p style={{ color: 'red' }}>{errors['coachLastName']}</p>
               </div>
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
@@ -187,7 +187,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   value={coachField}
                   onChange={onChangeField}
                 />
-                <p style={{ color: "red" }}>{errors["coachField"]}</p>
+                <p style={{ color: 'red' }}>{errors['coachField']}</p>
               </div>
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
@@ -197,7 +197,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   value={coachPrice}
                   onChange={onChangeCoachPrice}
                 />
-                <p style={{ color: "red" }}>{errors["coachPrice"]}</p>
+                <p style={{ color: 'red' }}>{errors['coachPrice']}</p>
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
@@ -207,7 +207,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   value={calendlyUrl}
                   onChange={onChangeCalendlyUrl}
                 />
-                <p style={{ color: "red" }}>{errors["calendlyUrl"]}</p>
+                <p style={{ color: 'red' }}>{errors['calendlyUrl']}</p>
               </div>
               <div className="updateCoach-Content-fullname px-5 m-3">
                 <input
@@ -247,6 +247,6 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
       </div>
     </div>
   ) : (
-    ""
+    ''
   );
 }

@@ -11,6 +11,7 @@
     using UpSkill.Data.Common.Repositories;
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Contracts.Employee;
+    using UpSkill.Services.Data.Contracts.File;
     using UpSkill.Services.Mapping;
     using UpSkill.Web.ViewModels.Employee;
 
@@ -21,24 +22,30 @@
     public class EmployeesService : IEmployeeService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> users;
+        private readonly IDeletableEntityRepository<UserProfile> userProfiles;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
         private readonly IRepository<CompanyCourse> companyCourses;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IFileService fileService;
 
         public EmployeesService(
             IDeletableEntityRepository<ApplicationUser> users,
+            IDeletableEntityRepository<UserProfile> userProfiles,
             IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Position> positions,
             IRepository<CompanyCourse> companyCourses,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IFileService fileService)
         {
             this.users = users;
+            this.userProfiles = userProfiles;
             this.companies = companies;
             this.companyCourses = companyCourses;
             this.companies = companies;
             this.userManager = userManager;
             this.positions = positions;
+            this.fileService = fileService;
         }
 
         public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId, string newEmployeePassword)
@@ -163,6 +170,70 @@
                 .Where(u => u.Id != userId)
                 .To<TModel>()
                 .ToListAsync();
+        }
+
+        public async Task<TModel> GetEmployeeInfo<TModel>(string userId)
+        {
+            return await this.users
+                .AllAsNoTracking()
+                .Include(x => x.Company)
+                .Where(u => u.Id == userId)
+                .To<TModel>()
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<TModel> GetEmployeeProfile<TModel>(string userId)
+        {
+            return await this.userProfiles
+                .All()
+                .Where(u => u.ApplicationUserId == userId)
+                .To<TModel>()
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<Result> EditAsync(UpdateEmployeeRequestModel model, string userId)
+        {
+            var user = await this.users
+                .All()
+                .Where(c => c.Id == userId)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return DoesNotExist;
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            var userProfile = await this.userProfiles
+                .All()
+                .Where(x => x.ApplicationUserId == userId)
+                .FirstOrDefaultAsync();
+
+            if (userProfile == null)
+            {
+                userProfile = new UserProfile()
+                {
+                    ApplicationUserId = userId,
+                };
+
+                await this.userProfiles.AddAsync(userProfile);
+            }
+
+            userProfile.ProfileSummary = model.ProfileSummary;
+
+            if (model.File != null)
+            {
+                var fileId = await this.fileService.EditAsync(userProfile.FileId, model.File);
+
+                userProfile.FileId = fileId;
+            }
+
+            await this.users.SaveChangesAsync();
+            await this.userProfiles.SaveChangesAsync();
+
+            return true;
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)
