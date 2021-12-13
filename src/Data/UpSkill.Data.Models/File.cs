@@ -11,6 +11,7 @@
         {
             this.Coaches = new HashSet<Coach>();
             this.Courses = new HashSet<Course>();
+            this.UserProfiles = new HashSet<UserProfile>();
         }
 
         [Required]
@@ -19,5 +20,7 @@
         public virtual ICollection<Coach> Coaches { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
+
+        public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }
 }

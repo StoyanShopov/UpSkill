@@ -8,7 +8,6 @@
     using Microsoft.AspNetCore.Mvc;
     using UpSkill.Services.Data.Contracts.Course;
     using UpSkill.Services.Data.Contracts.Owner;
-    using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Course;
 

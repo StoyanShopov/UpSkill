@@ -7,9 +7,9 @@ import { getActiveCoachesCompanyOwner } from '../../../../../services/coachServi
 import { getActiveCoursesCompanyOwner } from '../../../../../services/courseSevice';
 
 function EmployeesOverview() {
-  const [count, setCount] = useState();
-  const [activeCoaches, setActiveCoaches] = useState();
-  const [activeCourses, setActiveCourses] = useState();
+  const [count, setCount] = useState(0);
+  const [activeCoaches, setActiveCoaches] = useState(0);
+  const [activeCourses, setActiveCourses] = useState(0);
 
   useEffect(() => {
     getEmployeesTotalCountCompanyOwner('').then((emplCount) => {

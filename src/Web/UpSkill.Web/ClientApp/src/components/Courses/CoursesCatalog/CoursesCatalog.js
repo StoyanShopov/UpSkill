@@ -74,6 +74,7 @@ export default function CoursesCatalog() {
                 categoryName={course.categoryName}
                 getDetails={getValue}
                 price={course.price}
+
               >
                 <Button
                   className="button row col-md-4"

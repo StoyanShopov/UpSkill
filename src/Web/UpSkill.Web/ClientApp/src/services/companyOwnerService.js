@@ -36,7 +36,7 @@ export const getDueDate = async (uId) => {
 }
 
 export const getSubscriptionsForCompanyOwner = async (uId, currentMonth) => {
-    let month = coursesCompanyOwnerMock.filter(m=> m.id == currentMonth)[0];
+    let month = coursesCompanyOwnerMock.filter(m=> m.id === currentMonth)[0];
     
    return [month.name, month.courses, month.totalForMonth];
 }

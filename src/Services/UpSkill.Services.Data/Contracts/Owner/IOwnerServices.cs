@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using UpSkill.Common;
-    using UpSkill.Web.ViewModels.Course;
     using UpSkill.Web.ViewModels.Owner;
 
     public interface IOwnerServices

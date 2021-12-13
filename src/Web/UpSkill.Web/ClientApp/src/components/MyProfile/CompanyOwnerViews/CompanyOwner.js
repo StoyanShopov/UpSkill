@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import CompanyOwnerSidebar from "../../Shared/AdminCompanyOwnerSidebar/AdminCompanyOwnerSidebar";
 import CompanyCoaches from "./CompanyCoaches/CompanyCoaches";
+import CompanyOwnerCourses from "./Courses/CompanyCourses";
 import Employees from "./Employees/Employees";
 import Invoice from "./Invoice/Invoice";
 import Dashboard from "./Dashboard/Dashboard";
@@ -13,13 +14,13 @@ import "./CompanyOwner.css";
 const menuItems = [
   { name: "Dashboard", path: "/MyProfile", exact: true, component: Dashboard },
   {
-    name: "Courses",
+    name: "Active Courses",
     path: "/MyProfile/Courses",
     exact: true,
-    component: CompanyCoaches,
+    component: CompanyOwnerCourses,
   },
   {
-    name: "Coaches",
+    name: " Active Coaches",
     path: "/MyProfile/Coaches",
     exact: true,
     component: CompanyCoaches,

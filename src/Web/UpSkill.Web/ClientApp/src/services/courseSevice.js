@@ -42,7 +42,7 @@ let courses = [];
 
 export const getAllCourses = async (course) => {
   let token = localStorage.getItem("token");
-  return axios
+  return await axios
     .get(
       OWN_API_URL + 'getActiveCourses',
       { headers: { Authorization: `Bearer ${token}` } },

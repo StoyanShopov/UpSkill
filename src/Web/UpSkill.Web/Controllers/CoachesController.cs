@@ -7,8 +7,6 @@
     using UpSkill.Services.Data.Contracts.Coach;
     using UpSkill.Web.ViewModels.Coach;
 
-    using static UpSkill.Common.GlobalConstants.ControllerRoutesConstants;
-
     public class CoachesController : ControllerBase
     {
         private readonly ICoachServices coachServices;
