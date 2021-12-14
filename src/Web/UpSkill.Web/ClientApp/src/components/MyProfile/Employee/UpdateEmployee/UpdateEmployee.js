@@ -94,7 +94,7 @@ export default function UpdateEmployee({ closeModal }) {
 
   return (
     <div className="deleteModal-background">
-      <div className="updateCoach-popup">
+      <div className="updateEmployee-popup">
         <div className="updateCoach-popup-createCoach-inner">
           <div className="updateCoach-popup-Header">
             <div className="closebtn d-flex justify-content-end pt-2 pe-2">
