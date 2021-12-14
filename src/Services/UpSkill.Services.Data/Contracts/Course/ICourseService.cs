@@ -22,5 +22,7 @@
         Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
+
+        Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>();
     }
 }

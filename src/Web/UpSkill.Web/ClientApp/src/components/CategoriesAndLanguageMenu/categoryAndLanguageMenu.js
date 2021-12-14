@@ -5,22 +5,29 @@ import Person from '../../assets/Coaches-CategoryAndLanguage-Person.png';
 
 import './categoryAndLanguageMenu_Styles.css';
 
-import { getCategories } from '../../services/categoryService';
+import { getCoachCategories } from '../../services/categoryService';
+import { getCourseCategories } from '../../services/categoryService';
 import { getLanguages } from '../../services/languageService';
 
 function CategoriesAndLanguageMenu({ atPage }) {
   let pic = atPage === 'Courses' ? Book : Person;
-  let [allCategories, setAllCategories] = useState([]);
+  let [allCoachCategories, setAllCoachCategories] = useState([]);
+  let [allCourseCategories, setAllCourseCategories] = useState([]);
   let [allLanguages, setAllLanguages] = useState([]);
 
   let [categoriesChosen, setCategories] = useState([]);
   let [languagesChosen, setLanguages] = useState([]);
 
   useEffect(() => {
-    getCategories().then((categories) => {
-      setAllCategories(categories);
-    });
+      getCoachCategories().then((categories) => {
+        setAllCoachCategories(categories);
+      });
+      getCourseCategories().then((categories) => {
+        setAllCourseCategories(categories);
+      });
+  }, []);
 
+  useEffect(() => {
     getLanguages().then((languages) => {
       setAllLanguages(languages);
     });
@@ -39,6 +46,13 @@ function CategoriesAndLanguageMenu({ atPage }) {
     atForm === 'categories'
       ? setCategories(currentValues)
       : setLanguages(currentValues);
+  }
+
+  let allCategories = [];
+  if (atPage === 'Courses') {
+    allCategories = allCoachCategories;
+  }else{
+    allCategories = allCourseCategories;
   }
 
   return (

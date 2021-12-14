@@ -196,5 +196,13 @@
             .AllAsNoTracking()
             .To<TModel>()
             .ToListAsync();
+
+        public async Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>()
+            => await this.courses
+                .AllAsNoTracking()
+                .Include(c => c.Category)
+                .Select(x => x.Category.Name)
+                .Distinct()
+                .ToListAsync();
     }
 }
