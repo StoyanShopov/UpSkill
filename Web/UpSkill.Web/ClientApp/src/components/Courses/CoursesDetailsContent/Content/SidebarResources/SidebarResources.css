@@ -1,0 +1,125 @@
+.courseResoursesSidebar{
+    position: fixed;
+    right: 0;
+    height: 80%;
+    top: 50px;
+    width: 25%;
+    background-color: #296CFB1A;
+    padding: 2rem; 
+}
+
+.courseNonSelectedMenuStyle{
+    font-Weight: 450;
+    padding: 1.5rem 0;
+    display: block;
+    color: black;
+    border-Top: 1px solid grey;
+}
+
+.courseNonSelectedMenuStyle:hover,
+.viewMore:hover{
+    font-weight: 600!important;
+}
+
+.active span {
+    cursor: pointer;
+    transform-style: preserve-3d;
+    perspective: 100px;
+}
+
+.active span {
+    color: #296CFB;
+    font-weight: 500;
+}
+
+.active span::before {
+    content: atr(data-char);
+    visibility: visible;
+    color: #fff;
+    transition: transform 0.8s cubic-bezier(0.14, 0.71, 0.96, 0.59);
+    transition-delay: calc(0.2s * var(--distance-percent));
+    transform: none;
+    transform-origin: bottom;
+}
+
+.active:hover span::before {
+    transition-timing-function: cubic-bezier(1, 0.01, 0.56, 1);
+}
+
+.viewMore{
+    font-Weight: 450;
+    padding: 1.5rem 0;
+    display: block;
+    color: red;
+    border-Top: 1px solid grey;
+}
+
+@media(max-width:1200px) {    
+    .sidebar-content{
+        width: 100%!important;
+    }
+}
+
+/* .sidebarResources{
+    position: fixed;
+    right: initial;
+    width: 25%;
+    height: 100vh;
+    background: #296CFB;
+    opacity: 0.2;
+    font-size: 0.65em;
+
+    /* display: flex;
+    position: fixed;
+    right: initial;   
+    width: 400px;
+    height: 710px;
+    background: #296CFB 0% 0% no-repeat padding-box; 
+    opacity: 0.2; */
+/* }
+
+.lecturesContent{
+    position: fixed;
+    top: 135px;
+    left: 1410px;
+    width: 107px;
+    height: 27px;
+    text-align: left;
+    font: normal normal bold 18px/20px Montserrat;
+    letter-spacing: 1.1px;
+    color: #000000;
+    opacity: 1;
+}
+
+.lecturesContentSpan{
+    position: fixed;
+    top: 185px;
+    left: 1410px;
+    width: 160px;
+    height: 27px;
+    background: transparent 0% 0% no-repeat padding-box;
+    opacity: 1;
+} */
+
+/* .courseButtonViewMore{
+    position: fixed;
+    bottom: 130px;
+    left: 1410px;
+    width: 170px;
+    height: 50px;
+    border: 2px solid #296CFB;
+    opacity: 1;
+}
+
+.courseButtonViewMoreSpan{
+    position: relative;
+    bottom: -12px;
+    left: 30px;
+    width: 131px;
+    height: 27px;
+    text-align: left;
+    font: normal normal bold 18px/20px Montserrat;
+    letter-spacing: 0.1px;
+    color: #296CFB;
+    opacity: 1;
+} */ 

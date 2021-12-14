@@ -23,8 +23,7 @@ import { removeCompanyHandler } from "../src/services/companyService";
 import NotificationContext from "./Context/NotificationContext";
 import IdentityContext from "./Context/IdentityContext";
 import SignalRHubClient from "./components/Chat/SignalRHubClient";
-import ZoomHubClient from "./components/Zoom/ZoomHubClient";
-import Auth from "./reducers/auth";
+import ZoomHubClient from "./components/Zoom/ZoomHubClient";import Auth from "./reducers/auth";
 import instance from "./services/instance";
 
 import UpdateEmployee from './components/MyProfile/Employee/UpdateEmployee/UpdateEmployee'
@@ -32,6 +31,7 @@ import UpdateEmployee from './components/MyProfile/Employee/UpdateEmployee/Updat
 import store from './store';
 import AdminCourses from "./components/Admin/Courses/AdminCourses/AdminCourses"
 import PromoteDemote from "./components/Admin/AdminPromoteDemote";
+import CourseDetailsContent from "./components/Courses/CoursesDetailsContent/CoursesDetailsContent";
 
 import { CHECK_CURRENT_STATE } from "./actions/types";
 import { useState } from "react";
@@ -62,7 +62,6 @@ const AppWrapper = (props) => {
             <Layout>
               <Notifications state={notification.state} message={notification.message} />
               {props.children}
-
             </Layout>
           </SignalRHubClient>
         </ZoomHubClient>
@@ -71,10 +70,9 @@ const AppWrapper = (props) => {
   );
 };
 
-
 function App() {
   return (
-    <Provider store={store}>
+ <Provider store={store}>
       <AppWrapper>
         <Switch>
         <Route exact path='/' component={Home} />
@@ -92,10 +90,10 @@ function App() {
         <Route exact path="/Admin/Companies/edit" component={EditCompany} />
         <Route exact path="/Admin/PromoteDemote" component={PromoteDemote} />
         <Route exact path="/refreshToken/" />
+        <Route exact path="/Course/:id" render={(props => <CourseDetailsContent {...props}/>)}/>
         </Switch>
       </AppWrapper>
-    </Provider>
-  );
+    </Provider>  );
 }
 
 export default App;
