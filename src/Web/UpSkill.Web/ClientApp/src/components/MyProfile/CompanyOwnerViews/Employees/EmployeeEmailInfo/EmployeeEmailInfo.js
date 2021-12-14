@@ -8,6 +8,7 @@ import { removeEmployeeHandler,
 import { disableBodyScroll } from '../../../../../utils/utils';
 
 import './EmployeeEmailInfo.css';
+import Line from "../../../../../assets/Line.png"
 
 const EmployeeEmailInfo = ({ onAddEmployee }) => {
   let [allEmployees, setallEmployees] = useState([]);
@@ -74,28 +75,38 @@ const EmployeeEmailInfo = ({ onAddEmployee }) => {
                     href={ employee.email }
                   >
                     { employee.firstName + ' ' + employee.lastName }
-
-                    <div>
-                      <button
-                        className="Delete"
-                        style={{
-                          color: 'red',
-                          marginTop: '20px',
-                          marginLeft: '10px',
-                        }}
-                        onClick={() => {
+                  <div className="table-content-remove w-50">
+                    { allEmployees.map(( employee ) => {
+                      return (
+                        <div className="table-row px-3" key={ employee.removeEmployeeHandler }>
+                        <button
+                          className="Delete"
+                          style={{
+                            color: 'red',
+                            marginTop: '20px',
+                            marginLeft: '10px'
+                          }}
+                          onClick={ () => {
                           const confirm = window.confirm(
                             'Are you sure you wish to remove this employee?'
-                          );
-                          if (confirm) {
+                            );
+                            if (confirm) {
                             deleteEmployee(employee.id);
-                          }
-                        }}
-                      >
+                            }
+                          }}
+                        >
                         Remove
-                      </button>
+                        </button>
                     </div>
+                        )
+                      }
+                    )}      
                   </div>
+                  </div>
+                        { /* line for separating the employees */ }
+                        <div style={{ width: "20px"}}>
+                          <img src={ Line } alt="line" />
+                        </div> 
                 </div>
               );
             })}
@@ -125,19 +136,21 @@ const EmployeeEmailInfo = ({ onAddEmployee }) => {
               );
             })}
           </div>
-        </div>
+
         <div className="table-row">
           <div className="table-viewMoreLink" data-mdb-ripple-color="dark">
             <span
               className="btn btn-link cell-data-Employees-Courses"
-              onClick={showMoreEmployees}
+              onClick={ showMoreEmployees }
             >
               View More
             </span>
           </div>
         </div>
+
       </div>
     </div>
+  </div>
   );
 };
 
