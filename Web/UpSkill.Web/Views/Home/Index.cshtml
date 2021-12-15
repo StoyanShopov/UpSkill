@@ -1,160 +1,193 @@
-﻿
+﻿@page
+@model UpSkill.Web.Views.Home.Index
+
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.AspNetCore.Builder;
+
+@inject IOptions<RequestLocalizationOptions> locO
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
-@inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locO
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
+@Html.AntiForgeryToken()
+
 @{
-    var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
-    var cultureList = locO.Value.SupportedCultures.Select(x => new SelectListItem { Value = x.Name, Text = x.Name }).ToList();
+	var cultureList = locO.Value.SupportedCultures.Select(x => new SelectListItem { Value = x.Name, Text = x.Name }).ToList();
+
 }
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="~/lib/css/home.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="../Pages/assets/Group 5.svg" id="favicon" media="(prefers-color-scheme:light)">
-    <link rel="icon" href="../Pages/assets/footerLOGO-NoBg.png" id="favicon" media="(prefers-color-scheme:dark)">
-    <link rel="icon" href="../Pages/assets/home-GetStarted-img.png" id="favicon" media="(prefers-color-scheme:dark)">
-    <link rel="icon" href="../ClientApp/src/components/Authentication/Login/Login.js" id="favicon"
-          media="(prefers-color-scheme:dark)">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300" rel="stylesheet" />
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="~/lib/css/home.css" rel="stylesheet" type="text/css" />	
+	<link rel="icon" href="../ClientApp/src/components/Authentication/Login/Login.js" id="favicon"
+		  media="(prefers-color-scheme:dark)">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300" rel="stylesheet" />
+	<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	
 
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 </head>
 
 <body>
 
-    <div class="">
-        <div class="home-header navbar header-inner navbar-light shadow bg-light fixed-top">
-            <div class="custom-container d-flex justify-content-between">
-                <div class="d-flex">
-                    <img src="~/lib/assets/Group 5.svg" onclick="location.href='/'" />
-                    <h1 class="upskill-header" onclick="location.href='/'">upskill</h1>
-                </div>
-                <form asp-action="CultureManagement" asp-controller="Home" method="post">
-                    <select name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="cultureList" onchange="this.form.submit();">
-                    </select>
-                </form>
-                <div class="buttons"> 
-                    <button class="home-login btn btn-outline-primary" onclick="location.href='/Login'">@localizer["Header-Login-Button"]</button>
-                    <button class="home-register btn btn-primary" onclick="location.href='/RequestDemo'">
-                        @localizer["Header-RequestDemo-Button"]
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="home-content-wrapper">
-            <section class="content custom-container">
-                <article class="home-content-article d-flex justify-content-between">
-                    <div class="home-content-getStarted-text col-md-5">
-                        <h1 class="home-heading home-content-getStarted-text-heading">
-                            @localizer["Get-Started-Header-Text"]
-                        </h1>
-                        <p class="home-content-getStarted-text-info">
-                            @localizer["Get-Started-Text"]
-                        </p>
-                        <button class="btn btn-primary home-content-getStarted-text-btn px-5 py-2">@localizer["Get-Started-Button"]</button>
-                    </div>
+	<div class="">
+		<div class="home-header navbar header-inner navbar-light shadow bg-light fixed-top">
+			<div class="custom-container d-flex justify-content-between">
+				<div class="d-flex">
+					<img src="~/lib/assets/Group 5.svg" onclick="location.href='/'" />
+					<h1 class="upskill-header" onclick="location.href='/home'">upskill</h1>
+				</div>
+			
+				<div class="buttons">
+					<form asp-action="CultureManagement" asp-controller="Home" method="post"
+						  name="culture" class="home-lang-form">
 
-                    <div class="home-content-getStarted-img col-md-6 d-flex">
-                        <div class="home-content-getStarted-img-bg"></div>
-                        <img src="~/lib/assets/home-GetStarted-img.png"
-                             class="home-content-getStarted-img-inner" />
-                    </div>
-                </article>
+						<label class="home-lang-label">
+							<img class="home-lang-img" src="~/lib/assets/english-flag.png" alt="EN" />
+							<input value="en" type="radio" name='culture' onchange="this.form.submit();" class="home-lang-input" />
+						</label>
+						<label class="home-lang-label">
+							<img class="home-lang-img" src="~/lib/assets/bulgarian-flag.png" alt="BG" />
+							<input value="bg" type="radio" name='culture' onchange="this.form.submit();" class="home-lang-input" />
+						</label>
+					</form>
+					<button class="home-login btn btn-outline-primary" onclick="location.href='/Login'">@localizer["Header-Login-Button"]</button>
+					<button class="home-register btn btn-primary" onclick="location.href='./#RequestDemo'">
 
-                <article class="home-content-article home-content-whatItDoes d-flex justify-content-between">
-                    <div class="home-content-whatItDoes-img col-md-6 d-flex">
-                        <div class="home-content-whatItDoes-img-bg mt-3"></div>
-                        <img src="~/lib/assets/home-whatUpSkillDoes-img.png"
-                             class="align-self-end home-content-whatItDoes-img-inner" />
-                    </div>
+						@localizer["Header-RequestDemo-Button"]
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="home-content-wrapper">
+			<section class="content custom-container">
+				<article class="home-content-article d-flex justify-content-between">
+					<div class="home-content-getStarted-text col-md-5">
+						<h1 class="home-heading home-content-getStarted-text-heading">
 
-                    <div class="home-content-getStarted-text col-md-5">
-                        <h1 class="home-heading home-content-whatItDoes-text-heading text-right">@localizer["What-UpSkill-Does-Header-Text"]</h1>
-                        <p class="home-content-getStarted-text-info text-right">@localizer["What-UpSkill-Does-Text"]</p>
-                        <div class="home-content-getStarted-text-btns row d-flex justify-content-end">
-                            <button class="btn btn-primary home-content-getStarted-text-btn px-5 py-2">
-                                @localizer["What-UpSkill-Does-Courses-Button"]
-                            </button>
-                            <button class="btn btn-outline-primary home-content-getStarted-text-btn px-5 py-2">
-                                @localizer["What-UpSkill-Does-Coaches-Button"]
-                            </button>
-                        </div>
-                    </div>
-                </article>
+							@localizer["Get-Started-Header-Text"]
+						</h1>
+						<p class="home-content-getStarted-text-info">
 
-                <article id="RequestDemo" class="home-content-article d-flex justify-content-between mt-5">
-                    <div class="home-content-getStarted-text col-md-6 mt-5">
-                        <h1 class="home-heading home-content-getStarted-text-heading mt-5">@localizer["Request-Demo-Header"]</h1>
-                        <p class="home-content-getStarted-text-info">@localizer["Request-Demo-Text"]</p>
-                        <form action="" class="home-content-requestDemo-form mt-5">
-                            <input type="text" placeholder="@localizer["Request-Demo-Form-Name"]" class="home-content-requestDemo-form-input">
-                            <input type="text" placeholder="@localizer["Request-Demo-Form-CompanyName"]" class="home-content-requestDemo-form-input">
-                            <input type="text" placeholder="@localizer["Request-Demo-Form-Email"]" class="home-content-requestDemo-form-input">
-                            <input type="text" placeholder="@localizer["Request-Demo-Form-PhoneNumber"]" class="home-content-requestDemo-form-input">
 
-                            <input type="submit" class="btn btn-primary home-content-requestDemo-text-btn px-5 py-2" value="@localizer["Request-Demo-Form-Button"]" />
-                        </form>
-                    </div>
 
-                    <div class="home-content-getStarted-img col-md-6 d-flex justify-content-end">
-                        <div class="home-content-requestDemo-img-bg"></div>
-                        <img src="~/lib/assets/home-requestDemo-img.png"
-                             class="align-self-end home-content-requestDemo-img-inner" />
-                    </div>
-                </article>
-            </section>
-        </div>
-        <div class="home-footer">
-            <div class="home-footer-inner custom-container m-auto">
-                <section class="desc">
-                    <div class="home-desc-child">
-                        <div class="d-flex align-items-center home-upskill-wrapper">
-                            <img class="home-img" src="~/lib/assets/footerLOGO-NoBg.png" alt="" />
-                            <h1 class="home-upskill">@localizer["Footer-Logo-Text"]</h1>
-                        </div>
-                        <p>
-                            @localizer["Footer-Text"]
-                        </p>
+							@localizer["Get-Started-Text"]
+						</p>
+						<button class="btn btn-primary home-content-getStarted-text-btn px-5 py-2">@localizer["Get-Started-Button"]</button>
+					</div>
 
-                        <button class="home-button-desc home-login" onclick="location.href='/Courses'">
-                            @localizer["Footer-GetStarted-Button"]
-                        </button>
-                    </div>
-                </section>
-                <section class="company">
-                    <h1>@localizer["Footer-Company-Header"]</h1>
-                    <div>
-                        <a href="/About">@localizer["Footer-Company-AboutUs"]</a>
-                        <a href="/Contact">@localizer["Footer-Company-ContactUs"]</a>
-                        <a href="/Privacy">@localizer["Footer-Company-PrivacyPolicy"]</a>
-                    </div>
-                </section>
-                <section class="services">
-                    <h1>@localizer["Footer-Services-Header"]</h1>
-                    <div>
-                        <a href="/Courses">@localizer["Footer-Services-Courses"]</a>
-                        <a href="/Coaches">@localizer["Footer-Services-Coaches"]</a>
-                        <a href="/Requests">@localizer["Footer-Services-Requests"]</a>
-                    </div>
-                </section>
-                <section class="links">
-                    <img src="~/lib/assets/Group 12.svg" alt="" />
-                    <img src="~/lib/assets/Group 13.svg" alt="" />
-                    <img src="~/lib/assets/Group 14.svg" alt="" />
-                </section>
+					<div class="home-content-getStarted-img col-md-6 d-flex">
+						<div class="home-content-getStarted-img-bg"></div>
+						<img src="~/lib/assets/home-GetStarted-img.png"
+							 class="home-content-getStarted-img-inner" />
+					</div>
+				</article>
 
-            </div>
-            <div class="home-copyright">&copy UpSkill 2021</div>
-        </div>
-    </div>
+				<article class="home-content-article home-content-whatItDoes d-flex justify-content-between">
+					<div class="home-content-whatItDoes-img col-md-6 d-flex">
+						<div class="home-content-whatItDoes-img-bg mt-3"></div>
+						<img src="~/lib/assets/home-whatUpSkillDoes-img.png"
+							 class="align-self-end home-content-whatItDoes-img-inner" />
+					</div>
 
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+					<div class="home-content-getStarted-text col-md-5">
+						<h1 class="home-heading home-content-whatItDoes-text-heading text-right">@localizer["What-UpSkill-Does-Header-Text"]</h1>
+						<p class="home-content-getStarted-text-info text-right">@localizer["What-UpSkill-Does-Text"]</p>
+						<div class="home-content-getStarted-text-btns row d-flex justify-content-end">
+							<button class="btn btn-primary home-content-getStarted-text-btn px-5 py-2">
+								
+
+								@localizer["What-UpSkill-Does-Courses-Button"]
+							</button>
+							<button class="btn btn-outline-primary home-content-getStarted-text-btn px-5 py-2">
+
+
+
+								@localizer["What-UpSkill-Does-Coaches-Button"]
+							</button>
+						</div>
+					</div>
+				</article>
+
+				<article id="RequestDemo" class="home-content-article d-flex justify-content-between mt-5">
+
+
+
+					@await Component.InvokeAsync("Notyf")
+					<div class="home-content-getStarted-text col-md-6 mt-5">
+						<h1 class="home-heading home-content-getStarted-text-heading mt-5">@localizer["Request-Demo-Header"]</h1>
+						<p class="home-content-getStarted-text-info">@localizer["Request-Demo-Text"]</p>
+
+						<form method="post" asp-page="/" class="home-content-requestDemo-form mt-5">
+							<input type="text" name="Name" placeholder="@localizer["Request-Demo-Form-Name"]" class="home-content-requestDemo-form-input">
+							<input type="text" name="Company" placeholder="@localizer["Request-Demo-Form-CompanyName"]" class="home-content-requestDemo-form-input">
+							<input type="text" name="Email" placeholder="@localizer["Request-Demo-Form-Email"]" class="home-content-requestDemo-form-input">
+							<input type="text" name="Phone" placeholder="@localizer["Request-Demo-Form-PhoneNumber"]" class="home-content-requestDemo-form-input">
+
+							<input type="submit" class="btn btn-primary home-content-requestDemo-text-btn" value="@localizer["Request-Demo-Form-Button"]" />
+						</form>
+					</div>
+
+					<div class="home-content-getStarted-img col-md-6 d-flex justify-content-end">
+						<div class="home-content-requestDemo-img-bg"></div>
+						<img src="~/lib/assets/home-requestDemo-img.png"
+							 class="align-self-end home-content-requestDemo-img-inner" />
+					</div>
+				</article>
+			</section>
+		</div>
+		<div class="home-footer">
+			<div class="home-footer-inner custom-container m-auto">
+				<section class="desc">
+					<div class="home-desc-child">
+						<div class="d-flex align-items-center home-upskill-wrapper">
+							<img class="home-img" src="~/lib/assets/footerLOGO-NoBg.png" alt="" />
+							<h1 class="home-upskill">@localizer["Footer-Logo-Text"]</h1>
+						</div>
+						<p>
+							@localizer["Footer-Text"]
+						</p>
+
+						<button class="home-button-desc home-login" onclick="location.href='/Courses'">
+							@localizer["Footer-GetStarted-Button"]
+						</button>
+					</div>
+				</section>
+				<section class="company">
+					<h1>@localizer["Footer-Company-Header"]</h1>
+					<div>
+						<a href="/About">@localizer["Footer-Company-AboutUs"]</a>
+						<a href="/Contact">@localizer["Footer-Company-ContactUs"]</a>
+						<a href="/Privacy">@localizer["Footer-Company-PrivacyPolicy"]</a>
+					</div>
+				</section>
+				<section class="services">
+					<h1>@localizer["Footer-Services-Header"]</h1>
+					<div>
+						<a href="/Courses">@localizer["Footer-Services-Courses"]</a>
+						<a href="/Coaches">@localizer["Footer-Services-Coaches"]</a>
+						<a href="/Requests">@localizer["Footer-Services-Requests"]</a>
+					</div>
+				</section>
+				<section class="links">
+					<img src="~/lib/assets/Group 12.svg" alt="" />
+					<img src="~/lib/assets/Group 13.svg" alt="" />
+					<img src="~/lib/assets/Group 14.svg" alt="" />
+				</section>
+
+			</div>
+			<div class="home-copyright">&copy UpSkill 2021</div>
+		</div>
+	</div>
+
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 
 </body>
 

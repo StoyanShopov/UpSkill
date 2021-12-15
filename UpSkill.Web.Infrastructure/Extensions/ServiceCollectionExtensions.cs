@@ -1,6 +1,7 @@
 ﻿namespace UpSkill.Web.Web.Extensions
 {
     using System.Collections.Generic;
+    using System.Net.Http;
     using System.Text;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -181,6 +182,7 @@
                 .AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>())
                 .AddTransient<IBlobService, BlobService>()
                 .AddTransient<ZoomHub>()
+                .AddSingleton<HttpClient>()
                 .AddTransient<IDictionary<string, ZoomCourseConnection>>(opts => new Dictionary<string, ZoomCourseConnection>())
                 .AddSingleton<INLogger, NLogExtensions>();
 

@@ -109,6 +109,18 @@ body h1 {
     margin-left: .2rem;
 }
 
+.buttons{
+    display: flex;
+}
+
+.home-lang-label{
+    margin: .3rem;
+}
+
+.home-lang-label:hover{
+    cursor: pointer;    
+}
+
 .home-desc-child {
     display: flex;
     flex-direction: column;
@@ -139,10 +151,23 @@ body h1 {
         color: #0B2969;
     }
 
-    .home-img {
-        max-height: 50px;
-        max-width: 80px;
-    }
+.home-lang-img {
+    max-height: 30px;
+    max-width: 40px;
+}
+
+.home-lang-input {
+    display: none;
+}
+
+.home-lang-form {
+    margin: 0 2rem;
+}
+
+.home-img {
+    max-height: 50px;
+    max-width: 80px;
+}
 
 .home-upskill {
     color: #FFFFFF;

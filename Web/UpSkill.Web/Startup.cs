@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Reflection;
+    using AspNetCoreHero.ToastNotification;
+    using AspNetCoreHero.ToastNotification.Extensions;
     using JavaScriptEngineSwitcher.V8;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -70,14 +72,11 @@
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services
-                 .AddHttpContextAccessor();
-
             services.AddRazorPages()
                .AddRazorPagesOptions(options => options.Conventions
                .AddPageRoute("/Home", string.Empty));
-            services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton(this.configuration);
 
             // services
@@ -85,6 +84,13 @@
             //    .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
 
             services.AddEmailSender(this.configuration);
+            services.AddHttpContextAccessor();
+
+            services.AddNotyf(config => {
+                config.DurationInSeconds = 7;
+                config.IsDismissable = true;
+                config.Position = NotyfPosition.TopCenter;
+            });
 
             services.AddApplicationInsightsTelemetry();
 
@@ -105,6 +111,11 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
+            app
+             .UseRequestLocalization(
+                app.ApplicationServices
+             .GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -112,13 +123,10 @@
             }
 
             app
-                .UseRequestLocalization(
-                app.ApplicationServices
-                .GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
-
-            app
                 .UseStaticFiles()
                 .UseSpaStaticFiles();
+
+            app.UseNotyf();
 
             app
                 .UseSwaggerUI()
@@ -136,6 +144,7 @@
                     endpoints.MapControllerRoute(
                         name: "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapRazorPages();
                 })
                 .ApplyMigrations();
 

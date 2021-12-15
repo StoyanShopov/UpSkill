@@ -22,6 +22,7 @@
 	</PropertyGroup>
 	
   <ItemGroup>
+    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8" Version="3.13.3" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8.Native.win-x64" Version="3.13.3" />
@@ -123,6 +124,13 @@
 	  <None Include="wwwroot\lib\assets\Group 5.svg" />
 	  <None Include="wwwroot\lib\assets\Path 8.svg" />
 	  <None Include="wwwroot\lib\css\home.css" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Views\Home\Index.en.resx">
+	    <Generator></Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

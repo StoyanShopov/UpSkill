@@ -66,6 +66,12 @@
         {
             try
             {
+                if (model.Company is null)
+                {
+                    model.Company = "Random Company";
+                    model.Phone = "Random 088";
+                }
+
                 await this.ownerService.RequestCoachAsync(model);
             }
             catch (Exception ex)
