@@ -26,6 +26,7 @@
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
         private readonly IRepository<CompanyCourse> companyCourses;
+        private readonly IRepository<CompanyCoach> companyCoaches;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IFileService fileService;
 
@@ -35,6 +36,7 @@
             IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Position> positions,
             IRepository<CompanyCourse> companyCourses,
+            IRepository<CompanyCoach> companyCoaches,
             UserManager<ApplicationUser> userManager,
             IFileService fileService)
         {
@@ -46,6 +48,7 @@
             this.userManager = userManager;
             this.positions = positions;
             this.fileService = fileService;
+            this.companyCoaches = companyCoaches;
         }
 
         public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId, string newEmployeePassword)
@@ -234,6 +237,19 @@
             await this.userProfiles.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var companyCoaches = await this.companyCoaches
+                .AllAsNoTracking()
+                .Where(cc => cc.CompanyId == user.CompanyId)
+                .To<TModel>()
+                .ToListAsync();
+
+            return companyCoaches;
         }
 
         private async Task<ApplicationUser> GetUserById(string userId)
