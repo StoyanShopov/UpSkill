@@ -105,7 +105,6 @@
             //    route.MapHub<ChatHub>("/chat");
             //    route.MapHub<ZoomHub>("/zoom");
             // });
-            
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
