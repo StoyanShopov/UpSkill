@@ -48,6 +48,13 @@
 
         public DbSet<UserProfile> UserProfiles { get; set; }
 
+        public DbSet<Lecture> Lectures { get; set; }
+
+        public DbSet<Lesson> Lessons { get; set; }
+
+        public DbSet<CourseLecture> CourseLecture { get; set; }
+
+        public DbSet<LectureLesson> LectureLesson { get; set; }
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -103,7 +110,15 @@
             builder
                 .Entity<UserInCourse>()
                 .HasKey(uc => new { uc.ApplicationUserId, uc.CourseId });
-                }
+
+            builder
+                .Entity<CourseLecture>()
+                .HasKey(c => new { c.CourseId, c.LectureId });
+
+            builder
+                .Entity<LectureLesson>()
+                .HasKey(c => new { c.LectureId, c.LessonId });
+        }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
             where T : class, IDeletableEntity
