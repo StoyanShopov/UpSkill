@@ -8,8 +8,8 @@ import AdminCourses from "./Courses/AdminCourses/AdminCourses";
 
 const menuItems = [
   { name: "Dashboard", path: "/MyProfile", exact: true, component: Dashboard },
-  { name: "Clients", path: "/Admin/Clients", exact: true, component: Clients },
-  { name: "Revenue", path: "/Admin/Revenue", exact: true, component: Revenue },
+  { name: "Clients", path: "/MyProfile/Clients", exact: true, component: Clients },
+  { name: "Revenue", path: "/MyProfile/Revenue", exact: true, component: Revenue },
 ];
 
 export default function Admin() {

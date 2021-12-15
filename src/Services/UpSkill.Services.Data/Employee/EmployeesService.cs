@@ -81,6 +81,11 @@
              .Where(p => p.Name == model.Position)
              .FirstOrDefaultAsync();
 
+            if (position == null)
+            {
+                return NoPositionFound;
+            }
+
             var newEmployee = new ApplicationUser()
             {
                 FirstName = employeeFirstName,
@@ -89,6 +94,7 @@
                 UserName = model.Email,
                 CompanyId = user.CompanyId,
                 PositionId = position.Id,
+                ManagerId = userId,
             };
 
             await this.userManager.CreateAsync(newEmployee, newEmployeePassword);
