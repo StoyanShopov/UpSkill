@@ -5,7 +5,7 @@ const API_URL = Base_URL + "Course";
 
 const token = localStorage.getItem("token");
 
-const numberCoursesToShow = 5;
+const numberCoursesToShow = 6;
 
 const initialCourses = [
   {
@@ -72,15 +72,12 @@ const DetailsContent =
 };
 
 export const getCourses = async (currentPage) => {
-  //      let res = await request(``, 'Get');
   let arr = [];
-  arr.push(
-    ...initialCourses.slice(
-      0,
-      currentPage * numberCoursesToShow + numberCoursesToShow
-    )
-  );
-
+  try {
+    const resp = await axios.get(Base_URL + "Courses/getAll");
+    console.log(resp.data);
+    arr.push(...resp.data.slice(0, currentPage * numberCoursesToShow));
+  } catch (err) {}
   return arr;
 };
 

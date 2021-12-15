@@ -13,13 +13,14 @@
     flex-direction: column;
 }
 
-.courses-file{
+.courses-file1{
     background: transparent  0% 0% no-repeat padding-box;  
     width: 352px;
     height: 200px;
     position: relative;
     top: -4rem; 
     opacity: 5;
+    z-index: -1;
 }
 
 .courses-file-wrapper{ 
@@ -38,7 +39,7 @@
     letter-spacing: 0px;
     color: #FFFFFF;
     opacity: 1;
-    padding: 1px; 
+    padding: 1px;
 }
 
 .courses-wrapper{

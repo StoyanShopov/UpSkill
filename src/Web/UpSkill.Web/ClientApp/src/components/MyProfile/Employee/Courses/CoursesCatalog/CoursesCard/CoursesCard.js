@@ -13,7 +13,7 @@ export default function CoursesCard(props) {
     return (  
         <div className="coursesCard"> 
             <div className="courses-file-wrapper">
-                <img src={courseFileFilePath} className="courses-file" alt=""></img>    
+                <img src={courseFileFilePath} className="courses-file1" alt=""></img>    
                 <h2 className="title-position-on-file">{courseTitle}</h2>
             </div>
             <div className="courses-content w-75">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 
-import CoursesCatalog from '../Courses/CoursesCatalog/CoursesCatalog'; 
+import CoursesCatalog from './CoursesCatalog'; 
 import { getCourses } from '../../../../services/employeeService'; 
 
 import './Courses.css';
@@ -17,8 +17,8 @@ export default function Courses() {
   
   return (
     <div className="content">
-      <div className="wrapper row">
-        <CoursesCatalog courses={courses} />  
+      <div className="wrapper2">
+        <CoursesCatalog />  
       </div>
     </div>
   );

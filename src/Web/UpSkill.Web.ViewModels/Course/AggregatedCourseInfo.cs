@@ -20,6 +20,8 @@
 
         public int CourseCategoryId { get; set; }
 
+        public string CourseCategoryName { get; set; }
+
         public string CourseCoachFirstName { get; set; }
 
         public string CourseCoachLastName { get; set; }
