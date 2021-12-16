@@ -59,7 +59,7 @@ export default function Courses() {
     return (
       <div className="content">
         <CategoriesAndLanguageMenu atPage="Courses" />
-        <div className="wrapper1 row">{returnCatalog()}</div>
+        <div className="wrapper-coursesCatalog row">{returnCatalog()}</div>
       </div>
     );
   }

@@ -15,7 +15,7 @@ export default function CompanyOwnerCourses() {
           <p id="manageButtonText">Manage</p>
         </Button>
       </div>
-      <div className="wrapper">
+      <div className="ownerProfile-wrapper-coursesCatalog">
         <CoursesCatalog />
       </div>
     </>

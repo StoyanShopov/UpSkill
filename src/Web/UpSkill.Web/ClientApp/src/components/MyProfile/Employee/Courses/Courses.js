@@ -17,7 +17,7 @@ export default function Courses() {
   
   return (
     <div className="content">
-      <div className="wrapper2">
+      <div className="employee-profile-wrapper-courseCatalog">
         <CoursesCatalog />  
       </div>
     </div>

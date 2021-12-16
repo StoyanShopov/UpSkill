@@ -17,8 +17,15 @@ function CourseCard(props) {
     getDetails,
   } = props.coursesDetails;
 
+  const setCourseCardBackGround = () => {
+    if (props.isActive) {
+      return "ownerCardContainer blueCard";
+    }
+    return "ownerCardContainer";
+  };
+
   return (
-    <div className="ownerCardContainer">
+    <div className={setCourseCardBackGround()}>
       <div className="coursesImageWrapper">
         <div
           className="coursesImage"

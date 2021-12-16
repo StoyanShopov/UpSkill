@@ -188,6 +188,7 @@
             .AllAsNoTracking()
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
+
         public async Task<ICollection<UserInCourse>> GetAllUsersInCourse(int id) => await this.usersInCourses
               .AllAsNoTracking()
               .Where(uc => uc.CourseId == id)
@@ -198,11 +199,11 @@
             .AllAsNoTracking()
             .To<TModel>()
             .ToListAsync();
-public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
-            => await this.courseLectures
-                         .All()
-                         .Where(c => c.CourseId == id)
-                         .Include(c => c.Lecture.Lessons)
-                         .To<TModel>()
-                         .FirstOrDefaultAsync();    }
+
+        public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
+        => await this.courseLectures
+             .All()
+             .Where(c => c.CourseId == id)
+             .To<TModel>()
+             .FirstOrDefaultAsync();    }
 }
