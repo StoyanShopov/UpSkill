@@ -52,9 +52,9 @@
                 column: "CoachId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_CourseId",
-                table: "AspNetUsers",
-                column: "CourseId");
+               name: "IX_AspNetUsers_CourseId",
+               table: "AspNetUsers",
+               column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Coaches_IsDeleted",

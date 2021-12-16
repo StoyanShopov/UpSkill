@@ -14,7 +14,7 @@ export default function CoursesCatalog({ courses }) {
         <div className="container">
             <div className="row list-unstyled myProfile-courses-list">
                 {courses.map((course) => (
-                    <div className="col-sm-5 text-align-center" key={course.id}>
+                    <div className="col-sm-4 text-align-center" key={course.id}>
                         <CoursesCard
                             key={course.id}
                             coursesDetails={course}

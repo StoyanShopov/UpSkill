@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import UserProfilePic from "../../../assets/userProfilePic.png";
 import GoogleLogo from "../../../assets/img/courses/Image 39.png";
 import "./DetailsModal.css";
@@ -84,7 +85,6 @@ function DetailsModal(props) {
           </div>
         </div>
         </div>
-      
       </div>
     </div>
   );
