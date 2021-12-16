@@ -23,10 +23,12 @@
     {
         private readonly IDeletableEntityRepository<ApplicationUser> users;
         private readonly IDeletableEntityRepository<UserProfile> userProfiles;
+        private readonly IDeletableEntityRepository<Course> courses;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
         private readonly IRepository<CompanyCourse> companyCourses;
         private readonly IRepository<CompanyCoach> companyCoaches;
+        private readonly IRepository<UserInCourse> employeeCourses;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IFileService fileService;
 
@@ -35,8 +37,10 @@
             IDeletableEntityRepository<UserProfile> userProfiles,
             IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Position> positions,
+            IDeletableEntityRepository<Course> courses,
             IRepository<CompanyCourse> companyCourses,
             IRepository<CompanyCoach> companyCoaches,
+            IRepository<UserInCourse> employeeCourses,
             UserManager<ApplicationUser> userManager,
             IFileService fileService)
         {
@@ -49,6 +53,8 @@
             this.positions = positions;
             this.fileService = fileService;
             this.companyCoaches = companyCoaches;
+            this.employeeCourses = employeeCourses;
+            this.courses = courses;
         }
 
         public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId, string newEmployeePassword)
@@ -254,5 +260,55 @@
 
         private async Task<ApplicationUser> GetUserById(string userId)
             => await this.userManager.FindByIdAsync(userId);
+
+        public async Task<IEnumerable<TModel>> GetEmployeeCoursesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var employeeCourses = await this.employeeCourses
+                .AllAsNoTracking()
+                .Where(cc => cc.ApplicationUserId == user.Id)
+                .To<TModel>()
+                .ToListAsync();
+
+            return employeeCourses;
+        }
+
+        public async Task<Result> AddCourseToEmoployeeAsync(int courseId, string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var course = await this.courses
+                .AllAsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+            {
+                return DoesNotExist;
+            }
+
+            var employeeCourse = await this.employeeCourses
+                .AllAsNoTracking()
+                .FirstOrDefaultAsync(ec =>
+                    ec.ApplicationUserId == user.Id
+                    && ec.CourseId == course.Id);
+
+            if (employeeCourse != null)
+            {
+                return AlreadyExist;
+            }
+
+            var newEmployeeCourse = new UserInCourse
+            {
+                ApplicationUserId = user.Id,
+                CourseId = course.Id,
+            };
+
+            await this.employeeCourses.AddAsync(newEmployeeCourse);
+
+            await this.employeeCourses.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

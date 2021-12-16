@@ -19,6 +19,10 @@
 
         Task<TModel> GetByIdCourseAsync<TModel>(string userId, int courseId);
 
+        Task<IEnumerable<TModel>> GetEmployeeCoursesAsync<TModel>(string userId);
+
+        Task<Result> AddCourseToEmoployeeAsync(int courseId, string userId);
+
         Task<IEnumerable<TModel>> GetCompanyEmployeesAsync<TModel>(string userId);
 
         Task<TModel> GetEmployeeInfo<TModel>(string userId);

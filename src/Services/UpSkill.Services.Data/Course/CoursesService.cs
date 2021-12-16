@@ -25,8 +25,8 @@
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
-        private readonly IRepository<UserInCourse> usersInCourses; 
-        private readonly IRepository<CourseLecture> courseLectures; 
+        private readonly IRepository<UserInCourse> usersInCourses;
+        private readonly IRepository<CourseLecture> courseLectures;
         private readonly IDeletableEntityRepository<Course> courses;
         private readonly IFileService fileService;
 
