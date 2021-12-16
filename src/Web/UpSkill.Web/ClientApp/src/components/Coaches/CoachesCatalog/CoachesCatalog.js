@@ -33,7 +33,7 @@ export default function CoachesCatalog({ coaches }) {
                     textColor: "4d5055",
                   }}
                   prefill={{
-                    email: "", // TODO Get employee email to autocomplete
+                    email: "",
                     firstName: "",
                     lastName: "",
                     name: "",

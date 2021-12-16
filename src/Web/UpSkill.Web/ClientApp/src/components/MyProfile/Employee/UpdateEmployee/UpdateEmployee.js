@@ -172,7 +172,7 @@ export default function UpdateEmployee({ closeModal }) {
                   className="btn updateCoach-actions-cancel btn-primary px-3 fw-bold"
                 >
                   <input
-                    id="file-upload"
+                    id="file-upload-employee"
                     type="file"
                     placeholder="File*"
                     className="w-100 p-2"

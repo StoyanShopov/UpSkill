@@ -9,22 +9,19 @@ import { getCoachCategories } from '../../services/categoryService';
 import { getCourseCategories } from '../../services/categoryService';
 import { getLanguages } from '../../services/languageService';
 
-function CategoriesAndLanguageMenu({ atPage }) {
+function CategoriesAndLanguageMenu( { atPage, handleChange }) {
   let pic = atPage === 'Courses' ? Book : Person;
   let [allCoachCategories, setAllCoachCategories] = useState([]);
   let [allCourseCategories, setAllCourseCategories] = useState([]);
   let [allLanguages, setAllLanguages] = useState([]);
 
-  let [categoriesChosen, setCategories] = useState([]);
-  let [languagesChosen, setLanguages] = useState([]);
-
   useEffect(() => {
-      getCoachCategories().then((categories) => {
-        setAllCoachCategories(categories);
-      });
-      getCourseCategories().then((categories) => {
-        setAllCourseCategories(categories);
-      });
+    getCoachCategories().then((categories) => {
+      setAllCoachCategories(categories);
+    });
+    getCourseCategories().then((categories) => {
+      setAllCourseCategories(categories);
+    });
   }, []);
 
   useEffect(() => {
@@ -33,26 +30,11 @@ function CategoriesAndLanguageMenu({ atPage }) {
     });
   }, []);
 
-  function handleChange(e, atForm) {
-    let currentValues =
-      e.target.parentElement.parentElement.parentElement.querySelectorAll(
-        'input[type="checkbox"]:checked'
-      );
-
-    currentValues.forEach((el) => {
-      console.log(el.value);
-    });
-
-    atForm === 'categories'
-      ? setCategories(currentValues)
-      : setLanguages(currentValues);
-  }
-
   let allCategories = [];
   if (atPage === 'Courses') {
-    allCategories = allCoachCategories;
-  }else{
     allCategories = allCourseCategories;
+  } else {
+    allCategories = allCoachCategories;
   }
 
   return (
