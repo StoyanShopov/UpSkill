@@ -5,14 +5,13 @@ import OwnerCoachesCatalog from '../Coaches/CoachesCatalog/OwnerCoachesCatalog/O
 import { ReactReduxContext, useDispatch } from 'react-redux';
 import { CHECK_CURRENT_STATE } from '../../actions/types';
 import CoachesIntroBar from '../Admin/Coaches/CoachesIntroBar';
-
-import './Coaches.css';
-
-import { getAllCoaches, getFilteredCoaches } from '../../services/coachService';
+import { getFilteredCoaches } from '../../services/coachService';
 import { getCoaches as companyCoachesInput } from '../../services/companyOwnerCoachesService';
 import AdminCoachesCatalog from './CoachesCatalog/AdminCoachesCatalog/AdminCoachesCatalog';
 
-export default function Coaches(props, { filter }) {
+import './Coaches.css';
+
+export default function Coaches() {
   const { store } = useContext(ReactReduxContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCompanyOwner, setIsCompanyOwner] = useState(false);

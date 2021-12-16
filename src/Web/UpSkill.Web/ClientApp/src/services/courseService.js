@@ -5,7 +5,7 @@ const API_URL = Base_URL + 'Course';
 
 const token = localStorage.getItem('token');
 
-const numberCoursesToShow = 5;
+const numberCoursesToShow = 6;
 
 const initialCourses = [
   {
@@ -81,8 +81,23 @@ export const getCourses = async (currentPage) => {
   return arr;
 };
 
-let data = [];
+export const getFilteredCourses = async (filterArr) => {
+  let allCourses = await getCourses(1);
+  console.log(allCourses)
+  let filteredCourses = [];
+  if (filterArr.length <= 0) {
+    return allCourses
+  }
 
+  for (let i = 0; i < filterArr.length; i++) {
+    allCourses
+      .filter((course) => course.categoryName.includes(filterArr[i]))
+      .map((fc) => filteredCourses.push(fc));
+  }
+  return filteredCourses;
+};
+
+let data = [];
 export const courseDetailsContent = (courseId) => {
   return axios.get(API_URL + `?id=${courseId}`).then((response) => {
     data = [];
