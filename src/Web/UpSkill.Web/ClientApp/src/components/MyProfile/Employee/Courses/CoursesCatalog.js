@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import {getCourses} from "../../../../services/employeeService";
+import {
+  getCourses,
+  getEnrolledCourses,
+} from "../../../../services/employeeService";
 import CoursesCard from "../../CompanyOwnerViews/Courses/CoursesCatalog/CoursesCard/CoursesCard";
-
 
 export default function CoursesCatalog() {
   const [courses, setCourses] = useState([]);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
 
   // const disableCourse = (courseId, e) => {
   //   e.preventDefault();
@@ -15,9 +18,43 @@ export default function CoursesCatalog() {
   //     })
   //   );
   // };
+  function isEnrolled(courseId) {
+    if (enrolledCourses) {
+      let contains = false;
+      enrolledCourses.map((c) => {
+        if (c.id === courseId) {
+          contains = true;
+        }
+      });
+      return contains;
+    } else {
+      return false;
+    }
+  }
+
+  function buttonToshow(courseId) {
+    if (isEnrolled(courseId)) {
+      return (
+        <a href={`/Course/${courseId}`}>
+          <Button className="courses-cardButton">Compete</Button>
+        </a>
+      );
+    } else {
+      return (
+        <Button className="button">
+          <p className="cardButtonText">Enroll</p>
+        </Button>
+      );
+    }
+  }
+
   useEffect(() => {
     getCourses().then((courses) => {
       setCourses(courses);
+    });
+
+    getEnrolledCourses().then((enrolledCourses) => {
+      setEnrolledCourses(enrolledCourses);
     });
   }, []);
 
@@ -27,12 +64,7 @@ export default function CoursesCatalog() {
         {courses.map((course) => (
           <div className="col-sm-5 text-align-center" key={course.id}>
             <CoursesCard key={course.id} coursesDetails={course}>
-              <Button
-                className="button"
-                
-              >
-                <p className="cardButtonText">Remove</p>
-              </Button>
+             { buttonToshow(course.Id) }
             </CoursesCard>
           </div>
         ))}

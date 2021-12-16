@@ -6,15 +6,28 @@ const OWN_API_URL = Base_URL + 'Owner/Employee/';
 
 let data = [];
 
-export const getCourses = (course) => {
+export const getCourses = async (course) => {
   let token = localStorage.getItem("token");
-  return axios
+  return await axios
     .get(
       EMP_API_URL + 'getAll',
       { headers: { Authorization: `Bearer ${token}` } },
       {
         course,
       }
+    )
+    .then((response) => {
+      data = response.data;
+      return data;
+    });
+};
+
+export const getEnrolledCourses = async () => {
+  let token = localStorage.getItem("token");
+  return await axios
+    .get(
+      EMP_API_URL + 'getEnrolledCourses',
+      { headers: { Authorization: `Bearer ${token}` } },
     )
     .then((response) => {
       data = response.data;
@@ -93,4 +106,16 @@ export const updateEmployee = async (id, firstName, lastName, file, description)
     );
     return resp;
   } catch (err) {}
+};
+
+export const enrollToCourse = async (courseId) => {
+  let token = localStorage.getItem("token");
+  try {
+    const resp = await axios.post(EMP_API_URL+"addEmployeeToCourse", courseId, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return resp;
+  } catch (err) {
+    console.log(err);
+  }
 };
