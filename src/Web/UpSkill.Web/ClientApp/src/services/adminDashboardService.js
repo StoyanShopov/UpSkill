@@ -16,13 +16,14 @@ export const adminDashboardGet = async () => {
 
 const numberClientsToShow = 3;
 let clients = [];
+let clientsWithEmails = [];
 
-export const getClientWithEmail = async (currentPage) => {
-  await getAllClients();
+export const getSliced = async (currentPage) => {
+  await getCompaniesEmails();
 
   let arr = [];
   arr.push(
-    ...clients.slice(
+    ...clientsWithEmails.slice(
       0,
       currentPage * numberClientsToShow + numberClientsToShow
     )
@@ -31,17 +32,16 @@ export const getClientWithEmail = async (currentPage) => {
   return arr;
 };
 
-export const getCompaniesEmails = async (companyEmail) => {
+export const getCompaniesEmails = async () => {
   return await axios
   .get(
     ADMIN_API_URL + 'getCompanyEmail',
-    { headers: { Authorization: `Bearer ${token}`}},
-    {companyEmail}   
+    { headers: { Authorization: `Bearer ${token}`}} 
   )
   .then((response) => {
-    const companiesEmails = [];
-    response.data.map((x) => companiesEmails.push(x));
-    return companiesEmails;
+    clientsWithEmails = [];
+    response.data.map((x) => clientsWithEmails.push(x));
+    return clientsWithEmails;
   })
 }
 
@@ -59,7 +59,7 @@ export const getAllClients = async (client) => {
     });
 };
 
-export const getClientsTotalCountSuperAdmin = async (uId) => {
+export const getClientsTotalCountSuperAdmin = async () => {
   await getAllClients();
   return clients.length;
 };

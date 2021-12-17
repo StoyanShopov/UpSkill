@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { getClientWithEmail,  getCompaniesEmails} from "../../../../services/adminDashboardService";
+import { getSliced,  getCompaniesEmails} from "../../../../services/adminDashboardService";
 import {
   removeClientHandler,
   getClientsTotalCountSuperAdmin,
@@ -15,24 +15,21 @@ const ClientEmailInfo = ({ onAddClient }) => {
   let [clientCount, setClientCount] = useState(0);
   
   useEffect(() => {
-    getCompaniesEmails(currentPage).then((clients) => {
+    getSliced(currentPage).then((clients) => {
       setAllClients(clients);
     });
-    console.log(getCompaniesEmails());
+    console.log(currentPage);
   }, [currentPage]);
 
   function showMoreClients() {
     let next = currentPage + 1;
     setCurrentPage(next);
-    getCompaniesEmails(currentPage).then((clients) => {
+    getSliced(currentPage).then((clients) => {
       setAllClients([]);
       setAllClients((arr) => [...arr, ...clients]);
+      console.log(currentPage);
     });
   }
-
-  const deleteClient = (id) => {
-    removeClientHandler(id);
-  };
 
   function onAddClientsInternal(clicked) {
     disableBodyScroll();
@@ -41,7 +38,7 @@ const ClientEmailInfo = ({ onAddClient }) => {
 
   useEffect(() => {
     getClientsTotalCountSuperAdmin().then((count) => setClientCount(count));
-  }, []);
+  });
 
   return (
     <div className="wrap-table100 mt-5 shadow mb-5 bg-body rounded">
