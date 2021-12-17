@@ -65,7 +65,7 @@ export default function CoachList() {
     const user = JSON.parse(localStorage.getItem("user"));
     setEmployee(user);
   }, []);
-  
+
   return (
     <div className="content main-content">
       <div className="coachesContainer">

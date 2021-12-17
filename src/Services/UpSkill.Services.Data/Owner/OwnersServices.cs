@@ -109,6 +109,7 @@
             {
                 CompanyId = companyOwner.CompanyId,
                 CoachId = model.CoachId,
+                IsNew = true,
             };
 
             var companyCoachExist = await this.companyCoaches

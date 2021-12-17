@@ -9,5 +9,7 @@
         public int CoachId { get; set; }
 
         public Coach Coach { get; set; }
+
+        public bool IsNew { get; set; }
     }
 }
