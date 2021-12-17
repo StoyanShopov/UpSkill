@@ -10,11 +10,6 @@
     {
         public IActionResult Index()
         {
-            if (this.User != null)
-            {
-                return this.Redirect("/Courses");
-            }
-
             return this.View();
         }
 
