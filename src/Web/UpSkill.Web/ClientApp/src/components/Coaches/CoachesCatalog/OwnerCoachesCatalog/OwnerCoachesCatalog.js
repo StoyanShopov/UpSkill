@@ -64,6 +64,19 @@ export default function OwnerCoachesCatalog({
   function onOpenDetails(coach) {
     setData(coach);
     setIsOpenCoachDetails(true);
+    disableBodyScroll();
+  }
+
+  function onCloseDetails(isOpen) {
+    setIsOpenCoachDetails(isOpen);
+    enableBodyScroll();
+    localStorage.removeItem("ID");
+    localStorage.removeItem("FirstName");
+    localStorage.removeItem("LastName");
+    localStorage.removeItem("Field");
+    localStorage.removeItem("Price");
+    localStorage.removeItem("FilePath");
+    localStorage.removeItem("CalendlyUrl");
   }
 
   const onDelete = (id) => {
@@ -146,7 +159,7 @@ export default function OwnerCoachesCatalog({
           ))}
         </div>
         {isOpenCoachDetails && (
-          <CoachDetails closeModal={setIsOpenCoachDetails}></CoachDetails>
+          <CoachDetails closeModal={onCloseDetails}></CoachDetails>
         )}
       </div>
     </>

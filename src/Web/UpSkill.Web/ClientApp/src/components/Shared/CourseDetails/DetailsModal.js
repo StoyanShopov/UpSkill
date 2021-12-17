@@ -10,8 +10,8 @@ function DetailsModal(props) {
   const [description, setDescription] = useState("");
   let { closeModal } = props;
 
-  function isInProfile(){
-    console.log(props.isInProfile)
+  function isInProfile() {
+    console.log(props.isInProfile);
     if (props.inProfile) {
       return "detailsModal-background-inProfile";
     }
@@ -97,7 +97,7 @@ function DetailsModal(props) {
                 This course includes
               </h4>
               <p className="courses-more-information">
-              <ul className="short-includes-info">
+                <ul className="short-includes-info">
                   <li className="hours-video">23 hours on-demand video</li>
                   <li className="lectures-count">36 lectures</li>
                   <li className="lifetime-access">Full lifetime access</li>

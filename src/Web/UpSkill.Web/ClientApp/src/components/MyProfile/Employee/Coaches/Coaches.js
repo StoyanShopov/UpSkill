@@ -126,7 +126,7 @@ export default function CoachList() {
               coachDetails={coach}
               displaySession={false}
               displayPrice={true}
-              isInCompany={true}
+              isInCompany={!coach.isNew}
               openDetails={onOpenDetails}
             >
               {buttonToshow(coach)}

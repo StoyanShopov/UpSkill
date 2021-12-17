@@ -118,11 +118,11 @@ export default function CoursesCatalog() {
         ))}
       </div>
       {checkPopUp()}
-        {isDetailsOpen && (
-          <DetailsModal closeModal={setIsDetailsOpen} inProfile={true}>
-            <button className="btn btn-primary">Enroll</button>
-          </DetailsModal>
-        )}
+      {isDetailsOpen && (
+        <DetailsModal closeModal={setIsDetailsOpen} inProfile={true}>
+          <button className="btn btn-primary">Enroll</button>
+        </DetailsModal>
+      )}
     </div>
   );
 }
