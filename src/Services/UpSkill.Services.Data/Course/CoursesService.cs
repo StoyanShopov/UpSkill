@@ -25,8 +25,8 @@
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
-        private readonly IRepository<UserInCourse> usersInCourses; 
-        private readonly IRepository<CourseLecture> courseLectures; 
+        private readonly IRepository<UserInCourse> usersInCourses;
+        private readonly IRepository<CourseLecture> courseLectures;
         private readonly IDeletableEntityRepository<Course> courses;
         private readonly IFileService fileService;
 
@@ -188,6 +188,7 @@
             .AllAsNoTracking()
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
+
         public async Task<ICollection<UserInCourse>> GetAllUsersInCourse(int id) => await this.usersInCourses
               .AllAsNoTracking()
               .Where(uc => uc.CourseId == id)
@@ -198,11 +199,21 @@
             .AllAsNoTracking()
             .To<TModel>()
             .ToListAsync();
-public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
+
+        public async Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>()
+            => await this.courses
+                .AllAsNoTracking()
+                .Include(c => c.Category)
+                .Select(x => x.Category.Name)
+                .Distinct()
+                .ToListAsync();
+
+        public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
             => await this.courseLectures
                          .All()
                          .Where(c => c.CourseId == id)
                          .Include(c => c.Lecture.Lessons)
                          .To<TModel>()
-                         .FirstOrDefaultAsync();    }
+                        .FirstOrDefaultAsync();
+    }
 }

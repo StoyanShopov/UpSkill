@@ -10,7 +10,6 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Data.Tests.Common;
 
-    using UpSkill.Services.Data.Tests.Common;
     using Xunit;
 
     public class CoursesServicesTest : TestWithData
