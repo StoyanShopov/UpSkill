@@ -1,1 +1,1 @@
-export const Base_URL = "https://localhost:44319/";
+export const Base_URL = "https://ourupskill.azurewebsites.net/";

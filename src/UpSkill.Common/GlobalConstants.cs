@@ -147,6 +147,8 @@
             public const string NewCoach = "newCoach";
 
             public const string NotNewCoachRoute = "setNotNewCoach";
+            
+            public const string GetAllCategories = "categories";
         }
 
         public class MessagesConstants
