@@ -83,9 +83,9 @@ export default function CoachesCard(props) {
     <div className={decideCardBackgroundColor()}>
       <div
         className={canOpenDetails()}
-        onClick={() => {
+        onClick={(e) => {
           if (!isAdmin) {
-            props.openDetails(props.coachDetails);
+            props.openDetails(props.coachDetails,e);
           }
         }}
       >
