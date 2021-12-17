@@ -56,11 +56,11 @@
 
         [HttpGet]
         [Route(GetAllRoute)]
-        public async Task<IEnumerable<CoursesListingModel>> GetAll()
+        public async Task<IEnumerable<EmployeeCoursesListingModel>> GetAll()
         {
             this.nlog.Info("Entering GetAll action");
 
-            return await this.employeeService.GetAllCoursesAsync<CoursesListingModel>(this.currentUser.GetId());
+            return await this.employeeService.GetAllCoursesAsync<EmployeeCoursesListingModel>(this.currentUser.GetId());
         }
 
         [HttpGet]

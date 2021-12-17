@@ -6,10 +6,13 @@ import {
   enrollToCourse,
 } from "../../../../services/employeeService";
 import CoursesCard from "../../CompanyOwnerViews/Courses/CoursesCatalog/CoursesCard/CoursesCard";
+import { enableBodyScroll, disableBodyScroll } from "../../../../utils/utils";
+import DetailsModal from "../../../Shared/CourseDetails/DetailsModal";
 
 export default function CoursesCatalog() {
   const [courses, setCourses] = useState([]);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   // const disableCourse = (courseId, e) => {
   //   e.preventDefault();
@@ -19,24 +22,48 @@ export default function CoursesCatalog() {
   //     })
   //   );
   // };
-function enroll(courseId,e){
-  e.preventDefault();
-  console.log(courseId)
-  enrollToCourse(courseId).then(() => {
-    getEnrolledCourses().then((courses) => {
-      setEnrolledCourses(courses)
-    })
-  })
-}
+  const setData = (data) => {
+    let { id, fullName, courseTitle, courseDescription } = data;
+    localStorage.setItem("ID", id);
+    localStorage.setItem("FullName", fullName);
+    localStorage.setItem("Title", courseTitle);
+    localStorage.setItem("Description", courseDescription);
+  };
 
-  function isEnrolled(courseId,) {    
+  const checkPopUp = () => {
+    if (isDetailsOpen) {
+      disableBodyScroll();
+    } else {
+      localStorage.removeItem("ID");
+      localStorage.removeItem("FullName");
+      localStorage.removeItem("Title");
+      localStorage.removeItem("Description");
+      enableBodyScroll();
+    }
+  };
+
+  const getValue = (course) => {
+    setData(course);
+  };
+
+  function enroll(courseId, e) {
+    e.preventDefault();
+    console.log(courseId);
+    enrollToCourse(courseId).then(() => {
+      getEnrolledCourses().then((courses) => {
+        setEnrolledCourses(courses);
+      });
+    });
+  }
+
+  function isEnrolled(courseId) {
     if (enrolledCourses) {
       let contains = false;
       enrolledCourses.map((c) => {
         if (c.id === courseId) {
           contains = true;
         }
-      }); 
+      });
       return contains;
     } else {
       return false;
@@ -55,7 +82,9 @@ function enroll(courseId,e){
     } else {
       return (
         <Button className="button">
-          <p className="cardButtonText" onClick={(e) => enroll(courseId, e)}>Enroll</p>
+          <p className="cardButtonText" onClick={(e) => enroll(courseId, e)}>
+            Enroll
+          </p>
         </Button>
       );
     }
@@ -73,15 +102,27 @@ function enroll(courseId,e){
 
   return (
     <div className="container">
-      <div className="row list-unstyled myProfile-courses-list">        
+      <div className="row list-unstyled myProfile-courses-list">
         {courses.map((course) => (
           <div className="col-sm-5 text-align-center" key={course.id}>
-            <CoursesCard key={course.id} coursesDetails={course} isActive={isEnrolled(course.id)}>
+            <CoursesCard
+              key={course.id}
+              coursesDetails={course}
+              isActive={isEnrolled(course.id)}
+              closeMoadal={setIsDetailsOpen}
+              getDetails={getValue}
+            >
               {buttonToshow(course.id)}
             </CoursesCard>
           </div>
         ))}
       </div>
+      {checkPopUp()}
+        {isDetailsOpen && (
+          <DetailsModal closeModal={setIsDetailsOpen} inProfile={true}>
+            <button className="btn btn-primary">Enroll</button>
+          </DetailsModal>
+        )}
     </div>
   );
 }

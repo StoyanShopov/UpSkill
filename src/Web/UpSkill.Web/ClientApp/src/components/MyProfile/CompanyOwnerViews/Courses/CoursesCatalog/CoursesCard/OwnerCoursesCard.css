@@ -95,7 +95,7 @@
     font: normal normal medium 22px/30px Montserrat;
     justify-content: center;
     align-items: center; 
-    /* cursor: pointer; */
+    cursor: pointer;
     opacity: 1;
     position: relative;
   }
