@@ -31,6 +31,20 @@ export const getClientWithEmail = async (currentPage) => {
   return arr;
 };
 
+export const getCompaniesEmails = async (companyEmail) => {
+  return await axios
+  .get(
+    ADMIN_API_URL + 'getCompanyEmail',
+    { headers: { Authorization: `Bearer ${token}`}},
+    {companyEmail}   
+  )
+  .then((response) => {
+    const companiesEmails = [];
+    response.data.map((x) => companiesEmails.push(x));
+    return companiesEmails;
+  })
+}
+
 export const getAllClients = async (client) => {
   return await axios
     .get(

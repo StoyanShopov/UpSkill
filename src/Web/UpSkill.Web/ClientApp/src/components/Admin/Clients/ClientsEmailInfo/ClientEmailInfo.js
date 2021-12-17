@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { getClientWithEmail } from "../../../../services/adminDashboardService";
+import { getClientWithEmail,  getCompaniesEmails} from "../../../../services/adminDashboardService";
 import {
   removeClientHandler,
   getClientsTotalCountSuperAdmin,
@@ -12,19 +12,19 @@ import "../../../MyProfile/CompanyOwnerViews/Employees/EmployeeEmailInfo/Employe
 const ClientEmailInfo = ({ onAddClient }) => {
   let [allClients, setAllClients] = useState([]);
   let [currentPage, setCurrentPage] = useState(0);
-  let [popupInner, setPopupInner] = useState(0);
   let [clientCount, setClientCount] = useState(0);
-
+  
   useEffect(() => {
-    getClientWithEmail(currentPage).then((clients) => {
+    getCompaniesEmails(currentPage).then((clients) => {
       setAllClients(clients);
     });
+    console.log(getCompaniesEmails());
   }, [currentPage]);
 
   function showMoreClients() {
     let next = currentPage + 1;
     setCurrentPage(next);
-    getClientWithEmail(currentPage).then((clients) => {
+    getCompaniesEmails(currentPage).then((clients) => {
       setAllClients([]);
       setAllClients((arr) => [...arr, ...clients]);
     });
@@ -65,13 +65,13 @@ const ClientEmailInfo = ({ onAddClient }) => {
               return (
                 <div
                   className="table-row px-3"
-                  key={client.name + "email@email.com" + client.id}
+                  key={client.name + client.email + client.id}
                 >
                   <div
                     className="cell cell-data-clients-Courses name-cell-data"
                     style={{ fontFamily: "Montserrat" }}
                     data-title="client"
-                    href={"email@email.com"}
+                    href={client.email}
                   >
                     {client.name}
                   </div>
@@ -88,7 +88,7 @@ const ClientEmailInfo = ({ onAddClient }) => {
                     className="cell cell-data-clients-Courses email-cell-data"
                     data-title="clientEmail"
                   >
-                    <div> {"email@email.com"}</div>
+                    <div> {client.email}</div>
                   </div>
                 </div>
               );

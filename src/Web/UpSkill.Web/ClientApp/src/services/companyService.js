@@ -3,8 +3,12 @@ import { Base_URL } from '../utils/baseUrlConstant';
 
 //GetCompanies
 export const getCompanies = async () => {
+  const token = localStorage.getItem("token");
+
   const response = await axios
-  .get( Base_URL + "Admin/Companies/getAll");
+  .get( Base_URL + "Admin/Companies/getAll", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return response.data;
 }
 
