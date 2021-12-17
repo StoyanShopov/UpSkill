@@ -1,0 +1,79 @@
+.courseResoursesSidebar{
+    position: fixed;
+    right: 0;
+    height: 90%;
+    top: 50px;
+    width: 25%;
+    background-color: #296CFB1A;
+    padding: 2rem; 
+}
+
+.courseNonSelectedMenuStyle{
+    font-Weight: 450;
+    padding: 1.5rem 0;
+    display: block;
+    color: black;
+    border-Top: 1px solid grey;
+}
+
+.courseNonSelectedMenuStyle:hover,
+.viewMore:hover{
+    font-weight: 600!important;
+}
+
+.active span {
+    cursor: pointer;
+    transform-style: preserve-3d;
+    perspective: 100px;
+}
+
+.active span {
+    color: #296CFB;
+    font-weight: 500;
+}
+
+.active span::before {
+    content: atr(data-char);
+    visibility: visible;
+    color: #fff;
+    transition: transform 0.8s cubic-bezier(0.14, 0.71, 0.96, 0.59);
+    transition-delay: calc(0.2s * var(--distance-percent));
+    transform: none;
+    transform-origin: bottom;
+}
+
+.active:hover span::before {
+    transition-timing-function: cubic-bezier(1, 0.01, 0.56, 1);
+}
+
+.viewMore {
+    font-Weight: 450;
+    padding: 1.5rem 0;
+    display: block;
+    color: red;
+    border-Top: 1px solid grey;
+}
+
+.accordion {
+    margin-top: 20px;
+}
+
+.lectures-title {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.lectures-button {
+    display: flex;
+    padding: 5px 30px;
+    margin-top: 20px;
+    border-color: #4073e0;
+    color: #697eac;
+    font-weight: 700;
+}
+
+@media(max-width:1200px) {    
+    .sidebar-content{
+        width: 100%!important;
+    }
+}

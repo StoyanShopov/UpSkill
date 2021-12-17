@@ -79,9 +79,9 @@ const Login = (props) => {
           <img src={manKey} alt="IMG" className="login-Image" />
         </div>
         <div className="base-container col-md-6 mt-4 text-center">
-          <Link to="/" className="image text-center">
+          <a href="/home" className="image text-center">
             <img src={logo} alt="UpSkill" className="Auth-logo" />
-          </Link>
+          </a>
           <div className="header text-dark text-center m-3">
             <h1 className="fw-bolder">Welcome back!</h1>
             <h5>Please login to your account!</h5>

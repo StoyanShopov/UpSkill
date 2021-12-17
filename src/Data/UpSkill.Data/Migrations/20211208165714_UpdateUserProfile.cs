@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace UpSkill.Data.Migrations
+﻿namespace UpSkill.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class UpdateUserProfile : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
