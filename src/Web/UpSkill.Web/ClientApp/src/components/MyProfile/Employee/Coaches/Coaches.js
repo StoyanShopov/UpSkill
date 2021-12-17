@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { PopupButton } from "react-calendly";
 import CoachesCard from "../../../Coaches/CoachesCatalog/Coaches-Card/Coaches-Card";
-import { getCoaches } from "../../../../services/EmployeeCoachService";
+import {
+  getCoaches,
+  setCoachNotNew,
+} from "../../../../services/EmployeeCoachService";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
 import CoachDetails from "../../../Shared/CoachDetails/CoachDetails";
 import { Button } from "react-bootstrap";
@@ -39,8 +42,15 @@ export default function CoachList() {
     localStorage.setItem("CalendlyUrl", calendlyUrl);
   };
 
-  function onOpenDetails(coach,e) {
+  function onOpenDetails(coach, e) {
     e.preventDefault();
+    if (coach.isNew) {
+      setCoachNotNew(coach.id).then(() => {
+        getCoaches(initialPageCoaches).then((coaches) => {
+          setCoaches(coaches);
+        });
+      });
+    }
     setData(coach);
     setIsOpenCoachDetails(true);
     disableBodyScroll();
@@ -62,29 +72,32 @@ export default function CoachList() {
     if (!coach.isNew) {
       return (
         <PopupButton
-        className="btn btn-primary button"
-        url={coach.coachCalendlyUrl}
-        text="Book"
-        pageSettings={{
-          backgroundColor: "ffffff",
-          hideEventTypeDetails: true,
-          hideGdprBanner: true,
-          hideLandingPageDetails: true,
-          primaryColor: "00a2ff",
-          textColor: "4d5055",
-        }}
-        prefill={{
-          email: employee.email,
-          firstName: "",
-          lastName: "",
-          name: employee.unique_name,
-        }}
-      ></PopupButton>
+          className="btn btn-primary button"
+          url={coach.coachCalendlyUrl}
+          text="Book"
+          pageSettings={{
+            backgroundColor: "ffffff",
+            hideEventTypeDetails: true,
+            hideGdprBanner: true,
+            hideLandingPageDetails: true,
+            primaryColor: "00a2ff",
+            textColor: "4d5055",
+          }}
+          prefill={{
+            email: employee.email,
+            firstName: "",
+            lastName: "",
+            name: employee.unique_name,
+          }}
+        ></PopupButton>
       );
     } else {
       return (
         <Button className="button">
-          <p className="cardButtonText" onClick={(e) => onOpenDetails(coach, e)}>
+          <p
+            className="cardButtonText"
+            onClick={(e) => onOpenDetails(coach, e)}
+          >
             New Slot
           </p>
         </Button>
@@ -116,7 +129,7 @@ export default function CoachList() {
               isInCompany={true}
               openDetails={onOpenDetails}
             >
-             {buttonToshow(coach)}
+              {buttonToshow(coach)}
             </CoachesCard>
           </div>
         ))}

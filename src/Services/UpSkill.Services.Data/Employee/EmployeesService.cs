@@ -258,9 +258,6 @@
             return companyCoaches;
         }
 
-        private async Task<ApplicationUser> GetUserById(string userId)
-            => await this.userManager.FindByIdAsync(userId);
-
         public async Task<IEnumerable<TModel>> GetEmployeeCoursesAsync<TModel>(string userId)
         {
             var user = await this.GetUserById(userId);
@@ -310,5 +307,31 @@
 
             return true;
         }
+
+        public async Task<Result> SetNotNewCoachAsync(int coachId, string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var companyCoach = await this.companyCoaches
+                .All()
+                .Where(cc =>
+                    cc.CoachId == coachId &&
+                    cc.CompanyId == user.CompanyId)
+                .FirstOrDefaultAsync();
+
+            if (companyCoach == null)
+            {
+                return DoesNotExist;
+            }
+
+            companyCoach.IsNew = false;
+
+            await this.companyCoaches.SaveChangesAsync();
+
+            return true;
+        }
+
+        private async Task<ApplicationUser> GetUserById(string userId)
+            => await this.userManager.FindByIdAsync(userId);
     }
 }

@@ -1,8 +1,6 @@
 ﻿namespace UpSkill.Web.Areas.Employee.Coach
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -10,7 +8,9 @@
     using UpSkill.Web.Infrastructure.Extensions.Contracts;
     using UpSkill.Web.Infrastructure.Services;
     using UpSkill.Web.ViewModels.Coach;
+
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CoachesController : EmployeesBaseController
     {
@@ -35,6 +35,22 @@
             this.nlog.Info("Entering GetAll action");
 
             return await this.employeeService.GetAllCoachesAsync<OwnerCoachesListingModel>(this.currentUser.GetId());
+        }
+
+        [HttpPut]
+        [Route(NotNewCoachRoute)]
+        public async Task<ActionResult> SetNotNewCoachAsync(int coachId)
+        {
+            this.nlog.Info("Entering SetNotNewCoachAsync action");
+
+            var result = await this.employeeService.SetNotNewCoachAsync(coachId, this.currentUser.GetId());
+
+            if (result.Failure)
+            {
+                return this.BadRequest(result.Error);
+            }
+
+            return this.Ok(SuccesfullySetNotNewCoach);
         }
     }
 }

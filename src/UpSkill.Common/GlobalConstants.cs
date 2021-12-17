@@ -145,6 +145,8 @@
             public const string GetCountRoute = "count";
 
             public const string NewCoach = "newCoach";
+
+            public const string NotNewCoachRoute = "setNotNewCoach";
         }
 
         public class MessagesConstants
@@ -227,6 +229,8 @@
             public const string SuccesfullyAddedCoachToGivenCompany = "You have successfully added a coach to this company.";
 
             public const string SuccesfullyAddedCourseToEmployee = "You have successfully added course to this employee.";
+
+            public const string SuccesfullySetNotNewCoach = "You have successfully set this coach as not new.";
         }
 
         public class CategoriesNamesConstants
