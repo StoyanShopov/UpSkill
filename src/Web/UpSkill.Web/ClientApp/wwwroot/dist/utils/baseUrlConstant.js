@@ -1,0 +1,1 @@
+export var Base_URL = "https://ourupskill.azurewebsites.net/";

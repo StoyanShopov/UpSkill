@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+  <g id="Group_14" data-name="Group 14" transform="translate(-3518 -5355)">
+    <path id="iconmonstr-linkedin-5" d="M20.833,16.667a2.083,2.083,0,1,1-2.083-2.1A2.09,2.09,0,0,1,20.833,16.667Zm0,4.167H16.667v12.5h4.167Zm6.25,0H22.917v12.5h4.167v-5.96c0-3.588,4.171-3.919,4.171,0v5.96h4.163v-7c0-6.842-6.517-6.592-8.333-3.225V20.833Z" transform="translate(3514.333 5353.433)" fill="#fff"/>
+    <g id="Rectangle_457" data-name="Rectangle 457" transform="translate(3518 5355)" fill="none" stroke="#fff" stroke-width="2">
+      <rect width="45" height="45" stroke="none"/>
+      <rect x="1" y="1" width="43" height="43" fill="none"/>
+    </g>
+  </g>
+</svg>
