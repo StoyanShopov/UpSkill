@@ -171,9 +171,7 @@
                                         model.RequesterEmail,
                                         model.RequesterName,
                                         model.Description,
-                                        model.Field,
-                                        model.Company,
-                                        model.Phone);
+                                        model.Field);
 
             // You can use your own email.
             await this.emailSender.SendEmailAsync(

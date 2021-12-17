@@ -82,10 +82,10 @@
         }
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
-            => await this.courses.AllAsNoTracking()
-                .Where(x => x.Id == id)
-                .To<TModel>()
-                .FirstOrDefaultAsync();
+        => await this.courses.AllAsNoTracking()
+                             .Where(x => x.Id == id)
+                             .To<TModel>()
+                             .FirstOrDefaultAsync();
 
         public async Task<Result> EditAsync(EditCourseViewModel model, int id)
         {
@@ -200,20 +200,10 @@
             .To<TModel>()
             .ToListAsync();
 
-        public async Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>()
-            => await this.courses
-                .AllAsNoTracking()
-                .Include(c => c.Category)
-                .Select(x => x.Category.Name)
-                .Distinct()
-                .ToListAsync();
-
         public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
-            => await this.courseLectures
-                         .All()
-                         .Where(c => c.CourseId == id)
-                         .Include(c => c.Lecture.Lessons)
-                         .To<TModel>()
-                        .FirstOrDefaultAsync();
-    }
+        => await this.courseLectures
+             .All()
+             .Where(c => c.CourseId == id)
+             .To<TModel>()
+             .FirstOrDefaultAsync();    }
 }

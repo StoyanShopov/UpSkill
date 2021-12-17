@@ -1,8 +1,0 @@
-export var REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export var REGISTER_FAIL = "REGISTER_FAIL";
-export var LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export var LOGIN_FAIL = "LOGIN_FAIL";
-export var LOGOUT = "LOGOUT";
-
-export var SET_MESSAGE = "SET_MESSAGE";
-export var CLEAR_MESSAGE = "CLEAR_MESSAGE";

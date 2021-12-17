@@ -1,11 +1,9 @@
 import UpdateEmployee from '../UpdateEmployee';
 
-import './UpdateEmployeeModal.css'
-
 function UpdateEmployeeModal({ closeUpdateEmployeeModal }) {
   return (
-    <div className="detailsModal-background-employee">
-      <div className="update-employee-wrapper">
+    <div className="detailsModal-background">
+      <div className="update-course-wrapper">
         <UpdateEmployee closeModal={closeUpdateEmployeeModal}></UpdateEmployee>{' '}
       </div>
     </div>

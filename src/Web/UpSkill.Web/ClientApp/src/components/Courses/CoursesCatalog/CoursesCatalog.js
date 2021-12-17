@@ -1,32 +1,33 @@
-import { useState, useEffect } from 'react';
-import DetailsModal from '../../Shared/CourseDetails/DetailsModal';
-import './CoursesCatalog.css';
-import { getCourses } from '../../../services/courseService';
-import { enableBodyScroll, disableBodyScroll } from '../../../utils/utils';
-import CourseCard from './CourseCard/CourseCard';
-import { Button } from 'react-bootstrap';
-import ViewMoreButton from '../../Shared/ViewMoreCoursesCoachesButton/ViewMoreButton';
+import { useState, useEffect } from "react";
+import DetailsModal from "../../Shared/CourseDetails/DetailsModal";
+import "./CoursesCatalog.css";
+import { getCourses } from "../../../services/courseService";
+import { enableBodyScroll, disableBodyScroll } from "../../../utils/utils";
+import CourseCard from "./CourseCard/CourseCard";
+import { Button } from "react-bootstrap";
+import ViewMoreButton from "../../Shared/ViewMoreCoursesCoachesButton/ViewMoreButton";
 
-export default function CoursesCatalog({ courses }) {
+export default function CoursesCatalog() {
+  const [courses, setCourses] = useState([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   const setData = (data) => {
     let { id, fullName, courseTitle, description } = data;
-    localStorage.setItem('ID', id);
-    localStorage.setItem('FullName', fullName);
-    localStorage.setItem('Title', courseTitle);
-    localStorage.setItem('Description', description);
+    localStorage.setItem("ID", id);
+    localStorage.setItem("FullName", fullName);
+    localStorage.setItem("Title", courseTitle);
+    localStorage.setItem("Description", description);
   };
 
   const checkPopUp = () => {
     if (isDetailsOpen) {
       disableBodyScroll();
     } else {
-      localStorage.removeItem('ID');
-      localStorage.removeItem('FullName');
-      localStorage.removeItem('Title');
-      localStorage.removeItem('Description');
+      localStorage.removeItem("ID");
+      localStorage.removeItem("FullName");
+      localStorage.removeItem("Title");
+      localStorage.removeItem("Description");
       enableBodyScroll();
     }
   };
@@ -34,6 +35,12 @@ export default function CoursesCatalog({ courses }) {
   const getValue = (course) => {
     setData(course);
   };
+
+  useEffect(() => {
+    getCourses(currentPage).then((courses) => {
+      setCourses(courses);
+    });
+  }, [currentPage]);
 
   const defineCoursesCount = () => {
     let coursesCount = courses.length % 3;
@@ -67,6 +74,7 @@ export default function CoursesCatalog({ courses }) {
                 categoryName={course.categoryName}
                 getDetails={getValue}
                 price={course.price}
+
               >
                 <Button
                   className="button row col-md-4"

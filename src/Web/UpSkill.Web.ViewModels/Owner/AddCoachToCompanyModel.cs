@@ -1,6 +1,6 @@
 ﻿namespace UpSkill.Web.ViewModels.Owner
 {
-    public class AddCoachToCompanyModel
+     public class AddCoachToCompanyModel
     {
         public string OwnerEmail { get; set; }
 

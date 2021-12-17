@@ -17,7 +17,5 @@
         Task<TModel> GetByIdAsync<TModel>(int id);
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
-
-        Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>();
     }
 }

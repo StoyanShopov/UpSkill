@@ -17,7 +17,7 @@
         private readonly IDeletableEntityRepository<Course> courses;
         private readonly IDeletableEntityRepository<Coach> coaches;
 
-        public DashboardService(
+        public DashboardService( 
             IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Course> courses,
             IDeletableEntityRepository<Coach> coaches)

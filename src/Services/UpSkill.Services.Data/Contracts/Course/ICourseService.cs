@@ -23,8 +23,6 @@
 
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 
-        Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>();
-
         Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id);
     }
 }

@@ -151,9 +151,9 @@
                 },
                 new ApplicationRole
                 {
-                    Id = Role.Id,
-                    Name = Role.Name,
-                    NormalizedName = Role.Name.ToUpper(),
+                     Id = Role.Id,
+                     Name = Role.Name,
+                     NormalizedName = Role.Name.ToUpper(),
                 })
             .WithUser(u => u.WithNameType(TestOwnerUserName).WithIdentifier(this.user.Id).WithRoleType(CompanyOwnerRoleName).WithClaim(Claim).WithClaims(new List<Claim> { Claim }))
             .Calling(c => c.AddCoachToOwner(new AddCoachToCompanyModel

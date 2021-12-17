@@ -1,6 +1,6 @@
- .updateEmployee-popup {
+.updateCoach-popup {
   position: fixed;
-  top: -110px;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
@@ -74,7 +74,6 @@
   }
 }
 
-input[id="file-upload-employee"] {
+input[type='file'] {
   display: none;
 }
-
