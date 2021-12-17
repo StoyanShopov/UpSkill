@@ -1,11 +1,11 @@
-import axios from "axios"; 
+import axios from 'axios';
 import { Base_URL } from '../utils/baseUrlConstant';
 
-const API_URL = Base_URL + "Course";
+const API_URL = Base_URL + 'Course';
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem('token');
 
-const numberCoursesToShow = 5;
+const numberCoursesToShow = 6;
 
 const initialCourses = [
   {
@@ -45,51 +45,61 @@ const initialCourses = [
   },
 ];
 
-const DetailsContent =
-{
-    id: 14,
-    courseTitle: 'Marketing',
-    courseDescription: 'Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or client�s financial goals while increasing profitability and minimizing risks.',
-    courseLecturer: 'Ben Levis',
-    courseVideo: 'https://youtu.be/Y2a16HAsHBE',
-    lectures: [
-      {
-        courseSubject: 'Introduction', 
-        courseVideo: 'https://youtu.be/Y2a16HAsHBE',
-        resource: 'file.pdf',
-      },
-      {
-        courseSubject: 'Marketing',
-        courseVideo: 'https://youtu.be/Y2a16HAsHBE',
-        resource: 'file.pdf',
-      },
-      {
-        courseSubject: 'Digital Marketing',
-        courseVideo: 'https://youtu.be/Y2a16HAsHBE',
-        resource: 'file.pdf',
-      }
-    ],
+const DetailsContent = {
+  id: 14,
+  courseTitle: 'Marketing',
+  courseDescription:
+    'Financial Analysis and Valuation for Lawyers is a course designed to help you navigate your organization or client�s financial goals while increasing profitability and minimizing risks.',
+  courseLecturer: 'Ben Levis',
+  courseVideo: 'https://youtu.be/Y2a16HAsHBE',
+  lectures: [
+    {
+      courseSubject: 'Introduction',
+      courseVideo: 'https://youtu.be/Y2a16HAsHBE',
+      resource: 'file.pdf',
+    },
+    {
+      courseSubject: 'Marketing',
+      courseVideo: 'https://youtu.be/Y2a16HAsHBE',
+      resource: 'file.pdf',
+    },
+    {
+      courseSubject: 'Digital Marketing',
+      courseVideo: 'https://youtu.be/Y2a16HAsHBE',
+      resource: 'file.pdf',
+    },
+  ],
 };
 
 export const getCourses = async (currentPage) => {
-  //      let res = await request(``, 'Get');
   let arr = [];
-  arr.push(
-    ...initialCourses.slice(
-      0,
-      currentPage * numberCoursesToShow + numberCoursesToShow
-    )
-  );
-
+  try {
+    const resp = await axios.get(Base_URL + 'Courses/getAll');
+    console.log(resp.data);
+    arr.push(...resp.data.slice(0, currentPage * numberCoursesToShow));
+  } catch (err) {}
   return arr;
 };
 
-let data = [];
+export const getFilteredCourses = async (filterArr) => {
+  let allCourses = await getCourses(1);
+  console.log(allCourses)
+  let filteredCourses = [];
+  if (filterArr.length <= 0) {
+    return allCourses
+  }
 
+  for (let i = 0; i < filterArr.length; i++) {
+    allCourses
+      .filter((course) => course.categoryName.includes(filterArr[i]))
+      .map((fc) => filteredCourses.push(fc));
+  }
+  return filteredCourses;
+};
+
+let data = [];
 export const courseDetailsContent = (courseId) => {
-  return axios.get(API_URL +`?id=${courseId}`
-  )
-  .then((response) => {
+  return axios.get(API_URL + `?id=${courseId}`).then((response) => {
     data = [];
     data.push(response.data);
     return data;

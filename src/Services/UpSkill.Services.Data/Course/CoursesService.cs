@@ -25,8 +25,8 @@
     {
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
-        private readonly IRepository<UserInCourse> usersInCourses; 
-        private readonly IRepository<CourseLecture> courseLectures; 
+        private readonly IRepository<UserInCourse> usersInCourses;
+        private readonly IRepository<CourseLecture> courseLectures;
         private readonly IDeletableEntityRepository<Course> courses;
         private readonly IFileService fileService;
 
@@ -195,9 +195,17 @@
               .ToListAsync();
 
         public async Task<IEnumerable<TModel>> GetAllAsync<TModel>()
+        => await this.courses
+            .AllAsNoTracking()
+            .To<TModel>()
+            .ToListAsync();
+
+        public async Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>()
             => await this.courses
                 .AllAsNoTracking()
-                .To<TModel>()
+                .Include(c => c.Category)
+                .Select(x => x.Category.Name)
+                .Distinct()
                 .ToListAsync();
 
         public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
@@ -206,6 +214,6 @@
                          .Where(c => c.CourseId == id)
                          .Include(c => c.Lecture.Lessons)
                          .To<TModel>()
-                         .FirstOrDefaultAsync();
+                        .FirstOrDefaultAsync();
     }
 }

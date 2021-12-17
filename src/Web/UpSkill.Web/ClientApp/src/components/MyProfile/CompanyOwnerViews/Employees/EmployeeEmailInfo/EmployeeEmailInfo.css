@@ -15,6 +15,7 @@
 .cell-Employees-Courses{
     color: #fff!important;
     font-size: 1.4rem!important;
+    font-family: Montserrat;
 }
 
 .cell-Employees-Courses i{
@@ -36,7 +37,6 @@
     color: black!important;    
     font-weight: 100!important;
 }
-
 
 .limiter {
     width: 100%;
@@ -175,7 +175,6 @@
     .table{
         align-items: center;
     }
-
 
     .header-EmployeeCourse{
         display: flex;

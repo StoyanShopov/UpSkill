@@ -141,6 +141,8 @@
             public const string GetCountRoute = "count";
 
             public const string NewCoach = "newCoach";
+
+            public const string GetAllCategories = "categories";
         }
 
         public class MessagesConstants
