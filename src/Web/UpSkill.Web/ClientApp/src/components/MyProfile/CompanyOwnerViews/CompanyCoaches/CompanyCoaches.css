@@ -1,0 +1,42 @@
+.coachesContainer {
+    display:inline-flex ;
+    max-width: 100% ;
+    flex-wrap:wrap;
+    flex-direction :row;
+     justify-content:space-between;
+    margin-top:20px;
+}
+.buttonContainer{
+    margin-top:50px;
+    position:relative;
+    justify-content: end;
+    float: right;
+}
+.cardButton{
+    display: block;
+    margin-top: 10px;
+    margin-bottom:20px;
+    color: white;
+    position: relative;
+    border: none;
+    border-radius: 0px;
+    width: 130px;
+    height: 50px;
+    background: #296CFB 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.owner-manage-btn{
+    border-radius: 0px;
+    width: 130px;
+    height: 50px;
+}
+
+.alignCompanyCoachesContentBox{
+    width: 400px;
+    height: 400px;    
+}
+
+.square-button{
+    border-radius: 0px;
+}

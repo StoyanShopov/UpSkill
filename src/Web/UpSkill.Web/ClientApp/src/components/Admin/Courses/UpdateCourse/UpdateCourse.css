@@ -1,0 +1,91 @@
+.update-course-container {
+  width: 40rem;
+  height: fit-content;
+  display: inline-block;
+  background: white 0% 0% no-repeat padding-box;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.update-form-container {
+  /* margin-top: -3rem; */
+  /* top: 185px;
+    margin-left: 30%; */
+  width: 40rem;
+  height: fit-content;
+  background: transparent 0% 0% no-repeat padding-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: -3rem;
+}
+
+.btn-update-course-container {
+  width: 100%;
+  flex-direction: inline;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 70px;
+}
+
+.UpdateCloseBtn {
+  position: relative;
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.update-x-btn {
+  margin-right: 20px;
+  margin-bottom: -20px;
+  color: white;
+  font-size: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.update-input-style {
+  width: 30rem;
+  height: 3rem;
+  border: 2px solid #296cfb;
+  opacity: 1;
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.update-course-header {
+  margin-top: 1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  background-color: white;
+}
+
+.cancel-button {
+  margin-right: 10px;
+  width: 120px;
+  border-radius: 0px;
+}
+
+.submit-button {
+  margin-left: 10px;
+  width: 120px;
+  border-radius: 0px;
+}
+
+Select {
+  border: none;
+}

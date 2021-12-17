@@ -1,0 +1,106 @@
+.create-course-container {
+  /* margin-top: 10rem; */
+  /* margin-left: 30%; */
+  /* height:650px; */
+  width: 40rem;
+  height: fit-content;
+  display: inline-block;
+  background: white 0% 0% no-repeat padding-box;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form-container {
+  margin-top: 0rem;
+  /* top: 185px;
+  margin-left: 30%; */
+  width: 40rem;
+  height: fit-content;
+  background: white 0% 0% no-repeat padding-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.create-form-header {
+  width: 100%;
+  height: 100px;
+  background: #296cfb 0% 0% no-repeat padding-box;
+  margin-bottom: 30px;
+}
+
+.create-form-header-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.CreateCloseBtn {
+  position: relative;
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create-course-the-xbtn {
+  margin-right: 20px;
+  margin-bottom: -20px;
+  color: white;
+  font-size: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* .form-container {
+  margin-top: 30px;
+  top: 185px;
+  margin-left: 30%;
+  width: 500px;
+  height: 500px;
+  background: white 0% 0% no-repeat padding-box;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+} */
+
+.input-style {
+  width: 30rem;
+  height: 3rem;
+  border: 2px solid #296cfb;
+  opacity: 1;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.btn-custom {
+  color: white;
+  width: 250px;
+  height: 50px;
+  background: #296cfb 0% 0% no-repeat padding-box;
+  opacity: 1;
+  border: none;
+}
+
+.create-course-form-errors {
+  color: "red";
+  margin-left: "15px";
+  margin-top: "-0.5rem";
+}
+
+.btn-createcourse-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}

@@ -1,0 +1,139 @@
+.courses-Card {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  /* display: inline-block; */
+  box-shadow: 0px 3px 10px #00000029;
+  opacity: 1;
+  background-color: #ffffff00 0% 0% no-repeat padding-box;
+  width: 430px; 
+  height: 430px;
+  text-align: center;
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.courses-image-wrapper {
+  width: 100%;
+  height: 233px;
+  background: transparent
+    url("../../../../assets/img/courses/Rectangle 1221.png") 100% 100% no-repeat
+    padding-box;
+  background-size: cover;
+  display: flex;
+  font: normal normal medium 22px/30px Montserrat;
+  justify-content: center;
+  align-items: center;
+  /* cursor: pointer; */
+  /* opacity: 0.9;    */
+}
+
+.course-logo {
+  display: flex;
+  justify-content: end;
+}
+
+.btn-wrapper {
+  font: normal normal bold 18px/22px Montserrat;
+  letter-spacing: 0.9px;
+  color: #ffffff;
+  align-items: center;
+  display: flex;
+  flex-direction: inline;
+}
+
+.courses-content {
+  display: flex;
+  padding: 35px;
+  justify-content: space-between;
+  /* height: 6rem; */
+  width: 450px;
+}
+
+.courses-cardButton {
+  width: 125px;
+  height: 40px;
+  margin: 15px;
+  color: white;
+  border: none;
+  background: #296cfb 0% 0% no-repeat padding-box;
+}
+
+.courses-Field {
+  font: normal normal bold 18px/22px Arial;
+  display: flex;
+  justify-content: start;
+  cursor: pointer;
+}
+
+.coursesfullName {
+  display: flex;
+  /* position: relative; */
+  text-align: end;
+  margin-left: 2rem;
+  font: normal normal 18px/22px Montserrat;
+  letter-spacing: 0.7px;
+}
+.courses-coachType {
+  margin-top: 10px;
+  display: block;
+  font: normal normal medium 18px/22px Montserrat;
+  letter-spacing: 0.9px;
+  color: #000000;
+}
+.courses-coachPrice {
+  display:flex;
+  justify-content: start;
+  color: #296cfb;
+  letter-spacing: 1.1px;
+  font: normal normal medium 22px/27px Montserrat;
+  font-weight: bold;
+}
+
+.courseInfo {
+  display: block;
+  justify-content: left;
+  align-items: flex-start;
+}
+
+.courses-image-title {
+  position: absolute;
+  text-transform: uppercase;
+  font-size: xx-large;
+  color: white; 
+  /* text-shadow: 0 0 2px black; */
+  text-align: right;
+  font: normal normal 800 3rem/10rem Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.admin-course-btn-wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+.courses-image{
+  width: 100%;
+  height: 233px;
+  position: relative;  
+}
+
+.edit-course-img-wrp {
+  width: 430px;  
+  height: 233px;
+  position: absolute;
+  padding: 20px;
+  display: flex;
+  justify-content: end;
+}
+
+.edit-course-img {
+  width: 50px;
+  height: 50px;
+  background: transparent url("../../../../assets/Group\ 88.png") 0% 0%
+    no-repeat padding-box;
+  cursor: pointer;
+}

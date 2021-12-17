@@ -1,0 +1,24 @@
+.myProfile-courses-list{
+  column-count: 2;
+  display: flex;
+  justify-content: space-between; 
+  margin-top: -8rem;
+  --bs-gutter-x: -3rem;
+  padding-left: 110px;
+}
+
+.courses-cardButton{
+  margin:1rem 2rem;
+  padding: .5rem 2rem;
+  font-weight: bolder;
+  border-radius: 0px;
+}
+
+@media screen and (max-width: 500px) {
+  .courses-list{
+      flex-direction: column; 
+      display: flex;
+      justify-content: center;
+      --bs-gutter-x: 0rem;
+  }
+}
