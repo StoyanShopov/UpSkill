@@ -16,6 +16,7 @@ export default function CoachesCard(props) {
     displaySession,
     displayPrice,
     isInCompany,
+    openDetails,
     coachDetails: {
       coachFirstName,
       coachLastName,
@@ -34,6 +35,13 @@ export default function CoachesCard(props) {
 
     return "coaches-Card";
   };
+
+  function canOpenDetails() {
+    if (isCompanyOwner || isEmployee) {
+      return "coaches-image-wrapper cursor-pointer";
+    }
+    return "coaches-image-wrapper";
+  }
 
   function isImageNull() {
     if (!coachFileFilePath) {
@@ -73,7 +81,16 @@ export default function CoachesCard(props) {
 
   return (
     <div className={decideCardBackgroundColor()}>
-      <div className="coaches-image-wrapper">{isImageNull()}</div>
+      <div
+        className={canOpenDetails()}
+        onClick={() => {
+          if (!isAdmin) {
+            props.openDetails(props.coachDetails);
+          }
+        }}
+      >
+        {isImageNull()}
+      </div>
       <div className="coaches-content w-75">
         <div className="coachInfo d-flex justify-content-between mt-3">
           <span className="coaches-coachField">{coachField}</span>

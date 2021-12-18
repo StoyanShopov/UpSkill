@@ -78,6 +78,7 @@ export default function CoachList() {
       </div>
       <div className="coachesContainer">
         {coaches.map((coach) => (
+          <div className="col-sm-5 text-align-center" key={coach.id}>
           <CoachesCard
             key={coach.id}
             coachDetails={coach}
@@ -107,6 +108,7 @@ export default function CoachList() {
             )}
             <RequestCoach trigger={openRequest} closeModal={setOpenRequest} />
           </CoachesCard>
+          </div>
         ))}
         {areCoachesOdd() && (
           <div className="alignCompanyCoachesContentBox">

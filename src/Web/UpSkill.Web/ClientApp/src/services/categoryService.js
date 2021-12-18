@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { Base_URL } from '../utils/baseUrlConstant';
 
-const token = localStorage.getItem('token');
-
 const categoriesMock = [
   'Art',
   'Design',
@@ -38,6 +36,7 @@ export const getCourseCategories = async () => {
 };
 
 export const getCategoriesForCourses = async () => {
+  let token = localStorage.getItem("token");
   try {
     const resp = await axios.get(Base_URL + 'Admin/Categories/getAll', {
       headers: { Authorization: `Bearer ${token}` },

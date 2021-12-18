@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import UserProfilePic from "../../../assets/userProfilePic.png";
 import GoogleLogo from "../../../assets/img/courses/Image 39.png";
-import "./DetailsModal.css";
+import "./CoachDetails.css";
 
-function DetailsModal(props) {
+function CoachDetails(props) {
   const [title, setTitle] = useState("");
   const [coachName, setCoachName] = useState("");
   const [description, setDescription] = useState("");
+  const [filePath, setFilePath]= useState("")
   let { closeModal } = props;
 
   useEffect(() => {
     setDescription(localStorage.getItem("Description"));
-    setTitle(localStorage.getItem("Title"));
-    setCoachName(localStorage.getItem("FullName"));
+    setTitle(localStorage.getItem("Field"));
+    setCoachName(
+      localStorage.getItem("FirstName") + " " + localStorage.getItem("LastName")
+    );
+    setFilePath(localStorage.getItem("FilePath"))
   }, []);
 
   return (
     <div className="detailsModal-background">
       <div className="detailsModal-courses-container">
-        <div className="detailsModal-courses-header">
+        <div
+          className="detailsModal-courses-header"
+          style={{ background: "#16D696" }}
+        >
           <div className="titleCloseBtn">
             <button className="the-x-btn" onClick={() => closeModal(false)}>
               X
@@ -30,11 +35,11 @@ function DetailsModal(props) {
               <h3>{title}</h3>
             </div>
             <div className="row detailsModal-coach-info">
-              <div className="col-2 detailsModal-courses-img-coach-wrapper">
+              <div className="col-2 detailsModal-coach-img-coach-wrapper">
                 <img
-                  src={UserProfilePic}
+                  src={filePath}
                   alt="User"
-                  className="img-fluid rounded detailsModal-courses-img-coach"
+                  className="detailsModal-coach-img-coach"
                 ></img>
               </div>
               <div className="col-2 detailsModal-courses-coach-name-wrapper">
@@ -48,9 +53,13 @@ function DetailsModal(props) {
           </div>
         </div>
         <div className="detailsModal-courses-body">
-          <h3 className="course-description-header">Course Description</h3>
+          <h3 className="course-description-header">Session Description</h3>
           <div className="row detailsModal-courses-description">
-            <p>{description}</p>
+            <p>
+              In this session, you will learn the fundamental language skills of
+              reading, writing, speaking, listening, thinking, viewing and
+              presenting.
+            </p>
           </div>
           <div className="row detailsModal-rating">
             <div className="detailsModel-courses-willlearn-course-body">
@@ -58,7 +67,7 @@ function DetailsModal(props) {
                 What you'll learn
               </h3>
               <p className="courses-more-information">
-                <ul className="willlearn-list">
+                <ul className="willlearn-list-coach">
                   <li>Learn more information about Digital Marketing</li>
                   <li>Improve your time management</li>
                   <li>Solve problems</li>
@@ -86,14 +95,14 @@ function DetailsModal(props) {
             <div className="detailsModel-courses-image-course"></div>
             <div className="detailsModel-courses-img-course-body">
               <h4 className="courses-more-information-header">
-                This course includes
+                This session includes
               </h4>
               <p className="courses-more-information">
-              <ul className="short-includes-info">
-                  <li className="hours-video">23 hours on-demand video</li>
-                  <li className="lectures-count">36 lectures</li>
+                <ul className="short-includes-info">
+                  <li className="min-discussion">20 minutes discussion</li>
+                  <li className="lectures-count">23 downloadable resources</li>
                   <li className="lifetime-access">Full lifetime access</li>
-                  <li className="certification">Certificate of completion</li>
+                  <li className="access-mobile">Access on mobile</li>
                 </ul>
               </p>
             </div>
@@ -104,4 +113,4 @@ function DetailsModal(props) {
     </div>
   );
 }
-export default DetailsModal;
+export default CoachDetails;

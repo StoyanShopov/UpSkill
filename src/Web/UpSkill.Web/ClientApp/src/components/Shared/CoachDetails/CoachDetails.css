@@ -1,0 +1,36 @@
+.willlearn-list-coach li {
+  list-style-type: none;
+}
+
+.willlearn-list-coach li:before {
+  content: "\25A0";
+  color: #16d696;
+  list-style-type: square;
+  display: inline-block;
+  width: 1.5em;
+  margin-left: -1.5em;
+}
+
+.detailsModal-coach-img-coach {
+  width: 150%;
+  height: 100%;
+  margin-left: -1rem;  
+}
+
+.detailsModal-coach-img-coach-wrapper {
+  border-radius: 50%;
+  width: 6rem;
+  height: 6rem;
+  margin-right: 3rem;
+  background-color: white;
+  overflow: hidden;
+}
+
+.min-discussion {
+    list-style-image: url("../../../assets/Group 101.png");
+  }
+  
+  .access-mobile {
+    list-style-image: url("../../../assets/Group 100.png");
+  }
+  

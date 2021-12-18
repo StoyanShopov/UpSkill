@@ -4,11 +4,10 @@ import { Base_URL } from '../utils/baseUrlConstant';
 const EMP_API_URL = Base_URL + 'Employee/Courses/';
 const OWN_API_URL = Base_URL + 'Owner/Employee/';
 
-const token = localStorage.getItem('token');
-
 let data = [];
 
 export const getCourses = (course) => {
+  let token = localStorage.getItem("token");
   return axios
     .get(
       EMP_API_URL + 'getAll',
@@ -46,6 +45,7 @@ export const getEmployeesTotalCountCompanyOwner = async (uId) => {
 };
 
 export const getAllEmployees = async (employee) => {
+  let token = localStorage.getItem("token");
   return await axios
     .get(
       OWN_API_URL + 'getAllEmployees',
@@ -65,6 +65,7 @@ export const removeEmployeeHandler = async (id) => {
 };
 
 export const getEmployee = async () => {
+  let token = localStorage.getItem("token");
   return await axios
     .get(
       Base_URL + 'Employee/Employees',
@@ -81,6 +82,7 @@ export const updateEmployee = async (id, firstName, lastName, file, description)
   fd.append("LastName", lastName);
   fd.append("ProfileSummary", description);
   fd.append("File",  file,);
+  let token = localStorage.getItem("token");
   try {
     const resp = await axios.put(
       Base_URL + `Employee/Employees?id=${id}`,

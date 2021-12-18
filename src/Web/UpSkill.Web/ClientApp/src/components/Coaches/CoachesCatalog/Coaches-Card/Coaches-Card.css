@@ -4,8 +4,8 @@
   box-shadow: 0px 3px 10px #00000029;
   opacity: 1;
   background: #e8fbf5 0% 0% no-repeat padding-box;
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
   text-align: center;
   align-items: center;
   display: flex;
@@ -13,8 +13,8 @@
 }
 
 .coaches-image {
-  width: 390px;
-  height: 260px;
+  width: 415px;
+  height: 296px;
   position: relative;
   top: -3rem;
 }
@@ -24,9 +24,13 @@
   height: 284px;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .coaches-image-wrapper-bg {
   background-color: #1cc18a;
-  height: 212px;
+  height: 248px;
 }
 
 .btn-wrapper {
@@ -70,8 +74,8 @@
 }
 
 .edit-coach-img-wrp {
-  margin-top: -260px;
-  width: 400px;
+  margin-top: -294px;
+  width: 450px;
   position: absolute;
   padding: 20px;
   display: flex;

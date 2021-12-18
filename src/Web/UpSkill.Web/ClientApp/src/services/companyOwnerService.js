@@ -1,7 +1,6 @@
 import { Base_URL } from '../utils/baseUrlConstant';
 import axios from "axios"; 
 
-const token = localStorage.getItem( "token" );
 const invoiceStatus = "Pending";
 const dueDate = "30.09.2021";
 
@@ -42,9 +41,9 @@ export const getSubscriptionsForCompanyOwner = async ( uId, currentMonth ) => {
    return [month.name, month.courses, month.totalForMonth];
 }
 
-export const addEmployee = async ( fullName, email, position ) => {
-    
-    const employee= {
+export const addEmployee = async ( fullName, email,position) => {    
+  let token = localStorage.getItem("token");
+  const employee= {
         fullName,
         email,
         position

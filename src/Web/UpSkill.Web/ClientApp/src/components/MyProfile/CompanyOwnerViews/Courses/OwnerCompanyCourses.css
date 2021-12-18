@@ -1,43 +1,47 @@
 #sidebar {
-    min-width: 380px;
-    max-width: 380px;
+  min-width: 380px;
+  max-width: 380px;
 }
 
 #sidebar.active {
-    margin-left: -250px;
+  margin-left: -250px;
 }
 
-#btn{
-    width: 150px;
-    height: 50px;
-    border-radius: 0px;
+#btn {
+  width: 150px;
+  height: 50px;
+  border-radius: 0px;
 }
 
 #buttonContainer {
-    border: none;
-    padding: 16px 32px;
-    display: inline-block;
-    margin: 4px 2px;
-    margin-left: 98.6%;
-    margin-top: 12%;
-    margin-bottom: 9%;
-    transition-duration: 0.4s;
-    cursor: pointer;
-  }
-
-  #manageButtonText{
-    font: normal normal bold 18px Montserrat;
-    letter-spacing: 1.1px;
-    margin-top: 8px;
-    text-align: center;
-    color: #white;
-    opacity: 1;
-  }
-
-  #buttonContainer hover{
-    background-color: #296CFB;
-    color: white;
-  }
-
-@media screen and (max-width: 600px){
+  border: none;
+  padding: 16px 32px;
+  display: inline-block;
+  margin: 4px 2px;
+  margin-left: 88%;
+  margin-top: 12%;
+  margin-bottom: 9%;
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
+
+#manageButtonText {
+  font: normal normal bold 18px Montserrat;
+  letter-spacing: 1.1px;
+  margin-top: 8px;
+  text-align: center;  
+  opacity: 1;
+}
+
+#buttonContainer hover {
+  background-color: #296cfb;
+  color: white;
+}
+
+@media screen and (max-width: 1500px) {
+  #buttonContainer{
+    margin-left: 60%;
+  }
+}
+
+
