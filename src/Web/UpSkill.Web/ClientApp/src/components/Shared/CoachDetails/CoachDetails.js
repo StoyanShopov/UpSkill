@@ -6,10 +6,10 @@ function CoachDetails(props) {
   const [title, setTitle] = useState("");
   const [coachName, setCoachName] = useState("");
   const [description, setDescription] = useState("");
-  const [filePath, setFilePath]= useState("")
+  const [filePath, setFilePath] = useState("");
   let { closeModal } = props;
 
-  function isInProfile(){
+  function isInProfile() {
     if (props.inProfile) {
       return "coach-detailsModal-background-inProfile";
     }
@@ -22,7 +22,7 @@ function CoachDetails(props) {
     setCoachName(
       localStorage.getItem("FirstName") + " " + localStorage.getItem("LastName")
     );
-    setFilePath(localStorage.getItem("FilePath"))
+    setFilePath(localStorage.getItem("FilePath"));
   }, []);
 
   return (

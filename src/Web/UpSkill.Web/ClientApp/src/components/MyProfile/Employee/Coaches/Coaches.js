@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { PopupButton } from "react-calendly";
 import CoachesCard from "../../../Coaches/CoachesCatalog/Coaches-Card/Coaches-Card";
-import { getCoaches } from "../../../../services/EmployeeCoachService";
+import {
+  getCoaches,
+  setCoachNotNew,
+} from "../../../../services/EmployeeCoachService";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
 import CoachDetails from "../../../Shared/CoachDetails/CoachDetails";
+import { Button } from "react-bootstrap";
 
 export default function CoachList() {
   const [coaches, setCoaches] = useState([]);
@@ -38,7 +42,15 @@ export default function CoachList() {
     localStorage.setItem("CalendlyUrl", calendlyUrl);
   };
 
-  function onOpenDetails(coach) {
+  function onOpenDetails(coach, e) {
+    e.preventDefault();
+    if (coach.isNew) {
+      setCoachNotNew(coach.id).then(() => {
+        getCoaches(initialPageCoaches).then((coaches) => {
+          setCoaches(coaches);
+        });
+      });
+    }
     setData(coach);
     setIsOpenCoachDetails(true);
     disableBodyScroll();
@@ -56,6 +68,43 @@ export default function CoachList() {
     localStorage.removeItem("CalendlyUrl");
   }
 
+  function buttonToshow(coach) {
+    if (!coach.isNew) {
+      return (
+        <PopupButton
+          className="btn btn-primary button"
+          url={coach.coachCalendlyUrl}
+          text="Book"
+          pageSettings={{
+            backgroundColor: "ffffff",
+            hideEventTypeDetails: true,
+            hideGdprBanner: true,
+            hideLandingPageDetails: true,
+            primaryColor: "00a2ff",
+            textColor: "4d5055",
+          }}
+          prefill={{
+            email: employee.email,
+            firstName: "",
+            lastName: "",
+            name: employee.unique_name,
+          }}
+        ></PopupButton>
+      );
+    } else {
+      return (
+        <Button className="button">
+          <p
+            className="cardButtonText"
+            onClick={(e) => onOpenDetails(coach, e)}
+          >
+            New Slot
+          </p>
+        </Button>
+      );
+    }
+  }
+
   useEffect(() => {
     getCoaches(initialPageCoaches).then((coaches) => {
       if (coaches) {
@@ -65,9 +114,10 @@ export default function CoachList() {
     const user = JSON.parse(localStorage.getItem("user"));
     setEmployee(user);
   }, []);
-  
+
   return (
     <div className="content main-content">
+      {console.log(coaches)}
       <div className="coachesContainer">
         {coaches.map((coach) => (
           <div className="col-sm-5 text-align-center" key={coach.id}>
@@ -76,28 +126,10 @@ export default function CoachList() {
               coachDetails={coach}
               displaySession={false}
               displayPrice={true}
-              isInCompany={true}
+              isInCompany={!coach.isNew}
               openDetails={onOpenDetails}
             >
-              <PopupButton
-                className="btn btn-primary button"
-                url={coach.coachCalendlyUrl}
-                text="Book"
-                pageSettings={{
-                  backgroundColor: "ffffff",
-                  hideEventTypeDetails: true,
-                  hideGdprBanner: true,
-                  hideLandingPageDetails: true,
-                  primaryColor: "00a2ff",
-                  textColor: "4d5055",
-                }}
-                prefill={{
-                  email: employee.email,
-                  firstName: "",
-                  lastName: "",
-                  name: employee.unique_name,
-                }}
-              ></PopupButton>
+              {buttonToshow(coach)}
             </CoachesCard>
           </div>
         ))}

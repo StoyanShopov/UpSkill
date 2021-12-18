@@ -5,7 +5,7 @@
     using UpSkill.Data.Models;
     using UpSkill.Services.Mapping;
 
-    public class CoursesListingModel : IMapFrom<Course>, IHaveCustomMappings
+    public class EmployeeCoursesListingModel : IMapFrom<Course>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -25,7 +25,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<CompanyCourse, CoursesListingModel>()
+            configuration.CreateMap<UserInCourse, EmployeeCoursesListingModel>()
                 .ForMember(
                 c => c.Id,
                 c => c.MapFrom(c => c.CourseId));

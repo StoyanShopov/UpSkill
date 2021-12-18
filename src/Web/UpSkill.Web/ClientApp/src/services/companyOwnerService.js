@@ -41,7 +41,7 @@ export const getSubscriptionsForCompanyOwner = async ( uId, currentMonth ) => {
    return [month.name, month.courses, month.totalForMonth];
 }
 
-export const addEmployee = async ( fullName, email,position) => {    
+export const addEmployee = async ( fullName, email, position) => {    
   let token = localStorage.getItem("token");
   const employee= {
         fullName,

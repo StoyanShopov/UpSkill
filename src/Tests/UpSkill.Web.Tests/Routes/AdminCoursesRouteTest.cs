@@ -18,6 +18,15 @@
            .WithMethod(HttpMethod.Post))
            .To<CoursesController>(c => c.Create(With.Any<CreateCourseViewModel>()));
 
+        //[Fact]
+        //public void PostAddCompanyShouldBeRouteCorrectly()
+        //   => MyRouting
+        //   .Configuration()
+        //   .ShouldMap(request => request
+        //   .WithLocation(TestPostAddCompanyRouteAdminCourses)
+        //   .WithMethod(HttpMethod.Post))
+        //   .To<CoursesController>(c => c.AddCompany(With.Any<AddCompanyToCourseViewModel>()));
+
         [Fact]
         public void PutEditShouldBeRouteCorrectly()
            => MyRouting

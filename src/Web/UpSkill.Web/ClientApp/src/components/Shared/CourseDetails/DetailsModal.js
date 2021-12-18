@@ -10,6 +10,14 @@ function DetailsModal(props) {
   const [description, setDescription] = useState("");
   let { closeModal } = props;
 
+  function isInProfile() {
+    console.log(props.isInProfile);
+    if (props.inProfile) {
+      return "detailsModal-background-inProfile";
+    }
+    return "detailsModal-background";
+  }
+
   useEffect(() => {
     setDescription(localStorage.getItem("Description"));
     setTitle(localStorage.getItem("Title"));
@@ -17,7 +25,7 @@ function DetailsModal(props) {
   }, []);
 
   return (
-    <div className="detailsModal-background">
+    <div className={isInProfile()}>
       <div className="detailsModal-courses-container">
         <div className="detailsModal-courses-header">
           <div className="titleCloseBtn">
@@ -89,7 +97,7 @@ function DetailsModal(props) {
                 This course includes
               </h4>
               <p className="courses-more-information">
-              <ul className="short-includes-info">
+                <ul className="short-includes-info">
                   <li className="hours-video">23 hours on-demand video</li>
                   <li className="lectures-count">36 lectures</li>
                   <li className="lifetime-access">Full lifetime access</li>

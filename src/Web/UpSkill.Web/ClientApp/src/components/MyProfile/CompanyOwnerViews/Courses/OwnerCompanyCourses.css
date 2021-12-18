@@ -29,7 +29,7 @@
   font: normal normal bold 18px Montserrat;
   letter-spacing: 1.1px;
   margin-top: 8px;
-  text-align: center;  
+  text-align: center;
   opacity: 1;
 }
 
@@ -39,9 +39,14 @@
 }
 
 @media screen and (max-width: 1500px) {
-  #buttonContainer{
+  #buttonContainer {
     margin-left: 60%;
   }
 }
 
-
+.ownerProfile-wrapper-coursesCatalog {
+  display: flex;
+  align-items: stretch;
+  margin-top: 2em;
+  margin-left: 7.5em;
+}

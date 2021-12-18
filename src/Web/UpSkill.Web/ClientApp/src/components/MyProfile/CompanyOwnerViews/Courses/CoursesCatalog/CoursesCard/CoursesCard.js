@@ -12,22 +12,30 @@ function CourseCard(props) {
     courseCoachLastName,
     courseFileFilePath,
     coursePrice,
+    courseDescription,
     companyLogo,
-    isDetailsOpen,
-    getDetails,
   } = props.coursesDetails;
 
+  const fullName = courseCoachFirstName + " " + courseCoachLastName;
+
+  const setCourseCardBackGround = () => {
+    if (props.isActive) {
+      return "ownerCardContainer blueCard";
+    }
+    return "ownerCardContainer";
+  };
+
   return (
-    <div className="ownerCardContainer">
-      <div className="coursesImageWrapper">
-        <div
-          className="coursesImage"
-          /* onClick = {() => {
-                         isDetailsOpen(true);
-                         getDetails({ id, courseTitle });
-                        }} 
-                    */
-        >
+    <div className={setCourseCardBackGround()}>
+      {console.log(props.coursesDetails)}
+      <div
+        className="coursesImageWrapper"
+        onClick={() => {
+          props.closeMoadal(true);
+          props.getDetails({ id, fullName, courseTitle, courseDescription });
+        }}
+      >
+        <div className="coursesImage">
           <img
             src={courseFileFilePath}
             alt="courses"

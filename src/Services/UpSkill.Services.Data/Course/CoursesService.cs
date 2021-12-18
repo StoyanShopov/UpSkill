@@ -184,10 +184,10 @@
         }
 
         public async Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id)
-            => await this.courses
-                .AllAsNoTracking()
-                .Where(x => x.Id == id)
-                .FirstOrDefaultAsync();
+        => await this.courses
+            .AllAsNoTracking()
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
 
         public async Task<ICollection<UserInCourse>> GetAllUsersInCourse(int id) => await this.usersInCourses
               .AllAsNoTracking()

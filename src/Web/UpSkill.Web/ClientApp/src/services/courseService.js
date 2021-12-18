@@ -74,7 +74,7 @@ const DetailsContent = {
 export const getCourses = async (currentPage) => {
   let arr = [];
   try {
-    const resp = await axios.get(Base_URL + 'Courses/getAll');
+    const resp = await axios.get(Base_URL + "Courses/getAll");
     console.log(resp.data);
     arr.push(...resp.data.slice(0, currentPage * numberCoursesToShow));
   } catch (err) {}

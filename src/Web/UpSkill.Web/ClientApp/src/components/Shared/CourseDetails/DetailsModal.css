@@ -7,8 +7,21 @@
   position: fixed;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding-top: 5rem;
+  align-items: flex-start;
+  padding-top: 6em;
+}
+
+.detailsModal-background-inProfile {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(200, 200, 200, 0.8);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15px;
 }
 
 .detailsModal-courses-container {
@@ -190,14 +203,14 @@
   justify-content: flex-end;
 }
 
-.willlearn-list li{
+.willlearn-list li {
   list-style-type: none;
 }
 
-.willlearn-list li:before{
+.willlearn-list li:before {
   content: "\25A0";
-  color:#296CFB;
-  list-style-type: square; 
+  color: #296cfb;
+  list-style-type: square;
   display: inline-block;
   width: 1.5em;
   margin-left: -1.5em;
