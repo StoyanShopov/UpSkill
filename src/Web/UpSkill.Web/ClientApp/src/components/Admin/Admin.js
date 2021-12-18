@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard";
 import Clients from "./Clients/Clients";
-import Revenue from "./Revenue/Revenue";
+import RevenueProfitTable from "./Dashboard/RevenueChart/RevenueProfitTable/RevenueProfitTable";
 import CompanyCoaches from "../MyProfile/CompanyOwnerViews/CompanyCoaches/CompanyCoaches";
 import CompanyOwnerSidebar from "../Shared/AdminCompanyOwnerSidebar/AdminCompanyOwnerSidebar";
 import AdminCourses from "./Courses/AdminCourses/AdminCourses";
@@ -9,7 +9,7 @@ import AdminCourses from "./Courses/AdminCourses/AdminCourses";
 const menuItems = [
   { name: "Dashboard", path: "/MyProfile", exact: true, component: Dashboard },
   { name: "Clients", path: "/MyProfile/Clients", exact: true, component: Clients },
-  { name: "Revenue", path: "/MyProfile/Revenue", exact: true, component: Revenue },
+  { name: "Revenue", path: "/MyProfile/Revenue", exact: true, component: RevenueProfitTable },
 ];
 
 export default function Admin() {

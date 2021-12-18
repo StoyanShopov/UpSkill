@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Base_URL } from "../utils/baseUrlConstant";
 
-const ADMIN_API_URL = Base_URL + 'Admin/Companies/';
+const ADMIN_API_URL = Base_URL + "Admin/Companies/";
 
 const token = localStorage.getItem("token");
 
@@ -34,21 +34,20 @@ export const getSliced = async (currentPage) => {
 
 export const getCompaniesEmails = async () => {
   return await axios
-  .get(
-    ADMIN_API_URL + 'getCompanyEmail',
-    { headers: { Authorization: `Bearer ${token}`}} 
-  )
-  .then((response) => {
-    clientsWithEmails = [];
-    response.data.map((x) => clientsWithEmails.push(x));
-    return clientsWithEmails;
-  })
-}
+    .get(ADMIN_API_URL + "getCompanyEmail", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      clientsWithEmails = [];
+      response.data.map((x) => clientsWithEmails.push(x));
+      return clientsWithEmails;
+    });
+};
 
 export const getAllClients = async (client) => {
   return await axios
     .get(
-      ADMIN_API_URL + 'getAll',
+      ADMIN_API_URL + "getAll",
       { headers: { Authorization: `Bearer ${token}` } },
       { client }
     )
@@ -69,19 +68,27 @@ export const removeClientHandler = async (id) => {
   return await axios.delete(Base_URL + `Admin/Companies?id=${id}`);
 };
 
-export const addClient = async ( name) => {
-    
-  const client= {
-      name,
-  }
+export const addClient = async (name) => {
+  const client = {
+    name,
+  };
 
   const response = [];
 
- await axios.post( Base_URL + "Admin/Companies",client,{headers: {"Authorization" : `Bearer ${token}`}})
- .then(res=> response.push(res.data))
- .catch(function (error) {
-   console.log(error);
- });
+  await axios
+    .post(Base_URL + "Admin/Companies", client, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => response.push(res.data))
+    .catch(function (error) {
+      console.log(error);
+    });
 
- return response;
-}
+  return response;
+};
+
+export const profitAdminMock = [
+  { id: '1', title: "Design", revenue: 10000, expenses: 2000, profit: 8000 },
+  { id: '2',  title: "Marketing", revenue: 5000, expenses: 2000, profit: 3000 },
+  { id: '3', title: "Management", revenue: 12000, expenses: 10000, profit: 2000 },
+];
