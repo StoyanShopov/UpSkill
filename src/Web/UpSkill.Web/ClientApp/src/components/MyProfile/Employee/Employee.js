@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import EmployeeSidebar from './EmployeeSidebar/EmployeeSidebar';  
 import Courses from './Courses/Courses'; 
-import CompanyCoaches from '../CompanyOwnerViews/CompanyCoaches/CompanyCoaches'; 
+import CompanyCoaches from './Coaches/Coaches'; 
 import Dashboard from  './Dashboard/Dashboard';
 import Grades from './Grades/Grades';
 

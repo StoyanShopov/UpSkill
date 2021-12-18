@@ -18,6 +18,8 @@
 
         public string CoachFileFilePath { get; set; }
 
+        public string CoachCalendlyUrl { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<CompanyCoach, OwnerCoachesListingModel>()

@@ -9,6 +9,13 @@ function CoachDetails(props) {
   const [filePath, setFilePath]= useState("")
   let { closeModal } = props;
 
+  function isInProfile(){
+    if (props.inProfile) {
+      return "coach-detailsModal-background-inProfile";
+    }
+    return "coach-detailsModal-background";
+  }
+
   useEffect(() => {
     setDescription(localStorage.getItem("Description"));
     setTitle(localStorage.getItem("Field"));
@@ -19,7 +26,7 @@ function CoachDetails(props) {
   }, []);
 
   return (
-    <div className="detailsModal-background">
+    <div className={isInProfile()}>
       <div className="detailsModal-courses-container">
         <div
           className="detailsModal-courses-header"
