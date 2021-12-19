@@ -11,6 +11,7 @@
     using UpSkill.Web.ViewModels.Course;
 
     using static Common.GlobalConstants.ControllerRoutesConstants;
+    using static Common.GlobalConstants.ControllersResponseMessages;
 
     public class CoursesController : EmployeesBaseController
     {
@@ -26,6 +27,31 @@
             this.employeeService = employeeService;
             this.currentUser = currentUser;
             this.nlog = nlog;
+        }
+
+        [HttpPost]
+        [Route(AddEmployeeToCourseRoute)]
+        public async Task<ActionResult> AddEmployeeToCourseAsync(int courseId)
+        {
+            this.nlog.Info("Entering AddEmployeeToCourse action");
+
+            var result = await this.employeeService.AddCourseToEmoployeeAsync(courseId, this.currentUser.GetId());
+
+            if (result.Failure)
+            {
+                return this.BadRequest(result.Error);
+            }
+
+            return this.Ok(SuccesfullyAddedCourseToEmployee);
+        }
+
+        [HttpGet]
+        [Route(EnrolledCourses)]
+        public async Task<IEnumerable<EmployeeCoursesListingModel>> GetAllEmployeeCoursesAsync()
+        {
+            this.nlog.Info("Entering GetAllEmployeeCoursesAsync action");
+
+            return await this.employeeService.GetEmployeeCoursesAsync<EmployeeCoursesListingModel>(this.currentUser.GetId());
         }
 
         [HttpGet]

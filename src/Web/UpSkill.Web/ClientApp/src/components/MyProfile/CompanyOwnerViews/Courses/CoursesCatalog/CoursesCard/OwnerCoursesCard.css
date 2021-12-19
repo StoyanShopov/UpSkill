@@ -51,7 +51,7 @@
     padding-left: 50px;
   }
   
-  .cardText {
+  .myprofile-course-cardText{
     justify-content: space-between;
     font: normal normal normal 18px Montserrat;
     letter-spacing: 0.9px;
@@ -64,23 +64,27 @@
     margin-bottom: 2px;
   }
   
-  #course {
+  #myprofile-course {
     font-weight: bold;
     text-align: left;
-    padding-right: 50px;
+    width: 250px;
   }
   
-  #name {
+  #myprofile-name {
     font: normal normal medium 18px/22px Montserrat;
+    margin-right: -60px;
     letter-spacing: 0.9px;
-    color: #000000;
-    text-align: right;
+    color: #000000;    
+    display: flex;
+    justify-content: end;
     opacity: 1;
   }
   
-  #price {
+  #myprofile-price {
     color: #296CFB;
-    margin-right: 7px;
+    width: 200px;    
+    display: flex;
+    justify-content: start;
   }
   
   .coursesImageWrapper {
@@ -91,7 +95,7 @@
     font: normal normal medium 22px/30px Montserrat;
     justify-content: center;
     align-items: center; 
-    /* cursor: pointer; */
+    cursor: pointer;
     opacity: 1;
     position: relative;
   }

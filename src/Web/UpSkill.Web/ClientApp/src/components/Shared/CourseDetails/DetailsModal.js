@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import UserProfilePic from "../../../assets/userProfilePic.png";
 import GoogleLogo from "../../../assets/img/courses/Image 39.png";
 import "./DetailsModal.css";
@@ -6,18 +7,25 @@ import "./DetailsModal.css";
 function DetailsModal(props) {
   const [title, setTitle] = useState("");
   const [coachName, setCoachName] = useState("");
-  const [description, setDescription] = useState(""); 
-  let { closeModal} =  props;
+  const [description, setDescription] = useState("");
+  let { closeModal } = props;
 
-  useEffect(() => { 
+  function isInProfile() {
+    console.log(props.isInProfile);
+    if (props.inProfile) {
+      return "detailsModal-background-inProfile";
+    }
+    return "detailsModal-background";
+  }
+
+  useEffect(() => {
     setDescription(localStorage.getItem("Description"));
-    setTitle(localStorage.getItem("Title"));   
-    setCoachName(localStorage.getItem("FullName"));   
-
+    setTitle(localStorage.getItem("Title"));
+    setCoachName(localStorage.getItem("FullName"));
   }, []);
 
   return (
-    <div className="detailsModal-background">
+    <div className={isInProfile()}>
       <div className="detailsModal-courses-container">
         <div className="detailsModal-courses-header">
           <div className="titleCloseBtn">
@@ -53,7 +61,19 @@ function DetailsModal(props) {
             <p>{description}</p>
           </div>
           <div className="row detailsModal-rating">
-            <p className="courses-rating-header" >
+            <div className="detailsModel-courses-willlearn-course-body">
+              <h3 className="courses-more-information-header">
+                What you'll learn
+              </h3>
+              <p className="courses-more-information">
+                <ul className="willlearn-list">
+                  <li>Learn more information about Digital Marketing</li>
+                  <li>Improve your time management</li>
+                  <li>Solve problems</li>
+                </ul>
+              </p>
+            </div>
+            {/* <p className="courses-rating-header" >
               <b >Course rating</b>
             </p>
             <div>
@@ -68,23 +88,26 @@ function DetailsModal(props) {
                 </div>
                 <span className="review-count">12 Reviews</span>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="detailsModal-courses-image-course-wrapper">
-          <div className="detailsModel-courses-image-course"></div>
-          <div className="detailsModel-courses-img-course-body">
-            <h4 className="courses-more-information-header">What you'll learn</h4>
-            <p className="courses-more-information">
-              - Learn more information about Digital Marketing - Improve your
-              time management - Solve problems
-            </p>
-          </div>
-          <div className="modal-enroll-btn">
-            {props.children}
+            <div className="detailsModel-courses-image-course"></div>
+            <div className="detailsModel-courses-img-course-body">
+              <h4 className="courses-more-information-header">
+                This course includes
+              </h4>
+              <p className="courses-more-information">
+                <ul className="short-includes-info">
+                  <li className="hours-video">23 hours on-demand video</li>
+                  <li className="lectures-count">36 lectures</li>
+                  <li className="lifetime-access">Full lifetime access</li>
+                  <li className="certification">Certificate of completion</li>
+                </ul>
+              </p>
+            </div>
+            <div className="modal-enroll-btn">{props.children}</div>
           </div>
         </div>
-        </div>
-      
       </div>
     </div>
   );

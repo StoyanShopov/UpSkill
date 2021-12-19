@@ -26,6 +26,7 @@
         private readonly ICompanyService companiesService;
         private readonly IRepository<CompanyCourse> companyCourses;
         private readonly IRepository<UserInCourse> usersInCourses;
+        private readonly IRepository<CourseLecture> courseLectures;
         private readonly IDeletableEntityRepository<Course> courses;
         private readonly IFileService fileService;
 
@@ -36,6 +37,7 @@
             ICompanyService companiesService,
             IRepository<CompanyCourse> companyCourses,
             IRepository<UserInCourse> usersInCourses,
+            IRepository<CourseLecture> courseLectures,
             IDeletableEntityRepository<Course> courses,
             IFileService fileService)
         {
@@ -43,6 +45,7 @@
             this.companiesService = companiesService;
             this.companyCourses = companyCourses;
             this.usersInCourses = usersInCourses;
+            this.courseLectures = courseLectures;
             this.userManager = userManager;
             this.fileService = fileService;
         }
@@ -79,10 +82,10 @@
         }
 
         public async Task<TModel> GetByIdAsync<TModel>(int id)
-        => await this.courses.AllAsNoTracking()
-                             .Where(x => x.Id == id)
-                             .To<TModel>()
-                             .FirstOrDefaultAsync();
+            => await this.courses.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<TModel>()
+                .FirstOrDefaultAsync();
 
         public async Task<Result> EditAsync(EditCourseViewModel model, int id)
         {
@@ -196,5 +199,21 @@
             .AllAsNoTracking()
             .To<TModel>()
             .ToListAsync();
+
+        public async Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>()
+            => await this.courses
+                .AllAsNoTracking()
+                .Include(c => c.Category)
+                .Select(x => x.Category.Name)
+                .Distinct()
+                .ToListAsync();
+
+        public async Task<TModel> GetAggregatedCourseInfoAsync<TModel>(int id)
+            => await this.courseLectures
+                         .All()
+                         .Where(c => c.CourseId == id)
+                         .Include(c => c.Lecture.Lessons)
+                         .To<TModel>()
+                        .FirstOrDefaultAsync();
     }
 }

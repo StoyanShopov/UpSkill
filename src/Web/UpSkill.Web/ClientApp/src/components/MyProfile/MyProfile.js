@@ -40,8 +40,8 @@ function MyProfile() {
   if (isCompanyOwner) {
     return <CompanyOwner />;
   } else if (isEmployee) return <Employee />;
-  else if (isAdmin) return <Admin />;
-  else
+  else if (isAdmin)
+    return  <Admin />;  else
     return (
       <div className="container p-5 text-center vh-70">
         <h2 className="py-5">

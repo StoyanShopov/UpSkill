@@ -22,7 +22,7 @@ export default function AdminCourses() {
     let {
       id,
       title,
-      coachName,
+      coachName = data.coachFirstName + " " + data.coachLastName,
       coachId,
       categoryName,
       description,
@@ -87,7 +87,7 @@ export default function AdminCourses() {
   };
 
   useEffect(() => {
-    getCourses().then((courses) => {      
+    getCourses().then((courses) => {
       setCourses(courses);
     });
   }, []);

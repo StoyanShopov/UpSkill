@@ -1,6 +1,3 @@
-import { getCoachesNames } from "./coachService";
-import { getCategoriesForCourses } from "./categoryService";
-
 import { Base_URL } from "../utils/baseUrlConstant";
 
 const numberCoursesToShow = 6;
@@ -8,8 +5,6 @@ const numberCoursesToShow = 6;
 const axios = require("axios");
 
 const API_URL = Base_URL + "Admin/Courses";
-
-const token = localStorage.getItem("token");
 
 const initialCourses = [
   {
@@ -71,6 +66,7 @@ const initialCourses = [
 
 export const getCourses = async (currentPage) => {
   let arr = [];
+  let token = localStorage.getItem("token");
   const resp = await axios.get(API_URL + "/getAll", {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -86,6 +82,7 @@ export const getCourses = async (currentPage) => {
 };
 
 export const getCourseDetails = async (id) => {
+  let token = localStorage.getItem("token");
   try {
     const resp = await axios.get(API_URL + "/details?id=" + id, {
       headers: { Authorization: `Bearer ${token}` },
@@ -153,6 +150,7 @@ export const addCourses = async (course) => {
   fd.append("CoachId", course.coachId);
   fd.append("CategoryId", course.categoryId);
   fd.append("File", course.file);
+  let token = localStorage.getItem("token");
 
   try {
     const resp = await axios.post(API_URL, fd, {
@@ -163,6 +161,7 @@ export const addCourses = async (course) => {
 };
 
 export const updateCourses = async (course) => {
+  let token = localStorage.getItem("token");
   let fd = new FormData();
   fd.append("Title", course.title);
   fd.append("Description", course.description);
@@ -180,6 +179,7 @@ export const updateCourses = async (course) => {
 };
 
 export const deleteCourses = async (id) => {
+  let token = localStorage.getItem("token");
   try {
     const resp = await axios.delete(API_URL + "?id=" + id, {
       headers: { Authorization: `Bearer ${token}` },

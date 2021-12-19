@@ -23,9 +23,12 @@
     {
         private readonly IDeletableEntityRepository<ApplicationUser> users;
         private readonly IDeletableEntityRepository<UserProfile> userProfiles;
+        private readonly IDeletableEntityRepository<Course> courses;
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<Position> positions;
         private readonly IRepository<CompanyCourse> companyCourses;
+        private readonly IRepository<CompanyCoach> companyCoaches;
+        private readonly IRepository<UserInCourse> employeeCourses;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IFileService fileService;
 
@@ -34,7 +37,10 @@
             IDeletableEntityRepository<UserProfile> userProfiles,
             IDeletableEntityRepository<Company> companies,
             IDeletableEntityRepository<Position> positions,
+            IDeletableEntityRepository<Course> courses,
             IRepository<CompanyCourse> companyCourses,
+            IRepository<CompanyCoach> companyCoaches,
+            IRepository<UserInCourse> employeeCourses,
             UserManager<ApplicationUser> userManager,
             IFileService fileService)
         {
@@ -46,6 +52,9 @@
             this.userManager = userManager;
             this.positions = positions;
             this.fileService = fileService;
+            this.companyCoaches = companyCoaches;
+            this.employeeCourses = employeeCourses;
+            this.courses = courses;
         }
 
         public async Task<Result> CreateAsync(CreateEmployeeViewModel model, string userId, string newEmployeePassword)
@@ -238,6 +247,92 @@
 
             await this.users.SaveChangesAsync();
             await this.userProfiles.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<IEnumerable<TModel>> GetAllCoachesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var companyCoaches = await this.companyCoaches
+                .AllAsNoTracking()
+                .Where(cc => cc.CompanyId == user.CompanyId)
+                .To<TModel>()
+                .ToListAsync();
+
+            return companyCoaches;
+        }
+
+        public async Task<IEnumerable<TModel>> GetEmployeeCoursesAsync<TModel>(string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var employeeCourses = await this.employeeCourses
+                .AllAsNoTracking()
+                .Where(cc => cc.ApplicationUserId == user.Id)
+                .To<TModel>()
+                .ToListAsync();
+
+            return employeeCourses;
+        }
+
+        public async Task<Result> AddCourseToEmoployeeAsync(int courseId, string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var course = await this.courses
+                .AllAsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+            {
+                return DoesNotExist;
+            }
+
+            var employeeCourse = await this.employeeCourses
+                .AllAsNoTracking()
+                .FirstOrDefaultAsync(ec =>
+                    ec.ApplicationUserId == user.Id
+                    && ec.CourseId == course.Id);
+
+            if (employeeCourse != null)
+            {
+                return AlreadyExist;
+            }
+
+            var newEmployeeCourse = new UserInCourse
+            {
+                ApplicationUserId = user.Id,
+                CourseId = course.Id,
+            };
+
+            await this.employeeCourses.AddAsync(newEmployeeCourse);
+
+            await this.employeeCourses.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<Result> SetNotNewCoachAsync(int coachId, string userId)
+        {
+            var user = await this.GetUserById(userId);
+
+            var companyCoach = await this.companyCoaches
+                .All()
+                .Where(cc =>
+                    cc.CoachId == coachId &&
+                    cc.CompanyId == user.CompanyId)
+                .FirstOrDefaultAsync();
+
+            if (companyCoach == null)
+            {
+                return DoesNotExist;
+            }
+
+            companyCoach.IsNew = false;
+
+            await this.companyCoaches.SaveChangesAsync();
 
             return true;
         }

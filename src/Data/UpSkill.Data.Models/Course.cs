@@ -9,6 +9,7 @@
     {
         public Course()
         {
+            this.Lectures = new List<CourseLecture>();
             this.Companies = new HashSet<CompanyCourse>();
             this.Users = new HashSet<UserInCourse>();
         }
@@ -20,9 +21,9 @@
 
         public int CategoryId { get; set; }
 
-        public decimal Price { get; set; }
-
         public Category Category { get; set; }
+
+        public decimal Price { get; set; }
 
         public int CoachId { get; set; }
 
@@ -33,6 +34,8 @@
         public File File { get; set; }
 
         public virtual ICollection<CompanyCourse> Companies { get; set; }
+
+        public virtual IList<CourseLecture> Lectures { get; set; }
 
         public ICollection<UserInCourse> Users { get; set; }
     }

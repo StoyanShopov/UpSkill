@@ -217,11 +217,11 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   onChange={onChangeFile}
                 />
               </div>
-              <div className="updateCoach-Content-anotherEmployee ps-5">
+              {/* <div className="updateCoach-Content-anotherEmployee ps-5">
                 <div className="updateCoach-Content-anotherEmployee-btn btn">
                   + Create another coach
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="updateCoach-actions d-flex d-flex justify-content-center">

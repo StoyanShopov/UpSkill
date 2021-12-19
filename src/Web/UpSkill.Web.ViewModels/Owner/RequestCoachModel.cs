@@ -12,5 +12,9 @@
         public string Description { get; set; }
 
         public string Field { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Company { get; set; }
     }
 }

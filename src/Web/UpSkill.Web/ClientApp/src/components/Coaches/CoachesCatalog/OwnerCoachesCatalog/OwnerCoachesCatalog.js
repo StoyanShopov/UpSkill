@@ -9,6 +9,7 @@ import {
 } from "../../../../services/companyOwnerCoachesService";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 import { disableBodyScroll, enableBodyScroll } from "../../../../utils/utils";
+import CoachDetails from "../../../Shared/CoachDetails/CoachDetails";
 
 export default function OwnerCoachesCatalog({
   coaches,
@@ -17,6 +18,7 @@ export default function OwnerCoachesCatalog({
 }) {
   const [onRemove, setOnRemove] = useState(false);
   const [coachId, setCoachId] = useState(0);
+  const [isOpenCoachDetails, setIsOpenCoachDetails] = useState(false);
   const initialPageCoaches = 0;
 
   const history = useHistory();
@@ -38,6 +40,44 @@ export default function OwnerCoachesCatalog({
       return false;
     }
   };
+
+  // Here only for now will be removed when employee coaches is done
+  const setData = (coach) => {
+    let {
+      id,
+      coachFirstName,
+      coachLastName,
+      coachField,
+      coachPrice,
+      coachFileFilePath,
+      calendlyUrl,
+    } = coach;
+    localStorage.setItem("ID", id);
+    localStorage.setItem("FirstName", coachFirstName);
+    localStorage.setItem("LastName", coachLastName);
+    localStorage.setItem("Field", coachField);
+    localStorage.setItem("Price", coachPrice);
+    localStorage.setItem("FilePath", coachFileFilePath);
+    localStorage.setItem("CalendlyUrl", calendlyUrl);
+  };
+
+  function onOpenDetails(coach) {
+    setData(coach);
+    setIsOpenCoachDetails(true);
+    disableBodyScroll();
+  }
+
+  function onCloseDetails(isOpen) {
+    setIsOpenCoachDetails(isOpen);
+    enableBodyScroll();
+    localStorage.removeItem("ID");
+    localStorage.removeItem("FirstName");
+    localStorage.removeItem("LastName");
+    localStorage.removeItem("Field");
+    localStorage.removeItem("Price");
+    localStorage.removeItem("FilePath");
+    localStorage.removeItem("CalendlyUrl");
+  }
 
   const onDelete = (id) => {
     removeCoach(id).then(() =>
@@ -103,6 +143,7 @@ export default function OwnerCoachesCatalog({
                 displaySession={false}
                 displayPrice={true}
                 isInCompany={!checkCompanyHasCoach(coach)}
+                openDetails={onOpenDetails}
               >
                 {onRemove && (
                   <ConfirmDelete
@@ -117,6 +158,9 @@ export default function OwnerCoachesCatalog({
             </div>
           ))}
         </div>
+        {isOpenCoachDetails && (
+          <CoachDetails closeModal={onCloseDetails}></CoachDetails>
+        )}
       </div>
     </>
   );

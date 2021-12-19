@@ -1,6 +1,8 @@
-.wrapper {
+.employee-profile-wrapper-courseCatalog {
     display: flex;
     align-items: stretch;
+    margin-top: 10em;    
+    margin-left: 7.5em;
 }
 
 #sidebar {

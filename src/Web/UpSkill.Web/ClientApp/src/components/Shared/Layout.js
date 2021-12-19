@@ -6,12 +6,12 @@ import './Layout.css';
 
 export default function Layout(props) {
     return (
-      <>
-        <NavMenu />
-                <div className="container paddingTopContent">
-                    {props.children}
-                </div>
-        <FooterMenu/>
-      </>
-    );  
+        <>
+            <NavMenu />
+            <div className="container paddingTopContent">
+                {props.children}
+            </div>
+            <FooterMenu />
+        </>
+    );
 }
