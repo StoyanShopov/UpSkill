@@ -3,10 +3,8 @@ import { Base_URL } from "../utils/baseUrlConstant";
 
 const ADMIN_API_URL = Base_URL + "Admin/Companies/";
 
-const token = localStorage.getItem("token");
-
 export const adminDashboardGet = async () => {
-  
+  let token = localStorage.getItem("token");
   try {
     const resp = await axios.get(Base_URL + "Admin/Dashboard", {
       headers: { Authorization: `Bearer ${token}` },
@@ -34,6 +32,7 @@ export const getSliced = async (currentPage) => {
 };
 
 export const getCompaniesEmails = async () => {
+  let token = localStorage.getItem("token");
   return await axios
     .get(ADMIN_API_URL + "getCompanyEmail", {
       headers: { Authorization: `Bearer ${token}` },
@@ -46,6 +45,7 @@ export const getCompaniesEmails = async () => {
 };
 
 export const getAllClients = async (client) => {
+  let token = localStorage.getItem("token");
   return await axios
     .get(
       ADMIN_API_URL + "getAll",
@@ -65,11 +65,12 @@ export const getClientsTotalCountSuperAdmin = async () => {
 };
 
 export const removeClientHandler = async (id) => {
-  console.log(id);
+  let token = localStorage.getItem("token");
   return await axios.delete(Base_URL + `Admin/Companies?id=${id}`);
 };
 
 export const addClient = async (name) => {
+  let token = localStorage.getItem("token");
   const client = {
     name,
   };
