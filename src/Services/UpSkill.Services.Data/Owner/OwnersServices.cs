@@ -109,6 +109,7 @@
             {
                 CompanyId = companyOwner.CompanyId,
                 CoachId = model.CoachId,
+                IsNew = true,
             };
 
             var companyCoachExist = await this.companyCoaches
@@ -170,7 +171,9 @@
                                         model.RequesterEmail,
                                         model.RequesterName,
                                         model.Description,
-                                        model.Field);
+                                        model.Field,
+                                        model.Company,
+                                        model.Phone);
 
             // You can use your own email.
             await this.emailSender.SendEmailAsync(

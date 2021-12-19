@@ -7,8 +7,6 @@ const OWN_API_URL = Base_URL + "Owner/Coaches";
 
 const numberCoachesSessionsToShow = 3;
 
-const token = localStorage.getItem("token");
-
 const activeCoachesCompanyOwnerCount = 3;
 
 const initialCoachesMock = [
@@ -116,6 +114,7 @@ const coachesCompanyOwnerMock = [
 // };
 
 export const getAllCoaches = async (currentPage) => {
+  let token = localStorage.getItem("token");
   try {
     let arr = [];
     const resp = await axios.get(Base_URL + "Coaches/getAll", {
@@ -140,6 +139,7 @@ export const getAllCoaches = async (currentPage) => {
 
 // Gets coaches for owner
 export const getCoaches = async (currentPage) => {
+  let token = localStorage.getItem("token");
   try {
     let arr = [];
     const resp = await axios.get(OWN_API_URL + "/getAll", {
@@ -153,6 +153,7 @@ export const getCoaches = async (currentPage) => {
 
 // Deletes coaches from owner
 export const removeCoach = async (coachId) => {
+  let token = localStorage.getItem("token");
   try {
     const resp = await axios.delete(OWN_API_URL + "?id=" + coachId, {
       headers: { Authorization: `Bearer ${token}` },
@@ -169,6 +170,7 @@ export const addCoach = async (userEmail, coachId) => {
     coachId,
   };
 
+  let token = localStorage.getItem("token");
   try {
     const resp = await axios.post(OWN_API_URL, addCoachModel, {
       headers: { Authorization: `Bearer ${token}` },
@@ -203,8 +205,7 @@ export const requestCoach = async (
     field,
   };
 
-  console.log(requester);
-
+  let token = localStorage.getItem("token");
   try {
     const resp = await axios.post(OWN_API_URL + "/newCoach", requester, {
       headers: { Authorization: `Bearer ${token}` },

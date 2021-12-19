@@ -3,8 +3,6 @@ import { Base_URL } from '../utils/baseUrlConstant';
 
 const OWN_API_URL = Base_URL + 'Owner/Courses/';
 
-const token = localStorage.getItem('token');
-
 const numberCoursesToShow = 3;
 
 const coursesCompanyOwnerMock = [
@@ -43,6 +41,7 @@ const coursesCompanyOwnerMock = [
 let courses = [];
 
 export const getAllCourses = async (course) => {
+  let token = localStorage.getItem("token");
   return await axios
     .get(
       OWN_API_URL + 'getActiveCourses',

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {useLocation} from "react-router-dom";
 
 import notificationContext from "../../../Context/NotificationContext";
 import chatContext from "../../../Context/ChatContext";
@@ -16,6 +17,7 @@ const Logout = (props) => {
 	const [joinRoom, sendMessage, closeConnection, messages, setMessages, connection] = useContext(chatContext);	
 
   const dispatch = useDispatch();
+  const location = useLocation();   
 
   useEffect(() => {
     if(!isLoggedIn){
@@ -27,12 +29,14 @@ const Logout = (props) => {
             type:LOGOUT,
           });
 
-          await props.history.push("/");
+          props.history.push("/home");
+          window.location.reload(false);
           localStorage.removeItem("user");                
           setNotification({type:'LOGOUT', payload: `Goodbye !`});
         })
         .catch(() => {
-          props.history.push("/Login");
+          props.history.push("/Login");           
+          window.location.reload(false);
         });
   }, []);
    

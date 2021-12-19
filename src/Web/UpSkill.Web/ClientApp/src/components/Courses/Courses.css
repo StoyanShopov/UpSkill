@@ -1,6 +1,7 @@
-.wrapper {
+.wrapper-coursesCatalog {
   display: flex;
   align-items: stretch;
+  margin-left: -30px;
 }
 
 #sidebar {
@@ -11,3 +12,4 @@
 #sidebar.active {
   margin-left: -250px;
 }
+

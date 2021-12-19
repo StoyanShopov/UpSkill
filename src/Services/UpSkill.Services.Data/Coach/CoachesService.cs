@@ -116,5 +116,13 @@
             .Where(c => c.Id == id)
             .To<TModel>()
             .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<string>> GetAllCategoriesAsync<TModel>()
+            => await this.coaches
+                .AllAsNoTracking()
+                .Where(c => c.Field != null)
+                .Select(x => x.Field)
+                .Distinct()
+                .ToListAsync();
     }
 }

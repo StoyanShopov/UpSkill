@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Base_URL } from "../utils/baseUrlConstant";
 const API_URL = Base_URL + "Owner/Courses/";
-const token = localStorage.getItem("token");
 let data = [];
 
 const getCourses = async (
@@ -11,6 +10,7 @@ const getCourses = async (
   courseCoachLastName,
   courseFileFilePath
 ) => {
+  let token = localStorage.getItem("token");
   return await axios
     .get(
       API_URL + "getactivecourses",
@@ -37,6 +37,7 @@ const getAvailableCourses = async (
   courseCoachLastName,
   courseFileFilePath
 ) => {
+  let token = localStorage.getItem("token");
   return await axios
     .get(
       API_URL + "getavailablecourses",
@@ -56,6 +57,7 @@ const getAvailableCourses = async (
 };
 
 const enableCourse = async (courseId) => {
+  let token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
   let requestData = {
     courseId,
@@ -67,6 +69,7 @@ const enableCourse = async (courseId) => {
 };
 
 const disableCourse = async (courseId) => {
+  let token = localStorage.getItem("token");
   await axios.delete(API_URL + "disable?id=" + courseId, {
     headers: { Authorization: `Bearer ${token}` },
   });

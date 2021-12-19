@@ -7,8 +7,21 @@
   position: fixed;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding-top: 5rem;
+  align-items: flex-start;
+  padding-top: 6em;
+}
+
+.detailsModal-background-inProfile {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(200, 200, 200, 0.8);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15px;
 }
 
 .detailsModal-courses-container {
@@ -75,7 +88,7 @@
 }
 
 .detailsModal-courses-image-course-wrapper {
-  margin-top: -30rem;
+  margin-top: -32rem;
   position: relative;
   margin-left: 55%;
   width: 40%;
@@ -90,17 +103,19 @@
   font: normal normal bold 22px/27px Montserrat;
   letter-spacing: 1.1px;
 }
+
 .detailsModal-courses-description {
   text-align: left;
   font: normal normal medium 22px/30px Montserrat;
   letter-spacing: 1.1px;
   color: #000000;
-  height: 60%;
+  height: 50%;
   width: 50%;
 }
 
 .detailsModal-rating {
-  width: 15rem;
+  width: 30rem;
+  height: 10rem;
 }
 
 .courses-rating-header {
@@ -125,7 +140,6 @@
 }
 .detailsModal-courses-body {
   padding: 2rem;
-  margin-left: 1rem;
   width: 100%;
   height: 30rem;
 }
@@ -139,17 +153,26 @@
   opacity: 1;
 }
 
+.detailsModel-courses-willlearn-course-body {
+  /* padding: 1.5rem; */
+  height: 40%;
+}
+
 .detailsModel-courses-img-course-body {
-  padding: 1.5rem;
+  padding: 2rem;
   height: 40%;
 }
 
 .courses-more-information-header {
   text-align: left;
-  font: normal normal bold 22px/27px Montserrat;
-  letter-spacing: 1.1px;
+  font: normal normal bold 20px/25px Montserrat;
+  letter-spacing: 1px;
   color: #000000;
   opacity: 1;
+}
+
+.short-includes-info {
+  list-style-type: square;
 }
 
 .courses-more-information {
@@ -159,7 +182,36 @@
   color: #000000;
 }
 
+.hours-video {
+  list-style-image: url("../../../assets/Group 98.png");
+}
+
+.lectures-count {
+  list-style-image: url("../../../assets/Group 99.png");
+}
+
+.lifetime-access {
+  list-style-image: url("../../../assets/iconmonstr-infinity-1.png");
+}
+
+.certification {
+  list-style-image: url("../../../assets/surface1.png");
+}
+
 .titleCloseBtn {
   display: flex;
   justify-content: flex-end;
+}
+
+.willlearn-list li {
+  list-style-type: none;
+}
+
+.willlearn-list li:before {
+  content: "\25A0";
+  color: #296cfb;
+  list-style-type: square;
+  display: inline-block;
+  width: 1.5em;
+  margin-left: -1.5em;
 }
