@@ -73,7 +73,7 @@ function Header() {
 								</li> 
 								</article>
                                   <li className="nav-item">
-									<NavLink to="/Logout" className="nav-link btn btn-secondary mt-2">
+									<NavLink to="/Logout" className="nav-link btn btn-light mt-2">
                                         LogOut
                                     </NavLink>
                                   </li>
