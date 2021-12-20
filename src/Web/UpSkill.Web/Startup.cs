@@ -79,9 +79,9 @@
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton(this.configuration);
 
-            // services
-            //    .AddSignalR()
-            //    .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
+            services
+               .AddSignalR()
+               .AddAzureSignalR(this.configuration.GetSignalRConnectionString());
 
             services.AddEmailSender(this.configuration);
             services.AddHttpContextAccessor();
@@ -148,12 +148,12 @@
                 })
                 .ApplyMigrations();
 
-            // app.UseAzureSignalR(route =>
-            // {
-            //     route.MapHub<ChatHub>("/chat");
-            //     route.MapHub<ZoomHub>("/zoom");
-            // });
-                        app.UseSpa(spa =>
+            app.UseAzureSignalR(route =>
+            {
+                route.MapHub<ChatHub>("/chat");
+                route.MapHub<ZoomHub>("/zoom");
+            });
+            app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
 
