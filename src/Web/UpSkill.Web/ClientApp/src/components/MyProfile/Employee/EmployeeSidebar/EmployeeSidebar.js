@@ -43,7 +43,7 @@ export default function EmployeeSidebar({ menuItems }) {
     <div className="sidebar-content employee pt-5">
       <div className="employee-photo mt-3">
         <Image
-          style={{ width: '4.5rem', height: '4.5rem', display: 'inline-flex' }}
+          style={{ width: '4.5rem', height: '4.5rem', display: 'inline-flex', cursor: 'pointer'}}
           roundedCircle={true}
           src={!user.filePath ? StaticUserProfilePic : user.filePath}
           onClick={onClickHandler}
@@ -56,13 +56,13 @@ export default function EmployeeSidebar({ menuItems }) {
           }}
         >
           <span
-            style={{ display: 'block', verticalAlign: 'middle' }}
+            style={{ display: 'block', verticalAlign: 'middle', cursor: 'pointer'}}
             onClick={onClickHandler}
           >
             {`${user.firstName} ${user.lastName}`}
           </span>
           <span
-            style={{ display: 'block', color: 'blue' }}
+            style={{ display: 'block', color: 'blue', cursor: 'pointer' }}
             onClick={onClickHandler}
           >
             {user.companyName}
