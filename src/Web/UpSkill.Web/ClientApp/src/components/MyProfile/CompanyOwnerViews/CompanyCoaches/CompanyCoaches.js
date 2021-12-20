@@ -119,36 +119,36 @@ export default function CoachList() {
       <div className="coachesContainer">
         {coaches.map((coach) => (
           <div className="col-sm-5 text-align-center" key={coach.id}>
-          <CoachesCard
-            key={coach.id}
-            coachDetails={coach}
-            displaySession={false}
-            displayPrice={true}
-            isInCompany={true}
-            openDetails={onOpenDetails}
-          >
-            <Button
-              className="cardButton companyOwner-cardBtn"
-              onClick={(e) => setOnRemoveInternal(coach.id)}
+            <CoachesCard
+              key={coach.id}
+              coachDetails={coach}
+              displaySession={false}
+              displayPrice={true}
+              isInCompany={true}
+              openDetails={onOpenDetails}
             >
-              Remove
-            </Button>
-            {onRemove && (
-              <ConfirmDelete
-                deleteItem={onDelete}
-                closeModal={onCloseModal}
-                itemName="coach"
-                id={coachId}
-              />
-            )}
-            {openRequestModal && (
-              <AddCoachModal
-                closeModal={setOpenRequestModal}
-                setOpenRequest={setOpenRequest}
-              ></AddCoachModal>
-            )}
-            <RequestCoach trigger={openRequest} closeModal={setOpenRequest} />
-          </CoachesCard>
+              <Button
+                className="cardButton companyOwner-cardBtn"
+                onClick={(e) => setOnRemoveInternal(coach.id)}
+              >
+                Remove
+              </Button>
+              {onRemove && (
+                <ConfirmDelete
+                  deleteItem={onDelete}
+                  closeModal={onCloseModal}
+                  itemName="coach"
+                  id={coachId}
+                />
+              )}
+              {openRequestModal && (
+                <AddCoachModal
+                  closeModal={setOpenRequestModal}
+                  setOpenRequest={setOpenRequest}
+                ></AddCoachModal>
+              )}
+              <RequestCoach trigger={openRequest} closeModal={setOpenRequest} />
+            </CoachesCard>
           </div>
         ))}
         {areCoachesOdd() && (

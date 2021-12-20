@@ -85,7 +85,7 @@ export default function CoachesCard(props) {
         className={canOpenDetails()}
         onClick={(e) => {
           if (!isAdmin) {
-            props.openDetails(props.coachDetails,e);
+            props.openDetails(props.coachDetails, e);
           }
         }}
       >
