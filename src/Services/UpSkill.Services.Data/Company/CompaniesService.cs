@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     using UpSkill.Common;
@@ -15,13 +15,23 @@
     using UpSkill.Web.ViewModels.Company;
 
     using static Common.GlobalConstants.ControllersResponseMessages;
+    using static Common.GlobalConstants.RolesNamesConstants;
 
     public class CompaniesService : ICompanyService
     {
         private readonly IDeletableEntityRepository<Company> companies;
+        private readonly IDeletableEntityRepository<ApplicationUser> users;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CompaniesService(IDeletableEntityRepository<Company> companies)
-            => this.companies = companies;
+        public CompaniesService(
+            IDeletableEntityRepository<Company> companies,
+            IDeletableEntityRepository<ApplicationUser> users,
+            UserManager<ApplicationUser> userManager)
+        {
+            this.companies = companies;
+            this.users = users;
+            this.userManager = userManager;
+        }
 
         public async Task<Result> CreateAsync(CreateCompanyRequestModel model)
         {
@@ -105,5 +115,14 @@
                 .AllAsNoTracking()
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
+
+        public async Task<IList<ApplicationUser>> GetCompanyEmailAsync()
+        {
+            await this.userManager.Users.Include(x => x.Company).ToListAsync();
+
+            var usersWithCompanies = await this.userManager.GetUsersInRoleAsync(CompanyOwnerRoleName);
+
+            return usersWithCompanies;
+        }
     }
 }

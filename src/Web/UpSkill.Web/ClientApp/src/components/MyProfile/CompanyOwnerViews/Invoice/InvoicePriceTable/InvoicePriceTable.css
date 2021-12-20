@@ -26,6 +26,10 @@
     padding-right: 5rem!important;
 }
 
+.profitClass {
+    margin-left: 3rem;
+}
+
 #table-contents-font{
     font-size: "22px";
     font-family: "Montserrat";
@@ -55,6 +59,10 @@
 @media (max-width: 780px) {
     .cell-header-price{
         padding-left: 5rem!important;
+    }  
+
+    .profitClass{
+        margin-left: 1rem;
     }
 
     .header-invoice div{

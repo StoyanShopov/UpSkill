@@ -22,6 +22,7 @@
 
     using static UpSkill.Common.GlobalConstants.IdentityConstants;
     using static UpSkill.Common.GlobalConstants.PositionsNamesConstants;
+    using static UpSkill.Common.GlobalConstants.RolesNamesConstants;
 
     public class IdentityService : IIdentityService
     {
@@ -114,6 +115,7 @@
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);
+            await this.userManager.AddToRoleAsync(user, CompanyOwnerRoleName);
 
             return result.Succeeded;
         }

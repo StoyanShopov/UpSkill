@@ -94,5 +94,28 @@
 
             return await this.companyService.GetByIdAsync<CompanyDetailsModel>(id);
         }
+
+        [HttpGet]
+        [Route(GetCompanyEmailRoute)]
+        public async Task<List<CompanyEmailViewModel>> GetCompanyEmail()
+        {
+            this.nlog.Info("Entering GetCompanyEmail action");
+
+            var companiesEmails = await this.companyService.GetCompanyEmailAsync();
+
+            var viewModels = new List<CompanyEmailViewModel>();
+
+            for (int i = 0; i < companiesEmails.Count; i++)
+            {
+                viewModels.Add(new CompanyEmailViewModel()
+                {
+                    Name = companiesEmails[i].Company.Name,
+                    Email = companiesEmails[i].Email,
+                });
+
+            }
+
+            return viewModels;
+        }
     }
 }
