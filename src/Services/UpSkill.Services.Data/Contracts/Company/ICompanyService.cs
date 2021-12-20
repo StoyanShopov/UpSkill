@@ -5,6 +5,7 @@
 
     using UpSkill.Common;
     using UpSkill.Data.Common.Models;
+    using UpSkill.Data.Models;
     using UpSkill.Web.ViewModels.Company;
 
     public interface ICompanyService
@@ -22,5 +23,7 @@
         Task<IEnumerable<TModel>> GetAllAsync<TModel>();
 
         Task<BaseDeletableModel<int>> GetDbModelByIdAsync(int id);
+
+        Task<IList<ApplicationUser>> GetCompanyEmailAsync();
     }
 }

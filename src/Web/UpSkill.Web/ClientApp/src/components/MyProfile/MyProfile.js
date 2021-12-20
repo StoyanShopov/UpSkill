@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactReduxContext } from "react-redux";
 
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 
 import CompanyOwner from "./CompanyOwnerViews/CompanyOwner";
 import Employee from "./Employee/Employee";
@@ -21,15 +21,11 @@ function MyProfile() {
 
   useEffect(() => {
     dispatch({
-      type: CHECK_CURRENT_STATE
+      type: CHECK_CURRENT_STATE,
     });
 
-    var {
-      isLoggedIn,
-      isCompanyOwner,
-      isEmployee,
-      isAdmin,
-    } = store.getState().auth;
+    var { isLoggedIn, isCompanyOwner, isEmployee, isAdmin } =
+      store.getState().auth;
 
     setIsLoggedIn(isLoggedIn);
     setIsCompanyOwner(isCompanyOwner);
@@ -37,18 +33,15 @@ function MyProfile() {
     setIsAdmin(isAdmin);
 
     console.log(isLoggedIn);
-    console.log("isCompanyOwner: "+isCompanyOwner);
-    console.log("isAdmin: "+isAdmin);
+    console.log("isCompanyOwner: " + isCompanyOwner);
+    console.log("isAdmin: " + isAdmin);
   }, []);
 
   if (isCompanyOwner) {
     return <CompanyOwner />;
   } else if (isEmployee) return <Employee />;
-  //Probably the admin will access his area from here too
   else if (isAdmin)
-    return  <Admin />;
-       
-  else
+    return  <Admin />;  else
     return (
       <div className="container p-5 text-center vh-70">
         <h2 className="py-5">

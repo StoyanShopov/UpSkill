@@ -147,9 +147,10 @@
             public const string NewCoach = "newCoach";
 
             public const string NotNewCoachRoute = "setNotNewCoach";
-            
-            public const string GetAllCategories = "categories";
-        }
+
+            public const string GetCompanyEmailRoute = "getCompanyEmail";
+
+            public const string GetAllCategories = "categories";        }
 
         public class MessagesConstants
         {
@@ -296,6 +297,8 @@
             public const string NoEmployeesFound = "Currently there are no employees added to this company.";
 
             public const string WrongEmployeeNamePattern = "Please add only First and Last name of the employee. Example:John Smith  ";
+
+            public const string NoPositionFound = "Currently there is no such position";
         }
     }
 }
