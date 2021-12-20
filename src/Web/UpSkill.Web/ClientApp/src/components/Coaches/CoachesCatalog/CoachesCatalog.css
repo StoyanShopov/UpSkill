@@ -1,7 +1,7 @@
 .coaches-list {
   column-count: 3;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between 75px;
   margin-top: 4rem;
   --bs-gutter-x: 3.5rem;
   padding-left: 0 !important;
