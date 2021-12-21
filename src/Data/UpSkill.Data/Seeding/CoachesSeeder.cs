@@ -16,8 +16,12 @@
             {
                 new Coach
                 {
-                    FirstName = "veryUniqueName",
-                    LastName = "Test1",
+                    FirstName = "Dow",
+                    LastName = "Jones",
+                    Field = "C#",
+                    FileId = 23,
+                    Price = 77,
+                    CalendlyUrl = "https://calendly.com/iltodbul-1",
                 },
             };
 
