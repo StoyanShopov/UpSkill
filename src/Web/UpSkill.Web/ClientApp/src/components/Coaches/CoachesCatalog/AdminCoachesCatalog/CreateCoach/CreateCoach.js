@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
-import "./CreateCoach.css";
-import { createCoach } from "../../../../../services/adminCoachesService";
-import { enableBodyScroll } from "../../../../../utils/utils";
+import React, { useState, useEffect } from 'react';
+import './CreateCoach.css';
+import { createCoach } from '../../../../../services/adminCoachesService';
+import { enableBodyScroll } from '../../../../../utils/utils';
 
 export default function CreateCoach({ closeModal, trigger }) {
-  const [coachField, setCoachField] = useState("");
+  const [coachField, setCoachField] = useState('');
   const [coachPrice, setCoachPrice] = useState(0);
-  const [coachFirstName, setCoachFirstName] = useState("");
-  const [coachLastName, setCoachLastName] = useState("");
-  const [file, setFile] = useState("");
-  const [calendlyUrl, setCalendlyUrl] = useState("");
+  const [coachFirstName, setCoachFirstName] = useState('');
+  const [coachLastName, setCoachLastName] = useState('');
+  const [file, setFile] = useState('');
+  const [calendlyUrl, setCalendlyUrl] = useState('');
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  var expression = /^https:\/\/calendly\.com\/[A-Za-z0-9-_]+$/gi;
+  var regex = new RegExp(expression);
+  var isPassing = regex.test(calendlyUrl);
 
   let handleValidation = () => {
     let fields = {
@@ -27,34 +31,39 @@ export default function CreateCoach({ closeModal, trigger }) {
     let errorsValidation = {};
     let formIsValid = true;
 
-    if (!fields["coachField"]) {
+    if (!fields['coachField']) {
       formIsValid = false;
-      errorsValidation["coachField"] = "Cannot be empty";
+      errorsValidation['coachField'] = 'Cannot be empty';
     }
 
-    if (!fields["file"]) {
+    if (!fields['file']) {
       formIsValid = false;
-      errorsValidation["file"] = "Cannot be empty";
+      errorsValidation['file'] = 'Cannot be empty';
     }
 
-    if (!fields["coachFirstName"]) {
+    if (!fields['coachFirstName']) {
       formIsValid = false;
-      errorsValidation["coachFirstName"] = "Cannot be empty";
+      errorsValidation['coachFirstName'] = 'Cannot be empty';
     }
 
-    if (!fields["coachLastName"]) {
+    if (!fields['coachLastName']) {
       formIsValid = false;
-      errorsValidation["coachLastName"] = "Cannot be empty";
+      errorsValidation['coachLastName'] = 'Cannot be empty';
     }
 
-    if (!fields["calendlyUrl"]) {
+    if (!fields['calendlyUrl']) {
       formIsValid = false;
-      errorsValidation["calendlyUrl"] = "Cannot be empty";
+      errorsValidation['calendlyUrl'] = 'Please fill in a correct Calendly URL';
     }
 
-    if (fields["coachPrice"] < 0) {
+    if (!isPassing) {
       formIsValid = false;
-      errorsValidation["coachPrice"] = "Cannot be negative number";
+      errorsValidation['calendlyUrl'] = 'Please fill in a correct Calendly URL';
+    }
+
+    if (fields['coachPrice'] < 0) {
+      formIsValid = false;
+      errorsValidation['coachPrice'] = 'Cannot be negative number';
     }
 
     setErrors(errorsValidation);
@@ -101,13 +110,13 @@ export default function CreateCoach({ closeModal, trigger }) {
         calendlyUrl
       )
         .then((resp) => {
-          if (resp.data === "Successfully created.") {
+          if (resp.data === 'Successfully created.') {
             setSuccess(true);
-            setCoachFirstName("");
-            setCoachLastName("");
-            setCoachField("");
+            setCoachFirstName('');
+            setCoachLastName('');
+            setCoachField('');
             setCoachPrice(0);
-            setCalendlyUrl("");
+            setCalendlyUrl('');
           }
         })
         .catch(() => setSuccess(false));
@@ -141,7 +150,7 @@ export default function CreateCoach({ closeModal, trigger }) {
             <div className="createCoach-Content px-5 m-5">
               <div className="createCoach-Content-fullname px-5 m-3">
                 {success && (
-                  <span style={{ color: "green", marginBottom: "0px" }}>
+                  <span style={{ color: 'green', marginBottom: '0px' }}>
                     Successfully created
                   </span>
                 )}
@@ -152,7 +161,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={coachFirstName}
                   onChange={onChangeFirstName}
                 />
-                <p style={{ color: "red" }}>{errors["coachFirstName"]}</p>
+                <p style={{ color: 'red' }}>{errors['coachFirstName']}</p>
               </div>
 
               <div className="createCoach-Content-fullname px-5 m-3">
@@ -163,7 +172,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={coachLastName}
                   onChange={onChangeLastName}
                 />
-                <p style={{ color: "red" }}>{errors["coachLastName"]}</p>
+                <p style={{ color: 'red' }}>{errors['coachLastName']}</p>
               </div>
 
               <div className="createCoach-Content-fullname px-5 m-3">
@@ -174,7 +183,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={coachField}
                   onChange={onChangeField}
                 />
-                <p style={{ color: "red" }}>{errors["coachField"]}</p>
+                <p style={{ color: 'red' }}>{errors['coachField']}</p>
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
@@ -184,7 +193,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={coachPrice}
                   onChange={onChangeCoachPrice}
                 />
-                <p style={{ color: "red" }}>{errors["coachPrice"]}</p>
+                <p style={{ color: 'red' }}>{errors['coachPrice']}</p>
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
@@ -194,7 +203,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   value={calendlyUrl}
                   onChange={onChangeCalendlyUrl}
                 />
-                <p style={{ color: "red" }}>{errors["calendlyUrl"]}</p>
+                <p style={{ color: 'red' }}>{errors['calendlyUrl']}</p>
               </div>
               <div className="createCoach-Content-fullname px-5 m-3">
                 <input
@@ -203,7 +212,7 @@ export default function CreateCoach({ closeModal, trigger }) {
                   className="w-100 p-2"
                   onChange={onChangeFile}
                 />
-                <p style={{ color: "red" }}>{errors["file"]}</p>
+                <p style={{ color: 'red' }}>{errors['file']}</p>
               </div>
               <div className="createCoach-Content-anotherEmployee ps-5">
                 <div className="createCoach-Content-anotherEmployee-btn btn">
@@ -233,6 +242,6 @@ export default function CreateCoach({ closeModal, trigger }) {
       </div>
     </div>
   ) : (
-    ""
+    ''
   );
 }

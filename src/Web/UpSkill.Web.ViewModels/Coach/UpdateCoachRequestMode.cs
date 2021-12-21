@@ -20,6 +20,7 @@
         public IFormFile File { get; set; }
 
         [Required]
+        [RegularExpression(@"^https:\/\/calendly\.com\/[A-Za-z0-9-_]+$")]
         public string CalendlyUrl { get; set; }
     }
 }
