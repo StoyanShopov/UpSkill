@@ -17,6 +17,10 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
 
   const test = localStorage.getItem('ID');
 
+  var expression = /^https:\/\/calendly\.com\/[A-Za-z0-9-_]+$/gi;
+  var regex = new RegExp(expression);
+  var isPassing = regex.test(calendlyUrl);
+
   let handleValidation = () => {
     let fields = {
       coachField,
@@ -51,7 +55,12 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
 
     if (!fields['calendlyUrl']) {
       formIsValid = false;
-      errorsValidation['calendlyUrl'] = 'Cannot be empty';
+      errorsValidation['calendlyUrl'] = 'Please fill in a correct Calendly URL';
+    }
+
+    if (!isPassing) {
+      formIsValid = false;
+      errorsValidation['calendlyUrl'] = 'Please fill in a correct Calendly URL';
     }
 
     if (fields['coachPrice'] < 0 || !fields['coachPrice']) {
@@ -224,7 +233,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   + Create another coach
                 </div>
               </div> */}
-                <p style={{ color: 'red' }}>{errors['file']}</p>
+              <p style={{ color: 'red' }}>{errors['file']}</p>
             </div>
 
             <div className="updateCoach-actions d-flex d-flex justify-content-center">
