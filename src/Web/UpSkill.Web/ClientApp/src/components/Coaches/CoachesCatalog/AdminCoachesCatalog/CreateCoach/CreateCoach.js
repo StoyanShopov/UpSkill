@@ -8,7 +8,7 @@ export default function CreateCoach({ closeModal, trigger }) {
   const [coachPrice, setCoachPrice] = useState(0);
   const [coachFirstName, setCoachFirstName] = useState("");
   const [coachLastName, setCoachLastName] = useState("");
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState("");
   const [calendlyUrl, setCalendlyUrl] = useState("");
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
@@ -120,6 +120,7 @@ export default function CreateCoach({ closeModal, trigger }) {
     enableBodyScroll();
     closeModal(false);
     setSuccess(false);
+    setErrors({});
   }
 
   return trigger ? (

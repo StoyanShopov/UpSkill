@@ -37,7 +37,7 @@ export default function CreateCourse({ closeModal }) {
   const [coachId, setCoachId] = useState(0);
   const [categories, setCategories] = useState([]);
   const [errors, setErrors] = useState({});
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState("");
 
   let handleValidation = () => {
     let fields = {
