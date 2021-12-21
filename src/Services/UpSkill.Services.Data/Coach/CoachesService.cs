@@ -101,6 +101,7 @@
             coach.LastName = model.LastName;
             coach.Field = model.Field;
             coach.Price = model.Price;
+            coach.CalendlyUrl = model.CalendlyUrl;
 
             await this.coaches.SaveChangesAsync();
 

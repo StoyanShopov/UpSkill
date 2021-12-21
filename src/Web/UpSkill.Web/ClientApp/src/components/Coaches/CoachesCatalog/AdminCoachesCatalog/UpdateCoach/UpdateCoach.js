@@ -124,6 +124,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
             localStorage.removeItem('Field');
             localStorage.removeItem('Price');
             localStorage.removeItem('CalendlyUrl');
+            closeModal();
           }
         })
         .catch(() => setSuccess(false));
