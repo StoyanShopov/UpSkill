@@ -131,12 +131,9 @@ export default function OwnerCoachesCatalog({
   return (
     <>
       <div className="container">
-        <div className="row list-unstyled coaches-list ">
+        <div className="row list-unstyled coaches-list space-between-75">
           {coaches.map((coach) => (
-            <div
-              className="col-sm-4 space-between-75 text-align-center"
-              key={coach.id}
-            >
+            <div className="col-sm-4 text-align-center" key={coach.id}>
               <CoachesCard
                 key={coach.id}
                 coachDetails={coach}

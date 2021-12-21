@@ -72,7 +72,7 @@ export default function CoursesCatalog({ courses }) {
                   className="button row col-md-4"
                   // onClick={(e) => addCoachToCompany(coachId)}
                 >
-                  <p className="cardButtonText">Add</p>
+                  <p className="cardButtonText">Enroll</p>
                 </Button>
               </CourseCard>
             </div>

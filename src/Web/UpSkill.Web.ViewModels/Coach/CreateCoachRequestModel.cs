@@ -19,6 +19,7 @@
 
         public IFormFile File { get; set; }
 
+        [Required]
         public string CalendlyUrl { get; set; }
     }
 }

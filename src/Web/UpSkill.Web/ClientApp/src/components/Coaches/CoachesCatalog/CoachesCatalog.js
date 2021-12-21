@@ -64,7 +64,7 @@ export default function CoachesCatalog({ coaches }) {
                 {/* <Button className="coaches-cardButton"> Add </Button>
                  <Button className="coaches-cardButton"> Remove </Button>*/}
                 <PopupButton
-                  className="btn btn-primary"
+                  className="btn btn-primary button"
                   url={coach.calendlyUrl}
                   text="Book session"
                   pageSettings={{

@@ -7,6 +7,7 @@ import RemovePopup from "../../../Shared/RemovePopup/RemovePopup";
 import ConfirmDelete from "../../../Shared/ConfirmDelete/ConfirmDelete";
 import AddCoachModal from "./AddCoach/AddCoach";
 import RequestCoach from "./AddCoach/RequestCoach/RequestCoach";
+import CoachDetails from "../../../Shared/CoachDetails/CoachDetails";
 
 import "./CompanyCoaches.css";
 
@@ -22,6 +23,7 @@ export default function CoachList() {
   const [coachId, setCoachId] = useState(0);
   const [openRequestModal, setOpenRequestModal] = useState(false);
   const [openRequest, setOpenRequest] = useState(false);
+  const [isOpenCoachDetails, setIsOpenCoachDetails] = useState(false);
 
   const initialPageCoaches = 0;
 
@@ -37,6 +39,44 @@ export default function CoachList() {
     }
     return false;
   };
+
+  const setData = (coach) => {
+    let {
+      id,
+      coachFirstName,
+      coachLastName,
+      coachField,
+      coachPrice,
+      coachFileFilePath,
+      calendlyUrl,
+    } = coach;
+    localStorage.setItem("ID", id);
+    localStorage.setItem("FirstName", coachFirstName);
+    localStorage.setItem("LastName", coachLastName);
+    localStorage.setItem("Field", coachField);
+    localStorage.setItem("Price", coachPrice);
+    localStorage.setItem("FilePath", coachFileFilePath);
+    localStorage.setItem("CalendlyUrl", calendlyUrl);
+  };
+
+  function onOpenDetails(coach, e) {
+    e.preventDefault();
+    setData(coach);
+    setIsOpenCoachDetails(true);
+    disableBodyScroll();
+  }
+
+  function onCloseDetails(isOpen) {
+    setIsOpenCoachDetails(isOpen);
+    enableBodyScroll();
+    localStorage.removeItem("ID");
+    localStorage.removeItem("FirstName");
+    localStorage.removeItem("LastName");
+    localStorage.removeItem("Field");
+    localStorage.removeItem("Price");
+    localStorage.removeItem("FilePath");
+    localStorage.removeItem("CalendlyUrl");
+  }
 
   useEffect(() => {
     getCoaches(initialPageCoaches).then((coaches) => {
@@ -79,41 +119,51 @@ export default function CoachList() {
       <div className="coachesContainer">
         {coaches.map((coach) => (
           <div className="col-sm-5 text-align-center" key={coach.id}>
-          <CoachesCard
-            key={coach.id}
-            coachDetails={coach}
-            displaySession={false}
-            displayPrice={true}
-            isInCompany={true}
-          >
-            <Button
-              className="cardButton companyOwner-cardBtn"
-              onClick={(e) => setOnRemoveInternal(coach.id)}
+            <CoachesCard
+              key={coach.id}
+              coachDetails={coach}
+              displaySession={false}
+              displayPrice={true}
+              isInCompany={true}
+              openDetails={onOpenDetails}
             >
-              Remove
-            </Button>
-            {onRemove && (
-              <ConfirmDelete
-                deleteItem={onDelete}
-                closeModal={onCloseModal}
-                itemName="coach"
-                id={coachId}
-              />
-            )}
-            {openRequestModal && (
-              <AddCoachModal
-                closeModal={setOpenRequestModal}
-                setOpenRequest={setOpenRequest}
-              ></AddCoachModal>
-            )}
-            <RequestCoach trigger={openRequest} closeModal={setOpenRequest} />
-          </CoachesCard>
+              <Button
+                className="cardButton companyOwner-cardBtn"
+                onClick={(e) => setOnRemoveInternal(coach.id)}
+              >
+                Remove
+              </Button>
+              {onRemove && (
+                <ConfirmDelete
+                  deleteItem={onDelete}
+                  closeModal={onCloseModal}
+                  itemName="coach"
+                  id={coachId}
+                />
+              )}
+              {openRequestModal && (
+                <AddCoachModal
+                  closeModal={setOpenRequestModal}
+                  setOpenRequest={setOpenRequest}
+                ></AddCoachModal>
+              )}
+              <RequestCoach trigger={openRequest} closeModal={setOpenRequest} />
+            </CoachesCard>
           </div>
         ))}
         {areCoachesOdd() && (
           <div className="alignCompanyCoachesContentBox">
             {console.log("hi")}
           </div>
+        )}
+      </div>
+      <div style={{ position: "fixed", height: "50vh", top: "3%" }}>
+        {isOpenCoachDetails && (
+          <CoachDetails
+            style={{ marginBottom: "20rem" }}
+            closeModal={onCloseDetails}
+            inProfile={true}
+          ></CoachDetails>
         )}
       </div>
     </div>

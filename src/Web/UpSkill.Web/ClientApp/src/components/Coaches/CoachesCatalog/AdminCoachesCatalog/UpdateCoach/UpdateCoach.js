@@ -124,6 +124,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
             localStorage.removeItem('Field');
             localStorage.removeItem('Price');
             localStorage.removeItem('CalendlyUrl');
+            closePopup();
           }
         })
         .catch(() => setSuccess(false));
@@ -136,6 +137,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
     enableBodyScroll();
     closeModal(false);
     setSuccess(false);
+    setErrors({});
   }
 
   return trigger ? (
@@ -222,6 +224,7 @@ export default function UpdateCoach({ closeModal, trigger, coachDetails }) {
                   + Create another coach
                 </div>
               </div> */}
+                <p style={{ color: 'red' }}>{errors['file']}</p>
             </div>
 
             <div className="updateCoach-actions d-flex d-flex justify-content-center">

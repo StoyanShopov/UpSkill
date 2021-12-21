@@ -37,7 +37,7 @@ export default function Dashboard() {
   };
 
   const checkPopUp = () => {
-    if (isDetailsOpen) {
+    if (isDetailsOpen || isOpenCoachDetails) {
       disableBodyScroll();
     } else {
       localStorage.removeItem("ID");
@@ -184,7 +184,7 @@ export default function Dashboard() {
           <CoachDetails
             style={{ marginBottom: "20rem" }}
             closeModal={onCloseDetails}
-            inProfile={false}
+            inProfile={true}
           ></CoachDetails>
         )}
       </div>

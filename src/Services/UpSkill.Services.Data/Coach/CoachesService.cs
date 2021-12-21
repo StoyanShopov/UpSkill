@@ -91,13 +91,17 @@
                 return DoesNotExist;
             }
 
-            var file = await this.fileService.EditAsync(coach.FileId, model.File);
+            if (model.File != null)
+            {
+                var file = await this.fileService.EditAsync(coach.FileId, model.File);
+                coach.FileId = file;
+            }
 
             coach.FirstName = model.FirstName;
             coach.LastName = model.LastName;
             coach.Field = model.Field;
             coach.Price = model.Price;
-            coach.FileId = file;
+            coach.CalendlyUrl = model.CalendlyUrl;
 
             await this.coaches.SaveChangesAsync();
 

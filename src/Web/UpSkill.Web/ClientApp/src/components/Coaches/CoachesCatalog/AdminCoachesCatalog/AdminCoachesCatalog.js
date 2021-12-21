@@ -54,8 +54,7 @@ export default function AdminCoachesCatalog({ coaches, setCoaches }) {
     onOpenEditCoachModal();
   };
 
-  const onOpenEditCoachModal = () => {
-    console.log('hi');
+  const onOpenEditCoachModal = () => {    
     setOpenEditCoachModal(true);
     disableBodyScroll();
   };

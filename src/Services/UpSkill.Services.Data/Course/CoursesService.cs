@@ -99,14 +99,17 @@
                 return DoesNotExist;
             }
 
-            var file = await this.fileService.EditAsync(course.FileId, model.File);
+            if (model.File != null)
+            {
+                var file = await this.fileService.EditAsync(course.FileId, model.File);
+                course.FileId = file;
+            }
 
             course.Title = model.Title;
             course.CoachId = model.CoachId;
             course.Description = model.Description;
             course.Price = model.Price;
             course.CategoryId = model.CategoryId;
-            course.FileId = file;
 
             await this.courses.SaveChangesAsync();
 

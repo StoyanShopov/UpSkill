@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from "react";
 
-import CoursesCatalog from './CoursesCatalog'; 
-import { getCourses } from '../../../../services/employeeService'; 
+import CoursesCatalog from "./CoursesCatalog";
+import { getCourses } from "../../../../services/employeeService";
 
-import './Courses.css';
+import "./Courses.css";
 
-export default function Courses() {  
-  const[courses, setCourses] = useState([]); 
+export default function Courses() {
+  const [courses, setCourses] = useState([]);
 
-  useEffect(() => { 
-    getCourses()
-    .then((courses) => {
-      setCourses(courses);  
+  useEffect(() => {
+    getCourses().then((courses) => {
+      setCourses(courses);
     });
-  }, []); 
-  
+  }, []);
+
   return (
     <div className="content">
       <div className="employee-profile-wrapper-courseCatalog">
-        <CoursesCatalog />  
+        <CoursesCatalog />
       </div>
     </div>
   );
