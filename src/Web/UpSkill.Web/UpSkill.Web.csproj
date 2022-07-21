@@ -23,7 +23,7 @@
 	
   <ItemGroup>
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.13.0" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8" Version="3.13.3" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8.Native.win-x64" Version="3.13.3" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8.Native.win-x86" Version="3.13.3" />
