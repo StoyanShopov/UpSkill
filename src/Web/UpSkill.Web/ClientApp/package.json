@@ -37,7 +37,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
     "sanitize-html": "^2.6.1",
-    "tinymce": "^5.10.2",
+    "tinymce": "^5.10.7",
     "validator": "^13.6.0",
     "web-vitals": "^1.1.2"
   },
